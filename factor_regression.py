@@ -29,9 +29,9 @@ carbon_data = convert_to_form(carbon_data)
 ff_data = convert_to_form(ff_data)
 
 ### Convert stock prices to returns and FF to percentages
-stock_data['Close'] = np.log(stock_data['Close'])
-stock_data = stock_data.diff(periods = 1)
-stock_data.dropna(inplace=True)
+# stock_data['Close'] = np.log(stock_data['Close'])
+# stock_data = stock_data.diff(periods = 1)
+# stock_data.dropna(inplace=True)
 ff_data = ff_data/100
 
 ### Merge the 3 data frames together (inner join on dates)

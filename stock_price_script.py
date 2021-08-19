@@ -1,14 +1,16 @@
 import yfinance as yf
 import pandas as pd
 
+
 def stock_grabber(ticker):
     stock = yf.Ticker(ticker)
-    hist = stock.history(period='max', interval = '1mo')
-    hist.drop(hist.tail(1).index,inplace=True)
-    hist.index = hist.index - pd.to_timedelta(1, unit = 'd')
+    hist = stock.history(period='max', interval='1mo')
+    hist.drop(hist.tail(1).index, inplace=True)
+    hist.index = hist.index - pd.to_timedelta(1, unit='d')
     hist = hist['Close']
     hist = hist.dropna()
     return(hist)
+
 
 x = input('Choose your stock: ')
 stock_data = stock_grabber(x)
