@@ -15,7 +15,7 @@ stock_price_function.py adjusts this so it returns an object (which is used late
 
 factor_regression.py loads in the stock prices, the carbon risk factor and the Fama-French factors. The names of these CSVs are asked for. If stock data would be liked to be downloaded, then it will use stock_price_function.py to do so
 
-### To Use
+### Script Overview
 Ensure that you have the relevant modules installed
 Have stock_price_script.py in the same folder as factor_regression.py
 Have your factor CSVs saved
