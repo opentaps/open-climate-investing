@@ -3,36 +3,46 @@ import numpy as np
 import statsmodels.api as sm
 import stock_price_function as spf
 from datetime import datetime
+from pandas.tseries.offsets import DateOffset
+from pandas.tseries.offsets import MonthEnd
 
 ### Gets the CSVs and converts it into the form for the rest to use (mode date to index)
+
+
 def convert_to_form(df):
+    df[df.columns[0]] = pd.to_datetime(df[df.columns[0]])
     df.index = df[df.columns[0]]
-    df.drop(df.columns[0], axis = 1, inplace = True)
+    df.drop(df.columns[0], axis=1, inplace=True)
     return(df)
 
 ### Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
+
+
 def merge_data(df1, df2):
     df1['date'] = pd.to_datetime(df1.index).date
+    # df1['date'] = MonthEnd(df1['date'])
     df2['date'] = pd.to_datetime(df2.index).date
-    final_df = pd.merge(df1, df2, how = 'inner', left_on = 'date', right_on = 'date')
+    final_df = pd.merge(df1, df2, how='inner', left_on='date', right_on='date')
     final_df.index = final_df['date']
-    final_df.index.rename('Date', inplace = True)
-    final_df.drop('date', axis = 1, inplace = True)
+    final_df.index.rename('Date', inplace=True)
+    final_df.drop('date', axis=1, inplace=True)
     return(final_df)
 
+
 ### Read in the data
-stock_data = spf.stock_df_grab('AMZN')
 ret_data = False
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
-stock_choice = input("Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
+stock_choice = input(
+    "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
 stock_choice = stock_choice.upper()
 if stock_choice == 'YES' or stock_choice == 'Y':
     loop_close = False
     ret_provided = True
     while loop_close == False:
-        ret_data = input('What is the file name of the returns (CSV format): \n')
+        ret_data = input(
+            'What is the file name of the returns (CSV format): ')
         try:
             stock_data = pd.read_csv(ret_data)
             loop_close = True
@@ -79,16 +89,19 @@ carbon_data = convert_to_form(carbon_data)
 ff_data = convert_to_form(ff_data)
 
 ### Convert stock prices to returns and FF to percentages
-
 if ret_data == False:
-    stock_data['Close'] = np.log(stock_data['Close'])
-    stock_data = stock_data.diff(periods = 1)
+    # stock_data['Close'] = np.log(stock_data['Close'])
+    stock_data.index = pd.to_datetime(
+        stock_data.index, format="%Y%m") + MonthEnd(1)
+    stock_data = stock_data.pct_change(periods=1)
     stock_data.dropna(inplace=True)
+    # stock_data.index = stock_data.index + DateOffset(months=1)
 ff_data = ff_data/100
 
 ### Merge the 3 data frames together (inner join on dates)
 all_factor_df = merge_data(stock_data, carbon_data)
 all_factor_df = merge_data(all_factor_df, ff_data)
+
 
 ### Allow start dates
 min_date = min(all_factor_df.index)
@@ -96,7 +109,8 @@ print('The earliest date is: ' + min_date.strftime('%Y-%m-%d'))
 
 loop_close = False
 while loop_close == False:
-    start_date = input('What would you like the start date to be (format YYYY-MM-DD): ')
+    start_date = input(
+        'What would you like the start date to be (format YYYY-MM-DD): ')
     try:
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
         try:
@@ -112,14 +126,15 @@ print('Starting date is now ' + min(all_factor_df.index).strftime('%Y-%m-%d'))
 
 ### Separate into independent (x) and dependent (y) factors)
 y = all_factor_df[all_factor_df.columns[0]]
-x = all_factor_df.drop(all_factor_df.columns[0], axis = 1)
+x = all_factor_df.drop(all_factor_df.columns[0], axis=1)
 x = sm.add_constant(x)
 
 ### Estimate regression
 model = sm.OLS(y, x).fit()
 print(model.summary())
 
-coef_df = df = pd.read_html(model.summary().tables[1].as_html(),header=0,index_col=0)[0]
+coef_df = df = pd.read_html(
+    model.summary().tables[1].as_html(), header=0, index_col=0)[0]
 coef_df_simple = coef_df[['coef', 'P>|t|']]
 print(coef_df)
 print(coef_df_simple)

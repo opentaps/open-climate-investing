@@ -11,6 +11,7 @@ def stock_grabber(ticker):
     hist = hist.dropna()
     return(hist)
 
+
 def stock_df_grab(x):
     stock_data = stock_grabber(x)
     stock_data = stock_data.to_frame()
@@ -19,5 +20,5 @@ def stock_df_grab(x):
     cols = stock_data.columns.tolist()
     cols = cols[-1:] + cols[:-1]
     stock_data = stock_data[cols]
-    stock_data = stock_data.reset_index(drop = True)
+    stock_data = stock_data.reset_index(drop=True)
     return(stock_data)
