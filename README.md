@@ -10,9 +10,9 @@ research project.  It can be used for a variety of climate investing application
 ### Running the Code
 
 Install the modules listed below.  Then
-
-  python3 factor_regression.py
-
+```
+python3 factor_regression.py
+```
 The inputs are:
 - Stock return data: Use the `stock_data.csv` or enter a ticker
 - Carbon data: The BMG return history.  By default use `carbon_risk_factor.csv` from the original CARIMA project.
@@ -39,9 +39,8 @@ stock_price_function.py adjusts this so it returns an object (which is used late
 factor_regression.py loads in the stock prices, the carbon risk factor and the Fama-French factors. The names of these CSVs are asked for. If stock data would be liked to be downloaded, then it will use stock_price_function.py to do so
 
 ### Script Overview
-Ensure that you have the relevant modules installed
-Have stock_price_script.py in the same folder as factor_regression.py
-Have your factor CSVs saved
-Run factor_regression.py
-Follow the prompts and enter the names of the CSVs as asked
+- Ensure that you have the relevant modules installed
+- Have stock_price_script.py in the same folder as factor_regression.py
+- Have your factor CSVs saved
+- Run factor_regression.py and follow the prompts and enter the names of the CSVs as asked
 
