@@ -29,31 +29,36 @@ def merge_data(df1, df2):
     return(final_df)
 
 
+# Hardcoded stock ticker array
+all_stock_data = ['XOM', 'TSLA']
+hard_coded = False
+
 ### Read in the data
 ret_provided = False
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
 
-stock_choice = input(
-    "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
-stock_choice = stock_choice.upper()
-if stock_choice == 'YES' or stock_choice == 'Y':
-    ret_provided = True
-loop_close = False
-while loop_close is False:
-    ret_data = input(
-        'What is the file name of the returns or tickers (CSV format): ')
-    try:
-        if ret_provided is True:
-            all_stock_data = pd.read_csv(ret_data)
-        else:
-            all_stock_data = pd.read_csv(ret_data, header=None)
-            all_stock_data = all_stock_data.values
-        loop_close = True
-    except:
-        print('Incorrect CSV')
-        loop_close = False
+if hard_coded is False:
+    stock_choice = input(
+        "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
+    stock_choice = stock_choice.upper()
+    if stock_choice == 'YES' or stock_choice == 'Y':
+        ret_provided = True
+    loop_close = False
+    while loop_close is False:
+        ret_data = input(
+            'What is the file name of the returns or tickers (CSV format): ')
+        try:
+            if ret_provided is True:
+                all_stock_data = pd.read_csv(ret_data)
+            else:
+                all_stock_data = pd.read_csv(ret_data, header=None)
+                all_stock_data = all_stock_data.values
+            loop_close = True
+        except:
+            print('Incorrect CSV')
+            loop_close = False
 
 loop_close = False
 while loop_close is False:
@@ -101,7 +106,10 @@ for i in range(start_range, end_range):
 
     ### Convert stock prices to returns and FF to percentages
     if ret_provided is False:
-        stock_name = all_stock_data[i].item()
+        if hard_coded is False:
+            stock_name = all_stock_data[i].item()
+        else:
+            stock_name = all_stock_data[i]
         print(stock_name)
         stock_data = spf.stock_df_grab(stock_name)
         stock_data = convert_to_form(stock_data)
