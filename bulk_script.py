@@ -1,7 +1,7 @@
 import pandas as pd
-import numpy as np
 import statsmodels.api as sm
 import stock_price_function as spf
+import numpy as np
 from datetime import datetime
 from pandas.tseries.offsets import DateOffset
 from pandas.tseries.offsets import MonthEnd
@@ -30,23 +30,33 @@ def merge_data(df1, df2):
 
 
 ### Read in the data
-ret_data = False
+ret_provided = False
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
+
+stock_choice = input(
+    "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
+stock_choice = stock_choice.upper()
+if stock_choice == 'YES' or stock_choice == 'Y':
+    ret_provided = True
 loop_close = False
 while loop_close is False:
     ret_data = input(
-        'What is the file name of the returns (CSV format): ')
+        'What is the file name of the returns or tickers (CSV format): ')
     try:
-        all_stock_data = pd.read_csv(ret_data)
+        if ret_provided is True:
+            all_stock_data = pd.read_csv(ret_data)
+        else:
+            all_stock_data = pd.read_csv(ret_data, header=None)
+            all_stock_data = all_stock_data.values
         loop_close = True
     except:
         print('Incorrect CSV')
         loop_close = False
 
 loop_close = False
-while loop_close == False:
+while loop_close is False:
     print('What is the carbon data csv saved as: ')
     factor_csv = input('Enter CSV name here: ')
     try:
@@ -57,7 +67,7 @@ while loop_close == False:
         loop_close = False
 
 loop_close = False
-while loop_close == False:
+while loop_close is False:
     print('What is the Fama-French Factors csv saved as: ')
     factor_csv = input('Enter CSV name here: ')
     try:
@@ -80,11 +90,32 @@ i = 1
 # Create holder dataframe
 coef_all = pd.DataFrame()
 
-for i in range(1, len(all_stock_data.columns)):
-    stock_data = all_stock_data[[
-        all_stock_data.columns[0], all_stock_data.columns[i]]]
-    stock_data = convert_to_form(stock_data)
-    stock_name = all_stock_data.columns[i]
+if ret_provided is False:
+    start_range = 0
+    end_range = len(all_stock_data)
+else:
+    start_range = 1
+    end_range = len(all_stock_data.columns)
+
+for i in range(start_range, end_range):
+
+    ### Convert stock prices to returns and FF to percentages
+    if ret_provided is False:
+        stock_name = all_stock_data[i].item()
+        print(stock_name)
+        stock_data = spf.stock_df_grab(stock_name)
+        stock_data = convert_to_form(stock_data)
+        # stock_data['Close'] = np.log(stock_data['Close'])
+        stock_data.index = pd.to_datetime(
+            stock_data.index, format="%Y%m") + MonthEnd(1)
+        stock_data = stock_data.pct_change(periods=1)
+        stock_data.dropna(inplace=True)
+        # stock_data.index = stock_data.index + DateOffset(months=1)
+    else:
+        stock_data = all_stock_data[[
+            all_stock_data.columns[0], all_stock_data.columns[i]]]
+        stock_data = convert_to_form(stock_data)
+        stock_name = all_stock_data.columns[i]
 
     ### Merge the 3 data frames together (inner join on dates)
     all_factor_df = merge_data(
@@ -111,3 +142,4 @@ for i in range(1, len(all_stock_data.columns)):
     coef_all = coef_all.append(coef_df_simple)
 
 print(coef_all)
+pd.DataFrame.to_csv(coef_all, 'reg_output.csv')

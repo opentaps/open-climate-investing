@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import statsmodels.api as sm
 import stock_price_function as spf
 from datetime import datetime
@@ -30,7 +29,7 @@ def merge_data(df1, df2):
 
 
 ### Read in the data
-ret_data = False
+ret_provided = False
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
@@ -40,7 +39,7 @@ stock_choice = stock_choice.upper()
 if stock_choice == 'YES' or stock_choice == 'Y':
     loop_close = False
     ret_provided = True
-    while loop_close == False:
+    while loop_close is False:
         ret_data = input(
             'What is the file name of the returns (CSV format): ')
         try:
@@ -51,7 +50,7 @@ if stock_choice == 'YES' or stock_choice == 'Y':
             loop_close = False
 else:
     loop_close = False
-    while loop_close == False:
+    while loop_close is False:
         ticker = input('Enter Ticker Name: ')
         try:
             stock_data = spf.stock_df_grab(ticker)
@@ -61,7 +60,7 @@ else:
             loop_close = False
 
 loop_close = False
-while loop_close == False:
+while loop_close is False:
     print('What is the carbon data csv saved as: ')
     factor_csv = input('Enter CSV name here: ')
     try:
@@ -72,7 +71,7 @@ while loop_close == False:
         loop_close = False
 
 loop_close = False
-while loop_close == False:
+while loop_close is False:
     print('What is the Fama-French Factors csv saved as: ')
     factor_csv = input('Enter CSV name here: ')
     try:
@@ -89,7 +88,7 @@ carbon_data = convert_to_form(carbon_data)
 ff_data = convert_to_form(ff_data)
 
 ### Convert stock prices to returns and FF to percentages
-if ret_data == False:
+if ret_provided is False:
     # stock_data['Close'] = np.log(stock_data['Close'])
     stock_data.index = pd.to_datetime(
         stock_data.index, format="%Y%m") + MonthEnd(1)
