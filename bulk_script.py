@@ -10,9 +10,9 @@ from pandas.tseries.offsets import MonthEnd
 
 
 def convert_to_form(df):
-    df[df.columns[0]] = pd.to_datetime(df[df.columns[0]])
-    df.index = df[df.columns[0]]
-    df.drop(df.columns[0], axis=1, inplace=True)
+    df['date_converted'] = pd.to_datetime(df[df.columns[0]])
+    df.index = df['date_converted']
+    df = df.drop([df.columns[0], 'date_converted'], axis=1)
     return(df)
 
 ### Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
