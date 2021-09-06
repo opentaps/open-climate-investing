@@ -113,3 +113,4 @@ dist
 .Rhistory
 reg_output.csv
 *.csv
+*.Rproj
