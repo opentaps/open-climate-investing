@@ -34,7 +34,7 @@ ret_provided = False
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
 stock_choice = input(
-    "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
+    "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't): ")
 stock_choice = stock_choice.upper()
 if stock_choice == 'YES' or stock_choice == 'Y':
     loop_close = False
@@ -131,8 +131,6 @@ x.insert(0, 'Constant', 1)
 ### Estimate regression
 model = sm.OLS(y, x).fit()
 print(model.summary())
-print(pd.read_html(
-    model.summary().tables[0].as_html(), header=0, index_col=0)[0])
 
 coef_df = pd.read_html(
     model.summary().tables[1].as_html(), header=0, index_col=0)[0]

@@ -5,6 +5,7 @@ import numpy as np
 from datetime import datetime
 from pandas.tseries.offsets import DateOffset
 from pandas.tseries.offsets import MonthEnd
+import statsmodels.stats as stats
 
 ### Gets the CSVs and converts it into the form for the rest to use (mode date to index)
 
@@ -41,7 +42,7 @@ print('It requires certain items')
 
 if hard_coded is False:
     stock_choice = input(
-        "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't) \n")
+        "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't): ")
     stock_choice = stock_choice.upper()
     if stock_choice == 'YES' or stock_choice == 'Y':
         ret_provided = True
@@ -149,6 +150,19 @@ for i in range(start_range, end_range):
     cols = coef_df_simple.columns.tolist()
     cols = cols[-1:] + cols[:-1]
     coef_df_simple = coef_df_simple[cols]
+
+    model_dw_stat = stats.stattools.durbin_watson(model.resid)
+    model_jb_stat = stats.stattools.jarque_bera(model.resid)
+    model_bp_stat = stats.diagnostic.het_breuschpagan(
+        model.resid, model.model.exog)
+    coef_df_simple['Jarque-Bera'] = [
+        str(round(model_jb_stat[0], 4)), str(round(model_jb_stat[1], 4))]
+    coef_df_simple['Breusch-Pagan'] = [
+        str(round(model_bp_stat[0], 4)), str(round(model_bp_stat[1], 4))]
+    coef_df_simple['Durbin-Watson'] = [
+        str(round(model_dw_stat, 4)), '']
+    coef_df_simple['R Squared'] = [
+        str(round(model.rsquared, 4)), '']
     coef_all = coef_all.append(coef_df_simple)
 
 print(coef_all)

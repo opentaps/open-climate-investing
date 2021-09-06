@@ -107,6 +107,9 @@ dist
 
 # TernJS port file
 .tern-port
+
 .Rproj.user
+.RData
+.Rhistory
 reg_output.csv
 *.csv
