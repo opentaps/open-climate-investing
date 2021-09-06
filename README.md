@@ -1,7 +1,7 @@
 # open-climate-investing
 
 This is an implementation of the [Carbon Risk Management (CARIMA) model](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/) developed by Universtat Augsburg with funding from the German
-Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French 3 Factor Model plus an additional Brown Minus Green (BMG) return history, provided as part of the original 
+Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French 3 Factor Model plus an additional Brown Minus Green (BMG) return history, provided as part of the original
 research project.  It can be used for a variety of climate investing applications, including:
 - Calculate the market-implied carbon risk of a stock, investment portfolio, mutual fund, or bond based on historical returns
 - Determine the market reaction to the climate policies of a company
@@ -22,13 +22,9 @@ The output will be a print output of the statsmodel object, the statsmodel coeff
 
 ### modules used
 numpy
-
 pandas
-
 yfinance
-
 statsmodels
-
 datetime
 
 ### Code

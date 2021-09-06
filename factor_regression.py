@@ -126,13 +126,15 @@ print('Starting date is now ' + min(all_factor_df.index).strftime('%Y-%m-%d'))
 ### Separate into independent (x) and dependent (y) factors)
 y = all_factor_df[all_factor_df.columns[0]]
 x = all_factor_df.drop(all_factor_df.columns[0], axis=1)
-x = sm.add_constant(x)
+x.insert(0, 'Constant', 1)
 
 ### Estimate regression
 model = sm.OLS(y, x).fit()
 print(model.summary())
+print(pd.read_html(
+    model.summary().tables[0].as_html(), header=0, index_col=0)[0])
 
-coef_df = df = pd.read_html(
+coef_df = pd.read_html(
     model.summary().tables[1].as_html(), header=0, index_col=0)[0]
 coef_df_simple = coef_df[['coef', 'P>|t|']]
 print(coef_df)

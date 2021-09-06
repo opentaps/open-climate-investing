@@ -47,12 +47,14 @@ if hard_coded is False:
         ret_provided = True
     loop_close = False
     while loop_close is False:
-        ret_data = input(
-            'What is the file name of the returns or tickers (CSV format): ')
         try:
             if ret_provided is True:
+                ret_data = input(
+                    'What is the file name of the returns (CSV format): ')
                 all_stock_data = pd.read_csv(ret_data)
             else:
+                ret_data = input(
+                    'What is the file name of the tickers (CSV format): ')
                 all_stock_data = pd.read_csv(ret_data, header=None)
                 all_stock_data = all_stock_data.values
             loop_close = True
@@ -134,10 +136,10 @@ for i in range(start_range, end_range):
     y = all_factor_df[all_factor_df.columns[0]]
     x = all_factor_df.drop(
      all_factor_df.columns[0], axis=1)
-    x = sm.add_constant(x)
+    x.insert(0, 'Constant', 1)
 
-    ### Estimate regression
-    model = sm.OLS(y, x).fit()
+    # Estimate regression
+    model = sm.OLS(y, x, hasconst=False).fit()
 
     coef_df = df = pd.read_html(
      model.summary().tables[1].as_html(), header=0, index_col=0)[0]

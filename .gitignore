@@ -109,3 +109,4 @@ dist
 .tern-port
 .Rproj.user
 reg_output.csv
+*.csv
