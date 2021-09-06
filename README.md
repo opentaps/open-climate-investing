@@ -9,7 +9,12 @@ research project.  It can be used for a variety of climate investing application
 
 ### Running the Code
 
-Install the modules listed below.  Then
+Install the required python modules (use `pip3` instead of `pip` according to your python installation):
+```
+pip install -r requirements.txt
+```
+
+Then:
 ```
 python3 factor_regression.py
 ```
@@ -20,12 +25,6 @@ The inputs are:
 
 The output will be a print output of the statsmodel object, the statsmodel coefficient summary and the coefficient & p-Values (to replicate that of the CARIMA paper)
 
-### modules used
-numpy
-pandas
-yfinance
-statsmodels
-datetime
 
 ### Code
 stock_price_script.py allows for the download of stock prices using the Yahoo Finance API
@@ -33,6 +32,7 @@ stock_price_script.py allows for the download of stock prices using the Yahoo Fi
 stock_price_function.py adjusts this so it returns an object (which is used later)
 
 factor_regression.py loads in the stock prices, the carbon risk factor and the Fama-French factors. The names of these CSVs are asked for. If stock data would be liked to be downloaded, then it will use stock_price_function.py to do so
+
 
 ### Script Overview
 - Ensure that you have the relevant modules installed
