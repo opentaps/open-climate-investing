@@ -14,7 +14,6 @@ def regression_input_output(all_factor_df, stock_name):
 
     coef_df = pd.read_html(
      model.summary().tables[1].as_html(), header=0, index_col=0)[0]
-    print(coef_df)
     coef_df_simple = coef_df[['coef', 'std err', 't', 'P>|t|']]
     coef_df_simple = pd.DataFrame.transpose(coef_df_simple)
     coef_df_simple['Name'] = stock_name

@@ -62,27 +62,35 @@ if hard_coded is False:
             print('Incorrect CSV')
             loop_close = False
 
-loop_close = False
-while loop_close is False:
-    print('What is the carbon data csv saved as: ')
-    factor_csv = input('Enter CSV name here: ')
-    try:
-        carbon_data = pd.read_csv(factor_csv)
-        loop_close = True
-    except:
-        print('Incorrect file name')
-        loop_close = False
+use_default = input(
+    "Would you like to use the default Carbon Risk and Fama-French Factors? \n (Y if you have/N if you don't): ")
+use_default = use_default.upper()
 
-loop_close = False
-while loop_close is False:
-    print('What is the Fama-French Factors csv saved as: ')
-    factor_csv = input('Enter CSV name here: ')
-    try:
-        ff_data = pd.read_csv(factor_csv)
-        loop_close = True
-    except:
-        print('Incorrect file name')
-        loop_close = False
+if use_default == 'Y':
+    carbon_data = pd.read_csv('carbon_risk_factor.csv')
+    ff_data = pd.read_csv('ff_factors.csv')
+else:
+    loop_close = False
+    while loop_close is False:
+        print('What is the carbon data csv saved as: ')
+        factor_csv = input('Enter CSV name here: ')
+        try:
+            carbon_data = pd.read_csv(factor_csv)
+            loop_close = True
+        except:
+            print('Incorrect file name')
+            loop_close = False
+
+    loop_close = False
+    while loop_close is False:
+        print('What is the Fama-French Factors csv saved as: ')
+        factor_csv = input('Enter CSV name here: ')
+        try:
+            ff_data = pd.read_csv(factor_csv)
+            loop_close = True
+        except:
+            print('Incorrect file name')
+            loop_close = False
 
 
 ### Convert the CSV into dataframes ready for manipulation
