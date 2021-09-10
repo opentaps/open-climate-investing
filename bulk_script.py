@@ -1,12 +1,10 @@
 import pandas as pd
-import statsmodels.api as sm
 import stock_price_function as spf
-from datetime import datetime
-from pandas.tseries.offsets import DateOffset
 from pandas.tseries.offsets import MonthEnd
 import regression_function as regfun
+import input_function
 
-### Gets the CSVs and converts it into the form for the rest to use (mode date to index)
+# Gets the CSVs and converts it into the form for the rest to use (mode date to index)
 
 
 def convert_to_form(df):
@@ -15,7 +13,7 @@ def convert_to_form(df):
     df = df.drop([df.columns[0], 'date_converted'], axis=1)
     return(df)
 
-### Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
+# Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
 
 
 def merge_data(df1, df2):
@@ -29,38 +27,42 @@ def merge_data(df1, df2):
     return(final_df)
 
 
-# Hardcoded stock ticker array
-all_stock_data = ['XOM', 'TSLA']
-hard_coded = False
-
-### Read in the data
+# Read in the data
 ret_provided = False
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
 
-if hard_coded is False:
+input_loop_close = False
+while input_loop_close is False:
     stock_choice = input(
         "Do you have stock return data or would you like to download these? \n (Y if you have/N if you don't): ")
     stock_choice = stock_choice.upper()
     if stock_choice == 'YES' or stock_choice == 'Y':
         ret_provided = True
-    loop_close = False
-    while loop_close is False:
-        try:
-            if ret_provided is True:
-                ret_data = input(
-                    'What is the file name of the returns (CSV format): ')
-                all_stock_data = pd.read_csv(ret_data)
-            else:
-                ret_data = input(
-                    'What is the file name of the tickers (CSV format): ')
-                all_stock_data = pd.read_csv(ret_data, header=None)
-                all_stock_data = all_stock_data.values
-            loop_close = True
-        except:
-            print('Incorrect CSV')
-            loop_close = False
+        input_loop_close = True
+    elif stock_choice == 'NO' or stock_choice == 'N':
+        ret_provided = False
+        input_loop_close = True
+    else:
+        print('Incorrect Option Chosen')
+loop_close = False
+while loop_close is False:
+    try:
+        if ret_provided is True:
+            ret_data = input(
+                'What is the file name of the returns (CSV format): ')
+            all_stock_data = pd.read_csv(ret_data)
+        else:
+            ret_data = input(
+                'What is the file name of the tickers (CSV format): ')
+            all_stock_data = pd.read_csv(ret_data, header=None)
+            all_stock_data = all_stock_data.values
+        loop_close = True
+    except FileNotFoundError:
+        print("File doesn't exist")
+    except pd.errors.ParserError:
+        print('File is not a CSV')
 
 use_default = input(
     "Would you like to use the default Carbon Risk and Fama-French Factors? \n (Y if you have/N if you don't): ")
@@ -77,9 +79,10 @@ else:
         try:
             carbon_data = pd.read_csv(factor_csv)
             loop_close = True
-        except:
-            print('Incorrect file name')
-            loop_close = False
+        except FileNotFoundError:
+            print("File doesn't exist")
+        except pd.errors.ParserError:
+            print('File is not a CSV')
 
     loop_close = False
     while loop_close is False:
@@ -88,17 +91,18 @@ else:
         try:
             ff_data = pd.read_csv(factor_csv)
             loop_close = True
-        except:
-            print('Incorrect file name')
-            loop_close = False
+        except FileNotFoundError:
+            print("File doesn't exist")
+        except pd.errors.ParserError:
+            print('File is not a CSV')
 
 
-### Convert the CSV into dataframes ready for manipulation
+# Convert the CSV into dataframes ready for manipulation
 
 carbon_data = convert_to_form(carbon_data)
 ff_data = convert_to_form(ff_data)
 
-### FF to percentages
+# FF to percentages
 ff_data = ff_data/100
 
 i = 1
@@ -114,41 +118,34 @@ else:
 
 for i in range(start_range, end_range):
 
-    ### Convert stock prices to returns and FF to percentages
+    # Convert stock prices to returns and FF to percentages
     if ret_provided is False:
-        if hard_coded is False:
-            stock_name = all_stock_data[i].item()
-        else:
-            stock_name = all_stock_data[i]
-        print(stock_name)
+        stock_name = all_stock_data[i].item()
         stock_data = spf.stock_df_grab(stock_name)
         stock_data = convert_to_form(stock_data)
         stock_data.index = pd.to_datetime(
             stock_data.index, format="%Y%m") + MonthEnd(1)
         stock_data = stock_data.pct_change(periods=1)
         stock_data.dropna(inplace=True)
-        # stock_data.index = stock_data.index + DateOffset(months=1)
     else:
         stock_data = all_stock_data[[
             all_stock_data.columns[0], all_stock_data.columns[i]]]
         stock_data = convert_to_form(stock_data)
         stock_name = all_stock_data.columns[i]
 
-    ### Merge the 3 data frames together (inner join on dates)
+    # Merge the 3 data frames together (inner join on dates)
     all_factor_df = merge_data(
         stock_data, carbon_data)
     all_factor_df = merge_data(all_factor_df, ff_data)
 
-    ### Separate into independent (x) and dependent (y) factors)
-    y = all_factor_df[all_factor_df.columns[0]]
-    x = all_factor_df.drop(
-     all_factor_df.columns[0], axis=1)
-    x.insert(0, 'Constant', 1)
-
     # Estimate regression
     model, coef_df_simple = regfun.regression_input_output(
         all_factor_df, stock_name)
-    coef_all = coef_all.append(coef_df_simple)
+    if model is not False:
+        print(stock_name)
+        coef_all = coef_all.append(coef_df_simple)
+    else:
+        print(f'Error with stock {stock_name}')
 
 print(coef_all)
 pd.DataFrame.to_csv(coef_all, 'reg_output.csv')

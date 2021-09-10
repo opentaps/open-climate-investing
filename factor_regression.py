@@ -1,8 +1,8 @@
+import pdb
 import pandas as pd
 import regression_function as regfun
 import input_function
 from datetime import datetime
-from pandas.tseries.offsets import MonthEnd
 
 # Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
 
@@ -22,37 +22,37 @@ def merge_data(df1, df2):
 bulk = False
 
 stock_data, carbon_data, ff_data, ticker = input_function.user_input()
-
 ff_data = ff_data/100
 
 # Merge the 3 data frames together (inner join on dates)
 all_factor_df = merge_data(stock_data, carbon_data)
 all_factor_df = merge_data(all_factor_df, ff_data)
 
-
 # Allow start dates
 min_date = min(all_factor_df.index)
 print('The earliest date is: ' + min_date.strftime('%Y-%m-%d'))
 
 loop_close = False
-while loop_close == False:
+while loop_close is False:
     start_date = input(
         'What would you like the start date to be (format YYYY-MM-DD): ')
     try:
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
-        try:
-            start_date = start_date.date()
+    except ValueError:
+        print('Date not in correct format')
+    else:
+        start_date = start_date.date()
+        if start_date >= min_date:
             all_factor_df = all_factor_df[(all_factor_df.index >= start_date)]
             loop_close = True
-        except:
+        else:
             print('Date too early')
-    except:
-        print('Date incorrect')
 
 print('Starting date is now ' + min(all_factor_df.index).strftime('%Y-%m-%d'))
 
 model_output, coef_df_simple = regfun.regression_input_output(
     all_factor_df, ticker)
 
-print(model_output.summary())
-print(coef_df_simple.to_string())
+if model_output is not False:
+    print(model_output.summary())
+    print(coef_df_simple.to_string())
