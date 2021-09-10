@@ -4,14 +4,6 @@ from pandas.tseries.offsets import MonthEnd
 import regression_function as regfun
 import input_function
 
-# Gets the CSVs and converts it into the form for the rest to use (mode date to index)
-
-
-def convert_to_form(df):
-    df['date_converted'] = pd.to_datetime(df[df.columns[0]])
-    df.index = df['date_converted']
-    df = df.drop([df.columns[0], 'date_converted'], axis=1)
-    return(df)
 
 # Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
 
@@ -53,12 +45,17 @@ while loop_close is False:
             ret_data = input(
                 'What is the file name of the returns (CSV format): ')
             all_stock_data = pd.read_csv(ret_data)
+            all_stock_data = input_function.convert_to_form(all_stock_data)
+            if all_stock_data is not False:
+                loop_close = True
+            else:
+                print('CSV is in incorrect format')
         else:
             ret_data = input(
                 'What is the file name of the tickers (CSV format): ')
             all_stock_data = pd.read_csv(ret_data, header=None)
             all_stock_data = all_stock_data.values
-        loop_close = True
+            loop_close = True
     except FileNotFoundError:
         print("File doesn't exist")
     except pd.errors.ParserError:
@@ -71,6 +68,8 @@ use_default = use_default.upper()
 if use_default == 'Y':
     carbon_data = pd.read_csv('carbon_risk_factor.csv')
     ff_data = pd.read_csv('ff_factors.csv')
+    carbon_data = input_function.convert_to_form(carbon_data)
+    ff_data = input_function.convert_to_form(ff_data)
 else:
     loop_close = False
     while loop_close is False:
@@ -78,11 +77,16 @@ else:
         factor_csv = input('Enter CSV name here: ')
         try:
             carbon_data = pd.read_csv(factor_csv)
-            loop_close = True
         except FileNotFoundError:
             print("File doesn't exist")
         except pd.errors.ParserError:
             print('File is not a CSV')
+        else:
+            carbon_data = input_function.convert_to_form(carbon_data)
+            if ff_data is not False:
+                loop_close = True
+            else:
+                print('CSV is not in correct form')
 
     loop_close = False
     while loop_close is False:
@@ -90,17 +94,17 @@ else:
         factor_csv = input('Enter CSV name here: ')
         try:
             ff_data = pd.read_csv(factor_csv)
-            loop_close = True
         except FileNotFoundError:
             print("File doesn't exist")
         except pd.errors.ParserError:
             print('File is not a CSV')
+        else:
+            ff_data = input_function.convert_to_form(ff_data)
+            if ff_data is not False:
+                loop_close = True
+            else:
+                print('CSV is not in correct form')
 
-
-# Convert the CSV into dataframes ready for manipulation
-
-carbon_data = convert_to_form(carbon_data)
-ff_data = convert_to_form(ff_data)
 
 # FF to percentages
 ff_data = ff_data/100
@@ -122,7 +126,7 @@ for i in range(start_range, end_range):
     if ret_provided is False:
         stock_name = all_stock_data[i].item()
         stock_data = spf.stock_df_grab(stock_name)
-        stock_data = convert_to_form(stock_data)
+        stock_data = input_function.convert_to_form(stock_data)
         stock_data.index = pd.to_datetime(
             stock_data.index, format="%Y%m") + MonthEnd(1)
         stock_data = stock_data.pct_change(periods=1)
@@ -130,7 +134,7 @@ for i in range(start_range, end_range):
     else:
         stock_data = all_stock_data[[
             all_stock_data.columns[0], all_stock_data.columns[i]]]
-        stock_data = convert_to_form(stock_data)
+        # stock_data = input_function.convert_to_form(stock_data)
         stock_name = all_stock_data.columns[i]
 
     # Merge the 3 data frames together (inner join on dates)
