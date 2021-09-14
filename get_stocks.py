@@ -74,6 +74,8 @@ def load_stocks_from_db(stock_name):
 def main(args):
     if args.ticker:
         import_stock(args.ticker)
+    elif args.show:
+        load_stocks_from_db(args.show)
     else:
         stocks = load_stocks_csv(args.file)
 
@@ -89,4 +91,6 @@ if __name__ == "__main__":
                         help="specify the CSV file of stock tickers to import")
     parser.add_argument("-t", "--ticker",
                         help="specify a single ticker to import, ignores the CSV file")
+    parser.add_argument("-s", "--show",
+                        help="Show the data for a given ticker, for testing")
     main(parser.parse_args())
