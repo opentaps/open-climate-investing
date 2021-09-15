@@ -18,41 +18,66 @@ def merge_data(df1, df2):
     return(final_df)
 
 
-# Read in the data
-bulk = False
+def run_regression(stock_data, carbon_data, ff_data, ticker, start_date, verbose=True, silent=False):
+    ff_data = ff_data/100
 
-stock_data, carbon_data, ff_data, ticker = input_function.user_input()
-ff_data = ff_data/100
+    # Merge the 3 data frames together (inner join on dates)
+    all_factor_df = merge_data(stock_data, carbon_data)
+    all_factor_df = merge_data(all_factor_df, ff_data)
 
-# Merge the 3 data frames together (inner join on dates)
-all_factor_df = merge_data(stock_data, carbon_data)
-all_factor_df = merge_data(all_factor_df, ff_data)
+    if len(all_factor_df) == 0:
+        raise ValueError('No data could be loaded!')
 
-# Allow start dates
-min_date = min(all_factor_df.index)
-print('The earliest date is: ' + min_date.strftime('%Y-%m-%d'))
+    if verbose:
+        print('Data is ...')
+        print(all_factor_df)
 
-loop_close = False
-while loop_close is False:
-    start_date = input(
-        'What would you like the start date to be (format YYYY-MM-DD): ')
+    # Allow start dates
+    max_date = max(all_factor_df.index)
+    min_date = min(all_factor_df.index)
+    if verbose:
+        print('Data available from {} to {}'.format(min_date, max_date))
+
     try:
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
     except ValueError:
-        print('Date not in correct format')
+        raise ValueError(
+            'Date {} not in correct format, must be YYYY-MM-DD'.format(start_date))
+
+    start_date = start_date.date()
+    if verbose:
+        print('start_date is {}'.format(start_date))
+    if start_date >= max_date:
+        raise ValueError(
+            'Start date {} must be before {}'.format(start_date, max_date))
+    if start_date >= min_date:
+        all_factor_df = all_factor_df[(all_factor_df.index >= start_date)]
+        # could be empty now if the ticker has no data after the start date
+        if len(all_factor_df) == 0:
+            raise ValueError('No data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
+                ticker, start_date))
     else:
-        start_date = start_date.date()
-        if start_date >= min_date:
-            all_factor_df = all_factor_df[(all_factor_df.index >= start_date)]
-            loop_close = True
-        else:
-            print('Date too early')
+        if verbose or not silent:
+            print('Date too early, using {} instead.'.format(min_date))
+        start_date = min_date
 
-print('Starting date is now ' + min(all_factor_df.index).strftime('%Y-%m-%d'))
+    if verbose or not silent:
+        print('Running regression from {} to {}'.format(start_date, max_date))
 
-model_output, coef_df_simple = regfun.regression_input_output(
-    all_factor_df, ticker)
+    model_output, coef_df_simple = regfun.regression_input_output(
+        all_factor_df, ticker)
 
-if model_output is not False:
-    print(model_output.summary())
-    print(coef_df_simple.to_string())
+    if (verbose or not silent) and model_output is not False:
+        print(model_output.summary())
+        print(coef_df_simple.to_string())
+    return (start_date, max_date, model_output, coef_df_simple)
+
+
+# run
+if __name__ == "__main__":
+    # Read in the data
+    stock_data, carbon_data, ff_data, ticker = input_function.user_input()
+    start_date = input(
+        'What would you like the start date to be (format YYYY-MM-DD): ')
+
+    run_regression(stock_data, carbon_data, ff_data, ticker, start_date)
