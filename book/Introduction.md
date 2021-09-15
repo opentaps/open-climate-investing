@@ -13,5 +13,5 @@ bottles or making some donations, most of us are just waiting for someone else t
 I'm not here to point the finger.  We all need to do more, myself first and foremost, if we're to stop climate change.  This book is about the special role 
 those of us who are
 investors, whether professional fund managers like I once was or someone who is seriously interested in investments and finance, could do about climate change.
-It is not a book of investment advice and won't help you speculate on cryptocurrencies or day trade to riches.  Instaed, it'll cover a range of topics from strategic issues of climate investing to
+It is not a book of investment advice and won't help you speculate on cryptocurrencies or day trade to riches.  Instead, it'll cover a range of topics from strategic issues of climate investing to
 data and disclosures to structuring portfolios, both to provide your investment returns from the worst of climate change and take concrete action to stopping it.
