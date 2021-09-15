@@ -144,7 +144,7 @@ if __name__ == "__main__":
                         help="Run and show the regression data for a given ticker, does not store results")
     parser.add_argument("-s", "--show",
                         help="Show the regression data for a given ticker from the DB, does not run the regression, for testing")
-    parser.add_argument("-d", "--date", default='2015-01-01',
+    parser.add_argument("-d", "--date", default='2000-01-01',
                         help="Sets the start date for the regression, must be in the YYYY-MM-DD format")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")

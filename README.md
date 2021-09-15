@@ -13,6 +13,33 @@ Install the required python modules (use `pip3` instead of `pip` according to yo
 pip install -r requirements.txt
 ```
 
+#### Using a Database
+
+Init the Database using:
+```
+./init_db.sh
+```
+
+Note: if you need a different database or credentials, edit both `init_db.sh` and `db.py`.
+
+The stock interface uses `get_stocks.py` will save the output in the `stock_data` table and can used the following ways:
+
+- `python get_stocks.py` will load the stocks data for the tickers defined in `stock_tickers.csv`
+- `python get_stocks.py -f some_other_ticker_file.csv` for using another csv source file
+- `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`
+- `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
+
+Running the regression, the `get_regressions.py` script will save the output in the `stock_stats` table and can used the following ways:
+All instances support an additional `-s YYY-MM-DD` to specify the start date, otherwise it defaults to `2000-01-01`.
+
+- `python get_regressions.py` will run for all the tickers defined in `stock_tickers.csv`
+- `python get_regressions.py -f some_other_ticker_file.csv` for using another csv source file
+- `python get_regressions.py -n ALB` to run and output a regression for a given stock but not store it
+- `python get_regressions.py -t ALB` to run and store the regression for a given stock
+- `python get_regressions.py -s ALB` to list the results stored in the DB after the given start date
+
+#### Previous way
+
 Then:
 ```
 python3 factor_regression.py
@@ -39,7 +66,7 @@ factor_regression.py loads in the stock prices, the carbon risk factor and the F
 
 ### Output Interpretation
 
-The model uses the coefficients on each factor to calculate the stocks loadings on to it. If it is positive, it indicates that the stock returns are positively linked to that factor (i.e. if that factor increases, the returns increase), and the inverse if it is negative. 
+The model uses the coefficients on each factor to calculate the stocks loadings on to it. If it is positive, it indicates that the stock returns are positively linked to that factor (i.e. if that factor increases, the returns increase), and the inverse if it is negative.
 
 To determine if it is statistically significant, the t-statistic is calculated and the p-value provided. The null hypothesis is that the coefficient is not statistically significant. Thus, if the probability is below a cutoff, the null hypothesis is rejected and the loading can be considered statistically significant. A cutoff commonly used is the 5% level. In this case, if the p-value is below 0.05, then the loading is considered to be statistically significant.
 
