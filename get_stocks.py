@@ -49,7 +49,7 @@ def load_stocks_data(stock_name):
 
 def import_stocks_into_db(stock_name, stock_data):
     sql = '''INSERT INTO
-        ticker_data (ticker, date, close)
+        stock_data (ticker, date, close)
         VALUES (%s, %s, %s)
         ON CONFLICT (ticker, date) DO
         UPDATE SET close = EXCLUDED.close;'''
@@ -61,7 +61,7 @@ def import_stocks_into_db(stock_name, stock_data):
 
 def load_stocks_from_db(stock_name):
     sql = '''SELECT date, close
-        FROM ticker_data
+        FROM stock_data
         WHERE ticker = %s
         ORDER BY date
         '''

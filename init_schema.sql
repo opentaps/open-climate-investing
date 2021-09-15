@@ -16,17 +16,16 @@ CREATE TABLE ff_factor (
 );
 
 
-DROP TABLE IF EXISTS ticker_data CASCADE;
-CREATE TABLE ticker_data (
+DROP TABLE IF EXISTS stock_data CASCADE;
+CREATE TABLE stock_data (
     ticker text,
     date date,
     close decimal(20, 10),
     PRIMARY KEY (ticker, date)
 );
 
-DROP TABLE IF EXISTS ticker_stat CASCADE;
-
-CREATE TABLE ticker_stat (
+DROP TABLE IF EXISTS stock_stats CASCADE;
+CREATE TABLE stock_stats (
     ticker text,
     from_date date,
     thru_date date,
