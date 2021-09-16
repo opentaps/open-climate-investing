@@ -22,5 +22,20 @@ It's for investors (in the Ben Graham and Warren Buffett sense) with a long-term
   * Using the latest technologies such as DeFI, blockchains, and open source software
   * Engaging with your plans, beneficiaries, and investees for climate
 
-Before you go further, let's all first recognize that climate change is a very hard problem to solve.  Otherwise you wouldn't be reading this -- I certainly wouldn't be writing it.  Climate change is difficult because it is a complex global problem that happens in small increments over long time horizons.  Our institutions, from governments to banks to businesses, are not well suited to solve problems like these.  They are focused on short time horizons, from quarterly earnings results to multi-year election cycles.  They are sized at regional or national scales.  They are slow to innovate and saddled with technology better suited for implementing simple, mechanistic solutions that apply to larger entities.  As a result, nearly three decades after the United Nations Framework Convention on Climate Change was signed, we still lack the basic mechanisms to account for and monitor greenhouse gas (GHG) emissions in our economies.
+Before you go further, let's all first recognize that climate change is a very hard problem to solve.  Otherwise you wouldn't be reading this -- I certainly wouldn't be writing it.  Climate change is difficult because it is a complex global problem that happens in small increments over long time horizons.  Our institutions, from governments to banks to businesses, are not well suited to solve problems like these.  They are focused on short time horizons, from quarterly earnings results to multi-year election cycles.  They are sized at regional or national scales.  They are saddled with outdated technology that create disconnected silos of information and activity.  Most of all, they are so slow
+to innovate.   As a result, nearly three decades after the 
+United Nations Framework Convention on Climate Change was signed, most of the world still chugs along as it always did--on fossil fuels and inertia. 
+
+But this is a problem that we must solve, and it is one that we investors have a special role to play.  We are the group with the longest time horizon: Pension funds and life insurers invest for up to 30 years, and
+foundations and endowments are supposed to continue in perpetuity.  We are also the group that's professionally trained and tasked to analyze complex data and scenarios and make risk/reward decisions.  We have 
+helped turn emerging utopian technologies into everyday realities with those decisions, and we can do it again. 
+
+## How to Use this Book
+
+Please do not think of this as a "book."  It is a how-to manual that you can talk back to.  Use it for your climate investing, and then share what worked, what didn't, and how to make it better.  Tell me about the bugs and mistakes
+you find.  It will be continuously updated to reflect the latest of all its readers' experiences.  
+
+Climate change is happening because we're all living and working in our own little silos.  The only way to fix is to work together.
+
+Ultimately we will live in the world that we worked to create, so let's get started and work to make it better.
 
