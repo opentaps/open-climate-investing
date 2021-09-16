@@ -54,7 +54,7 @@ While everything he says is true, I also see another interpretation of it:
 Another interesting objection which I heard yesterday: "Public markets are just trading existing assets and don't affect the real economy."  Sadly true for many of the people who spend their days shuffling paper.  Long term, though,
  public markets play an enormously important role.  As investors shift from one asset class to another, the relative valuations change.  Higher valued public companies fund more investments, buy more innovative startups, 
 which in turn create the eye-popping unicorn
-valuations and exits that pull in venture capitalists to invest in startups.  They also lead to higher management bonuses and options.  Lower valued public companies, in turn, attract mergers, buyouts, and vulture investors, 
+valuations and exits that pull in venture capitalists to invest in startups.  They also lead to higher management bonuses and option payouts.  Lower valued public companies, in turn, attract mergers, buyouts, and vulture investors, 
 who like to consolidate operations, cut costs, and trim management along the way.  As a result, management of
 public corporations are highly sensitive to stock prices and will work hard to boost them.
 
