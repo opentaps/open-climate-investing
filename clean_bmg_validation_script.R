@@ -12,7 +12,8 @@ carbon_data <- read_csv("carbon_risk_factor.csv")
 ff_data <- read_csv("ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read_csv('msci_constituent_returns.csv')
+final_stock_returns <- read.csv('msci_constituent_returns.csv')
+final_stock_returns <- as.tibble(final_stock_returns)
 
 # Read in the sector breakdowns
 final_stock_breakdown <- read_csv("msci_constituent_details.csv")
@@ -142,4 +143,4 @@ bmg_loading_final <- bmg_loading_final %>%
   relocate(Sector, 1)
 
 bmg_loading_final$`p-Value` <- round(bmg_loading_final$`p-Value`, 4)
-write.csv(bmg_loading_final, "Loadings Table.csv")
+write_csv(bmg_loading_final, "Loadings Table.csv")

@@ -50,4 +50,4 @@ for (i in 1:nrow(test_stocks)) {
 
 
 # Saves the returns as a CSV
-write.csv(final_stock_returns, "bulk_download_returns.csv")
+write_csv(final_stock_returns, "bulk_download_returns.csv")
