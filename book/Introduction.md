@@ -68,7 +68,7 @@ through the [voluntary carbon offsets market](https://opentaps.org/2021/08/23/vo
  * Amount of financing for renewable energy - $322 billion per year
  * Amount of financing for all energy infrastructure - $1.26 trillion per year
 
-There is absolutely a place for funding the projects of the voluntary carbon offsets market (Most of them, probably, but that could be a book of its own...)  Given how quickly we need to affect real change, though, we cannot just
+There is absolutely a place for funding the projects of the voluntary carbon offsets market (Most of them, anyway, but that could be a book of its own...)  Given how quickly we need to affect real change, though, we cannot just
 let the main economy, with its corporations and financial markets, be.
 
 If you think of other objections, please tell me by [creating an issue on github](https://github.com/opentaps/open-climate-investing/issues).
