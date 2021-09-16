@@ -2,9 +2,12 @@
 library(quantmod)
 # This allows for easy manipulation of the data
 library(tidyverse)
+# This is for date management
+library(lubridate)
 
 test_stocks <- read.csv("stock_tickers.csv", header = FALSE)
 final_stock_returns <- c()
+ticker_error_codes <- c()
 
 #Loop to get the stocks
 for (i in 1:nrow(test_stocks)) {
@@ -15,6 +18,7 @@ for (i in 1:nrow(test_stocks)) {
   },
   error=function(cond) {
     message(paste("Stock does not seem to exist:", test_stocks[i, 1]))
+    ticker_error_codes <- c(ticker_error_codes, test_stocks[i, 1])
     return(NA)
   })
   
@@ -41,7 +45,7 @@ for (i in 1:nrow(test_stocks)) {
     # Add the stock to the main stock return dataframe
     final_stock_returns <- rbind(final_stock_returns, temp_holder)
     print(test_stocks[i, 1])
-  }    
+  }
 }
 
 

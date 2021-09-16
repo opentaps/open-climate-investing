@@ -12,12 +12,12 @@ carbon_data <- read_csv("carbon_risk_factor.csv")
 ff_data <- read_csv("ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read_csv('spx_constituent_returns.csv')
+final_stock_returns <- read_csv('msci_constituent_returns.csv')
 
 # Read in the sector breakdowns
-final_stock_breakdown <- read_csv("spx_sector_breakdown.csv")
+final_stock_breakdown <- read_csv("msci_constituent_details.csv")
 
-# Making the date column have the same name for the join later
+# Making the date column have the same name  for the join later
 colnames(carbon_data)[1] <- "Date"
 colnames(ff_data)[1] <- "Date"
 
@@ -45,8 +45,8 @@ get_loadings <- function(stock_names, all_data, carbon_data) {
   
   # Start look to go through all the stocks in stock_names
   for (i in 1:nrow(stock_names)) {
-      # Get the stocks name
-      temp_stock_name <- as.character(stock_names[i, 1])
+    # Get the stocks name
+    temp_stock_name <- as.character(stock_names[i, 1])
     # Filter all the data to only include that stock
     temp_data <- all_data %>%
       dplyr::filter(Stock == temp_stock_name)
@@ -97,19 +97,26 @@ stock_names <- all_data %>%
 
 market_output <- get_loadings(stock_names, all_data, carbon_data)
 
-### By sector
+######################### CHANGE JOIN HERE #####################
+
+### By sector ###
 stock_breakdowns <- stock_names %>% 
-  inner_join(final_stock_breakdown, by = c("Stock" = "Symbol"))
+  inner_join(final_stock_breakdown, by = c("Stock" = "New_symbol"))
 
+
+### This is for SPX Only
 colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub-Industry")
-unique_sectors <- unique(stock_breakdowns$GICS_Sector)
 
+
+### Starting again
+unique_sectors <- unique(stock_breakdowns$New_sector_name)
 bmg_loading_final <- c()
+
 
 for (j in 1:length(unique_sectors)) {
 
   stock_names <- stock_breakdowns %>%
-    filter(GICS_Sector == unique_sectors[j]) %>%
+    filter(New_sector_name == unique_sectors[j]) %>%
     select(Stock)
   
   sector_no_carbon_regression <- get_loadings(stock_names, all_data, carbon_data)
@@ -135,3 +142,4 @@ bmg_loading_final <- bmg_loading_final %>%
   relocate(Sector, 1)
 
 bmg_loading_final$`p-Value` <- round(bmg_loading_final$`p-Value`, 4)
+write.csv(bmg_loading_final, "Loadings Table.csv")
