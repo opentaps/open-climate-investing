@@ -14,7 +14,8 @@ for (i in 1:nrow(test_stocks)) {
   # Pull the stock ticker from Yahoo Finance with Quantmod
   temp_holder <- tryCatch({
     getSymbols(test_stocks[i, 1],
-               auto.assign = FALSE)
+               auto.assign = FALSE,
+               periodicity = "monthly")
   },
   error=function(cond) {
     message(paste("Stock does not seem to exist:", test_stocks[i, 1]))
