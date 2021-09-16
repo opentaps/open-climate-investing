@@ -29,6 +29,8 @@ CREATE TABLE stock_stats (
     ticker text,
     from_date date,
     thru_date date,
+    data_from_date date,
+    data_thru_date date,
     constant decimal(8, 5),
     constant_std_error decimal(8, 5),
     constant_t_stat decimal(8, 5),
