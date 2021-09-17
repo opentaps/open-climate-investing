@@ -21,8 +21,7 @@ but it worked well for him.  This market-based model helped him identify mispric
 
 Today we're told that ESG or climate investing is hard because it's hard to get the data and hard to interpret them.  Hard to know which long-term scenario to use and how to 
 analyze them.  But there is another way.  The market tells you.  There are hundreds, probably thousands, of smart people already looking at the climate risks of all sorts of 
-traded investments such as stocks and futures.  You can piggy back on all the time and money they spent on data services, computer models, and research -- for free!  
-All you need is market prices, a computer, and some [models](https://github.com/opentaps/open-climate-investing) -- which we gave you for free!
+traded investments such as stocks and futures.  You can piggy back on all the time and money they spent on data services, computer models, and research -- for free!  All you need is market prices, a computer, and some [models](https://github.com/opentaps/open-climate-investing) -- which we gave you for free!
 
 There are some very successful investors who only trade with market implied models and do no fundamental research.
 For most investors, though, this kind of market implied model is not the end, maybe not even the beginning of the end, but it is the end of the beginning.
