@@ -37,7 +37,7 @@ All instances support an additional `-s YYY-MM-DD` to specify the start date and
 - `python get_regressions.py -n ALB` to run and output a regression for a given stock but not store it
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
 - `python get_regressions.py -l ALB` to list the results stored in the DB after the given start date
-- `python get_regressions.py -s ALB -s YYY-MM-DD -e YYY-MM-DD` to show a given result stored in the DB for the given start and end date
+- `python get_regressions.py -s ALB -d YYY-MM-DD -e YYY-MM-DD` to show a given result stored in the DB for the given start and end date
 
 To run a batch of regressions on a ticker (or list of tickers) give the start date and end date of the first regression run window and it will run for every
 window incremented by one month at each step (until the model no longer runs due to insufficient data). For example:

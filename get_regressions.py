@@ -167,6 +167,16 @@ def store_regression_into_db(sql_params):
 
 
 def main(args):
+    if args.show or args.batch:
+        valid = True
+        if not args.start_date:
+            print('Start date is required, add it with -d YYYY-MM-DD')
+            valid = False
+        if not args.end_date:
+            print('End date is required, add it with -e YYYY-MM-DD')
+            valid = False
+        if not valid:
+            return
     if args.ticker:
         run_regression(args.ticker, args.start_date, end_date=args.end_date,
                        verbose=args.verbose, store=True, batch=args.batch, silent=args.batch)
@@ -180,12 +190,6 @@ def main(args):
         print(' -- sample (truncated) -- ')
         print(df)
     elif args.show:
-        if not args.start_date:
-            print('Start date is required, add it with -d YYYY-MM-DD')
-            return
-        if not args.end_date:
-            print('End date is required, add it with -e YYYY-MM-DD')
-            return
         df = fetch_single_regression_from_db(
             args.show, args.start_date, args.end_date)
         if len(df):
