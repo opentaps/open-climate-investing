@@ -17,10 +17,11 @@ It's for investors (in the Ben Graham and Warren Buffett sense) with a long-term
 
   * Impact of climate change on investment results
   * Analyzing investments and portfolios for climate risk and opportunities
+  * Structure and screen indices for investment guidelines 
   * Finding and using climate data and disclosures
   * Legal and regulatory considerations, including ERISA Fiduciary responsibility rules
   * Using the latest technologies such as DeFI, blockchains, and open source software
-  * Engaging with your plans, beneficiaries, and investees for climate
+  * Engaging with your plans, beneficiaries, and investees
 
 Before you go further, let's all first recognize that climate change is a very hard problem to solve.  Otherwise you wouldn't be reading this -- I certainly wouldn't be writing it.  Climate change is difficult because it is a complex global problem that happens in small increments over long time horizons.  Our institutions, from governments to banks to businesses, are not well suited to solve problems like these.  They are focused on short time horizons, from quarterly earnings results to multi-year election cycles.  They are sized at regional or national scales.  They are saddled with outdated technology that create disconnected silos of information and activity.  Most of all, they are so slow
 to innovate.   As a result, nearly three decades after the 
@@ -69,7 +70,7 @@ through the [voluntary carbon offsets market](https://opentaps.org/2021/08/23/vo
  * Amount of financing for all energy infrastructure - $1.26 trillion per year
 
 There is absolutely a place for funding the projects of the voluntary carbon offsets market (Most of them, anyway, but that could be a book of its own...)  Given how quickly we need to affect real change, though, we cannot just
-let the main economy, with its corporations and financial markets, be.
+let the main economy, with its corporations and financial markets, continue as they are.
 
 "The Social Responsibility of Business is to Increase its Profits," says the great Milton Friedman in his [1970 essay](http://websites.umich.edu/~thecore/doc/Friedman.pdf), who then goes on to argue that corporate executives who
 take on social responsibility "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  Ah, to live in the idealized world
@@ -81,17 +82,20 @@ as [Warren Buffett apparently said](https://www.forbes.com/sites/michaelchavez/2
 
 Speaking of which, [Berkshire Hathaway, Warren Buffett, and Charlie Munger did reject proposals for more ESG disclosure](https://www.etftrends.com/esg-channel/buffett-berkshire-hathaway-brush-off-esg-proposals/).   
 They say they're already doing a lot and don't have the time or staff to fill out surveys.  If you watch the full video, it's actually pretty technical, going through Berkshire's utilities and transportation businesses' climate plans.  Are their [commitments](https://www.brkenergy.com/assets/pdf/Berkshire%20Hathaway%20Energy%20Climate%20Pledge.pdf)
-real?  We hope to provide you with tools to determine that.  Are there easier ways for the smaller Berkshire subsidiaries (small for Warren Buffett is not too small for the rest of us) to disclose climate risks?  
-We're working on tools for that as well.  
+real?  We hope to provide you with tools to determine that.  Are there easier ways for the smaller Berkshire subsidiaries (small for Warren Buffett is not too small for the rest of us) to disclose climate risks?  We're working on tools for that as well.  
 
 If you think of other objections, please tell me by [creating an issue on github](https://github.com/opentaps/open-climate-investing/issues).
 
 ### How to Use this Book
 
 Please do not think of this as a "book."  It is a how-to manual that you can talk back to.  Use it for your climate investing, and then share what worked, what didn't, and how to make it better.  Tell me about the bugs and mistakes
-you find.  [Create an issue on github](https://github.com/opentaps/open-climate-investing/issues).  It will be continuously updated to reflect the latest of all its readers' experiences.  
+you find.  [Create an issue on github](https://github.com/opentaps/open-climate-investing/issues).  It will be continuously updated to reflect the latest of all its readers' experiences.  If you're new to investing, welcome!  Let this book help you learn about this interesting field.  Ask questions.  Ask for clarifications.  Suggest changes.  Help spread the word.  [Sign up](https://opentaps.org/subscribe/) for an occasional email about our work with open source, climate finance, and climate investing.  
 
 Climate change is happening because we're all living and working in our own little silos.  The only way to fix is to work together.
 
 Ultimately we will live in the world that we worked to create, so let's get started and work to make it better.
 
+### About the Author
+
+[Si Chen](https://www.linkedin.com/in/opentaps/) was a Portfolio Manager at Fischer Francis Trees & Watts and MKP Capital Management, where he specialized in managing mortgage-backed securities, derivatives, and securitized assets for pension funds, endowments, central banks, and hedge funds.  He left fund management to start an [e-commerce company](https://wwww.graciousstyle.com) and an [open source software company](https://www.opensourcestrategies.com).  He is currently leading the development of open source
+software at the Linux Foundation's Hyperledger project to use blockchain technology for climate action.  He has been published in [The Journal of Portfolio Management](https://jpm.pm-research.com/content/22/4/104/tab-pdf-disaabled) and [Fixed Income Solutions: New Techniques for Managing Market Risks](https://amzn.to/3nCg65r)  He thought that would be the end of it until he read a recent research paper from The Wharton School, his alma mater, about climate investing and decided he had to [do something about it](https://www.opensourcestrategies.com/2021/06/02/why-finance-professors-think-sustainable-green-investing-as-a-fad-and-why-its-dangerous/). 
