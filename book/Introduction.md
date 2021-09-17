@@ -71,6 +71,19 @@ through the [voluntary carbon offsets market](https://opentaps.org/2021/08/23/vo
 There is absolutely a place for funding the projects of the voluntary carbon offsets market (Most of them, anyway, but that could be a book of its own...)  Given how quickly we need to affect real change, though, we cannot just
 let the main economy, with its corporations and financial markets, be.
 
+"The Social Responsibility of Business is to Increase its Profits," says the great Milton Friedman in his [1970 essay](http://websites.umich.edu/~thecore/doc/Friedman.pdf), who then goes on to argue that corporate executives who
+take on social responsibility "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  Ah, to live in the idealized world
+of the economists.  What would happen to real societies when the only guardians of social responsibility are the civil servants toiling in our underfunded and creaky bureaucracies?  And what will happen, in the age of social media,
+to companies who are tone deaf to the demands of the larger society? 
+
+But I digress:  I will show you that climate is a real financial, investment risk.  It is not a political, moral, or social issue.  Even if businesses and investors should not impose their views of "doing good" for the society,
+as [Warren Buffett apparently said](https://www.forbes.com/sites/michaelchavez/2020/01/16/is-buffet-wrong-about-companies-doing-good/?sh=2d384bfa76c3), we must all be careful to protect our investments from the effects of climate change.
+
+Speaking of which, [Berkshire Hathaway, Warren Buffett, and Charlie Munger did reject proposals for more ESG disclosure](https://www.etftrends.com/esg-channel/buffett-berkshire-hathaway-brush-off-esg-proposals/).   
+They say they're already doing a lot and don't have the time or staff to fill out surveys.  If you watch the full video, it's actually pretty technical, going through Berkshire's utilities and transportation businesses' climate plans.  Are their [commitments](https://www.brkenergy.com/assets/pdf/Berkshire%20Hathaway%20Energy%20Climate%20Pledge.pdf)
+real?  We hope to provide you with tools to determine that.  Are there easier ways for the smaller Berkshire subsidiaries (small for Warren Buffett is not too small for the rest of us) to disclose climate risks?  
+We're working on tools for that as well.  
+
 If you think of other objections, please tell me by [creating an issue on github](https://github.com/opentaps/open-climate-investing/issues).
 
 ### How to Use this Book
