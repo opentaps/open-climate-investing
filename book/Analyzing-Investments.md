@@ -1,7 +1,7 @@
 ## Analyzing Investments
 
 True story: I used to manage portfolios of mortgage backed securities.  These were very complex to analyze, because as interest rates changed, their rates of repayment changed.  As a result, their value relative to other bonds such as Treasuries would move differently as rates rose and fell.  So we and other investors and traders developed
-very complex models calld "Option Adjusted Spread" or OAS models to evaluate them.  Unfortunately, the markets then moved in ways even these complex models couldn't predict. 
+very complex models called "Option Adjusted Spread" or OAS models to evaluate them.  Unfortunately, the markets then moved in ways even these complex models couldn't predict. 
 Actual mortage prepayments were far higher than any models predicted, the market was in disarray, and the OAS models came up with results that nobody believed.
 
 Then one day, I thought "What if we ran the models backwards?"  This is commonly done when there is no fundamental model to evaluate an investment with.
