@@ -19,6 +19,7 @@ It's for investors (in the Ben Graham and Warren Buffett sense) with a long-term
   * Analyzing investments and portfolios for climate risk and opportunities
   * Structure and screen indices for investment guidelines 
   * Finding and using climate data and disclosures
+  * New asset classes such as carbon offsets
   * Legal and regulatory considerations, including ERISA Fiduciary responsibility rules
   * Using the latest technologies such as DeFI, blockchains, and open source software
   * Engaging with your plans, beneficiaries, and investees
@@ -73,9 +74,8 @@ There is absolutely a place for funding the projects of the voluntary carbon off
 let the main economy, with its corporations and financial markets, continue as they are.
 
 "The Social Responsibility of Business is to Increase its Profits," says the great Milton Friedman in his [1970 essay](http://websites.umich.edu/~thecore/doc/Friedman.pdf), who then goes on to argue that corporate executives who
-take on social responsibility "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  Ah, to live in the idealized world
-of the economists.  What would happen to real societies when the only guardians of social responsibility are the civil servants toiling in our underfunded and creaky bureaucracies?  And what will happen, in the age of social media,
-to companies who are tone deaf to the demands of the larger society? 
+take on social responsibility "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  Ah, life in the ivory tower 
+of the economist.  I wonder if Milton Friedman ever tried to get a building permit?
 
 But I digress:  I will show you that climate is a real financial, investment risk.  It is not a political, moral, or social issue.  Even if businesses and investors should not impose their views of "doing good" for the society,
 as [Warren Buffett apparently said](https://www.forbes.com/sites/michaelchavez/2020/01/16/is-buffet-wrong-about-companies-doing-good/?sh=2d384bfa76c3), we must all be careful to protect our investments from the effects of climate change.
@@ -85,6 +85,8 @@ They say they're already doing a lot and don't have the time or staff to fill ou
 real?  We hope to provide you with tools to determine that.  Are there easier ways for the smaller Berkshire subsidiaries (small for Warren Buffett is not too small for the rest of us) to disclose climate risks?  We're working on tools for that as well.  
 
 If you think of other objections, please tell me by [creating an issue on github](https://github.com/opentaps/open-climate-investing/issues).
+
+Otherwise, let's move forward.  Like many things climate related, a lot of great initiatives have been started.  What we need is a way to bring them together, make them actionable, and scale them.  That's my goal with climate investing.
 
 ### How to Use this Book
 

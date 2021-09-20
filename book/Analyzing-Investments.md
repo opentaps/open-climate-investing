@@ -10,12 +10,14 @@ plug in an option's market price to calculate the volatility that would get you 
 
 Along those lines, I came up with an implied prepayment model where I could put in the prices of securities and come up with a prepayment model that would fit those prices.  
 Then, I thought, I could compare that model with my own beliefs about future prepayments.  I didn't actually get to use it much, but I did get a paper published (Yay!), and now 
-I see that paper even got cited by other papers (Wow!)
+I see that paper even got cited by other papers (Seriously?!)
 
 Later, I met a Trader at a Big Firm.  This Big Firm had lots of analysts, including one of the best prepayment analysts on the Street.  But he just sat there by himself off to the side and kept sending us scatterplots that looked like this:
 
-I was dumbfounded.  This is nothing but a plot of prices against interest rates.  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
-department's fancy models.  But he calmly explained it to me: "This is the market's prepayment model.  I've got the history of the market and all those analysts with
+![A Market Based Model for Mortgage Backed Securities](images/mbs_market_model.png)
+
+Wow!  This is nothing but a plot of prices against interest rates.  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
+department's fancy models.  People thought of his scatterplots as something between a toy and a joke.  But as he explained to me: "This is the market's OAS model.  I've got the history of the market and all those analysts with
 all their models to compare the current prices with.  That's better than any one person's model."  He was way ahead of all the Wisdom of the Crowd talk that's in vogue nowadays, 
 but it worked well for him.  This market-based model helped him identify mispricings and opportunities where big fancy models failed.  He went on to be _very_ successful.  
 
