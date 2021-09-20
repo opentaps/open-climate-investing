@@ -14,7 +14,7 @@ I see that paper even got cited by other papers (Seriously?!)
 
 Later, I met a Trader at a Big Firm.  This Big Firm had lots of analysts, including one of the best prepayment analysts on the Street.  But he just sat there by himself off to the side and kept sending us scatterplots that looked like this:
 
-![A Market Based Model for Mortgage Backed Securities](images/mbs_market_model.png)
+![A Market Based Model for Mortgage Backed Securities](images/mbs_market_model.PNG)
 
 Wow!  This is nothing but a plot of prices against interest rates.  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
 department's fancy models.  People thought of his scatterplots as something between a toy and a joke.  But as he explained to me: "This is the market's OAS model.  I've got the history of the market and all those analysts with
