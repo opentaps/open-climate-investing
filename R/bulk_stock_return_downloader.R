@@ -5,12 +5,12 @@ library(tidyverse)
 # This is for date management
 library(lubridate)
 
-test_stocks <- read.csv("stock_tickers.csv", header = FALSE)
+stock_tickers <- read.csv("stock_tickers.csv", header = FALSE)
 final_stock_returns <- c()
 ticker_error_codes <- c()
 
 #Loop to get the stocks
-for (i in 1:nrow(test_stocks)) {
+for (i in 1:nrow(stock_tickers)) {
   # Pull the stock ticker from Yahoo Finance with Quantmod
   temp_holder <- tryCatch({
     getSymbols(test_stocks[i, 1],

@@ -87,6 +87,14 @@ The R Squared is what percentage of the stock returns (dependent variable) are e
 
 An overview of ordinary least-squares regression can be found [here on Wikipedia](https://en.wikipedia.org/wiki/Ordinary_least_squares)
 
+### R Installation
+To use the R scripts and apps, please download the latest version of [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
+Open the script "/R/requirements_r.R" and run it.
+This will install all the packages
+
+### R Scripts
+- bulk_stock_return_downloader.R is a method to download multiple stocks. Using line 8, replace "stock_tickers.csv" with the list of tickers you wish to use, saved as a CSV in the /R folder
+
 ## References
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)
 - [The Barra US Equity Model (USE4)](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf)
