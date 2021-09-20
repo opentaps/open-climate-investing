@@ -31,3 +31,24 @@ It is a good way to quickly flag down opportunities, such as mispricings between
 It is a great check on your analysis, those "Am I Sure?" moments that could save your career.  It is also the best way to make sure that a fund you're sold really does
 what they said it would do.
 
+### Market Implied Model
+
+Now let's take a closer look at the market implied model.  
+
+First a little background about how these models came about.  If you've taken investing classes at a university finance department, then feel free to skip the next few paragraphs.
+
+Long ago (up to the 1950's), investing was taught as an extension of accounting.  Security analysis meant pouring through
+income statements, balance sheets, and cash flow statements to identify undervalued companies.  [Ben Graham's Intelligent Investor](https://amzn.to/2XDqWgI) was the definitive book of this style of investing.  Then in the early 1960's, it made a
+radical shift and became a quantitative, statistical field when Jack Treynor, William Sharpe, and others introduced Modern Portfolio Theory (MPT) and the Capital Asset Pricing Model (CAPM).  These models didn't analyze the companies' reported
+financial results.  In fact, they didn't even care much if you were looking at livestock or preferred stock.  It didn't matter, they argued, because if you have enough assets in your portfolio, then the idiosyncratic risks of each asset could
+be diversified away.   Your portfolio's return should just be a function of the amount of your exposure to overall market risk.  Some assets have high market risk, and some assets have low market risk.  If the market as a whole had positive (negative) returns, then the assets with high market risk should perform better (worse) than the assets with low market risks.   
+
+To figure out the risks of each of your assets, you would use a linear regression to calculate the coefficient of the asset's return, minus a riskfree rate, against the market's return above the same riskfree rate.  This would be called the __Beta__.
+Then the risk of a whole portfolio would be the weighted average of all the Betas of the assets in the portfolio.
+
+This simple and elegant model did away of all the manual labor of pouring through annual reports, talking to the managements at companies, and who knows what else that investors spent their time doing.  They even showed that all
+that work amounted to very little -- those investors did not perform better than just passive portfolios that mimicked the market.  
+
+### Fundamental Analysis
+
+
