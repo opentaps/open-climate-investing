@@ -8,15 +8,15 @@ library(lubridate)
 library(plm)
 
 # Read in the Fama-French and BMG factors
-carbon_data <- read_csv("carbon_risk_factor.csv")
-ff_data <- read_csv("ff_factors.csv")
+carbon_data <- read_csv("data/carbon_risk_factor.csv")
+ff_data <- read_csv("data/ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read.csv('msci_constituent_returns.csv')
+final_stock_returns <- read.csv('data/msci_constituent_returns.csv')
 final_stock_returns <- as.tibble(final_stock_returns)
 
 # Read in the sector breakdowns
-final_stock_breakdown <- read_csv("msci_constituent_details.csv")
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv")
 
 # Making the date column have the same name  for the join later
 colnames(carbon_data)[1] <- "Date"

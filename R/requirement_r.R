@@ -3,6 +3,7 @@ packages <- c("quantmod",
               "lubridate", 
               "plm",
               "shiny",
-              "shinydashboard")
+              "shinydashboard",
+              "broom")
   
 install.packages(setdiff(packages, rownames(installed.packages())))

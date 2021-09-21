@@ -5,7 +5,7 @@ library(tidyverse)
 # This is for date management
 library(lubridate)
 
-stock_tickers <- read.csv("stock_tickers.csv", header = FALSE)
+stock_tickers <- read.csv("data/stock_tickers.csv", header = FALSE)
 final_stock_returns <- c()
 ticker_error_codes <- c()
 
@@ -13,13 +13,13 @@ ticker_error_codes <- c()
 for (i in 1:nrow(stock_tickers)) {
   # Pull the stock ticker from Yahoo Finance with Quantmod
   temp_holder <- tryCatch({
-    getSymbols(test_stocks[i, 1],
+    getSymbols(stock_tickers[i, 1],
                auto.assign = FALSE,
                periodicity = "monthly")
   },
   error=function(cond) {
-    message(paste("Stock does not seem to exist:", test_stocks[i, 1]))
-    ticker_error_codes <- c(ticker_error_codes, test_stocks[i, 1])
+    message(paste("Stock does not seem to exist:", stock_tickers[i, 1]))
+    ticker_error_codes <- c(ticker_error_codes, stock_tickers[i, 1])
     return(NA)
   })
   
@@ -41,11 +41,11 @@ for (i in 1:nrow(stock_tickers)) {
     
     # Put the name of the stock next to it
     temp_holder <- temp_holder %>%
-      mutate(Stock = test_stocks[i, 1])
+      mutate(Stock = stock_tickers[i, 1])
     
     # Add the stock to the main stock return dataframe
     final_stock_returns <- rbind(final_stock_returns, temp_holder)
-    print(test_stocks[i, 1])
+    print(stock_tickers[i, 1])
   }
 }
 
