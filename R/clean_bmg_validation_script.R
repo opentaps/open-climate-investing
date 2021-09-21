@@ -13,7 +13,8 @@ ff_data <- read_csv("data/ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader
 final_stock_returns <- read.csv('data/msci_constituent_returns.csv')
-final_stock_returns <- as.tibble(final_stock_returns)
+final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
+final_stock_returns <- as_tibble(final_stock_returns)
 
 # Read in the sector breakdowns
 final_stock_breakdown <- read_csv("data/msci_constituent_details.csv")
