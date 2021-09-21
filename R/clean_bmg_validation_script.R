@@ -55,15 +55,17 @@ get_loadings <- function(stock_names, all_data, carbon_data) {
     # If there is more than 12 months of data, run the FF (no BMG) regression
     if (nrow(temp_data) >= 12) {
       temp_reg <- lm(Returns ~ Mkt_less_RF + SMB + HML + WML, data = temp_data)
-    }
-    # Create a dataframe 
-    temp_no_carbon_residuals <- data.frame(Stock = temp_stock_name,
-                                           Res = temp_reg$residuals,
-                                           Date = temp_data$Date,
-                                           Returns = temp_data$Returns)
+  
+      # Create a dataframe 
+      temp_no_carbon_residuals <- data.frame(Stock = temp_stock_name,
+                                             Res = temp_reg$residuals,
+                                             Date = temp_data$Date,
+                                             Returns = temp_data$Returns)
     
-    # Append to a dataframe
-    no_carbon_residuals <- rbind(no_carbon_residuals, temp_no_carbon_residuals)
+      # Append to a dataframe
+      no_carbon_residuals <- rbind(no_carbon_residuals, temp_no_carbon_residuals)
+    }
+    print(c(i, temp_stock_name))
   }
   
   
