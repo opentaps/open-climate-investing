@@ -8,3 +8,43 @@ psql ${DB_NAME} < init_schema.sql
 
 psql ${DB_NAME} -c 'COPY ff_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < ff_factors.csv
 psql ${DB_NAME} -c 'COPY carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < carbon_risk_factor.csv
+
+# load stocks with sector and sub-sector
+psql ${DB_NAME} -c 'COPY stocks FROM STDIN WITH (FORMAT CSV, HEADER);' < R/spx_sector_breakdown.csv
+# manual insert for the funds
+# spx
+psql ${DB_NAME} -c "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&P 500');"
+# msci
+psql ${DB_NAME} -c "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');"
+
+# import components of spx
+psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_comps CASCADE; CREATE TABLE _stock_comps (
+    ticker text,
+    name text,
+    sector text,
+    sub_sector text,
+    PRIMARY KEY (ticker)
+);
+DELETE FROM stock_components WHERE ticker = 'IVV';
+COPY _stock_comps FROM STDIN WITH (FORMAT CSV, HEADER);
+INSERT INTO stock_components (ticker, component_stock, percentage) SELECT
+'IVV', ticker, 0.0 FROM _stock_comps;
+" < R/spx_sector_breakdown.csv
+
+# import components of msci
+psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_comps CASCADE; CREATE TABLE _stock_comps (
+    ticker text,
+    name text,
+    weight decimal(8, 5),
+    market_value text,
+    sector text,
+    country text,
+    PRIMARY KEY (ticker)
+);
+DELETE FROM stock_components WHERE ticker = 'XWD.TO';
+COPY _stock_comps FROM STDIN WITH (FORMAT CSV, HEADER);
+INSERT INTO stocks (ticker, name, sector) SELECT
+ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;
+INSERT INTO stock_components (ticker, component_stock, percentage) SELECT
+'XWD.TO', ticker, weight FROM _stock_comps;
+" < R/msci_constituent_details.csv

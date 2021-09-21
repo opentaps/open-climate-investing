@@ -177,7 +177,16 @@ def main(args):
             valid = False
         if not valid:
             return
-    if args.ticker:
+    if args.from_db:
+        carbon_data = load_carbon_data_from_db()
+        ff_data = load_ff_data_from_db()
+        stocks = get_stocks.load_stocks_defined_in_db()
+
+        for i in range(0, len(stocks)):
+            stock_name = stocks[i]
+            run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, carbon_data=carbon_data,
+                           ff_data=ff_data, verbose=args.verbose, silent=True, store=True, batch=args.batch)
+    elif args.ticker:
         run_regression(args.ticker, args.start_date, end_date=args.end_date,
                        verbose=args.verbose, store=True, batch=args.batch, silent=args.batch)
     elif args.dryrun:
@@ -213,6 +222,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", default=csv_file,
                         help="specify the CSV file of stock tickers to import")
+    parser.add_argument("-D", "--from_db", action='store_true',
+                        help="import of tickers in the stocks table of the Database instead of using a CSV file")
     parser.add_argument("-t", "--ticker",
                         help="specify a single ticker to run the regression for, ignores the CSV file")
     parser.add_argument("-n", "--dryrun",

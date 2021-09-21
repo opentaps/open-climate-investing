@@ -16,11 +16,30 @@ CREATE TABLE ff_factor (
 );
 
 
+DROP TABLE IF EXISTS stocks CASCADE;
+CREATE TABLE stocks (
+    ticker text,
+    name text,
+    sector text,
+    sub_sector text,
+    PRIMARY KEY (ticker)
+);
+
+
+DROP TABLE IF EXISTS stock_components CASCADE;
+CREATE TABLE stock_components (
+    ticker text,
+    component_stock text REFERENCES stocks (ticker),
+    percentage decimal(8, 5),
+    PRIMARY KEY (ticker, component_stock)
+);
+
+
 DROP TABLE IF EXISTS stock_data CASCADE;
 CREATE TABLE stock_data (
     ticker text,
     date date,
-    close decimal(20, 10),
+    close decimal(30, 10),
     PRIMARY KEY (ticker, date)
 );
 

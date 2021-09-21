@@ -50,8 +50,22 @@ def load_stocks_from_db(stock_name):
                              index_col='date', params=(stock_name,))
 
 
+def load_stocks_defined_in_db():
+    sql = '''SELECT ticker FROM stocks ORDER BY ticker'''
+    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+                           index_col='ticker')
+    return df.index
+
+
 def main(args):
-    if args.ticker:
+    if args.from_db:
+        stocks = load_stocks_defined_in_db()
+
+        for i in range(0, len(stocks)):
+            stock_name = stocks[i]
+            import_stock(stock_name)
+
+    elif args.ticker:
         import_stock(args.ticker)
     elif args.show:
         df = load_stocks_from_db(args.show)
@@ -71,6 +85,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", default=csv_file,
                         help="specify the CSV file of stock tickers to import")
+    parser.add_argument("-D", "--from_db", action='store_true',
+                        help="import of tickers in the stocks table of the Database instead of using a CSV file")
     parser.add_argument("-t", "--ticker",
                         help="specify a single ticker to import, ignores the CSV file")
     parser.add_argument("-s", "--show",
