@@ -39,7 +39,7 @@ First a little background about how these models came about.
 
 Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of gossip about companies.  Then in the early 1960's, a young group of
 finance professors revolutionized the field by saying none of that mattered.  In fact, it didn't even matter if you knew you were investing in livestock or preferred stock.  All that mattered was how the assets you owned
-moved with the overall market.  That could be summarized in a simple statistic, called the __Beta__, which could be calculated from a regression of the returns of an asset versus the returns of the market.  Once you had this Beta,
+moved with the overall market.  That could be summarized in a simple statistic, called the _Beta_, which could be calculated from a regression of the returns of an asset versus the returns of the market.  Once you had this Beta,
 you could tell how risky an asset was, how two assets should move versus each other, and whether an asset returned enough to compensate for its risks.  
 
 This revolutionary insight turned finance into a quantitative field.  Today few finance departments teach investing the way Ben Graham taught it to Warren Buffett.  The top traders at hedge funds are more likely to be 
@@ -71,7 +71,7 @@ with ESG the old fashioned way -- by finding what the market missed.  And gettin
 This simple and elegant model did away of all the manual labor of pouring through annual reports, talking to the managements at companies, and who knows what else that investors spent their time doing.  They even showed that all
 that work amounted to very little -- those investors did not perform better than just passive portfolios that mimicked the market.  
 
-What does "market implied" mean, after all?  It means relative to other traded assets in the market.  ___Relative to the other assets___, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?
+What does "market implied" mean, after all?  It means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?
 
 
 ### Fundamental Analysis
