@@ -14,6 +14,24 @@ exports.findAll = (req, res) => {
         [Op.eq]: `${req.query["ticker"]}`,
       })
     );
+  } else {
+    return res.status(400).send({
+      message: "No ticker parameter given.",
+    });
+  }
+  if (req.query["from"]) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("date"), {
+        [Op.gte]: `${req.query["from"]}`,
+      })
+    );
+  }
+  if (req.query["to"]) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("date"), {
+        [Op.lte]: `${req.query["to"]}`,
+      })
+    );
   }
 
   const { limit, offset } = common.getPagination(page, size);

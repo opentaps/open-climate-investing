@@ -3,6 +3,7 @@ import Pagination from "@mui/material/Pagination";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React, { Component } from "react";
+import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
 import StockDataService from "../services/stock.service";
 
@@ -14,12 +15,72 @@ const componentDecorator = (href, text, key) => (
 
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
+const GRAPH_OPTIONS = {
+  chart: {
+    type: "area",
+    stacked: false,
+    height: 350,
+    zoom: {
+      type: "x",
+      enabled: true,
+      autoScaleYaxis: true,
+    },
+    toolbar: {
+      autoSelected: "zoom",
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  markers: {
+    size: 0,
+  },
+  title: {
+    text: "Stock Price Movement",
+    align: "left",
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shadeIntensity: 1,
+      inverseColors: false,
+      opacityFrom: 0.5,
+      opacityTo: 0,
+      stops: [0, 90, 100],
+    },
+  },
+  yaxis: {
+    labels: {
+      formatter: function (val) {
+        return val.toFixed(3);
+      },
+    },
+    title: {
+      text: "Price",
+    },
+  },
+  xaxis: {
+    type: "datetime",
+  },
+  tooltip: {
+    shared: false,
+    x: {
+      format: "yyyy dd MMM",
+    },
+    y: {
+      formatter: function (val) {
+        return val;
+      },
+    },
+  },
+};
 
 export default class Stock extends Component {
   constructor(props) {
     super(props);
     this.getStock = this.getStock.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.retrieveStockGraph = this.retrieveStockGraph.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleDataPageChange = this.handleDataPageChange.bind(this);
     this.handleDataPageSizeChange = this.handleDataPageSizeChange.bind(this);
@@ -27,6 +88,11 @@ export default class Stock extends Component {
     this.handleStatsPageSizeChange = this.handleStatsPageSizeChange.bind(this);
 
     this.pageSizes = [10, 25, 50, 100];
+    let stock_graph_options = Object.assign({}, GRAPH_OPTIONS);
+    let stats_graph_options = Object.assign({}, GRAPH_OPTIONS, {
+      title: { text: "Stock Statistics" },
+      yaxis: { title: { text: "Value" } },
+    });
     this.state = {
       current_tab: DEFAULT_TAB,
       current: {
@@ -40,6 +106,12 @@ export default class Stock extends Component {
       data_total: 0,
       data_pageSize: DEFAULT_PAGE_SIZE,
       data_loadingIndicator: false,
+      stock_graph_options: stock_graph_options,
+      stock_graph_series: [],
+      stock_graph_loadingIndicator: false,
+      stats_graph_options: stats_graph_options,
+      stats_graph_series: [],
+      stats_graph_loadingIndicator: false,
       stats: [],
       stats_page: 1,
       stats_count: 0,
@@ -73,6 +145,8 @@ export default class Stock extends Component {
         window.scrollTo(0, 0);
         this.retrieveData();
         this.retrieveStats();
+        this.retrieveStockGraph();
+        this.retrieveStatsGraph();
       })
       .catch((e) => {
         console.log(e);
@@ -145,6 +219,121 @@ export default class Stock extends Component {
         this.retrieveData();
       }
     );
+  }
+
+  retrieveStockGraph(page, arr) {
+    const { current } = this.state;
+    if (!current || !current.ticker) {
+      console.log("No current stock to fetch data for !");
+      return;
+    }
+    if (!arr) arr = [];
+    if (!page) page = 0;
+    StockDataService.getData({
+      ticker: current.ticker,
+      page: page,
+      size: 100,
+    })
+      .then((stats_response) => {
+        const { items, totalPages } = stats_response.data;
+        arr = arr.concat(items);
+        if (page + 1 < totalPages) {
+          this.retrieveStockGraph(page + 1, arr);
+        } else {
+          this.setState({
+            stock_graph_series: [
+              {
+                name: current.ticker,
+                data: arr.map((d) => [d.date, parseFloat(d.close)]),
+              },
+            ],
+          });
+          this.setState({ stock_graph_loadingIndicator: false });
+        }
+      })
+      .catch((e) => {
+        this.setState({ stock_graph_loadingIndicator: false });
+        console.log(e);
+      });
+  }
+
+  retrieveStatsGraph(page, arr) {
+    const { current } = this.state;
+    if (!current || !current.ticker) {
+      console.log("No current stock to fetch stats for !");
+      return;
+    }
+    if (!arr) arr = [];
+    if (!page) page = 0;
+    StockDataService.getStats({
+      ticker: current.ticker,
+      page: page,
+      size: 100,
+    })
+      .then((stats_response) => {
+        const { items, totalPages } = stats_response.data;
+        console.log("retrieveStatsGraph: ", items);
+        arr = arr.concat(items);
+        if (page + 1 < totalPages) {
+          this.retrieveStatsGraph(page + 1, arr);
+        } else {
+          this.setState({
+            stats_graph_series: [
+              {
+                name: "Constant",
+                data: arr.map((d) => [d.from_date, parseFloat(d.constant)]),
+              },
+              {
+                name: "BMG",
+                data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
+              },
+              {
+                name: "Market RF",
+                data: arr.map((d) => [d.from_date, parseFloat(d.mkt_rf)]),
+              },
+              {
+                name: "SMB",
+                data: arr.map((d) => [d.from_date, parseFloat(d.smb)]),
+              },
+              {
+                name: "HML",
+                data: arr.map((d) => [d.from_date, parseFloat(d.hml)]),
+              },
+              {
+                name: "WML",
+                data: arr.map((d) => [d.from_date, parseFloat(d.wml)]),
+              },
+              {
+                name: "Jarque Bera",
+                data: arr.map((d) => [d.from_date, parseFloat(d.jarque_bera)]),
+              },
+              {
+                name: "Breusch Pagan",
+                data: arr.map((d) => [
+                  d.from_date,
+                  parseFloat(d.breusch_pagan),
+                ]),
+              },
+              {
+                name: "Durbin Watson",
+                data: arr.map((d) => [
+                  d.from_date,
+                  parseFloat(d.durbin_watson),
+                ]),
+              },
+              {
+                name: "R Squared",
+                data: arr.map((d) => [d.from_date, parseFloat(d.r_squared)]),
+              },
+            ],
+          });
+          this.setState({ stats_graph_loadingIndicator: false });
+        }
+      })
+      .catch((e) => {
+        this.setState({ stats_graph_loadingIndicator: false });
+        console.log(e);
+      });
   }
 
   retrieveStats() {
@@ -326,6 +515,12 @@ export default class Stock extends Component {
       data_total,
       data_pageSize,
       data_loadingIndicator,
+      stock_graph_options,
+      stock_graph_series,
+      stock_graph_loadingIndicator,
+      stats_graph_options,
+      stats_graph_series,
+      stats_graph_loadingIndicator,
       stats,
       stats_page,
       stats_count,
@@ -397,6 +592,26 @@ export default class Stock extends Component {
                 this.handleStatsPageChange,
                 this.handleStatsPageSizeChange
               )}
+            </div>
+
+            <div className="mt-2">
+              {this.renderSpinner(stock_graph_loadingIndicator)}
+              <Chart
+                options={stock_graph_options}
+                series={stock_graph_series}
+                type="area"
+                width="100%"
+              />
+            </div>
+
+            <div className="mt-2">
+              {this.renderSpinner(stats_graph_loadingIndicator)}
+              <Chart
+                options={stats_graph_options}
+                series={stats_graph_series}
+                type="area"
+                width="100%"
+              />
             </div>
           </div>
         ) : (
