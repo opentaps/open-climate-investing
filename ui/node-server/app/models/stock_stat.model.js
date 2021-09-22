@@ -1,0 +1,53 @@
+module.exports = (sequelize, Sequelize) => {
+  return sequelize.define(
+    "stock_stat",
+    {
+      ticker: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+      },
+      from_date: {
+        type: Sequelize.DATE,
+        primaryKey: true,
+      },
+      thru_date: {
+        type: Sequelize.DATE,
+        primaryKey: true,
+      },
+      constant: Sequelize.DECIMAL(8, 5),
+      constant_std_error: Sequelize.DECIMAL(8, 5),
+      constant_t_stat: Sequelize.DECIMAL(8, 5),
+      constant_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      bmg: Sequelize.DECIMAL(8, 5),
+      bmg_std_error: Sequelize.DECIMAL(8, 5),
+      bmg_t_stat: Sequelize.DECIMAL(8, 5),
+      bmg_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      mkt_rf: Sequelize.DECIMAL(8, 5),
+      mkt_rf_std_error: Sequelize.DECIMAL(8, 5),
+      mkt_rf_t_stat: Sequelize.DECIMAL(8, 5),
+      mkt_rf_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      smb: Sequelize.DECIMAL(8, 5),
+      smb_std_error: Sequelize.DECIMAL(8, 5),
+      smb_t_stat: Sequelize.DECIMAL(8, 5),
+      smb_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      hml: Sequelize.DECIMAL(8, 5),
+      hml_std_error: Sequelize.DECIMAL(8, 5),
+      hml_t_stat: Sequelize.DECIMAL(8, 5),
+      hml_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      wml: Sequelize.DECIMAL(8, 5),
+      wml_std_error: Sequelize.DECIMAL(8, 5),
+      wml_t_stat: Sequelize.DECIMAL(8, 5),
+      wml_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      jarque_bera: Sequelize.DECIMAL(8, 5),
+      jarque_bera_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      breusch_pagan: Sequelize.DECIMAL(8, 5),
+      breusch_pagan_p_gt_abs_t: Sequelize.DECIMAL(8, 5),
+      durbin_watson: Sequelize.DECIMAL(8, 5),
+      r_squared: Sequelize.DECIMAL(8, 5),
+    },
+    {
+      timestamps: false,
+      tableName: "stock_stats",
+    }
+  );
+};
