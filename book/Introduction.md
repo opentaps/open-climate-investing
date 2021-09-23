@@ -6,31 +6,28 @@ If climate change is the epic challenge of our time, then we're all showing up l
 
 International agreements are
 slow in the coming and non-binding.  National emissions regulations, where they exist, are limited in scope.  Local government initiatives are underfunded.
-Financial reuglators are busily meeting and advising, but not requiring anything concrete.  Investors love to sell ESG, talk about engagement, but the markets
+Financial regulators are busily meeting and advising, but not requiring anything concrete.  Investors love to sell ESG, talk about engagement, but the markets
 act like climate change is far off.  Businesses caught the sustainability marketing bug but are slow to commit to emissions targets.  Environmentalists are
 increasingly shrill in their warnings but quiet on actionable plans.
 Meanwhile the general public is just sleepwalking along.  Most people believe climate change is real and want something done.  But outside of recycling some
 bottles or making some donations, most of us are just waiting for someone else to fix it while we're busy with the rest of our lives.
 
 I'm not here to point the finger.  We all need to do more, myself first and foremost.  This book is my attempt to fix that before it's too late. 
-It's for investors (in the Ben Graham and Warren Buffett sense) with a long-term focus who are looking to do something about climate change while improving their investment results.  It is not a book of investment advice and won't help you speculate on cryptocurrencies or day trade to riches.  Instead, it is for professional fund managers like I once was, pension fund sponsors, foundations, endowments, consultants, and the increasingly sophisticated individuals who are beneficiaries of institutional investment funds or who are investing for themselves.  When completed, it will cover a range of topics including:
 
-  * Impact of climate change on investment results
-  * Analyzing investments and portfolios for climate risk and opportunities
-  * Structure and screen indices for investment guidelines 
-  * Finding and using climate data and disclosures
-  * New asset classes such as carbon offsets
-  * Legal and regulatory considerations, including ERISA Fiduciary responsibility rules
-  * Using the latest technologies such as DeFI, blockchains, and open source software
-  * Engaging with your plans, beneficiaries, and investees
+### Investors' Role in Climate Change
 
-Before you go further, let's all first recognize that climate change is a very hard problem to solve.  Otherwise you wouldn't be reading this -- I certainly wouldn't be writing it.  Climate change is difficult because it is a complex global problem that happens in small increments over long time horizons.  Our institutions, from governments to banks to businesses, are not well suited to solve problems like these.  They are focused on short time horizons, from quarterly earnings results to multi-year election cycles.  They are sized at regional or national scales.  They are saddled with outdated technology that create disconnected silos of information and activity.  Most of all, they are so slow
+Before you go further, let's all first recognize that climate change is a very hard problem to solve.  Otherwise you wouldn't be reading this -- I certainly wouldn't be writing it.  Climate change is difficult because it is a complex global problem that happens in small increments over long time horizons.  Our institutions, from governments to banks to businesses, are not well suited to solve problems like these.  They are focused on short time horizons, from quarterly earnings results to multi-year election cycles.  They are regional or national in size.  They are saddled with outdated technology that create disconnected silos of information and activity.  Most of all, they are so slow
 to innovate.   As a result, nearly three decades after the 
 United Nations Framework Convention on Climate Change was signed, most of the world still chugs along as it always did--on fossil fuels and inertia. 
 
-But this is a problem that we must solve, and it is one that we investors have a special role to play.  We are the group with the longest time horizon: Pension funds and life insurers invest for up to 30 years, and
-foundations and endowments are supposed to continue in perpetuity.  We are also the group that's professionally trained and tasked to analyze complex data and scenarios and make risk/reward decisions.  We have 
-helped turn emerging utopian technologies into everyday realities with those decisions, and we can do it again. 
+But this is a problem that we investors could play a crucial role in solving.  Investors are the group with the longest time horizon: Pension funds and life insurers invest for up to 30 years, and
+foundations and endowments are supposed to continue in perpetuity.  We are also the group that's professionally trained and tasked to analyze complex data and scenarios and make risk/reward decisions.  Finally, we have 
+a track record of affecting change on a global scale.  The fact that you're reading this is proof that investors have helped turn utopian technologies into everyday realities before.
+
+We are now needed to turn climate change from a raucous political debate into investment decisions.  We should be pouring through companies’ climate disclosures as we do their earnings announcements.  We should be grading their climate risk the same way we grade their creditworthiness.  Portfolio managers and hedge funds should be trading stocks based on their relative climate risk profiles.  Plan sponsors and fund investors should be using climate risk in all their asset allocation decisions.  They should also be judging their funds’ climate risk profiles with the same quantitative rigor as their tracking errors.  Activist investors should be looking to aggressively change the climate laggards and holdouts to boost their values.  And we should all be working hard to protect our portfolios from the effects of climate change.
+
+  
+### Objections 
 
 Or can we?
 
@@ -41,17 +38,17 @@ Please read [Tariq Fancy's Secret Diary of a Sustainable Investor](https://www.d
 It's very well written.  Having been a portfolio manager myself, I could completely picture the people and the dialogs.  In summary, his key points are:
 
  * Fund management companies are happy to sell ESG, or at least a simplified version of them.
- * But portfolio manageres day to day do not incorporate ESG into their decisions, unless they see how it could generate higher returns.
+ * But portfolio managers day to day do not incorporate ESG into their decisions, unless they see how it could generate higher returns.
  * The ESG data itself is confusing and often conflicting.
  * As a result, ESG investing is in fact lulling the public into thinking that we don't need government regulations, when in fact that is exactly what we need.  
 
-While everything he says is true, I also see another interpretation of it:
+While the events he describes certainly sound true, I also see another interpretation of them:
 
  * Yes, portfolio managers would not incorporate ESG into their investments unless it generates higher returns.  That is the life of a portfolio manager.  We are like professional athletes without contracts or the Hollywood starlet who is only as good as their last role.  We are judged against indices given to us by the pension funds, foundations, and investment guidelines of our mutual funds or hedge funds.  And we're all just one trade away from humility.
  * This means, though, that we need to talk to those same pension funds and foundations.  They're the ones who are supposed to invest long-term for their beneficiaries.  If they've already signed to one of many climate investment pledges, then they need to use climate-aligned investment indices so that the fund managers could act accordingly.
  * Similarly, when marketing ESG to mutual fund and hedge fund investors, we must sign them up for the long-term with climate-aligned indices as our benchmarks.  This may mean fewer investors initially, but the greatest investors like Warren Buffett all know that the key is cultivating relationships with long-term investors.
  * Yes, it's not clear how useful a lot that ESG data really is.  We have a few suggestions.  Stay tuned...
- * Books could be written (and probably have been) about the failure of government climate programs.  Yes, government action would help--if it's done right.  But we also need investors to direct businesses to do their part.
+ * Books could be written (and probably have been) about the failure of government climate programs.  Yes, government action would help--if it's done right.  Even if the governments of the world encompass comprehensive climate policies such as carbon taxes, though, businesses will have to act on them, and investors will have monitor them.
 
 Another interesting objection which I heard yesterday: "Public markets are just trading existing assets and don't affect the real economy."  Sadly true for many of the people who spend their days shuffling paper.  Long term, though,
  public markets play an enormously important role.  As investors shift from one asset class to another, the relative valuations change.  Higher valued public companies fund more investments, buy more innovative startups, 
@@ -63,7 +60,7 @@ public corporations are highly sensitive to stock prices and will work hard to b
 A similar objection: "One fund shifting from some stocks to another make no difference at all in the world."  Also true, but true of anything climate related.  What is the impact of one flight not taken or one person changing their diet?
 It is only when we all act together that we can stop climate change.  This is true for investors as well.
 
-"You cannot stop climate change by funding the same capitalist system that caused climate change."  Indeed, you can fund a great variety of grass roots projects all over the world, from forestry to sustainable agriculture, 
+"You cannot stop climate change by funding the same capitalist system that caused climate change."  Perhaps.  You can fund a great variety of grass roots projects all over the world, from forestry to sustainable agriculture, 
 through the [voluntary carbon offsets market](https://opentaps.org/2021/08/23/voluntary-carbon-offsets-market-in-2020/).  Take a look at these numbers, though:
 
  * Amount of financing for voluntary carbon offsets - about $1 billion per year
@@ -73,9 +70,10 @@ through the [voluntary carbon offsets market](https://opentaps.org/2021/08/23/vo
 There is absolutely a place for funding the projects of the voluntary carbon offsets market (Most of them, anyway, but that could be a book of its own...)  Given how quickly we need to affect real change, though, we cannot just
 let the main economy, with its corporations and financial markets, continue as they are.
 
-"The Social Responsibility of Business is to Increase its Profits," says the great Milton Friedman in his [1970 essay](http://websites.umich.edu/~thecore/doc/Friedman.pdf), who then goes on to argue that corporate executives who
-take on social responsibility "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  Ah, life in the ivory tower 
-of the economist.  I wonder if Milton Friedman ever tried to get a building permit?
+Isn't "The Social Responsibility of Business is to Increase its Profits?"  So said the great Milton Friedman in his [1970 essay](http://websites.umich.edu/~thecore/doc/Friedman.pdf), who then went on to argue that corporate executives who
+take on social responsibilities "becomes in effect a public employee, a civil servant, even though he remains in name an employee of a private enterprise. On grounds of political principle, it is intolerable that such civil servants--insofar as their actions in the name of social responsibility are real and not just window-dressing--should be selected as they are now. If they are to be civil servants, then they must be elected through a political process."  
+
+Ah, life in the ivory tower of the economist.  I wonder if Milton Friedman ever tried to get a building permit?
 
 But I digress:  I will show you that climate is a real financial, investment risk.  It is not a political, moral, or social issue.  Even if businesses and investors should not impose their views of "doing good" for the society,
 as [Warren Buffett apparently said](https://www.forbes.com/sites/michaelchavez/2020/01/16/is-buffet-wrong-about-companies-doing-good/?sh=2d384bfa76c3), we must all be careful to protect our investments from the effects of climate change.
@@ -86,7 +84,20 @@ real?  We hope to provide you with tools to determine that.  Are there easier wa
 
 If you think of other objections, please tell me by [creating an issue on github](https://github.com/opentaps/open-climate-investing/issues).
 
-Otherwise, let's move forward.  Like many things climate related, a lot of great initiatives have been started.  What we need is a way to bring them together, make them actionable, and scale them.  That's my goal with climate investing.
+Otherwise, let's move forward.  Like many things climate related, a lot of great initiatives have been started.  What we need is a way to bring them together, make them actionable, and scale them.  
+
+### Is this Book for You?
+
+This book is meant for investors (in the Ben Graham and Warren Buffett sense of the word) with a long-term focus who are looking to do something about climate change while improving their investment results.  It is not a book of investment advice and won't help you speculate on cryptocurrencies or day trade to riches.  Instead, it is for professional fund managers like I once was, pension fund sponsors, foundations, endowments, consultants, and the increasingly sophisticated individuals who are beneficiaries of institutional investment funds or who are investing for themselves.  When completed, it will cover a range of topics including:
+
+  * Impact of climate change on investment results
+  * Analyzing investments and portfolios for climate risk and opportunities
+  * Structuring and screening indices for investment guidelines 
+  * Finding and using climate data and disclosures
+  * New asset classes such as carbon offsets
+  * Legal and regulatory considerations, including ERISA Fiduciary responsibility rules
+  * Using the latest technologies such as DeFI, blockchains, and open source software
+  * Engaging with your plans, beneficiaries, and investees
 
 ### How to Use this Book
 

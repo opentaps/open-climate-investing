@@ -6,8 +6,6 @@ import get_stocks
 import factor_regression
 
 
-csv_file = 'stock_tickers.csv'
-
 conn = db.get_db_connection()
 
 
@@ -54,12 +52,9 @@ def run_regression(ticker, start_date, end_date=None, carbon_data=None, ff_data=
         print('Got ff_data ...')
         print(ff_data)
 
-    stock_data = get_stocks.load_stocks_data(ticker)
+    stock_data = get_stocks.import_stock(ticker)
     if len(stock_data) == 0:
-        print('No stock data for {}, loading ...'.format(ticker))
-        stock_data = get_stocks.import_stock(ticker)
-    if len(stock_data) == 0:
-        print('No stock data for ticker {} !'.format(ticker))
+        print('No stock data for {} !'.format(ticker))
         return
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
@@ -220,7 +215,7 @@ def main(args):
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default=csv_file,
+    parser.add_argument("-f", "--file",
                         help="specify the CSV file of stock tickers to import")
     parser.add_argument("-D", "--from_db", action='store_true',
                         help="import of tickers in the stocks table of the Database instead of using a CSV file")

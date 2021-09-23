@@ -5,8 +5,6 @@ import input_function
 import db
 
 
-csv_file = 'stock_tickers.csv'
-
 conn = db.get_db_connection()
 
 
@@ -30,14 +28,18 @@ def load_stocks_data(stock_name):
 
 def import_stocks_into_db(stock_name, stock_data):
     sql = '''INSERT INTO
-        stock_data (ticker, date, close)
-        VALUES (%s, %s, %s)
+        stock_data (ticker, date, close, return)
+        VALUES (%s, %s, %s, %s)
         ON CONFLICT (ticker, date) DO
-        UPDATE SET close = EXCLUDED.close;'''
+        UPDATE SET close = EXCLUDED.close, return = EXCLUDED.return;'''
     with conn.cursor() as cursor:
+        # we store both the values of Close and the Returns from pct_change
+        pc = stock_data.pct_change()
+        pc.rename(columns={'Close': 'r'}, inplace=True)
+        stock_data = pd.merge(stock_data, pc, on='date_converted')
         for index, row in stock_data.iterrows():
-            print('-- {} = {}'.format(index, row['Close']))
-            cursor.execute(sql, (stock_name, index, row['Close']))
+            print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
+            cursor.execute(sql, (stock_name, index, row['Close'], row['r']))
 
 
 def load_stocks_from_db(stock_name):
@@ -83,7 +85,7 @@ def main(args):
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default=csv_file,
+    parser.add_argument("-f", "--file",
                         help="specify the CSV file of stock tickers to import")
     parser.add_argument("-D", "--from_db", action='store_true',
                         help="import of tickers in the stocks table of the Database instead of using a CSV file")
