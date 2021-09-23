@@ -3,8 +3,7 @@
 True story: I used to manage portfolios of mortgage backed securities.  These were very complex to analyze, because as interest rates changed, their rates of repayment changed.  As a result, their value relative to other bonds such as Treasuries would move differently as rates rose and fell.  So we and other investors and traders developed
 very complex models called "Option Adjusted Spread" or OAS models to evaluate them.  These models projected interest rates and then repayment rates of the mortgages for 30 years under hundreds or even thousands of different scenarios, then aggregated the effects to come up with values for securities in the present day.
 
-Then the markets moved in ways even these complex models couldn't predict: Rates fell a lot more than expected, and  
-actual mortage repayment rates were far higher than any models predicted.  As a result, the market was in disarray, and the OAS models came up with results that nobody believed.
+Then the markets moved in ways even these complex models couldn't predict: Rates fell a lot more than expected, and actual mortage repayment rates were far higher than any models predicted.  As a result, the market was in disarray, and the OAS models came up with results that nobody believed.
 
 Then one day, I thought "What if we ran the models backwards?"  This is commonly done when there is no fundamental model to evaluate an investment with.
 Instead of plugging in parameters to calculate the price of, say, an option, you could 
