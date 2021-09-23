@@ -6,8 +6,6 @@ import get_stocks
 import factor_regression
 
 
-csv_file = 'stock_tickers.csv'
-
 conn = db.get_db_connection()
 
 
@@ -217,7 +215,7 @@ def main(args):
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default=csv_file,
+    parser.add_argument("-f", "--file",
                         help="specify the CSV file of stock tickers to import")
     parser.add_argument("-D", "--from_db", action='store_true',
                         help="import of tickers in the stocks table of the Database instead of using a CSV file")
