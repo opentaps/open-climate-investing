@@ -35,11 +35,9 @@ what they said it would do.
 
 ### Market Implied Model
 
-_"Know yourself and your competition, and you will win 100 out of 100 battles" - Sun Tzu_
+_"Come on pal, tell me something I don't know, it's my birthday. Surprise me." - Gordon Gekko_
 
-Now let's take a closer look at the market implied model.  
-
-First a little background about how these models came about.
+Now let's take a closer look at the market implied model.  First a little bit about how these models came about.
 
 Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of gossip about companies.  Then in the early 1960's, a young group of
 finance professors revolutionized the field by saying none of that mattered.  In fact, it didn't even matter if you knew you were investing in livestock or preferred stock.  All that mattered was how the assets you owned
@@ -72,13 +70,30 @@ Most importantly, we have turned all those disclosures, data, and scenarios -- t
 "How the f@#! am I going to make money with this s#&!" -- into something you could trade with.  You make money 
 with ESG the old fashioned way -- by finding what the market missed.  And getting it right. 
 
-
-This simple and elegant model did away of all the manual labor of pouring through annual reports, talking to the managements at companies, and who knows what else that investors spent their time doing.  They even showed that all
-that work amounted to very little -- those investors did not perform better than just passive portfolios that mimicked the market.  
+Now let's see what it looks like with a few examples.
 
 What does "market implied" mean, after all?  It means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?
-
 
 ### Fundamental Analysis
 
 _"The most valuable commodity I know of is information" - Gordon Gekko_
+
+I'm going to (figuratively) bet that given the limited awareness of climate among investors, the market is probably wrong about a lot of things.  In other words, there are 
+probably a lot of opportunities if you invested some time in analyzing companies' climate exposures.  So let the market implied model be a starting point, and let's dig in.
+
+Climate change is a long-term process with a lot of uncertainty.  How it plays out, and then how that affects an actual company, could depend on a number of scenarios.  Thus
+analyzing climate exposure is, in many ways, similar to analyzing mortage-backed securities:  You will need to project multiple scenarios far into the future, calculate their 
+financial ipacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Did you think I was going on and on about mortgages and OAS models
+to thump my chest?)
+
+The key steps of this anlaysis are:
+
+ * The company's current climate exposures: How much are its Greenhouse Gas (GHG) emissions now?  What are its assets?
+ * How those exposures will change: Every company talks about "sustainability" these days.  What is it reallying doing to reduce its climate exposures or "decarbonize"?
+ * Overlaying scenarios: How will potential events affect the company, given its current exposures and its path to decarbonize?
+ * Valuing the scenarios: Under each scenario, what is the economic impact (positive or negative) to the company?
+ * Comparing versus the market: Now the market implied values come in handy.
+
+As you can see, climate investing is not as simple as divesting from oil companies.  Just like you wouldn't buy a stock based on its current earnings, you shouldn't just rely on 
+current emissions to make climate investment decisions.  Instead, you have to account for both current positions, management actions, and potential long-term scenarios.  This is
+what makes investing fun!
