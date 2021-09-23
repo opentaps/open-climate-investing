@@ -15,6 +15,21 @@ const componentDecorator = (href, text, key) => (
   </a>
 );
 
+const STAT_TABLE_FIELDS = [
+  { label: "Carbon", name: "bmg" },
+  { label: "Market", name: "mkt_rf" },
+  { label: "SMB", name: "smb" },
+  { label: "HML", name: "hml" },
+  { label: "WML", name: "wml" },
+];
+
+const STAT_BOX_FIELDS = [
+  { label: "R2", name: "r_squared" },
+  { label: "Jarque-Bera", name: "jarque_bera" },
+  { label: "Breusch-Pagan", name: "breusch_pagan" },
+  { label: "Durbin-Watson", name: "durbin_watson" },
+];
+
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const GRAPH_OPTIONS = {
@@ -111,6 +126,7 @@ export default class Stock extends Component {
       stock_graph_current_series_name: "Price",
       stock_graph_series: [],
       stock_graph_loadingIndicator: false,
+      latest_stock_stats: {},
       stats: [],
       stats_page: 1,
       stats_count: 0,
@@ -283,6 +299,7 @@ export default class Stock extends Component {
           this.retrieveStatsGraph(page + 1, arr);
         } else {
           this.setState({
+            latest_stock_stats: arr[arr.length - 1],
             stock_graph_series: this.state.stock_graph_series.concat([
               {
                 name: "Carbon",
@@ -371,10 +388,12 @@ export default class Stock extends Component {
     });
   }
 
-  renderFormattedField(field, item) {
-    return item[field.name] && field.fmtNumber
-      ? parseInt(item[field.name]).toLocaleString()
-      : item[field.name];
+  renderFormattedField(field, item, prefix) {
+    let n = field.name;
+    if (prefix) n += prefix;
+    return item[n] && field.fmtNumber
+      ? parseInt(item[n]).toLocaleString()
+      : item[n];
   }
 
   renderField(field, current) {
@@ -436,6 +455,30 @@ export default class Stock extends Component {
       <table className="table">
         {this.renderFieldsTableHeaders(fields)}
         {this.renderFieldsTableBody(fields, items)}
+      </table>
+    );
+  }
+
+  renderStatsFieldsTable(fields, values) {
+    return (
+      <table className="table">
+        <thead>
+          <tr>
+            <th colSpan={2}>Risk Factors</th>
+            <th>t</th>
+            <th>P&gt;|t|</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fields.map((f, index) => (
+            <tr key={index}>
+              <th>{f.label}</th>
+              <td>{this.renderFormattedField(f, values)}</td>
+              <td>{this.renderFormattedField(f, values, "_t_stat")}</td>
+              <td>{this.renderFormattedField(f, values, "_p_gt_abs_t")}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
@@ -505,6 +548,7 @@ export default class Stock extends Component {
       stock_graph_series,
       stock_graph_current_series_name,
       stock_graph_loadingIndicator,
+      latest_stock_stats,
       stats,
       stats_page,
       stats_count,
@@ -576,6 +620,40 @@ export default class Stock extends Component {
                 this.handleStatsPageChange,
                 this.handleStatsPageSizeChange
               )}
+            </div>
+
+            <div className="mt-2 row align-items-start">
+              <div class="col">
+                {latest_stock_stats
+                  ? this.renderStatsFieldsTable(
+                      STAT_TABLE_FIELDS,
+                      latest_stock_stats
+                    )
+                  : ""}
+              </div>
+              <div class="col">
+                {latest_stock_stats ? (
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th colSpan={2}>Statistics</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {STAT_BOX_FIELDS.map((f, i) => (
+                        <tr key={i}>
+                          <th>{f.label}</th>
+                          <td>
+                            {this.renderFormattedField(f, latest_stock_stats)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
 
             <div className="mt-2">
