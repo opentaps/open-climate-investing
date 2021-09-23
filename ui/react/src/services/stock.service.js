@@ -30,7 +30,8 @@ class StockDataService {
     return [
       { label: "Ticker", name: "ticker" },
       { label: "Date", name: "date", fmtDate: true },
-      { label: "Close", name: "close" },
+      { label: "Price", name: "close" },
+      { label: "Return", name: "return" },
     ];
   }
 

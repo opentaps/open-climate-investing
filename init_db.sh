@@ -47,4 +47,5 @@ INSERT INTO stocks (ticker, name, sector) SELECT
 ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;
 INSERT INTO stock_components (ticker, component_stock, percentage) SELECT
 'XWD.TO', ticker, weight FROM _stock_comps;
+DROP TABLE IF EXISTS _stock_comps CASCADE;
 " < data/msci_constituent_details.csv

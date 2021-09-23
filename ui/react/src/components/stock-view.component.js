@@ -2,6 +2,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
@@ -28,16 +30,18 @@ const GRAPH_OPTIONS = {
     toolbar: {
       autoSelected: "zoom",
     },
+    animations: {
+      enabled: false,
+      dynamicAnimation: {
+        enabled: false,
+      },
+    },
   },
   dataLabels: {
     enabled: false,
   },
   markers: {
     size: 0,
-  },
-  title: {
-    text: "Stock Price Movement",
-    align: "left",
   },
   fill: {
     type: "gradient",
@@ -56,7 +60,7 @@ const GRAPH_OPTIONS = {
       },
     },
     title: {
-      text: "Price",
+      text: "",
     },
   },
   xaxis: {
@@ -86,13 +90,10 @@ export default class Stock extends Component {
     this.handleDataPageSizeChange = this.handleDataPageSizeChange.bind(this);
     this.handleStatsPageChange = this.handleStatsPageChange.bind(this);
     this.handleStatsPageSizeChange = this.handleStatsPageSizeChange.bind(this);
+    this.handleCurrentSeriesChange = this.handleCurrentSeriesChange.bind(this);
 
     this.pageSizes = [10, 25, 50, 100];
     let stock_graph_options = Object.assign({}, GRAPH_OPTIONS);
-    let stats_graph_options = Object.assign({}, GRAPH_OPTIONS, {
-      title: { text: "Stock Statistics" },
-      yaxis: { title: { text: "Value" } },
-    });
     this.state = {
       current_tab: DEFAULT_TAB,
       current: {
@@ -107,11 +108,9 @@ export default class Stock extends Component {
       data_pageSize: DEFAULT_PAGE_SIZE,
       data_loadingIndicator: false,
       stock_graph_options: stock_graph_options,
+      stock_graph_current_series_name: "Price",
       stock_graph_series: [],
       stock_graph_loadingIndicator: false,
-      stats_graph_options: stats_graph_options,
-      stats_graph_series: [],
-      stats_graph_loadingIndicator: false,
       stats: [],
       stats_page: 1,
       stats_count: 0,
@@ -146,7 +145,6 @@ export default class Stock extends Component {
         this.retrieveData();
         this.retrieveStats();
         this.retrieveStockGraph();
-        this.retrieveStatsGraph();
       })
       .catch((e) => {
         console.log(e);
@@ -240,15 +238,22 @@ export default class Stock extends Component {
         if (page + 1 < totalPages) {
           this.retrieveStockGraph(page + 1, arr);
         } else {
+          let priceSeries = {
+            name: "Price",
+            data: arr.map((d) => [d.date, parseFloat(d.close)]),
+          };
           this.setState({
             stock_graph_series: [
+              priceSeries,
               {
-                name: current.ticker,
-                data: arr.map((d) => [d.date, parseFloat(d.close)]),
+                name: "Return %",
+                data: arr.map((d) => [d.date, parseFloat(d.return) * 100.0]),
               },
             ],
+            stock_graph_current_series_name: "Price",
           });
-          this.setState({ stock_graph_loadingIndicator: false });
+          // now add the other series from Stats
+          this.retrieveStatsGraph();
         }
       })
       .catch((e) => {
@@ -278,17 +283,13 @@ export default class Stock extends Component {
           this.retrieveStatsGraph(page + 1, arr);
         } else {
           this.setState({
-            stats_graph_series: [
+            stock_graph_series: this.state.stock_graph_series.concat([
               {
-                name: "Constant",
-                data: arr.map((d) => [d.from_date, parseFloat(d.constant)]),
-              },
-              {
-                name: "BMG",
+                name: "Carbon",
                 data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
               },
               {
-                name: "Market RF",
+                name: "Market",
                 data: arr.map((d) => [d.from_date, parseFloat(d.mkt_rf)]),
               },
               {
@@ -303,35 +304,13 @@ export default class Stock extends Component {
                 name: "WML",
                 data: arr.map((d) => [d.from_date, parseFloat(d.wml)]),
               },
-              {
-                name: "Jarque Bera",
-                data: arr.map((d) => [d.from_date, parseFloat(d.jarque_bera)]),
-              },
-              {
-                name: "Breusch Pagan",
-                data: arr.map((d) => [
-                  d.from_date,
-                  parseFloat(d.breusch_pagan),
-                ]),
-              },
-              {
-                name: "Durbin Watson",
-                data: arr.map((d) => [
-                  d.from_date,
-                  parseFloat(d.durbin_watson),
-                ]),
-              },
-              {
-                name: "R Squared",
-                data: arr.map((d) => [d.from_date, parseFloat(d.r_squared)]),
-              },
-            ],
+            ]),
           });
-          this.setState({ stats_graph_loadingIndicator: false });
+          this.setState({ stock_graph_loadingIndicator: false });
         }
       })
       .catch((e) => {
-        this.setState({ stats_graph_loadingIndicator: false });
+        this.setState({ stock_graph_loadingIndicator: false });
         console.log(e);
       });
   }
@@ -383,6 +362,13 @@ export default class Stock extends Component {
         this.retrieveStats();
       }
     );
+  }
+
+  handleCurrentSeriesChange(event, value) {
+    console.log("handleCurrentSeriesChange:: ", event, value);
+    this.setState({
+      stock_graph_current_series_name: value,
+    });
   }
 
   renderFormattedField(field, item) {
@@ -517,10 +503,8 @@ export default class Stock extends Component {
       data_loadingIndicator,
       stock_graph_options,
       stock_graph_series,
+      stock_graph_current_series_name,
       stock_graph_loadingIndicator,
-      stats_graph_options,
-      stats_graph_series,
-      stats_graph_loadingIndicator,
       stats,
       stats_page,
       stats_count,
@@ -596,22 +580,39 @@ export default class Stock extends Component {
 
             <div className="mt-2">
               {this.renderSpinner(stock_graph_loadingIndicator)}
-              <Chart
-                options={stock_graph_options}
-                series={stock_graph_series}
-                type="area"
-                width="100%"
-              />
-            </div>
-
-            <div className="mt-2">
-              {this.renderSpinner(stats_graph_loadingIndicator)}
-              <Chart
-                options={stats_graph_options}
-                series={stats_graph_series}
-                type="area"
-                width="100%"
-              />
+              {!stock_graph_loadingIndicator ? (
+                <>
+                  <ToggleButtonGroup
+                    color="primary"
+                    value={stock_graph_current_series_name}
+                    exclusive
+                    onChange={this.handleCurrentSeriesChange}
+                  >
+                    {stock_graph_series.map((s) => (
+                      <ToggleButton key={s.name} value={s.name}>
+                        {s.name}
+                      </ToggleButton>
+                    ))}
+                  </ToggleButtonGroup>
+                  {stock_graph_series.map((s) => (
+                    <Chart
+                      key={s.name}
+                      options={stock_graph_options}
+                      series={[s]}
+                      type="area"
+                      width="100%"
+                      style={{
+                        display:
+                          s.name === stock_graph_current_series_name
+                            ? "block"
+                            : "none",
+                      }}
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         ) : (

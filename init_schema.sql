@@ -40,6 +40,7 @@ CREATE TABLE stock_data (
     ticker text,
     date date,
     close decimal(30, 10),
+    return decimal(20, 10),
     PRIMARY KEY (ticker, date)
 );
 

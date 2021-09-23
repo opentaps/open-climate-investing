@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
       close: {
         type: Sequelize.DECIMAL(30, 10),
       },
+      return: {
+        type: Sequelize.DECIMAL(20, 10),
+      },
     },
     {
       timestamps: false,

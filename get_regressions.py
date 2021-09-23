@@ -54,12 +54,9 @@ def run_regression(ticker, start_date, end_date=None, carbon_data=None, ff_data=
         print('Got ff_data ...')
         print(ff_data)
 
-    stock_data = get_stocks.load_stocks_data(ticker)
+    stock_data = get_stocks.import_stock(ticker)
     if len(stock_data) == 0:
-        print('No stock data for {}, loading ...'.format(ticker))
-        stock_data = get_stocks.import_stock(ticker)
-    if len(stock_data) == 0:
-        print('No stock data for ticker {} !'.format(ticker))
+        print('No stock data for {} !'.format(ticker))
         return
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
