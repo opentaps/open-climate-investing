@@ -45,7 +45,10 @@ window incremented by one month at each step (until the model no longer runs due
 
 ### Viewing the Results
 
-There is a react UI in the `ui/` directory. To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
+There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've 
+run `get_regressions.py`, then you can use this UI to view the results.
+
+To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
 ```
 cd ui/node-server
 npm run start
@@ -54,17 +57,6 @@ and
 ```
 cd ui/react
 npm run start
-```
-
-In order to have data to display for the stocks loaded by `./init_db.sh` you should also run either:
-Get the data for all the stocks (will take a while to finish running):
-```
-python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b --from_db
-```
-
-Get the data for only a test stock (ie: AAPL):
-```
-python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b -t AAPL
 ```
 
 ### Running Command Line Scripts 
