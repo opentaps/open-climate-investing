@@ -104,8 +104,8 @@ This book is meant for investors (in the Ben Graham and Warren Buffett sense of 
 ### How to Use this Book
 
 Please do not think of this as a "book."  It is a how-to manual that you can talk back to.  Use it for your climate investing, and then share what worked, what didn't, and how to make it better.  Tell me about the bugs and mistakes
-you find.  [Ask questions using
-the tag open-climate-investing on quant.stackexchange.com](https://quant.stackexchange.com/questions/tagged/open-climate-investing) or [create an issue on github](https://github.com/opentaps/open-climate-investing/issues).  It will be continuously updated to reflect the latest of all its readers' experiences.  If you're new to investing, welcome!  Let this book help you learn about this interesting field.  Ask questions.  Ask for clarifications.  Suggest changes.  Help spread the word.  [Sign up](https://opentaps.org/subscribe/) for an occasional email about our work with open source, climate finance, and climate investing.  
+you find.  [Ask questions](https://quant.stackexchange.com/questions/tagged/open-climate-investing) using
+the tag `open-climate-investing` on [quant.stackexchange.com](https://quant.stackexchange.com/questions/tagged/open-climate-investing) or [create an issue on github](https://github.com/opentaps/open-climate-investing/issues).  It will be continuously updated to reflect the latest of all its readers' experiences.  If you're new to investing, welcome!  Let this book help you learn about this interesting field.  Ask questions.  Ask for clarifications.  Suggest changes.  Help spread the word.  [Sign up](https://opentaps.org/subscribe/) for an occasional email about our work with open source, climate finance, and climate investing.  
 
 Climate change is happening because we're all living and working in our own little silos.  The only way to fix is to work together.
 

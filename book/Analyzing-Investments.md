@@ -161,11 +161,11 @@ Furthermore, companies emit GHG in a variety of activities.  The standard for GH
  * Scope 1 is emissions from fuel directly combusted on site at a company.  For example, utilities and steelmakers burning coal or natural gas, or airlines burning aviation fuel.
  * Scope 2 is emissions from energy purchased by a company.  For example, buildings purchasing electricity from a utility.
  * Scope 3 is emissions from all the upstream and downstream activities of a company.  It is a very broad category and includes all of the following and more:
-  * Oil extracted by an oil company and burnt by an airline or car
-  * Flights taken by employees of a company
-  * Steel bought as raw materials
-  * Shipping a product to customers
-  * Using cloud-based servers (Yes, that includes your reading this article right now.)
+    * Oil extracted by an oil company and burnt by an airline or car
+    * Flights taken by employees of a company
+    * Steel bought as raw materials
+    * Shipping a product to customers
+    * Using cloud-based servers (Yes, that includes your reading this article right now.)
 
 Naturally, this means emissions are transferred between companies.  Natural gas that is extracted by an oil company is Scope 3 for the oil company, Scope 1 for the utility that uses it, and then Scope 2 for the office building that 
 uses the electricity from the same utility.
