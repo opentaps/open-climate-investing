@@ -8,14 +8,14 @@ carbon_data <- read_csv("data/carbon_risk_factor.csv")
 ff_data <- read_csv("data/ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader
-#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
-final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
 
 # Read in the sector breakdowns
-#final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
-final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
+#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
 # Making the date column have the same name  for the join later
 colnames(carbon_data)[1] <- "Date"
@@ -53,7 +53,7 @@ for (i in 1:length(stock_names)) {
     temp_reg_ff <- summary(temp_reg_ff)
     temp_reg_ff_bmg <- lm(Returns ~ Mkt_less_RF + SMB + HML + WML + BMG, data = temp_data)
     temp_reg_ff_bmg <- summary(temp_reg_ff_bmg)
-    
+
     temp_pred_power <- data.frame(Stock = temp_stock_name,
                                   FF_Rsq = temp_reg_ff$r.squared,
                                   FFB_Rsq = temp_reg_ff_bmg$r.squared,
@@ -80,7 +80,8 @@ all_sector_pred_power <- c(mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
 ### By sector
 pred_power <- pred_power %>%
   inner_join(final_stock_breakdown,
-             by = c("Stock" = "Symbol"))
+#             by = c("Stock" = "Symbol"))   # for spx
+by = c("Stock" = "Ticker"))   # for msci
 
 
 ### This is for SPX Only
@@ -91,13 +92,13 @@ pred_power_table <- pred_power %>%
   mutate(RSq_Diff = FFB_Rsq - FF_Rsq,
          AdjRSq_Diff = FFB_AdjRsq - FF_AdjRsq) %>%
   ### Change the below line by what you want to group things by
-  group_by(GICS_Sub) %>%
-  summarise("Change in R Squared" = mean(RSq_Diff), 
+  group_by(Sector) %>%
+  summarise("Change in R Squared" = mean(RSq_Diff),
             "Change in Adjusted R Squared" = mean(AdjRSq_Diff))
 
 pred_power_table <- pred_power_table %>% tibble::add_row(
   ### Change line below to match line 93-94
-  GICS_Sub = "All Sectors",
+  Sector = "All Sectors",
   `Change in R Squared` = all_sector_pred_power[1],
   `Change in Adjusted R Squared` = all_sector_pred_power[2]
 )
@@ -106,4 +107,4 @@ pred_power_table <- pred_power_table %>% tibble::add_row(
 pred_power_table
 
 # Write table
-write.csv(pred_power_table, "Predictive Power Table.csv")
+write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
