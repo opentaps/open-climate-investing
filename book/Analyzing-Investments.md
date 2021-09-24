@@ -83,8 +83,7 @@ probably a lot of opportunities if you invested some time in analyzing companies
 
 Climate change is a long-term process with a lot of uncertainty.  How it plays out, and then how that affects an actual company, could depend on a number of scenarios.  Thus
 analyzing climate exposure is, in many ways, similar to analyzing mortage-backed securities:  You will need to project multiple scenarios far into the future, calculate their 
-financial ipacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Did you think I was going on and on about mortgages and OAS models
-to thump my chest?)
+financial ipacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Now you see why I needed to tell you aobut mortgages and OAS models.)
 
 The key steps of this anlaysis are:
 
