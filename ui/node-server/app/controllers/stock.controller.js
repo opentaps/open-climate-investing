@@ -179,6 +179,7 @@ exports.findAll = (req, res) => {
     query.include = includes;
     query.subQuery = false;
   }
+  query.order = ["ticker"];
   console.log("findAll -> query", query);
 
   Stock.findAndCountAll(query)

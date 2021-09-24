@@ -34,6 +34,7 @@ const STAT_BOX_FIELDS = [
 const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
+const DEFAULT_GRAPH = "Carbon";
 const GRAPH_OPTIONS = {
   chart: {
     type: "area",
@@ -125,10 +126,10 @@ export default class Stock extends Component {
       data_pageSize: DEFAULT_PAGE_SIZE,
       data_loadingIndicator: false,
       stock_graph_options: stock_graph_options,
-      stock_graph_current_series_name: "Price",
+      stock_graph_current_series_name: DEFAULT_GRAPH,
       stock_graph_series: [],
       stock_graph_loadingIndicator: false,
-      latest_stock_stats: {},
+      latest_stock_stats: null,
       stats: [],
       stats_page: 1,
       stats_count: 0,
@@ -157,6 +158,7 @@ export default class Stock extends Component {
       .then((response) => {
         this.setState({
           current: response.data,
+          message: "",
         });
         console.log(response.data);
         window.scrollTo(0, 0);
@@ -268,7 +270,7 @@ export default class Stock extends Component {
                 data: arr.map((d) => [d.date, parseFloat(d.return) * 100.0]),
               },
             ],
-            stock_graph_current_series_name: "Price",
+            stock_graph_current_series_name: DEFAULT_GRAPH,
           });
           // now add the other series from Stats
           this.retrieveStatsGraph();
@@ -302,12 +304,28 @@ export default class Stock extends Component {
         } else {
           // get the min / max date range
           let last = arr[arr.length - 1];
+          if (!last) {
+            this.setState({
+              stock_graph_loadingIndicator: false,
+              message: "No data on record for this Stock.",
+            });
+            return;
+          }
           let min_date = arr[0].from_date;
           let max_date = last.from_date;
-          let series = this.state.stock_graph_series.map(s=>{
-            return {name: s.name, data: s.data.filter(d=>d[0] >= min_date && d[0] <= max_date)}
-          });
+          let series = this.state.stock_graph_series;
+          if (LIMIT_GRAPHS_DATES) {
+            series = series.map((s) => {
+              return {
+                name: s.name,
+                data: s.data.filter(
+                  (d) => d[0] >= min_date && d[0] <= max_date
+                ),
+              };
+            });
+          }
           this.setState({
+            stock_graph_loadingIndicator: false,
             latest_stock_stats: last,
             stock_graph_series: series.concat([
               {
@@ -332,7 +350,6 @@ export default class Stock extends Component {
               },
             ]),
           });
-          this.setState({ stock_graph_loadingIndicator: false });
         }
       })
       .catch((e) => {
@@ -353,11 +370,11 @@ export default class Stock extends Component {
       .then((stats_response) => {
         const { items, totalPages, totalItems } = stats_response.data;
         this.setState({
+          stats_loadingIndicator: false,
           stats: items,
           stats_count: totalPages,
           stats_total: totalItems,
         });
-        this.setState({ stats_loadingIndicator: false });
       })
       .catch((e) => {
         this.setState({ stats_loadingIndicator: false });
@@ -591,8 +608,6 @@ export default class Stock extends Component {
               <Tab label={`Stats (${stats_total})`} />
             </Tabs>
 
-            <p>{message}</p>
-
             <div role="tabpanel" hidden={current_tab !== 0}>
               <div className="mt-4">
                 <label>
@@ -633,17 +648,17 @@ export default class Stock extends Component {
               )}
             </div>
 
-            <div className="mt-2 row align-items-start">
-              <div class="col">
-                {latest_stock_stats
-                  ? this.renderStatsFieldsTable(
-                      STAT_TABLE_FIELDS,
-                      latest_stock_stats
-                    )
-                  : ""}
-              </div>
-              <div class="col">
-                {latest_stock_stats ? (
+            <p>{message}</p>
+
+            {!stock_graph_loadingIndicator && latest_stock_stats ? (
+              <div className="mt-2 row align-items-start">
+                <div className="col">
+                  {this.renderStatsFieldsTable(
+                    STAT_TABLE_FIELDS,
+                    latest_stock_stats
+                  )}
+                </div>
+                <div className="col">
                   <table className="table">
                     <thead>
                       <tr>
@@ -661,15 +676,15 @@ export default class Stock extends Component {
                       ))}
                     </tbody>
                   </table>
-                ) : (
-                  ""
-                )}
+                </div>
               </div>
-            </div>
+            ) : (
+              ""
+            )}
 
             <div className="mt-2">
               {this.renderSpinner(stock_graph_loadingIndicator)}
-              {!stock_graph_loadingIndicator ? (
+              {!stock_graph_loadingIndicator && latest_stock_stats ? (
                 <>
                   <ToggleButtonGroup
                     color="primary"

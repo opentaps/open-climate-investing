@@ -40,6 +40,7 @@ exports.findAll = (req, res) => {
     where: conditions ? conditions : null,
     limit,
     offset,
+    order: ["ticker", "date"],
   })
     .then((data) => {
       console.log(`findAll -> findAndCountAll = ${data}`);
