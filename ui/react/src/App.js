@@ -12,6 +12,16 @@ class App extends Component {
     return baseEl.getAttribute("href");
   }
 
+  render_term_link() {
+    const termUrl =
+      "https://github.com/opentaps/open-climate-investing/blob/main/LICENSE";
+    return (
+      <a target="_blank" href={termUrl}>
+        Terms of Use
+      </a>
+    );
+  }
+
   render() {
     const basename = this.getBaseUrl();
     return (
@@ -48,23 +58,18 @@ class App extends Component {
               <Route exact path="/about">
                 <h1>About</h1>
                 <p>The Open Climate Investing about page.</p>
-                <p>
-                  See our <Link to={"/terms"}>Terms of Use</Link>
-                </p>
+                <p>See our {this.render_term_link()}</p>
               </Route>
               <Route exact path="/terms">
                 <h1>Terms of Use</h1>
-                <p>Some terms here.</p>
+                <p>See our {this.render_term_link()}</p>
               </Route>
             </Switch>
           </div>
         </div>
         <footer className="bg-light">
           <div className="py-5 container text-left">
-            <p>Open Climate Investing</p>
-            <p>
-              See our <Link to={"/terms"}>Terms of Use</Link>
-            </p>
+            <p>See our {this.render_term_link()}</p>
           </div>
         </footer>
       </Router>

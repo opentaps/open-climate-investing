@@ -562,7 +562,7 @@ export default class Stock extends Component {
         {current ? (
           <div>
             <h4>
-              Stock {current.ticker} {current.name}{" "}
+              {current.ticker} {current.name}{" "}
               <button
                 className="btn btn-primary btn-sm ms-4"
                 onClick={this.goBack}
@@ -586,9 +586,11 @@ export default class Stock extends Component {
 
             <div role="tabpanel" hidden={current_tab !== 0}>
               <div className="mt-4">
-                {StockDataService.fields()
-                  .filter((f) => !f.searchOnly)
-                  .map((f) => this.renderField(f, current))}
+                <label>
+                  <strong>Sector:</strong>
+                </label>{" "}
+                {current.sector}
+                {current.sub_sector ? ` / ${current.sub_sector}` : ""}
               </div>
             </div>
 

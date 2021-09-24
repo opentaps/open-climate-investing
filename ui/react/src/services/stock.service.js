@@ -19,8 +19,8 @@ class StockDataService {
 
   fields() {
     return [
-      { label: "Ticker", name: "ticker" },
-      { label: "Name", name: "name" },
+      { label: "Ticker", name: "ticker", searchOnly: true },
+      { label: "Name", name: "name", searchOnly: true },
       { label: "Sector", name: "sector" },
       { label: "Sub Sector", name: "sub_sector" },
     ];
