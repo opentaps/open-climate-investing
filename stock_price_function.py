@@ -1,12 +1,14 @@
 import yfinance as yf
 import pandas as pd
+from pandas.tseries.offsets import MonthEnd
 
 
 def stock_grabber(ticker):
     stock = yf.Ticker(ticker)
     hist = stock.history(period='max', interval='1mo')
     hist.drop(hist.tail(1).index, inplace=True)
-    hist.index = hist.index - pd.to_timedelta(1, unit='d')
+    hist.index = hist.index + MonthEnd(1)
+    print(hist)
     hist = hist['Close']
     hist = hist.dropna()
     return(hist)
