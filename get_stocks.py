@@ -38,7 +38,7 @@ def import_stocks_into_db(stock_name, stock_data):
         pc.rename(columns={'Close': 'r'}, inplace=True)
         stock_data = pd.merge(stock_data, pc, on='date_converted')
         for index, row in stock_data.iterrows():
-            print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
+            #print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
             cursor.execute(sql, (stock_name, index, row['Close'], row['r']))
 
 

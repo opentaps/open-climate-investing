@@ -28,7 +28,6 @@ class DateInRangeError(Exception):
 # Merges the 3 dataframes (returns, FF, carbon) into 1 dataframe
 def merge_data(df1, df2):
     df1['date'] = pd.to_datetime(df1.index).date
-    # df1['date'] = MonthEnd(df1['date'])
     df2['date'] = pd.to_datetime(df2.index).date
     final_df = pd.merge(df1, df2, how='inner', left_on='date', right_on='date')
     final_df.index = final_df['date']

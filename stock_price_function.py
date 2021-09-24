@@ -8,7 +8,6 @@ def stock_grabber(ticker):
     hist = stock.history(period='max', interval='1mo')
     hist.drop(hist.tail(1).index, inplace=True)
     hist.index = hist.index + MonthEnd(1)
-    print(hist)
     hist = hist['Close']
     hist = hist.dropna()
     return(hist)

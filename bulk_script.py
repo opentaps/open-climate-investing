@@ -1,6 +1,5 @@
 import pandas as pd
 import stock_price_function as spf
-from pandas.tseries.offsets import MonthEnd
 import regression_function as regfun
 import input_function
 
@@ -10,7 +9,6 @@ import input_function
 
 def merge_data(df1, df2):
     df1['date'] = pd.to_datetime(df1.index).date
-    # df1['date'] = MonthEnd(df1['date'])
     df2['date'] = pd.to_datetime(df2.index).date
     final_df = pd.merge(df1, df2, how='inner', left_on='date', right_on='date')
     final_df.index = final_df['date']
@@ -127,8 +125,6 @@ for i in range(start_range, end_range):
         stock_name = all_stock_data[i].item()
         stock_data = spf.stock_df_grab(stock_name)
         stock_data = input_function.convert_to_form(stock_data)
-        stock_data.index = pd.to_datetime(
-            stock_data.index, format="%Y%m") + MonthEnd(1)
         stock_data = stock_data.pct_change(periods=1)
         stock_data.dropna(inplace=True)
     else:
