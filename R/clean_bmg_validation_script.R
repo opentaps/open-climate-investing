@@ -47,7 +47,7 @@ colnames(all_data)[5] <- "Mkt_less_RF"
 
 
 ### Check single OLS
-single_stock_name <- "AAPL"
+single_stock_name <- "SLB"
 single_reg <- lm(Returns ~
                    BMG +
                    Mkt_less_RF +
@@ -63,6 +63,11 @@ get_loadings <- function(stock_names, all_data, carbon_data) {
 
   # Create a blank dataframe
   no_carbon_residuals <- c()
+
+  # Get unique stock names
+  stock_names <- all_data %>%
+    select(Stock) %>%
+    unique()
 
   # Start look to go through all the stocks in stock_names
   for (i in 1:nrow(stock_names)) {
@@ -103,7 +108,7 @@ get_loadings <- function(stock_names, all_data, carbon_data) {
     no_carbon_data <- no_carbon_data[-which(duplicated(index(no_carbon_data))), ]
   }
 
-  # Run the panel regression of the BMG factor on the residuals
+  # Run the panel regression of the BMG factor on the residuals - this part doesn't work but Matt said we don't need it right now
   no_carbon_regression <- plm(Res ~ BMG,
                               data = no_carbon_data,
                               effect = "individual",
@@ -112,11 +117,6 @@ get_loadings <- function(stock_names, all_data, carbon_data) {
   return(no_carbon_regression)
 
 }
-
-# Get unique stock names
-stock_names <- all_data %>%
-  select(Stock) %>%
-  unique()
 
 market_output <- get_loadings(stock_names, all_data, carbon_data)
 
@@ -134,8 +134,8 @@ colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub")
 
 ### Starting again
 #unique_sectors <- unique(stock_breakdowns$"Sector")   # for msci
-#unique_sectors <- unique(stock_breakdowns$"GICS_Sector")   # for spx by sector
-unique_sectors <- unique(stock_breakdowns$"GICS_Sub")   # for spx by sub-industry
+unique_sectors <- unique(stock_breakdowns$"GICS_Sector")   # for spx by sector
+#unique_sectors <- unique(stock_breakdowns$"GICS_Sub")   # for spx by sub-industry
 
 
 bmg_loading_final <- c()
@@ -145,8 +145,8 @@ for (j in 1:length(unique_sectors)) {
 
   stock_names <- stock_breakdowns %>%
   #  filter(Sector == unique_sectors[j]) %>%    # for msci
-#    filter(GICS_Sector == unique_sectors[j]) %>%    # for spx by sector
-    filter(GICS_Sub == unique_sectors[j]) %>%    # for spx by sub-industry
+    filter(GICS_Sector == unique_sectors[j]) %>%    # for spx by sector
+#    filter(GICS_Sub == unique_sectors[j]) %>%    # for spx by sub-industry
     select(Stock)
 
   sector_no_carbon_regression <- get_loadings(stock_names, all_data, carbon_data)
