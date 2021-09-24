@@ -1,7 +1,7 @@
 This is a ***very rought draft*** right now.  When completed, it will have these chapters:
 
 - [Introduction](Introduction.md)
-- Climate and Investing: Transition scenarios, physical risks, carbon price risks
+- [Climate and Investing](Climate-and-Investing.md): Transition scenarios, physical risks, carbon price risks
 - [Analyzing Investments](Analyzing-Investments.md)
 - Structuring Portfolios: Analyzing and structuring investment portfolios 
 - Creating Indices: Creating indices with climate in mind
