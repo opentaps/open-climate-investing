@@ -111,7 +111,7 @@ market_output <- get_loadings(stock_names, all_data, carbon_data)
 ### By sector ###
 stock_breakdowns <- stock_names %>%
 #  inner_join(final_stock_breakdown, by = c("Stock" = "Ticker")) # for msci
-inner_join(final_stock_breakdown, by = c("Stock" = "Symbol")) # for spx
+  inner_join(final_stock_breakdown, by = c("Stock" = "Symbol")) # for spx
 
 
 ### This is for SPX Only
@@ -159,3 +159,73 @@ bmg_loading_final <- bmg_loading_final %>%
 
 bmg_loading_final$`p-Value` <- round(bmg_loading_final$`p-Value`, 4)
 write_csv(bmg_loading_final, "Loadings Table.csv")
+
+
+### Improvement in predictions
+
+# Create a blank dataframe
+pred_power <- c()
+
+stock_names <- unique(all_data$Stock)
+
+# Start look to go through all the stocks in stock_names
+for (i in 1:length(stock_names)) {
+  # Get the stocks name
+  temp_stock_name <- as.character(stock_names[i])
+  # Filter all the data to only include that stock
+  temp_data <- all_data %>%
+    dplyr::filter(Stock == temp_stock_name)
+  # If there is more than 12 months of data, run the FF (no BMG) regression
+  if (nrow(temp_data) >= 12) {
+    temp_reg_ff <- lm(Returns ~ Mkt_less_RF + SMB + HML + WML, data = temp_data)
+    temp_reg_ff <- summary(temp_reg_ff)
+    temp_reg_ff_bmg <- lm(Returns ~ Mkt_less_RF + SMB + HML + WML + BMG, data = temp_data)
+    temp_reg_ff_bmg <- summary(temp_reg_ff_bmg)
+    
+    temp_pred_power <- data.frame(Stock = temp_stock_name,
+                                  FF_Rsq = temp_reg_ff$r.squared,
+                                  FFB_Rsq = temp_reg_ff_bmg$r.squared,
+                                  FF_AdjRsq = temp_reg_ff$adj.r.squared,
+                                  FFB_AdjRsq = temp_reg_ff_bmg$adj.r.squared)
+    pred_power <- rbind(pred_power,
+                        temp_pred_power)
+  }
+  print(c(i, temp_stock_name))
+}
+
+pred_power <- tibble(pred_power)
+
+# Increase in RSq
+mean(pred_power$FFB_Rsq - pred_power$FF_Rsq)
+
+# Increase in Adjusted RSq
+mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq)
+
+
+all_sector_pred_power <- c(mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
+                           mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq))
+
+### By sector
+pred_power <- pred_power %>%
+  inner_join(final_stock_breakdown,
+             by = c("Stock" = "Symbol"))
+
+
+### This is for SPX Only
+colnames(pred_power)[7:8] <- c("GICS_Sector", "GICS_Sub")
+
+
+pred_power_table <- pred_power %>%
+  mutate(RSq_Diff = FFB_Rsq - FF_Rsq,
+         AdjRSq_Diff = FFB_AdjRsq - FF_AdjRsq) %>%
+  group_by(GICS_Sector) %>%
+  summarise("Change in R Squared" = mean(RSq_Diff), 
+            "Change in Adjusted R Squared" = mean(AdjRSq_Diff))
+
+pred_power_table <- pred_power_table %>% tibble::add_row(
+  GICS_Sector = "All Sectors",
+  `Change in R Squared` = all_sector_pred_power[1],
+  `Change in Adjusted R Squared` = all_sector_pred_power[2]
+)
+
+pred_power_table

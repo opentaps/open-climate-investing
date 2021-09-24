@@ -4,6 +4,9 @@ packages <- c("quantmod",
               "plm",
               "shiny",
               "shinydashboard",
-              "broom")
+              "shinyjs",
+              "broom",
+              "DT",
+              "corrplot")
   
 install.packages(setdiff(packages, rownames(installed.packages())))
