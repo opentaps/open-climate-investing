@@ -17,19 +17,18 @@ psql ${DB_NAME} -c "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&
 # msci
 psql ${DB_NAME} -c "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');"
 
-# import components of spx
-psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_comps CASCADE; CREATE TABLE _stock_comps (
+# import components and weights of spx
+psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_weights CASCADE; CREATE TABLE _stock_weights (
     ticker text,
-    name text,
-    sector text,
-    sub_sector text,
+    weight DECIMAL(5,2),
     PRIMARY KEY (ticker)
 );
 DELETE FROM stock_components WHERE ticker = 'IVV';
-COPY _stock_comps FROM STDIN WITH (FORMAT CSV, HEADER);
+COPY _stock_weights FROM STDIN WITH (FORMAT CSV, HEADER);
 INSERT INTO stock_components (ticker, component_stock, percentage) SELECT
-'IVV', ticker, 0.0 FROM _stock_comps;
-" < data/spx_sector_breakdown.csv
+'IVV', ticker, weight FROM _stock_weights;
+DROP TABLE IF EXISTS _stock_weights CASCADE;
+" < data/spx_constituent_weights.csv
 
 # import components of msci
 psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_comps CASCADE; CREATE TABLE _stock_comps (

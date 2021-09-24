@@ -7,13 +7,13 @@ research project.  It can be used for a variety of climate investing application
 - Determine the market reaction to the climate policies of a company
 - Optimize a portfolio to minimize carbon risk subject to other parameters, such as index tracking or growth-value-sector investment strategies.
 
-### Running the Code
+## Running the Code
 Install the required python modules (use `pip3` instead of `pip` according to your python installation):
 ```
 pip install -r requirements.txt
 ```
 
-#### Using a Database
+### Using a Database
 
 Init the Database using:
 ```
@@ -34,8 +34,8 @@ All instances support an additional `-s YYY-MM-DD` to specify the start date and
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python get_regressions.py -n ALB` to run and output a regression for a given stock but not store it
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
-- `python get_regressions.py -l ALB` to list the results stored in the DB after the given start date
-- `python get_regressions.py -s ALB -d YYY-MM-DD -e YYY-MM-DD` to show a given result stored in the DB for the given start and end date
+- `python get_regressions.py -l ALB -d YYYY-MM-DD` to list the results stored in the DB after the given start date
+- `python get_regressions.py -s ALB -d YYYY-MM-DD -e YYYY-MM-DD` to show a given result stored in the DB for the given start and end date
 
 To run a batch of regressions on a ticker (or list of tickers) give the start date and end date of the first regression run window and it will run for every
 window incremented by one month at each step (until the model no longer runs due to insufficient data). For example:
@@ -43,9 +43,12 @@ window incremented by one month at each step (until the model no longer runs due
 - `python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b --from_db` will run for all the tickers defined in the database `stock` table.
 
 
-#### UI
+### Viewing the Results
 
-There is a react UI in the `ui/` directory. To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
+There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've 
+run `get_regressions.py`, then you can use this UI to view the results.
+
+To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
 ```
 cd ui/node-server
 npm run start
@@ -56,24 +59,11 @@ cd ui/react
 npm run start
 ```
 
-In order to have data to display for the stocks loaded by `./init_db.sh` you should also run either:
-Get the data for all the stocks (will take a while to finish running):
-```
-python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b --from_db
-```
+### Running Command Line Scripts 
 
-Get the data for only a test stock (ie: AAPL):
+These have been deprecated but are still available and can be used to  run regressions in the command line without the database:
 ```
-python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b -t AAPL
-```
-
-
-
-#### Previous way
-
-Then:
-```
-python3 factor_regression.py
+python factor_regression.py
 ```
 The inputs are:
 - Stock return data: Use the `stock_data.csv` or enter a ticker
@@ -82,20 +72,16 @@ The inputs are:
 
 The output will be a print output of the statsmodel object, the statsmodel coefficient summary, including the coefficient & p-Values (to replicate that of the CARIMA paper)
 
-
-### Code
 stock_price_function.py adjusts this so it returns an object (which is used later)
 
 factor_regression.py loads in the stock prices, the carbon risk factor and the Fama-French factors. The names of these CSVs are asked for. If stock data would be liked to be downloaded, then it will use stock_price_function.py to do so
 
-
-### Script Overview
 - Ensure that you have the relevant modules installed
 - Have stock_price_script.py in the same folder as factor_regression.py
 - Have your factor CSVs saved
 - Run factor_regression.py and follow the prompts and enter the names of the CSVs as asked
 
-### Output Interpretation
+## Understanding the Output
 
 The model uses the coefficients on each factor to calculate the stocks loadings on to it. If it is positive, it indicates that the stock returns are positively linked to that factor (i.e. if that factor increases, the returns increase), and the inverse if it is negative.
 
@@ -113,13 +99,13 @@ The R Squared is what percentage of the stock returns (dependent variable) are e
 
 An overview of ordinary least-squares regression can be found [here on Wikipedia](https://en.wikipedia.org/wiki/Ordinary_least_squares)
 
-### R Installation
+## R Scripts
+
 To use the R scripts and apps, please download the latest version of [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
-Open the script "/R/requirements_r.R" and run it.
+Open the script `/R/requirements_r.R` and run it.
 This will install all the packages
 
-### R Scripts
-- bulk_stock_return_downloader.R is a method to download multiple stocks. Using line 8, replace "stock_tickers.csv" with the list of tickers you wish to use, saved as a CSV in the /R folder
+- bulk_stock_return_downloader.R is a method to download multiple stocks. Using line 8, replace "stock_tickers.csv" with the list of tickers you wish to use, saved as a CSV in the data/ folder
 
 ## References
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)

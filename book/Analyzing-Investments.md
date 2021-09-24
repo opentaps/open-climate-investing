@@ -1,17 +1,18 @@
 ## Analyzing Investments
 
-True story: I used to manage portfolios of mortgage backed securities.  These were very complex to analyze, because as interest rates changed, their rates of repayment changed.  As a result, their value relative to other bonds such as Treasuries would move differently as rates rose and fell.  So we and other investors and traders developed
-very complex models called "Option Adjusted Spread" or OAS models to evaluate them.  These models projected interest rates and then repayment rates of the mortgages for 30 years under hundreds or even thousands of different scenarios, then aggregated the effects to come up with values for securities in the present day.
+True story: I used to manage portfolios of mortgage backed securities.  These were very complex to analyze, because as interest rates changed, their rates of repayment changed.  As a result, their value relative to other bonds such as Treasuries would move differently as rates rose and fell.  
 
-Then the markets moved in ways even these complex models couldn't predict: Rates fell a lot more than expected, and actual mortage repayment rates were far higher than any models predicted.  As a result, the market was in disarray, and the OAS models came up with results that nobody believed.
+So we and other investors and traders usedvery complex models called "Option Adjusted Spread" or OAS models to evaluate them.  These models projected interest rates and then repayment rates of the mortgages for 30 years under thousands of different scenarios, then aggregated the scenarios to come up with values for securities in the present day.  The OAS models were calibrated to the market prices of treasury or interest rate swap rates and options, so that they, in effect, valued the mortgage backed securities against them.  This also allowed mortgages to be hedged with treasuries, swaps, and options, which is what mortgage hedge funds in fact did.  But since these OAS models all relied on models of prepayments based on historical analysis of the data, in effect these funds were making bets on the correctness of their prepayment models.
 
-Then one day, I thought "What if we ran the models backwards?"  This is commonly done when there is no fundamental model to evaluate an investment with.
+
+Then the markets moved in ways even these complex models couldn't predict: Rates fell a lot more than expected, and actual mortage repayment rates were far higher than any models predicted.  As a result, the OAS models came up with results that nobody believed.  They were no longer useful for hedging or valuing securities.  Whoever still used them was in effect flying blind.
+
+So one day, I thought "What if we ran the models backwards?"  This is commonly done when there is no fundamental model to evaluate an investment with.
 Instead of plugging in parameters to calculate the price of, say, an option, you could 
 plug in an option's market price to calculate the volatility that would get you that price.  This is called "implied volatility" and is actually how options of all sorts are traded.  Traderes use it trade different options versus each other, and they also compare their own views of market volatility with what the market is thinking.
 
 Along those lines, I came up with an implied prepayment model where I could put in the prices of securities and come up with a prepayment model that would fit those prices.  
-Then, I thought, I could compare that model with my own beliefs about future prepayments.  I didn't actually get to use it much, but I did get a paper published (Yay!), and now 
-I see that paper even got cited by other papers (Seriously?!)
+Then, I thought, I could compare that model with my own beliefs about future prepayments.  I could also use it to trade or hedge one group of securities with another.  I didn't actually get to use it much, but I did get a paper published (Yay!), and now I see that paper even got cited by other papers (Woohoo!)
 
 Later, I met a Trader at a Big Firm.  This Big Firm had lots of analysts, including one of the best prepayment analysts on the Street.  But he just sat there by himself off to the side and kept sending us scatterplots that looked like this:
 
@@ -34,11 +35,11 @@ what they said it would do.
 
 ### Market Implied Model
 
-Now let's take a closer look at the market implied model.  
+_"Come on pal, tell me something I don't know, it's my birthday. Surprise me." - Gordon Gekko_
 
-First a little background about how these models came about.
+Now let's take a closer look at the market implied model.  First a little bit about how these models came about.
 
-Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of gossip about companies.  Then in the early 1960's, a young group of
+Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of information about companies.  Then in the early 1960's, a young group of
 finance professors revolutionized the field by saying none of that mattered.  In fact, it didn't even matter if you knew you were investing in livestock or preferred stock.  All that mattered was how the assets you owned
 moved with the overall market.  That could be summarized in a simple statistic, called the _Beta_, which could be calculated from a regression of the returns of an asset versus the returns of the market.  Once you had this Beta,
 you could tell how risky an asset was, how two assets should move versus each other, and whether an asset returned enough to compensate for its risks.  
@@ -65,16 +66,33 @@ those with low carbon risk (Green).  The original research paper provided a data
 stock by seeing how its prices have behaved.  In other words, what do all those smart people pouring through carbon disclosures, ESG data, and running scenarios, not to mention analyzing the company's business model, assets, and 
 operations, really think?
 
-Most importantly, we have turned all those disclosures, data, and scenarios -- the vague ESG stuff that make portfolio managers and traders say "How do I make money with this?" -- into something you could trade with.  You make money 
+Most importantly, we have turned all those disclosures, data, and scenarios -- the vague ESG stuff that make portfolio managers say "How do I monetize this?" (and traders say
+"How the f@#! am I going to make money with this s#&!" -- into something you could trade with.  You make money 
 with ESG the old fashioned way -- by finding what the market missed.  And getting it right. 
 
-
-This simple and elegant model did away of all the manual labor of pouring through annual reports, talking to the managements at companies, and who knows what else that investors spent their time doing.  They even showed that all
-that work amounted to very little -- those investors did not perform better than just passive portfolios that mimicked the market.  
+Now let's see what it looks like with a few examples.
 
 What does "market implied" mean, after all?  It means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?
 
-
 ### Fundamental Analysis
 
+_"The most valuable commodity I know of is information" - Gordon Gekko_
 
+I'm going to (figuratively) bet that given the limited awareness of climate among investors, the market is probably wrong about a lot of things.  In other words, there are 
+probably a lot of opportunities if you invested some time in analyzing companies' climate exposures.  So let the market implied model be a starting point, and let's dig in.
+
+Climate change is a long-term process with a lot of uncertainty.  How it plays out, and then how that affects an actual company, could depend on a number of scenarios.  Thus
+analyzing climate exposure is, in many ways, similar to analyzing mortage-backed securities:  You will need to project multiple scenarios far into the future, calculate their 
+financial ipacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Now you see why I needed to tell you aobut mortgages and OAS models.)
+
+The key steps of this anlaysis are:
+
+ * The company's current climate exposures: How much are its Greenhouse Gas (GHG) emissions now?  What are its assets?
+ * How those exposures will change: Every company talks about "sustainability" these days.  What is it reallying doing to reduce its climate exposures or "decarbonize"?
+ * Overlaying scenarios: How will potential events affect the company, given its current exposures and its path to decarbonize?
+ * Valuing the scenarios: Under each scenario, what is the economic impact (positive or negative) to the company?
+ * Comparing versus the market: Now the market implied values come in handy.
+
+As you can see, climate investing is not as simple as divesting from oil companies.  Just like you wouldn't buy a stock based on its current earnings, you shouldn't just rely on 
+current emissions to make climate investment decisions.  Instead, you have to account for both current positions, management actions, and potential long-term scenarios.  This is
+what makes investing fun!
