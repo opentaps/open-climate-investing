@@ -30,6 +30,8 @@ const STAT_BOX_FIELDS = [
   { label: "Durbin-Watson", name: "durbin_watson" },
 ];
 
+// should the graphs be limited to the common date range?
+const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const GRAPH_OPTIONS = {
@@ -298,9 +300,16 @@ export default class Stock extends Component {
         if (page + 1 < totalPages) {
           this.retrieveStatsGraph(page + 1, arr);
         } else {
+          // get the min / max date range
+          let last = arr[arr.length - 1];
+          let min_date = arr[0].from_date;
+          let max_date = last.from_date;
+          let series = this.state.stock_graph_series.map(s=>{
+            return {name: s.name, data: s.data.filter(d=>d[0] >= min_date && d[0] <= max_date)}
+          });
           this.setState({
-            latest_stock_stats: arr[arr.length - 1],
-            stock_graph_series: this.state.stock_graph_series.concat([
+            latest_stock_stats: last,
+            stock_graph_series: series.concat([
               {
                 name: "Carbon",
                 data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
