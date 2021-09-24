@@ -39,7 +39,7 @@ _"Come on pal, tell me something I don't know, it's my birthday. Surprise me." -
 
 Now let's take a closer look at the market implied model.  First a little bit about how these models came about.
 
-Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of gossip about companies.  Then in the early 1960's, a young group of
+Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of information about companies.  Then in the early 1960's, a young group of
 finance professors revolutionized the field by saying none of that mattered.  In fact, it didn't even matter if you knew you were investing in livestock or preferred stock.  All that mattered was how the assets you owned
 moved with the overall market.  That could be summarized in a simple statistic, called the _Beta_, which could be calculated from a regression of the returns of an asset versus the returns of the market.  Once you had this Beta,
 you could tell how risky an asset was, how two assets should move versus each other, and whether an asset returned enough to compensate for its risks.  
