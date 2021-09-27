@@ -30,7 +30,7 @@ class App extends Component {
             </div>
           </nav>
 
-          <div className="container mt-3">
+          <div className="main-container container mt-3">
             <Switch>
               <Route
                 exact
@@ -106,9 +106,7 @@ class App extends Component {
         </div>
         <footer className="bg-light">
           <div className="py-5 container text-left">
-            <p>
-              See our <Link to={"/terms"}>Terms of Use</Link>
-            </p>
+            See our <Link to={"/terms"}>Terms of Use</Link>
           </div>
         </footer>
       </Router>
