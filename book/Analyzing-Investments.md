@@ -35,7 +35,7 @@ what they said it would do.
 
 ### Market Implied Model
 
-_"Come on pal, tell me something I don't know, it's my birthday. Surprise me." - Gordon Gekko_
+_"Come on pal.  Tell me something I *don't* know.  It's my birthday.  Surprise me." - Gordon Gekko_
 
 Now let's take a closer look at the market implied model.  First a little bit about how these models came about.
 
@@ -50,27 +50,28 @@ physicists than accountants.  And though it is still vociferously by the "stock 
  * It's great for finding short-term mispricings and trade around them.  If two stocks are supposed to move together at a certain ratio with high probability, and one moves first, it's (usually) a good bet the other will move soon.
  * It's great for analyzing the performance of portfolios.  While the investment industry touts its stock picking prowess, most funds contain so many stocks, their returns could be reduced to statistical relationships versus major index returns.
 
-But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, the quants did find that other important factors could be
-statistically shown to affect returns.  For example, there are long periods where large cap stocks dominated, followed by periods where small cap stocks came out on top.  Returns were also trending -- good stocks keep going up.  There's
-probably not a mirror universe where AOL and Nokia bested Google and Apple, and K-Mart is Amazon.
-
-So in 1993, the Fama French 3-factor model was introduced to add two more parameters, one for size and one for momentum, to better explain returns.  This eventually led to the development of ever more sophisticated factor models with
-ever more factors, such as the
-[MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
+But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, the quants did find that other  
+statistically significant factors in returns.  The [Fama French 3-factor model](https://rady.ucsd.edu/faculty/directory/valkanov/pub/classes/mfe/docs/fama_french_jfe_1993.pdf) from 1993 became popular because it added two more parameters, one for size and one for balance sheet leverage.  This was followed up by the [Carhart 4-factor model](https://doi.org/10.1111/j.1540-6261.1997.tb03808.x) from 1997, which introduced a fourth factor, momentum. Today there are ever more sophisticated factor models with ever more factors, such as the [MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
 
 For analyzing climate risk, we found one such model: [Carbon Risk Management (CARIMA)](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/).  It was developed by Universtat Augsburg 
-with funding from the German Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French 3 Factor Model plus an additional factor for carbon risk.  We have taken the original model and created an [open source project](https://github.com/opentaps/open-climate-investing) which could be used to run it as scale and analyze large samples of stocks and portfolios over time.
+with funding from the German Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French and Carhart models plus an additional risk factor for climate risk.  Its risk factors are:
 
+ * Market: Returns of the market over the riskfree rate, similar to the original Beta from CAPM 
+ * SMB: Small Minus Big, the return difference of small cap stocks vs large cap stocks
+ * HML: High Minus Low, the return difference of stocks with high book equity/market equity vs low book equity/market equity
+ * WML: Winners Minus Losers, the return difference of stocks with high momentum (winners) vs low momentum 
+ * BMG: Brown Minus Green, the return difference of stocks with high climate risk (Brown) vs low climate risk (Green)
+ 
 What this model does is explain the sensitivity of any asset (could be a stock or a fund, or even futures on commodities -- anything that is traded would work) based on the return differential of stocks with high carbon risk (Brown) vs
 those with low carbon risk (Green).  The original research paper provided a data series for the Brown Minus Green (BMG) factor until the end of 2018.  With this model, we could now get the market's measure of the climate risk of a
 stock by seeing how its prices have behaved.  In other words, what do all those smart people pouring through carbon disclosures, ESG data, and running scenarios, not to mention analyzing the company's business model, assets, and 
 operations, really think?
 
 Most importantly, we have turned all those disclosures, data, and scenarios -- the vague ESG stuff that make portfolio managers say "How do I monetize this?" (and traders say
-"How the f@#! am I going to make money with this s#&!" -- into something you could trade with.  Furthermore, we've gotten around the commonly known problem of inconsistencies between ESG disclosures and scores by
+"How the f@#! am I going to make money with this s#&!") -- into something you could trade with.  Furthermore, we've gotten around the commonly known problem of inconsistencies between ESG disclosures and scores by
 using the market as the benchmark.   So using a market implied model, you don't have to bet on which ESG disclosure is "right."  You just have to be more right than what the market, as an aggregate, thinks.
 
-Now let's see what it looks like with a few examples.  (Note that these examples use data up to the end of 2018, but the ideas are the same.)  
+Now let's see what it looks like with a few examples.  (Note that these examples use data up to the end of 2018, but the ideas are the same.)  We have taken the original model and created an [open source project](https://github.com/opentaps/open-climate-investing) which could be used to run it as scale and analyze large samples of stocks and portfolios over time.  You can check out the code and run it yourself.
 
 #### Analyzing Stocks and Funds
 
@@ -125,8 +126,6 @@ knowledge, perhaps a 10% or 20% confidence level is still worth looking at.  Her
  * Is the risk factor for steel companies high enough, given the highly emissions of steelmaking?  Remember, a ton of steel on average produces 1.85 tons of GHG emissions.
 
 Similar analyses could be performed on portfolios, dissecting their carbon risk factors to the sectors, sub-sectors, and individual stocks.  
-
-Aren't these market-based models fun?
 
 ### Fundamental Analysis
 
