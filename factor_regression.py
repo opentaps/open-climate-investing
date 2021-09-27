@@ -102,10 +102,14 @@ def run_regression(stock_data, carbon_data, ff_data, ticker, start_date=None, en
     if len(all_factor_df) == 0:
         raise ValueError('No data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
             ticker, start_date))
+    # the statistical functions are not valid with less than 20 data points
+    if len(all_factor_df) < 20:
+        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
+            ticker, start_date))
 
     if verbose or not silent:
-        print('Running {} - {} regression using data from {} to {}'.format(start_date,
-                                                                           end_date, data_start_date, data_end_date))
+        print('Running {} - {} regression using data from {} to {} -- data has {} entries'.format(start_date,
+                                                                                                  end_date, data_start_date, data_end_date, len(all_factor_df)))
 
     model_output, coef_df_simple = regfun.regression_input_output(
         all_factor_df, ticker)

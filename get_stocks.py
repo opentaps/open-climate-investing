@@ -3,6 +3,7 @@ import pandas as pd
 import stock_price_function as spf
 import input_function
 import db
+from pg import DataError
 
 
 conn = db.get_db_connection()
@@ -16,7 +17,13 @@ def load_stocks_csv(filename):
 
 def import_stock(stock_name):
     stock_data = load_stocks_data(stock_name)
-    import_stocks_into_db(stock_name, stock_data)
+    try:
+        import_stocks_into_db(stock_name, stock_data)
+    except DataError as e:
+        print('!! Cannot import {} due to DataError inserting the data:'.format(stock_name))
+        print(e)
+        # return an empty data frame in that case
+        return pd.DataFrame()
     return stock_data
 
 
@@ -65,6 +72,7 @@ def main(args):
 
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
+            print('* loading stocks for {} ... '.format(stock_name))
             import_stock(stock_name)
 
     elif args.ticker:

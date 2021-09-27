@@ -179,6 +179,7 @@ def main(args):
 
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
+            print('* loading regression for {} ... '.format(stock_name))
             run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, carbon_data=carbon_data,
                            ff_data=ff_data, verbose=args.verbose, silent=True, store=True, batch=args.batch)
     elif args.ticker:
