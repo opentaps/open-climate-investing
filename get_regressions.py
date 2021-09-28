@@ -117,7 +117,7 @@ def run_regression_internal(stock_data, carbon_data, ff_data, ticker, start_date
                 sql_field = f.lower().replace(' ', '_').replace('-', '_')
                 if index != 'coef':
                     sql_field += index_to_sql_dict[index]
-                if row[f]:
+                if row[f] is not None and row[f] != '':
                     sql_params[sql_field] = row[f]
         store_regression_into_db(sql_params)
 
