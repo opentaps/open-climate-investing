@@ -35,6 +35,8 @@ const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const DEFAULT_GRAPH = "Carbon";
+const STAT_GRAPHS_MIN = -3;
+const STAT_GRAPHS_MAX = 3;
 const GRAPH_OPTIONS = {
   chart: {
     type: "area",
@@ -126,6 +128,7 @@ export default class Stock extends Component {
       data_pageSize: DEFAULT_PAGE_SIZE,
       data_loadingIndicator: false,
       stock_graph_options: stock_graph_options,
+      stock_graph_stats_options: {},
       stock_graph_current_series_name: DEFAULT_GRAPH,
       stock_graph_series: [],
       stock_graph_loadingIndicator: false,
@@ -324,31 +327,58 @@ export default class Stock extends Component {
               };
             });
           }
+          let stat_series = [
+            {
+              name: "Carbon",
+              data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
+            },
+            {
+              name: "Market",
+              data: arr.map((d) => [d.from_date, parseFloat(d.mkt_rf)]),
+            },
+            {
+              name: "SMB",
+              data: arr.map((d) => [d.from_date, parseFloat(d.smb)]),
+            },
+            {
+              name: "HML",
+              data: arr.map((d) => [d.from_date, parseFloat(d.hml)]),
+            },
+            {
+              name: "WML",
+              data: arr.map((d) => [d.from_date, parseFloat(d.wml)]),
+            },
+          ];
+          // custom options to render graphs
+          let stock_graph_stats_options = {};
+          stat_series.forEach((s) => {
+            // extract the values
+            let data = s.data.map((a) => a[1]);
+            // gte min / max
+            let min = Math.min(...data);
+            min = min < STAT_GRAPHS_MIN ? Math.floor(min) : STAT_GRAPHS_MIN;
+            let max = Math.max(...data);
+            max = max > STAT_GRAPHS_MAX ? Math.ceil(max) : STAT_GRAPHS_MAX;
+            // get the range as the number of ticks
+            let r = max - min;
+            stock_graph_stats_options[s.name] = Object.assign(
+              {},
+              GRAPH_OPTIONS,
+              {
+                yaxis: {
+                  max: max,
+                  min: min,
+                  tickAmount: r,
+                },
+              }
+            );
+          });
+
           this.setState({
             stock_graph_loadingIndicator: false,
             latest_stock_stats: last,
-            stock_graph_series: series.concat([
-              {
-                name: "Carbon",
-                data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
-              },
-              {
-                name: "Market",
-                data: arr.map((d) => [d.from_date, parseFloat(d.mkt_rf)]),
-              },
-              {
-                name: "SMB",
-                data: arr.map((d) => [d.from_date, parseFloat(d.smb)]),
-              },
-              {
-                name: "HML",
-                data: arr.map((d) => [d.from_date, parseFloat(d.hml)]),
-              },
-              {
-                name: "WML",
-                data: arr.map((d) => [d.from_date, parseFloat(d.wml)]),
-              },
-            ]),
+            stock_graph_series: series.concat(stat_series),
+            stock_graph_stats_options: stock_graph_stats_options,
           });
         }
       })
@@ -571,6 +601,7 @@ export default class Stock extends Component {
       data_pageSize,
       data_loadingIndicator,
       stock_graph_options,
+      stock_graph_stats_options,
       stock_graph_series,
       stock_graph_current_series_name,
       stock_graph_loadingIndicator,
@@ -709,7 +740,11 @@ export default class Stock extends Component {
                   {stock_graph_series.map((s) => (
                     <Chart
                       key={s.name}
-                      options={stock_graph_options}
+                      options={
+                        s.name in stock_graph_stats_options
+                          ? stock_graph_stats_options[s.name]
+                          : stock_graph_options
+                      }
                       series={[s]}
                       type="area"
                       width="100%"
