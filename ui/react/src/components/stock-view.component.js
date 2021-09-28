@@ -414,9 +414,9 @@ export default class Stock extends Component {
     });
   }
 
-  renderFormattedField(field, item, prefix) {
+  renderFormattedField(field, item, postfix) {
     let n = field.name;
-    if (prefix) n += prefix;
+    if (postfix) n += postfix;
     return item[n] && field.fmtNumber
       ? parseInt(item[n]).toLocaleString()
       : item[n];
@@ -663,6 +663,7 @@ export default class Stock extends Component {
                     <thead>
                       <tr>
                         <th colSpan={2}>Statistics</th>
+                        <th>P&gt;|t|</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -671,6 +672,13 @@ export default class Stock extends Component {
                           <th>{f.label}</th>
                           <td>
                             {this.renderFormattedField(f, latest_stock_stats)}
+                          </td>
+                          <td>
+                            {this.renderFormattedField(
+                              f,
+                              latest_stock_stats,
+                              "_p_gt_abs_t"
+                            )}
                           </td>
                         </tr>
                       ))}
