@@ -22,5 +22,5 @@ We don't have to be.
 
 Ultimately we'll live in the world we worked to create.  
 
-So it's time to get work.
+So let's get to work.
 
