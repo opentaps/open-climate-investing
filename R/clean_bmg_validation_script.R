@@ -47,7 +47,10 @@ colnames(all_data)[5] <- "Mkt_less_RF"
 
 
 ### Check single OLS
-single_stock_name <- "SLB"
+single_stock_name <- "CVX"
+start_date <- "2010-01-01"
+end_date <- "2020-12-31"
+
 single_reg <- lm(Returns ~
                    BMG +
                    Mkt_less_RF +
@@ -55,7 +58,9 @@ single_reg <- lm(Returns ~
                    HML +
                    WML,
                  data = all_data %>%
-                   filter(Stock == single_stock_name))
+                   filter(Stock == single_stock_name,
+                          Date >= start_date,
+                          Date <= end_date))
 
 summary(single_reg)
 
