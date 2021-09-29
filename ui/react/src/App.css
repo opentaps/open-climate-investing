@@ -24,6 +24,7 @@
   padding-left: 1em;
 }
 
+.selectable-items-table tbody tr:hover,
 .selectable-items-list li:hover {
   cursor: pointer;
   color: #fff;

@@ -7,6 +7,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
+import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
 
 const componentDecorator = (href, text, key) => (
@@ -99,7 +100,7 @@ const GRAPH_OPTIONS = {
   },
 };
 
-export default class Stock extends Component {
+class Stock extends Component {
   constructor(props) {
     super(props);
     this.getStock = this.getStock.bind(this);
@@ -110,7 +111,16 @@ export default class Stock extends Component {
     this.handleDataPageSizeChange = this.handleDataPageSizeChange.bind(this);
     this.handleStatsPageChange = this.handleStatsPageChange.bind(this);
     this.handleStatsPageSizeChange = this.handleStatsPageSizeChange.bind(this);
+    this.handleComponentsPageChange =
+      this.handleComponentsPageChange.bind(this);
+    this.handleComponentsPageSizeChange =
+      this.handleComponentsPageSizeChange.bind(this);
+    this.handleParentsPageChange = this.handleParentsPageChange.bind(this);
+    this.handleParentsPageSizeChange =
+      this.handleParentsPageSizeChange.bind(this);
     this.handleCurrentSeriesChange = this.handleCurrentSeriesChange.bind(this);
+    this.onStockComponentClick = this.onStockComponentClick.bind(this);
+    this.onStockParentClick = this.onStockParentClick.bind(this);
 
     this.pageSizes = [10, 25, 50, 100];
     let stock_graph_options = Object.assign({}, GRAPH_OPTIONS);
@@ -139,11 +149,31 @@ export default class Stock extends Component {
       stats_total: 0,
       stats_pageSize: DEFAULT_PAGE_SIZE,
       stats_loadingIndicator: false,
+      comp: [],
+      comp_page: 1,
+      comp_count: 0,
+      comp_total: 0,
+      comp_pageSize: DEFAULT_PAGE_SIZE,
+      comp_loadingIndicator: false,
+      parents: [],
+      parents_page: 1,
+      parents_count: 0,
+      parents_total: 0,
+      parents_pageSize: DEFAULT_PAGE_SIZE,
+      parents_loadingIndicator: false,
     };
   }
 
   componentDidMount() {
     this.getStock(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    let o = prevProps && prevProps.match && prevProps.match.params.id;
+    let n = this.props && this.props.match && this.props.match.params.id;
+    if (o !== n) {
+      this.getStock(this.props.match.params.id);
+    }
   }
 
   goBack() {
@@ -161,12 +191,15 @@ export default class Stock extends Component {
       .then((response) => {
         this.setState({
           current: response.data,
+          current_tab: DEFAULT_TAB,
           message: "",
         });
         console.log(response.data);
         window.scrollTo(0, 0);
         this.retrieveData();
         this.retrieveStats();
+        this.retrieveComponents();
+        this.retrieveParents();
         this.retrieveStockGraph();
       })
       .catch((e) => {
@@ -388,6 +421,126 @@ export default class Stock extends Component {
       });
   }
 
+  retrieveComponents() {
+    const { current, comp_page, comp_pageSize } = this.state;
+    if (!current || !current.ticker) {
+      console.log("No current stock to fetch stats for !");
+      return;
+    }
+    StockDataService.getComponents(
+      current.ticker,
+      this.getRequestParams(current, comp_page, comp_pageSize)
+    )
+      .then((comp_response) => {
+        const { items, totalPages, totalItems } = comp_response.data;
+        this.setState({
+          comp_loadingIndicator: false,
+          comp: items,
+          comp_count: totalPages,
+          comp_total: totalItems,
+        });
+      })
+      .catch((e) => {
+        this.setState({ comp_loadingIndicator: false });
+        console.log(e);
+      });
+  }
+
+  handleComponentsPageChange(event, value) {
+    console.log("handleComponentsPageChange:: ", event, value);
+    this.setState(
+      {
+        comp_page: value,
+      },
+      () => {
+        this.retrieveComponents();
+      }
+    );
+  }
+
+  handleComponentsPageSizeChange(event) {
+    console.log("handleComponentsPageSizeChange:: ", event);
+    this.setState(
+      {
+        comp_pageSize: event.target.value,
+        comp_page: 1,
+      },
+      () => {
+        this.retrieveComponents();
+      }
+    );
+  }
+
+  onStockComponentClick(e) {
+    console.log("onStockComponentClick", e);
+    if (e && e.target && e.target.attributes["data-index"]) {
+      let i = e.target.getAttribute("data-index");
+      let item = this.state.comp[i];
+      console.log("onStockComponentClick --> ", i, item);
+      this.props.history.push(`/stocks/${item.component_stock}`);
+    }
+  }
+
+  retrieveParents() {
+    const { current, parents_page, parents_pageSize } = this.state;
+    if (!current || !current.ticker) {
+      console.log("No current stock to fetch stats for !");
+      return;
+    }
+    StockDataService.getParents(
+      current.ticker,
+      this.getRequestParams(current, parents_page, parents_pageSize)
+    )
+      .then((parents_response) => {
+        const { items, totalPages, totalItems } = parents_response.data;
+        this.setState({
+          parents_loadingIndicator: false,
+          parents: items,
+          parents_count: totalPages,
+          parents_total: totalItems,
+        });
+      })
+      .catch((e) => {
+        this.setState({ parents_loadingIndicator: false });
+        console.log(e);
+      });
+  }
+
+  handleParentsPageChange(event, value) {
+    console.log("handleParentsPageChange:: ", event, value);
+    this.setState(
+      {
+        parents_page: value,
+      },
+      () => {
+        this.retrieveParents();
+      }
+    );
+  }
+
+  handleParentsPageSizeChange(event) {
+    console.log("handleParentsPageSizeChange:: ", event);
+    this.setState(
+      {
+        parents_pageSize: event.target.value,
+        parents_page: 1,
+      },
+      () => {
+        this.retrieveParents();
+      }
+    );
+  }
+
+  onStockParentClick(e) {
+    console.log("onStockParentClick", e);
+    if (e && e.target && e.target.attributes["data-index"]) {
+      let i = e.target.getAttribute("data-index");
+      let item = this.state.parents[i];
+      console.log("onStockParentClick --> ", i, item);
+      this.props.history.push(`/stocks/${item.ticker}`);
+    }
+  }
+
   retrieveStats() {
     const { current, stats_page, stats_pageSize } = this.state;
     if (!current || !current.ticker) {
@@ -463,7 +616,7 @@ export default class Stock extends Component {
     );
   }
 
-  renderFieldsTableHeaders(fields) {
+  renderFieldsTableHeaders(fields, opts) {
     return (
       <thead>
         <tr>
@@ -477,7 +630,7 @@ export default class Stock extends Component {
     );
   }
 
-  renderFieldsTableRow(fields, item, index) {
+  renderFieldsTableRow(fields, item, index, opts) {
     return (
       <tr key={index}>
         {fields.map((f) =>
@@ -486,7 +639,11 @@ export default class Stock extends Component {
               <td>{this.renderFormattedField(f, item)}</td>
             </Linkify>
           ) : (
-            <td key={`${index}_${f.label}`}>
+            <td
+              key={`${index}_${f.label}`}
+              data-index={index}
+              onClick={opts ? opts.onRowClick : null}
+            >
               {this.renderFormattedField(f, item)}
             </td>
           )
@@ -495,22 +652,22 @@ export default class Stock extends Component {
     );
   }
 
-  renderFieldsTableBody(fields, items) {
+  renderFieldsTableBody(fields, items, opts) {
     return (
       <tbody>
         {items &&
           items.map((item, index) =>
-            this.renderFieldsTableRow(fields, item, index)
+            this.renderFieldsTableRow(fields, item, index, opts)
           )}
       </tbody>
     );
   }
 
-  renderFieldsTable(fields, items) {
+  renderFieldsTable(fields, items, opts) {
     return (
-      <table className="table">
-        {this.renderFieldsTableHeaders(fields)}
-        {this.renderFieldsTableBody(fields, items)}
+      <table className={`table ${opts ? opts.tableClassName : null}`}>
+        {this.renderFieldsTableHeaders(fields, opts)}
+        {this.renderFieldsTableBody(fields, items, opts)}
       </table>
     );
   }
@@ -526,14 +683,30 @@ export default class Stock extends Component {
           </tr>
         </thead>
         <tbody>
-          {fields.map((f, index) => (
-            <tr key={index}>
-              <th>{f.label}</th>
-              <td>{this.renderFormattedField(f, values)}</td>
-              <td>{this.renderFormattedField(f, values, "_t_stat")}</td>
-              <td>{this.renderFormattedField(f, values, "_p_gt_abs_t")}</td>
-            </tr>
-          ))}
+          {fields.map((f, index) => {
+            let color = "#aaa";
+            let x = values[f.name + "_p_gt_abs_t"];
+            if (x < 0.05) {
+              color = "#000";
+            } else if (x < 0.1) {
+              color = "#666";
+            }
+            console.log(`For RF ?, P = ?`, f.name, x, color);
+            return (
+              <tr key={index}>
+                <th>{f.label}</th>
+                <td style={{ color }}>
+                  {this.renderFormattedField(f, values)}
+                </td>
+                <td style={{ color }}>
+                  {this.renderFormattedField(f, values, "_t_stat")}
+                </td>
+                <td style={{ color }}>
+                  {this.renderFormattedField(f, values, "_p_gt_abs_t")}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );
@@ -612,6 +785,18 @@ export default class Stock extends Component {
       stats_total,
       stats_pageSize,
       stats_loadingIndicator,
+      comp,
+      comp_page,
+      comp_count,
+      comp_total,
+      comp_pageSize,
+      comp_loadingIndicator,
+      parents,
+      parents_page,
+      parents_count,
+      parents_total,
+      parents_pageSize,
+      parents_loadingIndicator,
     } = this.state;
 
     return (
@@ -637,15 +822,106 @@ export default class Stock extends Component {
               <Tab label="Details" />
               <Tab label={`Data (${data_total})`} />
               <Tab label={`Stats (${stats_total})`} />
+              {comp_total ? <Tab label={`Components (${comp_total})`} /> : ""}
+              {parents_total ? (
+                <Tab label={`Parents (${parents_total})`} />
+              ) : (
+                ""
+              )}
             </Tabs>
 
             <div role="tabpanel" hidden={current_tab !== 0}>
-              <div className="mt-4">
-                <label>
-                  <strong>Sector:</strong>
-                </label>{" "}
-                {current.sector}
-                {current.sub_sector ? ` / ${current.sub_sector}` : ""}
+              {current.sector && current.sub_sector ? (
+                <div className="mt-4">
+                  <label>
+                    <strong>Sector:</strong>
+                  </label>{" "}
+                  {current.sector}
+                  {current.sub_sector ? ` / ${current.sub_sector}` : ""}
+                </div>
+              ) : (
+                ""
+              )}
+
+              {!stock_graph_loadingIndicator && latest_stock_stats ? (
+                <div className="mt-2 row align-items-start">
+                  <div className="col">
+                    {this.renderStatsFieldsTable(
+                      STAT_TABLE_FIELDS,
+                      latest_stock_stats
+                    )}
+                  </div>
+                  <div className="col">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th colSpan={2}>Statistics</th>
+                          <th>P&gt;|t|</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {STAT_BOX_FIELDS.map((f, i) => (
+                          <tr key={i}>
+                            <th>{f.label}</th>
+                            <td>
+                              {this.renderFormattedField(f, latest_stock_stats)}
+                            </td>
+                            <td>
+                              {this.renderFormattedField(
+                                f,
+                                latest_stock_stats,
+                                "_p_gt_abs_t"
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+
+              <div className="mt-2">
+                {this.renderSpinner(stock_graph_loadingIndicator)}
+                {!stock_graph_loadingIndicator && latest_stock_stats ? (
+                  <>
+                    <ToggleButtonGroup
+                      color="primary"
+                      value={stock_graph_current_series_name}
+                      exclusive
+                      onChange={this.handleCurrentSeriesChange}
+                    >
+                      {stock_graph_series.map((s) => (
+                        <ToggleButton key={s.name} value={s.name}>
+                          {s.name}
+                        </ToggleButton>
+                      ))}
+                    </ToggleButtonGroup>
+                    {stock_graph_series.map((s) => (
+                      <Chart
+                        key={s.name}
+                        options={
+                          s.name in stock_graph_stats_options
+                            ? stock_graph_stats_options[s.name]
+                            : stock_graph_options
+                        }
+                        series={[s]}
+                        type="area"
+                        width="100%"
+                        style={{
+                          display:
+                            s.name === stock_graph_current_series_name
+                              ? "block"
+                              : "none",
+                        }}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
 
@@ -679,88 +955,49 @@ export default class Stock extends Component {
               )}
             </div>
 
-            <p>{message}</p>
-
-            {!stock_graph_loadingIndicator && latest_stock_stats ? (
-              <div className="mt-2 row align-items-start">
-                <div className="col">
-                  {this.renderStatsFieldsTable(
-                    STAT_TABLE_FIELDS,
-                    latest_stock_stats
-                  )}
-                </div>
-                <div className="col">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th colSpan={2}>Statistics</th>
-                        <th>P&gt;|t|</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {STAT_BOX_FIELDS.map((f, i) => (
-                        <tr key={i}>
-                          <th>{f.label}</th>
-                          <td>
-                            {this.renderFormattedField(f, latest_stock_stats)}
-                          </td>
-                          <td>
-                            {this.renderFormattedField(
-                              f,
-                              latest_stock_stats,
-                              "_p_gt_abs_t"
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+            {comp_total ? (
+              <div role="tabpanel" hidden={current_tab !== 3}>
+                {this.renderSpinner(comp_loadingIndicator)}
+                {this.renderFieldsTable(
+                  StockDataService.stock_comp_fields(),
+                  comp,
+                  {
+                    tableClassName: "selectable-items-table",
+                    onRowClick: this.onStockComponentClick,
+                  }
+                )}
+                {this.renderPaginator(
+                  comp_count,
+                  comp_page,
+                  comp_pageSize,
+                  this.handleComponentsPageChange,
+                  this.handleComponentsPageSizeChange
+                )}
               </div>
             ) : (
               ""
             )}
 
-            <div className="mt-2">
-              {this.renderSpinner(stock_graph_loadingIndicator)}
-              {!stock_graph_loadingIndicator && latest_stock_stats ? (
-                <>
-                  <ToggleButtonGroup
-                    color="primary"
-                    value={stock_graph_current_series_name}
-                    exclusive
-                    onChange={this.handleCurrentSeriesChange}
-                  >
-                    {stock_graph_series.map((s) => (
-                      <ToggleButton key={s.name} value={s.name}>
-                        {s.name}
-                      </ToggleButton>
-                    ))}
-                  </ToggleButtonGroup>
-                  {stock_graph_series.map((s) => (
-                    <Chart
-                      key={s.name}
-                      options={
-                        s.name in stock_graph_stats_options
-                          ? stock_graph_stats_options[s.name]
-                          : stock_graph_options
-                      }
-                      series={[s]}
-                      type="area"
-                      width="100%"
-                      style={{
-                        display:
-                          s.name === stock_graph_current_series_name
-                            ? "block"
-                            : "none",
-                      }}
-                    />
-                  ))}
-                </>
-              ) : (
-                ""
+            <div role="tabpanel" hidden={current_tab !== (comp_total ? 4 : 3)}>
+              {this.renderSpinner(parents_loadingIndicator)}
+              {this.renderFieldsTable(
+                StockDataService.stock_parents_fields(),
+                parents,
+                {
+                  tableClassName: "selectable-items-table",
+                  onRowClick: this.onStockParentClick,
+                }
+              )}
+              {this.renderPaginator(
+                parents_count,
+                parents_page,
+                parents_pageSize,
+                this.handleParentsPageChange,
+                this.handleParentsPageSizeChange
               )}
             </div>
+
+            <p>{message}</p>
           </div>
         ) : (
           <div>
@@ -772,3 +1009,5 @@ export default class Stock extends Component {
     );
   }
 }
+
+export default withRouter(Stock);

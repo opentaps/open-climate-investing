@@ -26,4 +26,11 @@ db.stock_component = require("./stock_component.model.js")(sequelize, Sequelize)
 db.stock_data = require("./stock_data.model.js")(sequelize, Sequelize);
 db.stock_stat = require("./stock_stat.model.js")(sequelize, Sequelize);
 
+db.stock_component.belongsTo(db.stock, {
+  foreignKey: "ticker",
+});
+db.stock.hasMany(db.stock_component, {
+  foreignKey: "ticker",
+});
+
 module.exports = db;

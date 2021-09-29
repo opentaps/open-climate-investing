@@ -1,6 +1,7 @@
 const db = require("../models");
 const common = require("./common.js");
 const Stock = db.stock;
+const StockComponent = db.stock_component;
 const Sequelize = db.Sequelize;
 const Op = db.Sequelize.Op;
 
@@ -206,6 +207,69 @@ exports.findOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Error retrieving Stock with id=" + id,
+      });
+    });
+};
+
+// Find stocks components with :id parameter as the parent ticker
+exports.findComponents = (req, res) => {
+  const id = req.params.id;
+  const { page, size } = req.query;
+  const { limit, offset } = common.getPagination(page, size);
+
+  let query = {
+    limit,
+    offset,
+  };
+
+  query.where = [Sequelize.where(Sequelize.col("ticker"), { [Op.eq]: id })];
+  query.order = [["percentage", "DESC"], "component_stock"];
+  console.log("findComponents -> query", query);
+
+  StockComponent.findAndCountAll(query)
+    .then((data) => {
+      console.log(`findComponents -> findAndCountAll = ${data}`);
+      const response = common.getPagingData(data, page, limit);
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message:
+          err.message ||
+          "Some error occurred while retrieving stock components.",
+      });
+    });
+};
+
+// Find stocks parents with :id parameter as the component ticker
+exports.findParents = (req, res) => {
+  const id = req.params.id;
+  const { page, size } = req.query;
+  const { limit, offset } = common.getPagination(page, size);
+
+  let query = {
+    limit,
+    offset,
+  };
+
+  query.where = [
+    Sequelize.where(Sequelize.col("component_stock"), { [Op.eq]: id }),
+  ];
+  query.order = [["percentage", "DESC"], "ticker"];
+  console.log("findParents -> query", query);
+
+  StockComponent.findAndCountAll(query)
+    .then((data) => {
+      console.log(`findParents -> findAndCountAll = ${data}`);
+      const response = common.getPagingData(data, page, limit);
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving stock parents.",
       });
     });
 };

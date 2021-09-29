@@ -28,6 +28,8 @@ app.get("/api/", (req, res) => {
 });
 
 require("./app/routes/stock.routes")(app);
+require("./app/routes/stock_components.routes")(app);
+require("./app/routes/stock_parents.routes")(app);
 require("./app/routes/stock_data.routes")(app);
 require("./app/routes/stock_stats.routes")(app);
 

@@ -17,6 +17,14 @@ class StockDataService {
     return http.get("/stats", { params });
   }
 
+  getComponents(id, params) {
+    return http.get(`/stock_components/${id}`, { params });
+  }
+
+  getParents(id, params) {
+    return http.get(`/stock_parents/${id}`, { params });
+  }
+
   fields() {
     return [
       { label: "Ticker", name: "ticker", searchOnly: true },
@@ -86,6 +94,20 @@ class StockDataService {
       },
       { label: "Durbin Watson", name: "durbin_watson" },
       { label: "R Squared", name: "r_squared" },
+    ];
+  }
+
+  stock_comp_fields() {
+    return [
+      { label: "Ticker", name: "component_stock" },
+      { label: "Percentage", name: "percentage" },
+    ];
+  }
+
+  stock_parents_fields() {
+    return [
+      { label: "Ticker", name: "ticker" },
+      { label: "Percentage", name: "percentage" },
     ];
   }
 }
