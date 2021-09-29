@@ -18,7 +18,9 @@ There's also Thomas Malthus, who in 1798 predicted that population growth would 
 
 Will we really be the first generation to fail?
 
-We don't have to be.  Ultimately we'll live in the world we worked to create.  
+We don't have to be.  
+
+Ultimately we'll live in the world we worked to create.  
 
 So it's time to get work.
 
