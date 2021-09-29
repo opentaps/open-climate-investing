@@ -13,16 +13,7 @@ Climate change will pose several different categories of risks for investments:
  * Physical risks - Hurricanes, fires, and droughts
  * Transition risks - Carbon taxes, shifts in demand
  * Liability risks - Liability from climate risks, such as [PG&E's bankruptcy](https://www.wsj.com/articles/pg-e-wildfires-and-the-first-climate-change-bankruptcy-11547820006)
- * Second order risks - Water, biodiversity, supply chain interruptions and breakdowns, carbon border taxes, falling property values, and more
-
-While climate risk analysis is still an emerging field, there is research which hint at both the effects of climate change on investments and the approaches available for performing analyses.  Analyzing the effects of climate is a multi-step process which involves projecting several key variables into the future:
-
- * Trajectory of Greenhouse Gas (GHG) emissions based on current trends
- * Effect of GHG emissions on changing the climate, both locally and globally
- * Physical effect of those climate changes, such as droughts or hurricanes   
- * Financial impact of those physical effects
- * Mitigation measures, such as the various policies to reduce emissions and "decarbonize"
- * Adaptation measures against the risks, including hardening infrastructure and reducing emissions
+ * Second order risks - Water, biodiversity, supply chain interruptions and breakdowns, carbon border taxes, falling property values, rising insurance costs, and more
 
 Each risk category will be affected differently: Physical risks depend on the effect of GHG levels on storms, while transition risks depend on the measures taken to limit the effects of climate change.  Thus, measures which reduce physical risk for some assets may increase transition risk for others.
 

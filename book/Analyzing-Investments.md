@@ -57,7 +57,7 @@ with funding from the German Federal Ministry of Education and Research.  CARIMA
 
  * Market: Returns of the market over the riskfree rate, similar to the original Beta from CAPM 
  * SMB: Small Minus Big, the return difference of small cap stocks vs large cap stocks
- * HML: High Minus Low, the return difference of stocks with high book equity/market equity vs low book equity/market equity
+ * HML: High Minus Low, the return difference of stocks with high book equity/market equity vs low book equity/market equity.  The stocks with high book equity/market equity are usually companies in financial distress (ie, banks where the market sees more credit losses than has been written down), while the stocks with low book equity/market equity are usually high-growth companies (ie, tech companies without much earnings.)
  * WML: Winners Minus Losers, the return difference of stocks with high momentum (winners) vs low momentum 
  * BMG: Brown Minus Green, the return difference of stocks with high climate risk (Brown) vs low climate risk (Green)
  
@@ -102,16 +102,12 @@ This model could also tell us what the market as a whole thinks about the climat
 
 So we see that the market, as a whole, thinks that Energy has the highest carbon risk factors -- it is the most sensitive to climate change.  Makes sense in light of the strong carbon risk factors we got for both the oil majors
 and oil exploration companies.  Then, interestingly enough, comes the Materials sector -- chemicals, paper, steel, and mining.  Then comes Utilities, followed by Real estate.  Industrials, Communications, Information Technology, and
-Consumer products have very low sensitivities.  Finally very significant negative carbon risk factors for Health Care and very high and significant negative carbon risk factors for Financials.
+Consumer products have very low sensitivities.  Finally very significant negative carbon risk factors for Health Care stocks.  The very high and significant negative carbon risk factors for Financials should be ignored, as the Fama French-style factor models are not recommended for these stocks.
 
 What does this mean?  The market believes that energy and energy-intensive sectors are most as risk to climate change, probably through shifting demand and potential carbon taxes.  Utilities are less sensitive, presumably because
-they could shift their fuel mix to renewables, and maybe their regulators would allow them to pass those on to their customers.  Real estate companies even less so, because energy is not as big a part of their costs.  On the other side,
-why do health care and financial stocks have negative carbon risk factors?  Are they "safe havens" for investors?  
+they could shift their fuel mix to renewables, and maybe their regulators would allow them to pass those on to their customers.  Real estate companies even less so, because energy is not as big a part of their costs.  
 
-This is where I think the market's transition scenario breaks down.  How could the financials sector escape climate change, when the heavily-indebted sectors such as energy, utilities, and real estate are heavily affected?  In other words,
-if the market is trading down integrated oil and oil exploration stocks because of climate change, investors should be taking a serious look at financials with heavy exposures to those sectors.
-
-What does "market implied" mean, after all?  It means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?
+Is this a logical transition scenario?  That's where "market implied" comes in.  Market implied means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?  It also means that you can trade one set of assets against another, such as underweighting the stocks with higher climate risks than the market currently expects.
 
 ![Sub-Sector Carbon Risk Factors of S&P500](images/sp-500-subsector-carbon-risk-factors.png)
 
@@ -194,3 +190,19 @@ Why do these targets matter?  Because they are a measure of a company's seriousn
 to meeting the goals of the Paris Agreement through SBTi or others.  Therefore, a commitment is by itself the sign of a climate leader.  (Follow through is something we as investors should hold the companies to.)  
 
 Furthermore, if and when the world's economies follow their Paris Agreement's National Defined Contributions (NDC's), then the public policy and carbon task transition risks in those economies would probably follow the Paris Agreement goals.  Therefore, companies could be minimizing their risks by getting onboard with Paris Agreement goals early.  Time will tell, of course, but that's the point of the next part: Scenario analysis.
+
+#### Scenario Analysis
+
+In a [previous chapter](Climate-and-Investing.md) I went through the results of different analyses on the effects of climate change on investments.  Now let's take a closer look at how the analyses were done, so that we could perform similar analyses for our investments.  Analyzing the effects of climate is a multi-step process which involves projecting several key variables into the future:
+
+ * Trajectory of Greenhouse Gas (GHG) emissions based on current trends
+ * Effect of GHG emissions on changing the climate, both locally and globally
+ * Physical effect of those climate changes, such as droughts or hurricanes   
+ * Financial impact of those physical effects
+ * Mitigation measures, such as the various policies to reduce emissions and "decarbonize"
+ * Adaptation measures against the risks, including hardening infrastructure and reducing emissions
+
+There are some well known scenarios for climate analysis, including 
+
+ * [Representation Concentration Pathways (RCPs)](https://www.carbonbrief.org/explainer-the-high-emissions-rcp8-5-global-warming-scenario)
+
