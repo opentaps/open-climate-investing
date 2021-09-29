@@ -1,5 +1,7 @@
 ## The Unfinished Book
 
+_“In the beginner's mind there are many possibilities, but in the expert's there are few." - Shunryo Suzuki, Zen master_
+
 So that's all I have to tell you for now.
 
 The book is unfinished, but as I said at the beginning, it never will be.  This is a quest we're going on together, and now it's your turn.  Use what I've given you as a starting point, but go out and find new and better ways to make the world and the financial markets better.
