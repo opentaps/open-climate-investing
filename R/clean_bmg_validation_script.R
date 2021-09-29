@@ -64,6 +64,11 @@ single_reg <- lm(Returns ~
 
 summary(single_reg)
 
+stock_names <- all_data %>%
+  select(Stock) %>%
+  unique()
+
+
 get_loadings <- function(stock_names, all_data, carbon_data) {
 
   # Create a blank dataframe
