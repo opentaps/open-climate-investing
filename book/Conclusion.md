@@ -10,9 +10,11 @@ This book will never be unfinished because there are so many opportunities out t
 
 Sometimes it might seem too hard to fix these problems.  That there is too much inertia.  But don't get discouraged.  In time, smart people will make these things happen.  The voluntary carbon offsets market, for example, is a fully functioning market for climate and nature.  It is still tiny, but then again, it didn't exist a couple of decades ago.  So change is possible.  We've just got to work faster and bigger.  But then that's what you're here for, isn't it?
 
-I also take comfort in a couple of other thoughts.  Looking over the long arc of history, healthcare and education once were unattainable luxuries except for the elites.  Then they became charitable works and public goods.  Now they are serviced by private industry and financed by the capital markets.  Why can't we do the same for climate and nature?
+I also take comfort in a couple of other thoughts.  Looking over the long arc of history, healthcare and education once were unattainable luxuries except for the elites.  Then they became charitable works and public goods.  Now they are serviced by private industry and financed by the capital markets.  
 
-I also think about Thomas Malthus, who in 1798 predicted that population growth would eventually exceed food production, leading to catastrophe.  I think about how wrong he has been.  For over 200 years, successive generations have innovated to create a world that supports a far larger population with a far higher standard of living than he could've ever imagined.
+Why can't we do the same for climate and nature?
+
+There's also Thomas Malthus, who in 1798 predicted that population growth would eventually exceed food production, leading to catastrophe.  I think about how wrong he has been.  For over 200 years, successive generations have innovated to create a world that supports a far larger population with a far higher standard of living than he could've ever imagined.
 
 Will we really be the first generation to fail?
 
