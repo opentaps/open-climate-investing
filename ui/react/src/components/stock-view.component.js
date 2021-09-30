@@ -347,8 +347,8 @@ class Stock extends Component {
             });
             return;
           }
-          let min_date = arr[0].from_date;
-          let max_date = last.from_date;
+          let min_date = arr[0].thru_date;
+          let max_date = last.thru_date;
           let series = this.state.stock_graph_series;
           if (LIMIT_GRAPHS_DATES) {
             series = series.map((s) => {
@@ -363,23 +363,23 @@ class Stock extends Component {
           let stat_series = [
             {
               name: "Carbon",
-              data: arr.map((d) => [d.from_date, parseFloat(d.bmg)]),
+              data: arr.map((d) => [d.thru_date, parseFloat(d.bmg)]),
             },
             {
               name: "Market",
-              data: arr.map((d) => [d.from_date, parseFloat(d.mkt_rf)]),
+              data: arr.map((d) => [d.thru_date, parseFloat(d.mkt_rf)]),
             },
             {
               name: "SMB",
-              data: arr.map((d) => [d.from_date, parseFloat(d.smb)]),
+              data: arr.map((d) => [d.thru_date, parseFloat(d.smb)]),
             },
             {
               name: "HML",
-              data: arr.map((d) => [d.from_date, parseFloat(d.hml)]),
+              data: arr.map((d) => [d.thru_date, parseFloat(d.hml)]),
             },
             {
               name: "WML",
-              data: arr.map((d) => [d.from_date, parseFloat(d.wml)]),
+              data: arr.map((d) => [d.thru_date, parseFloat(d.wml)]),
             },
           ];
           // custom options to render graphs

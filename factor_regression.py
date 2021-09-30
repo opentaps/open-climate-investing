@@ -87,12 +87,18 @@ def run_regression(stock_data, carbon_data, ff_data, ticker, start_date=None, en
     data_end_date = end_date
     if start_date >= min_date:
         all_factor_df = all_factor_df[(all_factor_df.index >= start_date)]
+        if verbose:
+            print('all_factor_df >= {}'.format(start_date))
+            print(all_factor_df)
     else:
         if verbose or not silent:
             print('Start Date too early, using {} instead.'.format(min_date))
         data_start_date = min_date
     if end_date <= max_date:
         all_factor_df = all_factor_df[(all_factor_df.index <= end_date)]
+        if verbose:
+            print('all_factor_df <= {}'.format(end_date))
+            print(all_factor_df)
     else:
         if verbose or not silent:
             print('End Date too late, using {} instead.'.format(max_date))

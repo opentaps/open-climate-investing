@@ -29,7 +29,7 @@ The stock interface uses `get_stocks.py` will save the output in the `stock_data
 - `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
 
 Running the regression, the `get_regressions.py` script will save the output in the `stock_stats` table and can used the following ways:
-All instances support an additional `-s YYY-MM-DD` to specify the start date and `-e  YYY-MM-DD` for an end date.
+All instances support an additional `-s YYY-MM-DD` to specify the start date, by default it will start at the earliest common date from the stocks and risk factors; and `-i N` for the regression interval in months (defaults to 60 months).
 
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python get_regressions.py -n ALB` to run and output a regression for a given stock but not store it
@@ -39,13 +39,13 @@ All instances support an additional `-s YYY-MM-DD` to specify the start date and
 
 To run a batch of regressions on a ticker (or list of tickers) give the start date and end date of the first regression run window and it will run for every
 window incremented by one month at each step (until the model no longer runs due to insufficient data). For example:
-- `python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b -f some_ticker_file.csv` will run for all the tickers defined in `some_ticker_file.csv`
-- `python get_regressions.py -d 2010-01-01 -e 2015-01-01 -b --from_db` will run for all the tickers defined in the database `stock` table.
+- `python get_regressions.py -b -f some_ticker_file.csv` will run for all the tickers defined in `some_ticker_file.csv`
+- `python get_regressions.py -b --from_db` will run for all the tickers defined in the database `stock` table.
 
 
 ### Viewing the Results
 
-There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've 
+There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've
 run `get_regressions.py`, then you can use this UI to view the results.
 
 To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
@@ -59,7 +59,7 @@ cd ui/react
 npm run start
 ```
 
-### Running Command Line Scripts 
+### Running Command Line Scripts
 
 These have been deprecated but are still available and can be used to  run regressions in the command line without the database:
 ```
