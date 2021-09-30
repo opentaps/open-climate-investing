@@ -477,7 +477,7 @@ class Stock extends Component {
       let i = e.target.getAttribute("data-index");
       let item = this.state.comp[i];
       console.log("onStockComponentClick --> ", i, item);
-      this.props.history.push(`/stocks/${item.component_stock}`);
+      this.props.history.push(`/stocks/${item.ticker}`);
     }
   }
 
@@ -620,7 +620,7 @@ class Stock extends Component {
     return (
       <thead>
         <tr>
-          {fields.map((f) => (
+          {fields.filter(f=>!f.searchOnly).map((f) => (
             <th key={f.label} scope="col">
               {f.label}
             </th>
@@ -633,7 +633,12 @@ class Stock extends Component {
   renderFieldsTableRow(fields, item, index, opts) {
     return (
       <tr key={index}>
-        {fields.map((f) =>
+        {!opts || !opts.skipTicker ?
+          <td data-index={index} onClick={opts ? opts.onRowClick : null}>
+            <b>{item.ticker}</b>: {item.name}
+          </td>
+        :null}
+        {fields.filter(f=>!f.searchOnly&&f.name!=='ticker'&&f.name!=='name').map((f) =>
           f.linkify ? (
             <Linkify componentDecorator={componentDecorator}>
               <td>{this.renderFormattedField(f, item)}</td>
@@ -643,6 +648,9 @@ class Stock extends Component {
               key={`${index}_${f.label}`}
               data-index={index}
               onClick={opts ? opts.onRowClick : null}
+              className={StockDataService.getColoringClassForStat(
+                item[f.name + "_p_gt_abs_t"]
+              )}
             >
               {this.renderFormattedField(f, item)}
             </td>
@@ -683,30 +691,32 @@ class Stock extends Component {
           </tr>
         </thead>
         <tbody>
-          {fields.map((f, index) => {
-            let color = "#aaa";
-            let x = values[f.name + "_p_gt_abs_t"];
-            if (x < 0.05) {
-              color = "#000";
-            } else if (x < 0.1) {
-              color = "#666";
-            }
-            console.log(`For RF ?, P = ?`, f.name, x, color);
-            return (
-              <tr key={index}>
-                <th>{f.label}</th>
-                <td style={{ color }}>
-                  {this.renderFormattedField(f, values)}
-                </td>
-                <td style={{ color }}>
-                  {this.renderFormattedField(f, values, "_t_stat")}
-                </td>
-                <td style={{ color }}>
-                  {this.renderFormattedField(f, values, "_p_gt_abs_t")}
-                </td>
-              </tr>
-            );
-          })}
+          {fields.map((f, index) => (
+            <tr key={index}>
+              <th>{f.label}</th>
+              <td
+                className={StockDataService.getColoringClassForStat(
+                  values[f.name + "_p_gt_abs_t"]
+                )}
+              >
+                {this.renderFormattedField(f, values)}
+              </td>
+              <td
+                className={StockDataService.getColoringClassForStat(
+                  values[f.name + "_p_gt_abs_t"]
+                )}
+              >
+                {this.renderFormattedField(f, values, "_t_stat")}
+              </td>
+              <td
+                className={StockDataService.getColoringClassForStat(
+                  values[f.name + "_p_gt_abs_t"]
+                )}
+              >
+                {this.renderFormattedField(f, values, "_p_gt_abs_t")}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     );
@@ -929,7 +939,8 @@ class Stock extends Component {
               {this.renderSpinner(data_loadingIndicator)}
               {this.renderFieldsTable(
                 StockDataService.stock_data_fields(),
-                data
+                data,
+                { skipTicker : true }
               )}
               {this.renderPaginator(
                 data_count,
@@ -944,7 +955,8 @@ class Stock extends Component {
               {this.renderSpinner(stats_loadingIndicator)}
               {this.renderFieldsTable(
                 StockDataService.stock_stats_fields(),
-                stats
+                stats,
+                { skipTicker : true }
               )}
               {this.renderPaginator(
                 stats_count,
@@ -981,7 +993,7 @@ class Stock extends Component {
             <div role="tabpanel" hidden={current_tab !== (comp_total ? 4 : 3)}>
               {this.renderSpinner(parents_loadingIndicator)}
               {this.renderFieldsTable(
-                StockDataService.stock_parents_fields(),
+                StockDataService.stock_comp_fields(),
                 parents,
                 {
                   tableClassName: "selectable-items-table",

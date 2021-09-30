@@ -35,3 +35,13 @@
 .spinner-placeholder {
   min-height: 1026px;
 }
+
+.stat_005 {
+  color: #000;
+}
+.stat_01 {
+  color: #666;
+}
+.stat_other {
+  color: #aaa;
+}

@@ -25,18 +25,36 @@ class StockDataService {
     return http.get(`/stock_parents/${id}`, { params });
   }
 
+  getColoringClassForStat(p_gt_abs_t) {
+    if (p_gt_abs_t === undefined) {
+      return "";
+    }
+    if (p_gt_abs_t < 0.05) {
+      return "stat_005";
+    } else if (p_gt_abs_t < 0.1) {
+      return "stat_01";
+    }
+    return "stat_other";
+  }
+
   fields() {
     return [
       { label: "Ticker", name: "ticker", searchOnly: true },
       { label: "Name", name: "name", searchOnly: true },
       { label: "Sector", name: "sector" },
       { label: "Sub Sector", name: "sub_sector" },
+      { label: "Carbon", name: "bmg" },
+      { label: "Market", name: "mkt_rf" },
+      { label: "SMB", name: "smb" },
+      { label: "HML", name: "hml" },
+      { label: "WML", name: "wml" },
+      { label: "R Squared", name: "r_squared" },
     ];
   }
 
   stock_data_fields() {
     return [
-      { label: "Ticker", name: "ticker" },
+      { label: "Ticker", name: "ticker", searchOnly: true },
       { label: "Date", name: "date", fmtDate: true },
       { label: "Price", name: "close" },
       { label: "Return", name: "return" },
@@ -45,7 +63,7 @@ class StockDataService {
 
   stock_stats_fields() {
     return [
-      { label: "Ticker", name: "ticker" },
+      { label: "Ticker", name: "ticker", searchOnly: true },
       { label: "From Date", name: "from_date", fmtDate: true },
       { label: "Thru Date", name: "thru_date", fmtDate: true },
       { label: "Constant", name: "constant" },
@@ -99,15 +117,17 @@ class StockDataService {
 
   stock_comp_fields() {
     return [
-      { label: "Ticker", name: "component_stock" },
-      { label: "Percentage", name: "percentage" },
-    ];
-  }
-
-  stock_parents_fields() {
-    return [
       { label: "Ticker", name: "ticker" },
       { label: "Percentage", name: "percentage" },
+      { label: "Name", name: "name", searchOnly: true },
+      { label: "Sector", name: "sector", searchOnly: true },
+      { label: "Sub Sector", name: "sub_sector", searchOnly: true },
+      { label: "Carbon", name: "bmg" },
+      { label: "Market", name: "mkt_rf" },
+      { label: "SMB", name: "smb" },
+      { label: "HML", name: "hml" },
+      { label: "WML", name: "wml" },
+      { label: "R Squared", name: "r_squared" },
     ];
   }
 }

@@ -419,18 +419,74 @@ class StocksList extends Component {
           ) : (
             ""
           )}
-          <ul className="list-group selectable-items-list">
-            {stocks &&
-              stocks.map((item, index) => (
-                <li
-                  className="list-group-item"
-                  onClick={() => this.setActiveStock(item, index)}
-                  key={index}
-                >
-                  <b>{item.ticker}</b>: {item.name}
-                </li>
-              ))}
-          </ul>
+          <table className="table table-bordered selectable-items-table">
+            <thead>
+              <tr>
+                <th scope="col">Stock</th>
+                <th scope="col">Carbon</th>
+                <th scope="col">Market</th>
+                <th scope="col">SMB</th>
+                <th scope="col">HML</th>
+                <th scope="col">WML</th>
+                <th scope="col">R2</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stocks &&
+                stocks.map((item, index) => (
+                  <tr
+                    onClick={() => this.setActiveStock(item, index)}
+                    key={index}
+                  >
+                    <td>
+                      <b>{item.ticker}</b>: {item.name}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.bmg_p_gt_abs_t
+                      )}
+                    >
+                      {item.bmg}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.mkt_rf_p_gt_abs_t
+                      )}
+                    >
+                      {item.mkt_rf}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.smb_p_gt_abs_t
+                      )}
+                    >
+                      {item.smb}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.hml_p_gt_abs_t
+                      )}
+                    >
+                      {item.hml}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.wml_p_gt_abs_t
+                      )}
+                    >
+                      {item.wml}
+                    </td>
+                    <td
+                      className={StockDataService.getColoringClassForStat(
+                        item.r_squared_p_gt_abs_t
+                      )}
+                    >
+                      {item.r_squared}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
           {this.renderPaginator(
             count,
             page,

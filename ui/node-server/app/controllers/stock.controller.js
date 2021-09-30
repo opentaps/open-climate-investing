@@ -1,7 +1,8 @@
 const db = require("../models");
 const common = require("./common.js");
-const Stock = db.stock;
-const StockComponent = db.stock_component;
+const Stock = db.stock_and_stat;
+const StockComponent = db.stock_component_and_stat;
+const StockParent = db.stock_parent_and_stat;
 const Sequelize = db.Sequelize;
 const Op = db.Sequelize.Op;
 
@@ -222,8 +223,10 @@ exports.findComponents = (req, res) => {
     offset,
   };
 
-  query.where = [Sequelize.where(Sequelize.col("ticker"), { [Op.eq]: id })];
-  query.order = [["percentage", "DESC"], "component_stock"];
+  query.where = [
+    Sequelize.where(Sequelize.col("parent_ticker"), { [Op.eq]: id }),
+  ];
+  query.order = [["percentage", "DESC"], "ticker"];
   console.log("findComponents -> query", query);
 
   StockComponent.findAndCountAll(query)
@@ -259,7 +262,7 @@ exports.findParents = (req, res) => {
   query.order = [["percentage", "DESC"], "ticker"];
   console.log("findParents -> query", query);
 
-  StockComponent.findAndCountAll(query)
+  StockParent.findAndCountAll(query)
     .then((data) => {
       console.log(`findParents -> findAndCountAll = ${data}`);
       const response = common.getPagingData(data, page, limit);

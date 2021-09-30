@@ -21,6 +21,15 @@ db.sequelize = sequelize;
 
 db.carbon_risk_factor = require("./carbon_risk_factor.model.js")(sequelize, Sequelize);
 db.ff_factor = require("./ff_factor.model.js")(sequelize, Sequelize);
+db.stock_and_stat = require("./stock_and_stat.model.js")(sequelize, Sequelize);
+db.stock_component_and_stat = require("./stock_component_and_stat.model.js")(
+  sequelize,
+  Sequelize
+);
+db.stock_parent_and_stat = require("./stock_parent_and_stat.model.js")(
+  sequelize,
+  Sequelize
+);
 db.stock = require("./stock.model.js")(sequelize, Sequelize);
 db.stock_component = require("./stock_component.model.js")(sequelize, Sequelize);
 db.stock_data = require("./stock_data.model.js")(sequelize, Sequelize);
