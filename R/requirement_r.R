@@ -8,6 +8,10 @@ packages <- c("quantmod",
               "broom",
               "DT",
               "corrplot",
-              "RPostgres")
-
+              "RPostgres",
+              "car",
+              "lmtest",
+              "purrr",
+              "ggplot")
+  
 install.packages(setdiff(packages, rownames(installed.packages())))

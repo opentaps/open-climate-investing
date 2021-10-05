@@ -8,6 +8,8 @@ library(tidyverse)
 library(lubridate)
 # This package does the panel regressions
 library(plm)
+# All the important functions are here
+source("R/key_functions.R")
 
 # Read in the Fama-French and BMG factors
 carbon_data <- read_csv("data/carbon_risk_factor.csv")
@@ -64,73 +66,62 @@ single_reg <- lm(Returns ~
 
 summary(single_reg)
 
-stock_names <- all_data %>%
-  select(Stock) %>%
-  unique()
+# Get the regression of all stocks
+mass_reg_results <- mass_regression(all_data,
+                                    "Stock",
+                                    c("Returns ~ Mkt_less_RF + SMB + HML + WML",
+                                      "Returns ~ BMG + Mkt_less_RF + SMB + HML + WML"))
+
+get_bmg_regression_results <- lapply(mass_reg_results, function(x) {
+  summary(x[["Regression"]][[2]])
+})
 
 
-get_loadings <- function(stock_names, all_data, carbon_data) {
-
-  # Create a blank dataframe
-  no_carbon_residuals <- c()
-
-  # Get unique stock names
-  stock_names <- all_data %>%
-    select(Stock) %>%
-    unique()
-
-  # Start look to go through all the stocks in stock_names
-  for (i in 1:nrow(stock_names)) {
-    # Get the stocks name
-    temp_stock_name <- as.character(stock_names[i, 1])
-    # Filter all the data to only include that stock
-    temp_data <- all_data %>%
-      dplyr::filter(Stock == temp_stock_name)
-    # If there is more than 12 months of data, run the FF (no BMG) regression
-    if (nrow(temp_data) >= 12) {
-      temp_reg <- lm(Returns ~ Mkt_less_RF + SMB + HML + WML, data = temp_data)
-
-      # Create a dataframe
-      temp_no_carbon_residuals <- data.frame(Stock = temp_stock_name,
-                                             Res = temp_reg$residuals,
-                                             Date = temp_data$Date,
-                                             Returns = temp_data$Returns)
-
-      # Append to a dataframe
-      no_carbon_residuals <- rbind(no_carbon_residuals, temp_no_carbon_residuals)
+# Get the coefficient summary table, R-Squared and Adjusted R-Squared
+bmg_loading_data <- lapply(get_bmg_regression_results, function(x) 
+  {if(get_dataframe_dimensions(x$coefficients)[1] > 2) 
+    {data.frame(t(x$coefficients[2, ]),
+       x$r.squared,
+       x$adj.r.squared)
     }
-    print(c(i, temp_stock_name))
   }
+)
 
-
-  # Ensure that there are no duplicated residuals
-  no_carbon_residuals <- no_carbon_residuals %>%
-    unique()
-
-  # Join the BMG factor to the residuals
-  no_carbon_residuals <- no_carbon_residuals %>%
-    left_join(carbon_data, by = c("Date" = "Date"))
-
-  # Create a panel dataframe on the above dataframe (required for PLM)
-  no_carbon_data <- pdata.frame(no_carbon_residuals, index = c("Stock", "Date"))
-  # Remove duplicates that have somehow creeped in
-  if (length(which(duplicated(index(no_carbon_data))) == TRUE) > 0) {
-    no_carbon_data <- no_carbon_data[-which(duplicated(index(no_carbon_data))), ]
-  }
-
-  # Run the panel regression of the BMG factor on the residuals - this part doesn't work but Matt said we don't need it right now
-  no_carbon_regression <- plm(Res ~ BMG,
-                              data = no_carbon_data,
-                              effect = "individual",
-                              model = "within")
-
-  return(no_carbon_regression)
-
+# Removing regressions that didn't run
+if (length(which(lapply(bmg_loading_data, function(x) is.null(x)) == TRUE)) > 0) {
+  bmg_loading_data <- bmg_loading_data[-which(lapply(bmg_loading_data, function(x) is.null(x)) == TRUE)]
 }
 
-market_output <- get_loadings(stock_names, all_data, carbon_data)
+
+# Final output table
+bmg_loading_data <- tibble(Stock=names(bmg_loading_data), bind_rows(bmg_loading_data))
+
+# Join sector data to stock
+
+
+# Panel Regression on Market Residuals
+
+# Get the residual data
+no_bmg_regression_data <- get_data_output(mass_reg_results, 1)
+no_bmg_regression_data <- data.frame(no_bmg_regression_data$data,
+                                      res = no_bmg_regression_data$residuals$num)
+
+# Set up the panel data frame
+panel_data <- pdata.frame(no_bmg_regression_data,
+                          index = c("Stock", "Date"))
+
+
+plm_regression <- plm(res ~ BMG, 
+                      data=panel_data,
+                      model = "within",
+                      effect = "individual")
 
 ######################### CHANGE JOIN HERE #####################
+
+### Get list of stocks ###
+stock_names <- final_stock_returns %>%
+  select(Stock) %>%
+  distinct()
 
 ### By sector ###
 stock_breakdowns <- stock_names %>%
@@ -141,37 +132,50 @@ stock_breakdowns <- stock_names %>%
 ### This is for SPX Only
 colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub")
 
+### Choose breakdown
+# GICS_Sector for SPX by Sector
+# GICS_Sub for SPX by Subsector
+# Sector for MSCI
 
-### Starting again
-#unique_sectors <- unique(stock_breakdowns$"Sector")   # for msci
-unique_sectors <- unique(stock_breakdowns$"GICS_Sector")   # for spx by sector
-#unique_sectors <- unique(stock_breakdowns$"GICS_Sub")   # for spx by sub-industry
+breakdown_col_name <- "GICS_Sector"
+unique_sectors <- stock_breakdowns %>%
+  select(breakdown_col_name) %>%
+  distinct()
+
+
 
 
 bmg_loading_final <- c()
+no_bmg_regression_data <- tibble(no_bmg_regression_data)
+bmg_regression_data_sector_join <- no_bmg_regression_data %>%
+  left_join(stock_breakdowns,
+            by = c("Stock" = "Stock"))
 
+for (j in 1:nrow(unique_sectors)) {
 
-for (j in 1:length(unique_sectors)) {
+  sector_regression_data <- bmg_regression_data_sector_join %>%
+    filter(!!as.symbol(breakdown_col_name) == as.character(unique_sectors[j, 1]))
+  
+  sector_panel_data <- pdata.frame(sector_regression_data, 
+                                   index = c("Stock", "Date"))
+  
+  sector_panel_reg <- plm(res~BMG,
+                          data=sector_panel_data,
+                          model="within",
+                          effect="individual")
 
-  stock_names <- stock_breakdowns %>%
-  #  filter(Sector == unique_sectors[j]) %>%    # for msci
-    filter(GICS_Sector == unique_sectors[j]) %>%    # for spx by sector
-#    filter(GICS_Sub == unique_sectors[j]) %>%    # for spx by sub-industry
-    select(Stock)
-
-  sector_no_carbon_regression <- get_loadings(stock_names, all_data, carbon_data)
   sector_bmg_loading <- data.frame(
-    summary(sector_no_carbon_regression)$coefficients,
-    rsq = summary(sector_no_carbon_regression)$r.squared[1])
-  sector_bmg_loading <- sector_bmg_loading %>%
-    mutate(sector = unique_sectors[j])
+    Sector = as.character(unique_sectors[j, 1]),
+    summary(sector_panel_reg)$coefficients,
+    rsq = summary(sector_panel_reg)$r.squared[1])
 
   bmg_loading_final <- rbind(bmg_loading_final,
                              sector_bmg_loading)
 }
 
 bmg_loading_final <- tibble(bmg_loading_final)
-colnames(bmg_loading_final) <- c("Coefficients",
+colnames(bmg_loading_final) <- c("Sector",
+                                 "Coefficients",
                                  "Std Error",
                                  "t-Stat",
                                  "p-Value",
