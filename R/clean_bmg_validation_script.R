@@ -154,7 +154,7 @@ bmg_regression_data_sector_join <- no_bmg_regression_data %>%
 for (j in 1:nrow(unique_sectors)) {
 
   sector_regression_data <- bmg_regression_data_sector_join %>%
-    filter(!!as.symbol(breakdown_col_name) == as.character(unique_sectors[j, 1]))
+    filter(.[breakdown_col_name] == as.character(unique_sectors[j, 1]))
   
   sector_panel_data <- pdata.frame(sector_regression_data, 
                                    index = c("Stock", "Date"))
