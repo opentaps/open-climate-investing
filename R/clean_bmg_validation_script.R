@@ -21,6 +21,13 @@ final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
 
+### Removing outlier stock returns
+final_stock_returns <- final_stock_returns %>%
+  filter(Returns > -0.5,
+         Returns < 0.5) %>%
+  drop_na()
+
+
 # Read in the sector breakdowns
 #final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
 final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
