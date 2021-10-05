@@ -1,15 +1,15 @@
 # Summary
 
-* [Introduction](Introduction.md)
+* [Introduction](book/Introduction.md)
 
-* [Climate and Investing](Climate-and-Investing.md)
+* [Climate and Investing](book/Climate-and-Investing.md)
 
-* [Analyzing Investments](Analyzing-Investments.md)
+* [Analyzing Investments](book/Analyzing-Investments.md)
 
-* [Structuring Portfolios](Structuring-Portfolios.md)
+* [Structuring Portfolios](book/Structuring-Portfolios.md)
 
-* [Creating Indices](Creating-Indices.md)
+* [Creating Indices](book/Creating-Indices.md)
 
-* [Conclusion](Conclusion.md)
+* [Conclusion](book/Conclusion.md)
 
 
