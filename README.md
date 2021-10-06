@@ -1,6 +1,12 @@
 # open-climate-investing
 
-This is an implementation of the [Carbon Risk Management (CARIMA) model](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/) developed by Universtat Augsburg with funding from the German
+If you've ever heard that ESG investing is hard, that there's not enough climate disclosures, that we don't know enough...
+
+__STOP__
+
+This project is here to make climate investing actionable.  We are building both open source software and openly available data sets so that you can identify relative value trades, optimize portfolios, and structure benchmarks for climate aligned investing.
+
+Our first project is an implementation of the [Carbon Risk Management (CARIMA) model](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/) developed by Universtat Augsburg with funding from the German
 Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French 3 Factor Model plus an additional Brown Minus Green (BMG) return history, provided as part of the original
 research project.  It can be used for a variety of climate investing applications, including:
 - Calculate the market-implied carbon risk of a stock, investment portfolio, mutual fund, or bond based on historical returns
@@ -106,6 +112,10 @@ Open the script `/R/requirements_r.R` and run it.
 This will install all the packages
 
 - bulk_stock_return_downloader.R is a method to download multiple stocks. Using line 8, replace "stock_tickers.csv" with the list of tickers you wish to use, saved as a CSV in the data/ folder
+
+## The Book
+
+A [free book](book/README.md) which explains climate investing and how to use this project.  You can also [read it online at gitbook](https://app.gitbook.com/@opentaps/s/open-climate-investing/v/main/book).
 
 ## References
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)

@@ -161,6 +161,9 @@ Furthermore, companies emit GHG in a variety of activities.  The standard for GH
     * Shipping a product to customers
     * Using cloud-based servers (Yes, that includes your reading this article right now.)
 
+![Scope 3 Emissions - Source EPA/WRI](images/scope_3_emissions_epa_wri.png)
+_Source: [EPA Scope 3 Inventory Guidance](https://www.epa.gov/climateleadership/scope-3-inventory-guidance)_
+
 Naturally, this means emissions are transferred between companies.  Natural gas that is extracted by an oil company is Scope 3 for the oil company, Scope 1 for the utility that uses it, and then Scope 2 for the office building that 
 uses the electricity from the same utility.
 
@@ -206,3 +209,10 @@ There are some well known scenarios for climate analysis, including
 
  * [Representation Concentration Pathways (RCPs)](https://www.carbonbrief.org/explainer-the-high-emissions-rcp8-5-global-warming-scenario)
 
+### Who is Right?
+
+_"Never tell me the odds." - Han Solo_
+
+Han (aka the portfolio manager) may feel he knows exactly what he's doing when he attacks an Imperial Star Destroyer head on (aka doing a trade), but Princess Leia (aka plan sponsor) is rightly to be concerned, especially when C-3PO (aka plan consultant) is there to remind her what the odds are.
+
+That's the problem with these statistical models of the market.  They can't tell you what will happen, just the odds--based on some preconditions.  C-3PO may know the odds of surviving a direct attack on an Imperial Star Destroyer, but nobody tried it the way Han did it.
