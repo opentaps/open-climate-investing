@@ -55,10 +55,21 @@ The NGFS Case Studies book performed several such analyses:
 
 ### What it all Means
 
-Scenarios analysis, especially about the future, are usually wrong.  Yet scenarios help us see and prepare for the range of potential outcomes. 
+_“It's tough to make predictions, especially about the future.” - Yogi Berra_
 
+Did you know [Nostradamus and Niels Bohr also said the same thing](https://www.economist.com/letters-to-the-editor-the-inbox/2007/07/15/the-perils-of-prediction-june-2nd)?  The fact is, everybody knows predictions are hard to make.  Yet scenarios help us see and prepare for the range of potential outcomes.  Even more importantly, they're read by policymakers and regulators and thus have a habit of actually influencing the future.  
 
+Take a step back, and you'll see that a few things are already clear:
+
+ * Climate change is happening.
+ * The longer we try to ignore it, the higher the costs which will be disproportionately concentrated in some geographic areas and specific sectors of the economy.
+ * If we manage a gradual transition, the costs of mitigation and adaptation could be spread out for an orderly transition.
+ * In any scenario, there will be winners and losers.
+
+What makes it complicated is that mitigation and adaptation could take place over decades.  While it's good to have time to prepare, it also creates a lot of different options.  Once you add different industries, countries, and the politicians who support them, it becomes even more complicated.  Hence the difficulties of knowing how it will play out.
+
+But as investors, our job is to judge, not to know.  As I will show you in the [next chapter](Analyzing-Investments.md), we can compare the market's expectations with our analysis and make investment decisions, even if we don't know exactly how climate change and its related transition will play out. 
 
 ### References
  
-All references to "NGFS Case Studies book" is the [Case Studies of Environmental Risk Analysis Methodologies](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf) from the [Network for Greening the Financial System](https://www.ngfs.net/en) is a collection of climate risk analysis.
+All references to "NGFS Case Studies book" is the [Case Studies of Environmental Risk Analysis Methodologies](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf) from the [Network for Greening the Financial System](https://www.ngfs.net/en). 
