@@ -14,6 +14,7 @@ source("R/key_functions.R")
 # Read in the Fama-French and BMG factors
 carbon_data <- read_csv("data/carbon_risk_factor.csv")
 ff_data <- read_csv("data/ff_factors.csv")
+risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
 #final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
@@ -23,8 +24,8 @@ final_stock_returns <- as_tibble(final_stock_returns)
 
 ### Removing outlier stock returns
 final_stock_returns <- final_stock_returns %>%
-  filter(Returns > -0.5,
-         Returns < 0.5) %>%
+  filter(Returns > -0.7,
+         Returns < 1) %>%
   drop_na()
 
 
@@ -39,14 +40,21 @@ colnames(ff_data)[1] <- "Date"
 
 # Turning the Fama-French factors from number percentage to decimals
 ff_data[, -1] <- ff_data[, -1]/100
+risk_free[, -1] <- risk_free[, -1]/100
 
 # Combine the carbon data with the Fama-French factors
 all_factor_data <- carbon_data %>%
   inner_join(ff_data, by = c("Date" = "Date"))
 
+all_factor_data <- all_factor_data %>%
+  inner_join(risk_free, by = c("Date"="Date"))
+
 all_data <- final_stock_returns %>%
   full_join(all_factor_data, by = c("Date" = "Date")) %>%
   drop_na()
+
+all_data <- all_data %>%
+  mutate(excess_returns=Returns-Rf)
 
 # Change market return data column to be more compatible
 colnames(all_data)[5] <- "Mkt_less_RF"
@@ -76,8 +84,8 @@ summary(single_reg)
 # Get the regression of all stocks
 mass_reg_results <- mass_regression(all_data,
                                     "Stock",
-                                    c("Returns ~ Mkt_less_RF + SMB + HML + WML",
-                                      "Returns ~ BMG + Mkt_less_RF + SMB + HML + WML"))
+                                    c("excess_returns ~ Mkt_less_RF + SMB + HML + WML",
+                                      "excess_returns ~ BMG + Mkt_less_RF + SMB + HML + WML"))
 
 get_bmg_regression_results <- lapply(mass_reg_results, function(x) {
   summary(x[["Regression"]][[2]])
@@ -122,6 +130,8 @@ plm_regression <- plm(res ~ BMG,
                       data=panel_data,
                       model = "within",
                       effect = "individual")
+
+summary(plm_regression)
 
 ######################### CHANGE JOIN HERE #####################
 
