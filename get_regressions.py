@@ -34,7 +34,7 @@ def load_ff_data_from_db():
                              index_col='Date')
 
 
-def run_regression(ticker, start_date, interval, carbon_data=None, ff_data=None, verbose=False, silent=False, store=False, batch=False):
+def run_regression(ticker, start_date, interval, carbon_data=None, ff_data=None, rf_data=None, verbose=False, silent=False, store=False, batch=False):
     if carbon_data is None:
         carbon_data = load_carbon_data_from_db()
         if verbose:
@@ -51,6 +51,12 @@ def run_regression(ticker, start_date, interval, carbon_data=None, ff_data=None,
     elif verbose:
         print('Got ff_data ...')
         print(ff_data)
+    # Need to add a function to read the risk-free rate from the database
+    # if rf_data is None:
+    #     rf_data = load_rf_data_from_db()
+    # elif verbose:
+    #     print('Got risk-fre rate')
+    #     print(rf_data)
 
     stock_data = get_stocks.import_stock(ticker)
     if len(stock_data) == 0:
@@ -59,7 +65,7 @@ def run_regression(ticker, start_date, interval, carbon_data=None, ff_data=None,
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
 
-    run_regression_internal(stock_data, carbon_data, ff_data,
+    run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
                             ticker, start_date, interval, verbose, silent, store, batch)
 
 

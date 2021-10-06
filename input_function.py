@@ -79,8 +79,10 @@ def user_input():
         if use_default == 'Y':
             carbon_data = pd.read_csv('data/carbon_risk_factor.csv')
             ff_data = pd.read_csv('data/ff_factors.csv')
+            rf_data = pd.read_csv('data/risk_free.csv')
             carbon_data = convert_to_form(carbon_data)
             ff_data = convert_to_form(ff_data)
+            rf_data = convert_to_form(rf_data)
             input_loop_close = True
         elif use_default == 'N':
             loop_close = False
@@ -116,8 +118,24 @@ def user_input():
                         loop_close = True
                     else:
                         print('CSV is not in correct form')
+            loop_close = False
+            while loop_close is False:
+                print('What is the risk-free rate csv saved as: ')
+                rf_csv = input('Enter CSV name here: ')
+                try:
+                    rf_data = pd.read_csv(rf_csv)
+                except FileNotFoundError:
+                    print("File doesn't exist")
+                except pd.errors.ParserError:
+                    print('File is not a CSV')
+                else:
+                    rf_data = convert_to_form(rf_data)
+                    if rf_data is not False:
+                        loop_close = True
+                    else:
+                        print('CSV is not in correct form')
             input_loop_close = True
         else:
             print('Incorrect Input')
 
-    return(stock_data, carbon_data, ff_data, ticker)
+    return(stock_data, carbon_data, ff_data, rf_data, ticker)

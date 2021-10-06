@@ -64,11 +64,11 @@ colnames(all_data)[5] <- "Mkt_less_RF"
 
 
 ### Check single OLS
-single_stock_name <- "CVX"
+single_stock_name <- "AAPL"
 start_date <- "2010-01-01"
 end_date <- "2020-12-31"
 
-single_reg <- lm(Returns ~
+single_reg <- lm(excess_returns  ~
                    BMG +
                    Mkt_less_RF +
                    SMB +
