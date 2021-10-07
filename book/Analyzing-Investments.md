@@ -17,7 +17,7 @@ Later, I met a Trader at a Big Firm.  This Big Firm had lots of analysts, includ
 
 ![A Market Based Model for Mortgage Backed Securities](images/mbs_market_model.PNG)
 
-Huh...  This is nothing but a plot of prices against interest rates.  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
+That's it???  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
 department's fancy models.  People thought of his scatterplots as something between a toy and a joke.  But as he told it, "This is the market's OAS model.  I've got the history of the market and all those analysts with
 all their models to compare the current prices with.  That's better than any one person's model."  He was way ahead of all the Wisdom of the Crowd talk that's in vogue nowadays, 
 but it worked well for him.  This market-based model helped him identify mispricings and opportunities where big fancy models failed.  He went on to be _very_ successful.  
@@ -205,9 +205,29 @@ In a [previous chapter](Climate-and-Investing.md) I went through the results of 
  * Mitigation measures, such as the various policies to reduce emissions and "decarbonize"
  * Adaptation measures against the risks, including hardening infrastructure and reducing emissions
 
-There are some well known scenarios for climate analysis, including 
+Physical risks are calculated by mapping assets, such as buildings or plants, and then running models for hazards such as hurricanes, flooding, and fires on the assets.  The models would project physical damage, which would then need to be converted into financial losses to calculate the additional expected loss due to climate risks and identify portfolio vulnerabilities.  There are both commercial models such as ClimateWise and FourTwentySeven and open source models such as [CLIMADA](https://github.com/CLIMADA-project/climada_python) that could be used. 
 
- * [Representation Concentration Pathways (RCPs)](https://www.carbonbrief.org/explainer-the-high-emissions-rcp8-5-global-warming-scenario)
+![NGFS Physical Risk Framework](images/NGFS_Overview_Physical_Risks_Assessment_Framework.png)
+
+_Source: [NGFS Overview of Environmental Risk Analysis by Financial Institutions](https://www.ngfs.net/sites/default/files/medias/documents/overview_of_environmental_risk_analysis_by_financial_institutions.pdf)
+
+Transition risk requires a process of mapping changes in regulations and consumer demand on companies' financial results.  Typically, these scenario analyses incorporate changes in energy mix and technologies, such as switching from fossil fuels to renewables and electric vehicles.  They also incorporate carbon taxes, which are calculated against the companies' projected GHG emissions.  For example, here is an example from chapter 4 of the [NGFS Case Studies book](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf), where Oliver Wyman shows a calculation of the impact of carbon taxes on oil and gas exploration:
+
+![NGFS Oliver Wyman Carbon Tax on Oil Gas Exploration Costs](images/NGFS_Oliver_Wyman_Unit_Cost_Oil_Gas_Exploration.png)
+_Source: NGFS and Oliver Wyman_
+
+This could then be extended into the financial results, as in this example from "Climate Credit Analytics: Model Documentation" by S&P and Oliver Wyman:
+
+![S&P Oliver Wyman Financial Projections](images/SP_Oliver_Wyman_Financial_Projections.png)  
+_Source: S&P and Oliver Wyman_
+
+Some useful guides on the scenarios themselves:
+
+ * [TCFD The Use of Scenario Analysis in Disclosure of Climate-Related Risks and Opportunities](https://assets.bbhub.io/company/sites/60/2020/10/FINAL-TCFD-Technical-Supplement-062917.pdf) is a bit old, from 2017, but it describes in detail different scenarios from the IEA and a few others.  These scenarios show the increased need for biofuels, renewables, and nuclear energy, as well as carbon prices going up to $140/ton to $210/ton under some scenarios.
+ * [NGFS Climate Scenarios for central banks and supervisors](https://www.ngfs.net/sites/default/files/media/2021/08/27/ngfs_climate_scenarios_phase2_june2021.pdf) is more up to date (2021.)  It covers a wide range of scenarios that span orderly transition to 1.5C, current trend to 3C, and sudden transitions after 2030 to reach 1.8C.  The carbon prices in these scenarios reach an amazing $800/ton in some cases.
+ * [SBTi Sectoral Decarbonization Approach (SDA)](https://sciencebasedtargets.org/resources/files/Sectoral-Decarbonization-Approach-Report.pdf)	breaks down the path of emissions reduction necessary to reach 2C by industry, such as steel, cement, power generation.  A more updated version for reaching 1.5C target is in the works.    
+ * [CarbonBrief's Explainer: The high-emissions ‘RCP8.5’ global warming scenario](https://www.carbonbrief.org/explainer-the-high-emissions-rcp8-5-global-warming-scenario) describes what the "Representative Concentration Pathways" are, how they were derived at, and why the RCP8.5 scenario that is often cited "Business as Usual" may be too severe.  (Some good news finally?)
+
 
 ### Who is Right?
 
