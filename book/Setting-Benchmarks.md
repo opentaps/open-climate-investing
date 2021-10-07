@@ -1,6 +1,6 @@
-## Creating Indices
+## Setting Benchmarks
 
-_"Success can be established in advance but cannot be forced." - Sun Tzu_
+_"Every battle is won before it is fought." - Sun Tzu_
 
 Now we come to the climax
 Sponsors choose the index and fund managers manage to them
@@ -12,8 +12,15 @@ Checking up on the index: carbon risk factor for the existing indices, vs portfo
 Creating your own: Structure portfolio with minimum tracking errors and key metrics (sectors and ratios) while reducing carbon risk factor
 Efficient carbon frontiers
 
+### Who is Right?
+
+_"Never tell me the odds." - Han Solo_
+
+Han (aka the portfolio manager) may feel he knows exactly what he's doing when he attacks an Imperial Star Destroyer head on (aka doing a trade), but Princess Leia (aka plan sponsor) is rightly to be concerned, especially when C-3PO (aka plan consultant) is there to remind her what the odds are.
+
+That's the problem with these statistical models of the market.  They can't tell you what will happen, just the odds--based on some preconditions.  C-3PO may know the odds of surviving a direct attack on an Imperial Star Destroyer, but nobody tried it the way Han did it.
+
 #### Footnote
 
-The quote at the beginning is sometimes translated to "Every battle is won before it is fought."  The original Chinese, "胜可知，而不可为", means that the conditions for success are known or can be established in advance.
-You cannot force it to happen, though -- you just have to wait for it.
+Actually, the quote at the beginning is mistranslated.  The original Chinese, "胜可知，而不可为", means that the conditions for success are known in advance.  You don't know exactly how to make it happen, but it will.  
 

@@ -209,32 +209,49 @@ Physical risks are calculated by mapping assets, such as buildings or plants, an
 
 ![NGFS Physical Risk Framework](images/NGFS_Overview_Physical_Risks_Assessment_Framework.png)
 
-_Source: [NGFS Overview of Environmental Risk Analysis by Financial Institutions](https://www.ngfs.net/sites/default/files/medias/documents/overview_of_environmental_risk_analysis_by_financial_institutions.pdf)_
+_Source: [NGFS Overview of Environmental Risk Analysis by Financial Institutions](https://www.ngfs.net/sites/default/files/medias/documents/overview_of_environmental_risk_analysis_by_financial_institutions.pdf)
 
 Transition risk requires a process of mapping changes in regulations and consumer demand on companies' financial results.  Typically, these scenario analyses incorporate changes in energy mix and technologies, such as switching from fossil fuels to renewables and electric vehicles.  They also incorporate carbon taxes, which are calculated against the companies' projected GHG emissions.  For example, here is an example from chapter 4 of the [NGFS Case Studies book](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf), where Oliver Wyman shows a calculation of the impact of carbon taxes on oil and gas exploration:
 
 ![NGFS Oliver Wyman Carbon Tax on Oil Gas Exploration Costs](images/NGFS_Oliver_Wyman_Unit_Cost_Oil_Gas_Exploration.png)
-
 _Source: NGFS and Oliver Wyman_
 
-This could then be extended into the financial results:
+This could then be extended into the financial results, as in this example from "Climate Credit Analytics: Model Documentation" by S&P and Oliver Wyman:
 
 ![NGFS Oliver Wyman Financial Projections](images/NGFS_Oliver_Wyman_Financials.png)  
-
 _Source: NGFS and Oliver Wyman_
 
-Some useful guides on the scenarios themselves:
+Some useful resources for constructing your scenarios:
 
+ * [NGFS Climate Scenarios for central banks and supervisors](https://www.ngfs.net/sites/default/files/media/2021/08/27/ngfs_climate_scenarios_phase2_june2021.pdf) is the most up to date (2021) and best resource.  It covers a wide range of scenarios that span orderly transition to 1.5C, current trend to 3C, and sudden transitions after 2030 to reach 1.8C.  The carbon prices in these scenarios reach an amazing $800/ton in some cases.
  * [TCFD The Use of Scenario Analysis in Disclosure of Climate-Related Risks and Opportunities](https://assets.bbhub.io/company/sites/60/2020/10/FINAL-TCFD-Technical-Supplement-062917.pdf) is a bit old, from 2017, but it describes in detail different scenarios from the IEA and a few others.  These scenarios show the increased need for biofuels, renewables, and nuclear energy, as well as carbon prices going up to $140/ton to $210/ton under some scenarios.
- * [NGFS Climate Scenarios for central banks and supervisors](https://www.ngfs.net/sites/default/files/media/2021/08/27/ngfs_climate_scenarios_phase2_june2021.pdf) is more up to date (2021.)  It covers a wide range of scenarios that span orderly transition to 1.5C, current trend to 3C, and sudden transitions after 2030 to reach 1.8C.  The carbon prices in these scenarios reach an amazing $800/ton in some cases.
- * [SBTi Sectoral Decarbonization Approach (SDA)](https://sciencebasedtargets.org/resources/files/Sectoral-Decarbonization-Approach-Report.pdf)	breaks down the path of emissions reduction necessary to reach 2C by industry, such as steel, cement, power generation.  A more updated version for reaching 1.5C target is in the works.    
+ * [SBTi Sectoral Decarbonization Approach (SDA)](https://sciencebasedtargets.org/resources/files/Sectoral-Decarbonization-Approach-Report.pdf)	breaks down the path of emissions reduction necessary to reach 2C by industry, such as steel, cement, power generation.  A more updated version for reaching 1.5C target is in the works.  For companies which are committed to SBTI targets, this could be useful in constructing their path of future emissions.    
  * [CarbonBrief's Explainer: The high-emissions ‘RCP8.5’ global warming scenario](https://www.carbonbrief.org/explainer-the-high-emissions-rcp8-5-global-warming-scenario) describes what the "Representative Concentration Pathways" are, how they were derived at, and why the RCP8.5 scenario that is often cited "Business as Usual" may be too severe.  (Some good news finally?)
 
+Now let's look at how to do the scenario analysis.
 
-### Who is Right?
+For all companies, transition risk is an important concern.  Start with the current emissions and factor in futures emissions paths, using the SBTI targets if the company is committed or other scenarios for the industry if it is not.  Then calculate the cost of the emissions with carbon price scenarios, and add that to the company's costs.  Assume some rate of pass-through to the customers and add that to the revenues.  From this, you could derive the change in net income from a climate scenario.   
 
-_"Never tell me the odds." - Han Solo_
+For companies which are very location-specific, such as those with a lot of real estate, facilities, or agricultural land, physical risk is also a concern.  Look at the location of the companies' assets and overlay the impact of weather.  From that, figure out the potential for loss, and back out an expected loss.  This should be a proxy for the insurance costs for carrying those assets and added to the company's costs.
 
-Han (aka the portfolio manager) may feel he knows exactly what he's doing when he attacks an Imperial Star Destroyer head on (aka doing a trade), but Princess Leia (aka plan sponsor) is rightly to be concerned, especially when C-3PO (aka plan consultant) is there to remind her what the odds are.
+For companies which are very energy-intensive, different analyses are required.  Energy producers, such as oil and gas companies, are sensitive primarily to shifts in demand, part of which would be reflected in carbon prices.  Energy users, such as power generation utilities and materials (mining and steelmakers), may have to make heavy capital investments to shift their energy mix.  Here, you would have to look beyond financial analysis and think about both the management's plans and how the financial markets will accommodate them.  For example, the steel industry requires capital investment decisions made decades in advance.  Is the management investing in the right technologies, or will carbon pricing makes its products uncompetitive?  Could the company raise the money to invest in those technologies?  In other industries, ask questions like "What is the management of an oil and gas company planning to do with its proven reserves?"  "Does an oil exploration company have alternative business models?"  All these questions would lead to comprehensive adjustments to balance sheets and income statements.
 
-That's the problem with these statistical models of the market.  They can't tell you what will happen, just the odds--based on some preconditions.  C-3PO may know the odds of surviving a direct attack on an Imperial Star Destroyer, but nobody tried it the way Han did it.
+Finally, in all cases, use some common sense to think through second order effects.  Maybe you're invested in a restaurant chain that doesn't have physical locations.  But how will the consumer shift to vegetarian diets affect business?  Is it situated in storm sensitive areas?  Or maybe you're invested in an automobile manufacturer.  How well could it shift to electric vehicles and on-demand transportation?  Even without precise scenarios, you can use some rough, back of the envelope calculations to come up with the potential impact on a company's business results.
+
+It's not enough to run through a single scenario, even if it's a "worst case" scenario.  That's probably just something you'd run once a year for the risk auditors, management, or regulators and then put in a drawer somewhere.  To really understand your portfolio, run it through a range of scenarios.  Pick some reasonable values for the variables--flood levels, carbon prices, demand shifts, additional CapEx required--and see which of those a company is most sensitive to.  Attach probabilities to the scenarios.  Even some rough probabilities for probable (50%), possible (20%), extreme (5%) would help put a number on the risks.  
+
+Now you'll have a number for climate cost that would allow comparing different investments to each other.
+
+### Putting it All Together
+
+_"Many paths lead from the foot of the mountain, but at the peak we all gaze at the single bright moon." - IKKYU, Zen Monk and Poet._
+
+In the end, market-based and fundamental analyses must come together.  The market is simply a big voting machine of all the participants' believes at any one time, which means that it's applying the market's probability weightings to all the scenarios that all the investors and traders are consciously or unconsciously running in their minds.
+
+So when you've run through your scenarios to come up with the climate costs of different investments, you can compare it to how they're actually trading in the market.  Are some stocks not moving as much with others?  Is it because your climate costs are wrong?  Or will those stocks' climate costs eventually catch up with them with a big adjustment?
+
+Now, this is cool: It could also work the other way!  You could come up with climate risks of private, non-traded investments such as private equity and venture capital companies.  Start with a fundamental analysis for those companies to identify their climate risks: transition, physical, energy use, etc.  Then compare those with the fundamental climate risks of public companies to identify their closest peers.  This gives you a public portfolio that shadows your private companies' climate risks.  If you ever see the public market behaving very differently than your fundamental analysis would indicate (ie, much more or less sensitivity to climate risks), it might be a warning.
+
+All it would take is a fundamental model of climate change's effects on company financials, run through a probability-weighted set of scenarios of climate change and carbon pricing.
+
+Sounds like an Option-Adjusted Model...
