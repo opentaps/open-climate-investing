@@ -217,7 +217,7 @@ Transition risk requires a process of mapping changes in regulations and consume
 
 _Source: NGFS and Oliver Wyman_
 
-This could then be extended into the financial results, as in this example from "Climate Credit Analytics: Model Documentation" by S&P and Oliver Wyman:
+This could then be extended into the financial results:
 
 ![NGFS Oliver Wyman Financial Projections](images/NGFS_Oliver_Wyman_Financials.png)  
 
