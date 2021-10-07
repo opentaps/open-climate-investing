@@ -3,7 +3,7 @@ import psycopg2.extras
 import psycopg2
 
 DB_HOST = '127.0.01'
-DB_NAME = 'open-climate-investing'
+DB_NAME = 'open_climate_investing'
 DB_USER = ''
 DB_PASS = ''
 
