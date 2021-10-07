@@ -218,8 +218,8 @@ _Source: NGFS and Oliver Wyman_
 
 This could then be extended into the financial results, as in this example from "Climate Credit Analytics: Model Documentation" by S&P and Oliver Wyman:
 
-![S&P Oliver Wyman Financial Projections](images/SP_Oliver_Wyman_Financial_Projections.png)  
-_Source: S&P and Oliver Wyman_
+![NGFS Oliver Wyman Financial Projections](images/NGFS_Oliver_Wyman_Financials.png)  
+_Source: NGFS and Oliver Wyman_
 
 Some useful guides on the scenarios themselves:
 
