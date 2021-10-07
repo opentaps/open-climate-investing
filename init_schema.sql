@@ -15,6 +15,13 @@ CREATE TABLE ff_factor (
     wml decimal(8, 5)
 );
 
+DROP TABLE IF EXISTS risk_free CASCADE;
+
+CREATE TABLE risk_free (
+    date date primary key,
+    Rf decimal(8, 5)
+);
+
 
 DROP TABLE IF EXISTS stocks CASCADE;
 CREATE TABLE stocks (

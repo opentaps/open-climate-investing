@@ -8,6 +8,7 @@ psql ${DB_NAME} < init_schema.sql
 
 psql ${DB_NAME} -c 'COPY ff_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/ff_factors.csv
 psql ${DB_NAME} -c 'COPY carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/carbon_risk_factor.csv
+psql ${DB_NAME} -c 'COPY risk_free FROM STDIN WITH (FORMAT CSV, HEADER);' < data/risk_free.csv
 
 # load stocks with sector and sub-sector
 psql ${DB_NAME} -c 'COPY stocks FROM STDIN WITH (FORMAT CSV, HEADER);' < data/spx_sector_breakdown.csv
