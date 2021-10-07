@@ -4,7 +4,7 @@ This is a ***very rought draft*** right now.  When completed, it will have these
 - [Climate and Investing](Climate-and-Investing.md): Transition scenarios, physical risks, carbon price risks
 - [Analyzing Investments](Analyzing-Investments.md)
 - [Structuring Portfolios](Structuring-Portfolios.md): Analyzing and structuring investment portfolios 
-- [Creating Indices](Creating-Indices.md): Creating indices with climate in mind
+- [Setting Benchmarks](Setting-Benchmarks.md): Setting climate aligned investment benchmarks
 - Legal and Regulatory Considerations
 - Climate Action: Turning investments into climate action by engaging with plan sponsors, beneficiaries, and investee companies
 - Emerging Asset Classes: Carbon offsets and negative carbon projects

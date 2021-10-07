@@ -5,7 +5,7 @@
     * [Climate and Investing](book/Climate-and-Investing.md)
     * [Analyzing Investments](book/Analyzing-Investments.md)
     * [Structuring Portfolios](book/Structuring-Portfolios.md)
-    * [Creating Indices](book/Creating-Indices.md)
+    * [Setting Benchmarks](book/Setting-Benchmarks.md)
     * [Conclusion](book/Conclusion.md)
 
 
