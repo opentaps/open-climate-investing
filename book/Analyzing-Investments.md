@@ -209,16 +209,18 @@ Physical risks are calculated by mapping assets, such as buildings or plants, an
 
 ![NGFS Physical Risk Framework](images/NGFS_Overview_Physical_Risks_Assessment_Framework.png)
 
-_Source: [NGFS Overview of Environmental Risk Analysis by Financial Institutions](https://www.ngfs.net/sites/default/files/medias/documents/overview_of_environmental_risk_analysis_by_financial_institutions.pdf)
+_Source: [NGFS Overview of Environmental Risk Analysis by Financial Institutions](https://www.ngfs.net/sites/default/files/medias/documents/overview_of_environmental_risk_analysis_by_financial_institutions.pdf)_
 
 Transition risk requires a process of mapping changes in regulations and consumer demand on companies' financial results.  Typically, these scenario analyses incorporate changes in energy mix and technologies, such as switching from fossil fuels to renewables and electric vehicles.  They also incorporate carbon taxes, which are calculated against the companies' projected GHG emissions.  For example, here is an example from chapter 4 of the [NGFS Case Studies book](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf), where Oliver Wyman shows a calculation of the impact of carbon taxes on oil and gas exploration:
 
 ![NGFS Oliver Wyman Carbon Tax on Oil Gas Exploration Costs](images/NGFS_Oliver_Wyman_Unit_Cost_Oil_Gas_Exploration.png)
+
 _Source: NGFS and Oliver Wyman_
 
 This could then be extended into the financial results, as in this example from "Climate Credit Analytics: Model Documentation" by S&P and Oliver Wyman:
 
 ![NGFS Oliver Wyman Financial Projections](images/NGFS_Oliver_Wyman_Financials.png)  
+
 _Source: NGFS and Oliver Wyman_
 
 Some useful guides on the scenarios themselves:
