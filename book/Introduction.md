@@ -101,17 +101,6 @@ This book is meant for investors (in the Ben Graham and Warren Buffett sense of 
   * Using the latest technologies such as DeFI, blockchains, and open source software
   * Engaging with your plans, beneficiaries, and investees
 
-### How to Use this Book
-
-Please do not think of this as a "book."  It is a how-to manual that you can talk back to.  Use it for your climate investing, and then share what worked, what didn't, and how to make it better.  Tell me about the bugs and mistakes
-you find.  [Ask questions](https://quant.stackexchange.com/questions/tagged/opentaps-climate) using
-the tag `opentaps-climate` on [quant.stackexchange.com](https://quant.stackexchange.com/questions/tagged/opentaps-climate) or [create an issue on github](https://github.com/opentaps/open-climate-investing/issues).  It will be continuously updated to reflect the latest of all its readers' experiences.  If you're new to investing, welcome!  Let this book help you learn about this interesting field.  Ask questions.  Ask for clarifications.  Suggest changes.  Help spread the word.  [Sign up](https://opentaps.org/subscribe/) for an occasional email about our work with open source, climate finance, and climate investing.  
-
 Climate change is happening because we're all living and working in our own little silos.  The only way to fix is to work together.
 
 Ultimately we will live in the world that we worked to create, so let's get started and work to make it better.
-
-### About the Author
-
-[Si Chen](https://www.linkedin.com/in/opentaps/) was a Portfolio Manager at Fischer Francis Trees & Watts and MKP Capital Management, where he specialized in managing mortgage-backed securities, derivatives, and securitized assets for pension funds, endowments, central banks, and hedge funds.  He left fund management to start an [e-commerce company](https://wwww.graciousstyle.com) and an [open source software company](https://www.opensourcestrategies.com).  He is currently leading the development of open source
-software at the Linux Foundation's Hyperledger project to use blockchain technology for climate action.  He has been published in [The Journal of Portfolio Management](https://jpm.pm-research.com/content/22/4/104/tab-pdf-disaabled) and [Fixed Income Solutions: New Techniques for Managing Market Risks](https://amzn.to/3nCg65r)  He thought that would be the end of it until he read a recent research paper from The Wharton School, his alma mater, about climate investing and decided he had to [do something about it](https://www.opensourcestrategies.com/2021/06/02/why-finance-professors-think-sustainable-green-investing-as-a-fad-and-why-its-dangerous/). 
