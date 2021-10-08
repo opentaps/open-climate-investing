@@ -2,14 +2,14 @@
 
 Investors have a central role to play in stopping climate change.  As the group used to analyzing risks over long term horizons, they must allocate the capital necessary to bring about the transition to a zero carbon economy.   They must also capture the opportunities and avoid the losses that climate change will bring.
 
-To make this happen, climate or green investing must go from being a niche investment to being a part of every investment.  It must go from talk to action.  This book is about how to make climate investing actionable.  It is designed to help you investments and trades, structure portfolios and benchmarks, and find new opportunities.  Best of all, it shows you how to do it with open source  tools and freely available data sets.
+To make this happen, climate or green investing must go from being a niche investment to being a part of every investment.  It must go from talk to action.  This book is about how to make climate investing actionable.  It is designed to help you investments and trades, structure portfolios and benchmarks, and find new opportunities.  Best of all, it shows you how to do it with [open source tools](https://github.com/opentaps/open-climate-investing/) and freely available data sets.
 
 ### Table of Contents
 
 - [Introduction](Introduction.md)
 - [Climate and Investing](Climate-and-Investing.md)
 - [Analyzing Investments](Analyzing-Investments.md)
-- [Structuring Portfolios](Structuring-Portfolios.md
+- [Structuring Portfolios](Structuring-Portfolios.md)
 - [Setting Benchmarks](Setting-Benchmarks.md)
 - Legal and Regulatory Considerations
 - Climate Action: Turning investments into climate action by engaging with plan sponsors, beneficiaries, and investee companies
