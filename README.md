@@ -34,19 +34,17 @@ The stock interface uses `get_stocks.py` will save the output in the `stock_data
 - `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`
 - `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
 
-Running the regression, the `get_regressions.py` script will save the output in the `stock_stats` table and can used the following ways:
-All instances support an additional `-s YYY-MM-DD` to specify the start date, by default it will start at the earliest common date from the stocks and risk factors; and `-i N` for the regression interval in months (defaults to 60 months).
+Running the regression, the `get_regressions.py` script will save the output in the `stock_stats` table.
 
+All instances support optional parameters:
+- `-s YYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
+- `-e YYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
+- `-i N` for the regression interval in months (defaults to 60 months).
+
+- `python get_regressions.py` for running all the stocks in the database
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
-- `python get_regressions.py -n ALB` to run and output a regression for a given stock but not store it
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
-- `python get_regressions.py -l ALB -d YYYY-MM-DD` to list the results stored in the DB after the given start date
-- `python get_regressions.py -s ALB -d YYYY-MM-DD -e YYYY-MM-DD` to show a given result stored in the DB for the given start and end date
-
-To run a batch of regressions on a ticker (or list of tickers) give the start date and end date of the first regression run window and it will run for every
-window incremented by one month at each step (until the model no longer runs due to insufficient data). For example:
-- `python get_regressions.py -b -f some_ticker_file.csv` will run for all the tickers defined in `some_ticker_file.csv`
-- `python get_regressions.py -b --from_db` will run for all the tickers defined in the database `stock` table.
+- `python get_regressions.py -l ALB` to list the results stored in the DB for a given stock
 
 
 ### Viewing the Results

@@ -95,7 +95,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file",
                         help="specify the CSV file of stock tickers to import")
-    parser.add_argument("-D", "--from_db", action='store_true',
+    parser.add_argument("-d", "--from_db", action='store_true',
                         help="import of tickers in the stocks table of the Database instead of using a CSV file")
     parser.add_argument("-t", "--ticker",
                         help="specify a single ticker to import, ignores the CSV file")
