@@ -49,7 +49,7 @@ physicists than accountants.  And though it is still vociferously by the "stock 
  * It's great for finding short-term mispricings and trade around them.  If two stocks are supposed to move together at a certain ratio with high probability, and one moves first, it's (usually) a good bet the other will move soon.
  * It's great for analyzing the performance of portfolios.  While the investment industry touts its stock picking prowess, most funds contain so many stocks, their returns could be reduced to statistical relationships versus major index returns.
 
-But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, the quants did find that other  
+But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, researchers found other  
 statistically significant factors in returns.  The [Fama French 3-factor model](https://rady.ucsd.edu/faculty/directory/valkanov/pub/classes/mfe/docs/fama_french_jfe_1993.pdf) from 1993 became popular because it added two more parameters, one for size and one for balance sheet leverage.  This was followed up by the [Carhart 4-factor model](https://doi.org/10.1111/j.1540-6261.1997.tb03808.x) from 1997, which introduced a fourth factor, momentum. Today there are ever more sophisticated factor models with ever more factors, such as the [MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
 
 For analyzing climate risk, we found one such model: [Carbon Risk Management (CARIMA)](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/).  It was developed by Universtat Augsburg 
@@ -254,4 +254,4 @@ Now, this is cool: It could also work the other way!  You could come up with cli
 
 All it would take is a fundamental model of climate change's effects on company financials, run through a probability-weighted set of scenarios of climate change and carbon pricing.
 
-Sounds like an Option-Adjusted Model...
+I don't think we're there yet.  Not enough companies are disclosing their emissions, and not enough investors understand climate investing.  In time, though, the two should both improve, and climate investing will be like investing in other long-dated assets with high uncertainty.  Eventually there will be Climated-Adjusted valuation models, just like there are now Option- and Credit-Adjusted models.
