@@ -34,9 +34,12 @@ mass_regression <- function(stock_data,
 
 get_data_output <- function(x, reg_num) {
   residuals <- lapply(x, function(x) {x[["Regression"]][[reg_num]]$residuals})
-  x_data = lapply(x, function(x) {x[["Data"]][[reg_num]]})
+  x_data <- lapply(x, function(x) {x[["Data"]][[reg_num]]})
+  beta_data <- lapply(x, function(x) {x[["Regression"]][[reg_num]]$coefficients})
   flatten_residuals <- data.frame(grp=rep(names(residuals), lengths(residuals)), num=unlist(residuals), row.names = NULL)
   flatten_data <- bind_rows(x_data)
+  flatten_betas <- data.frame("Stock" = names(beta_data), bind_rows(beta_data))
   return(list(residuals = flatten_residuals,
-              data = flatten_data))
+              data = flatten_data,
+              betas = flatten_betas))
 }

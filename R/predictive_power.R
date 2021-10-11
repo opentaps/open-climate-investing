@@ -70,7 +70,8 @@ get_no_bmg_regression_results <- lapply(mass_reg_results, function(x) {
 # Get the coefficient summary table, R-Squared and Adjusted R-Squared
 bmg_pred_data <- lapply(get_bmg_regression_results, function(x) 
   {if(get_dataframe_dimensions(x$coefficients)[1] > 2) 
-    {data.frame(x$r.squared,
+    {data.frame(x$coefficients[1],
+                x$r.squared,
                 x$adj.r.squared)
     }
   }
@@ -78,7 +79,8 @@ bmg_pred_data <- lapply(get_bmg_regression_results, function(x)
 
 no_bmg_pred_data <- lapply(get_no_bmg_regression_results, function(x) 
   {if(get_dataframe_dimensions(x$coefficients)[1] > 2) 
-    {data.frame(x$r.squared,
+    {data.frame(x$coefficients[1],
+                x$r.squared,
                 x$adj.r.squared)
     }
   }
@@ -97,14 +99,16 @@ if (length(which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0)
 bmg_pred_data <- tibble(Stock=names(bmg_pred_data), bind_rows(bmg_pred_data))
 no_bmg_pred_data <- tibble(Stock=names(no_bmg_pred_data), bind_rows(no_bmg_pred_data))
 
-colnames(bmg_pred_data)[2:3] <- c("FFB_Rsq", "FFB_AdjRsq")
-colnames(no_bmg_pred_data)[2:3] <- c("FF_Rsq", "FF_AdjRsq")
+colnames(bmg_pred_data)[2:4] <- c("FFB_Alpha", "FFB_Rsq", "FFB_AdjRsq")
+colnames(no_bmg_pred_data)[2:4] <- c("FF_Alpha", "FF_Rsq", "FF_AdjRsq")
 
 pred_power <- bmg_pred_data %>%
   inner_join(no_bmg_pred_data, by = c("Stock"="Stock"))
 
 pred_power <- pred_power %>%
-  relocate(FF_Rsq, .after = Stock) %>%
+  relocate(FF_Alpha, .after = Stock) %>%
+  relocate(FFB_Alpha, .after = FF_Alpha)
+  relocate(FF_Rsq, .after = FFB_Alpha) %>%
   relocate(FFB_Rsq, .after = FF_Rsq) %>%
   relocate(FF_AdjRsq, .after = FFB_Rsq) %>%
   relocate(FFB_AdjRsq, .after = FF_AdjRsq)
@@ -116,7 +120,8 @@ mean(pred_power$FFB_Rsq - pred_power$FF_Rsq)
 mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq)
 
 
-all_sector_pred_power <- c(mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
+all_sector_pred_power <- c(mean(abs(pred_power$FF_Alpha) - abs(pred_power$FFB_Alpha)),
+                           mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
                            mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq))
 
 ### By sector
@@ -133,18 +138,21 @@ colnames(pred_power)[7:8] <- c("GICS_Sector", "GICS_Sub")
 
 
 pred_power_table <- pred_power %>%
-  mutate(RSq_Diff = FFB_Rsq - FF_Rsq,
+  mutate(Alpha_Diff = abs(FF_Alpha) - abs(FFB_Alpha),
+         RSq_Diff = FFB_Rsq - FF_Rsq,
          AdjRSq_Diff = FFB_AdjRsq - FF_AdjRsq) %>%
   ### Change the below line by what you want to group things by
   group_by(Sector) %>%
-  summarise("Change in R Squared" = mean(RSq_Diff),
+  summarise("Reduction in Alpha" = mean(Alpha_Diff),
+            "Change in R Squared" = mean(RSq_Diff),
             "Change in Adjusted R Squared" = mean(AdjRSq_Diff))
 
 pred_power_table <- pred_power_table %>% tibble::add_row(
   ### Change line below to match line 93-94
   Sector = "All Sectors",
-  `Change in R Squared` = all_sector_pred_power[1],
-  `Change in Adjusted R Squared` = all_sector_pred_power[2]
+  `Reduction in Alpha` = all_sector_pred_power[1],
+  `Change in R Squared` = all_sector_pred_power[2],
+  `Change in Adjusted R Squared` = all_sector_pred_power[3]
 )
 
 #Display table
