@@ -19,11 +19,13 @@ mass_regression <- function(stock_data,
     ind_stock_name <- as.character(stock_names[i, 1])
     print(paste0(i, ": ", ind_stock_name))
     ind_stock_data <- stock_data[which(stock_data[stock_col_name] == ind_stock_name), ]
-    for (j in 1:length(reg_formulas)) {
-      j_reg_formula <- as.formula(reg_formulas[j])
-      j_reg_results <- lm(j_reg_formula, ind_stock_data)
-      stock_reg_data[[ind_stock_name]][["Regression"]][[j]] <- j_reg_results
-      stock_reg_data[[ind_stock_name]][["Data"]][[j]] <- ind_stock_data
+    if (nrow(ind_stock_data) > 12) {
+      for (j in 1:length(reg_formulas)) {
+        j_reg_formula <- as.formula(reg_formulas[j])
+        j_reg_results <- lm(j_reg_formula, ind_stock_data)
+        stock_reg_data[[ind_stock_name]][["Regression"]][[j]] <- j_reg_results
+        stock_reg_data[[ind_stock_name]][["Data"]][[j]] <- ind_stock_data
+      }
     }
   }
  

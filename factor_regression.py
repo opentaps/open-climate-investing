@@ -46,19 +46,22 @@ def parse_date(name, date_str):
             '{} Date {} not in correct format, must be YYYY-MM-DD'.format(name, date_str))
 
 
-def run_regression(stock_data, carbon_data, ff_data, ticker, start_date=None, end_date=None, verbose=True, silent=False):
+def run_regression(stock_data, carbon_data, ff_data, rf_data, ticker, start_date=None, end_date=None, verbose=True, silent=False):
     ff_data = ff_data/100
+    rf_data = rf_data/100
 
     # Merge the 3 data frames together (inner join on dates)
     all_factor_df = merge_data(stock_data, carbon_data)
     all_factor_df = merge_data(all_factor_df, ff_data)
+    all_factor_df = merge_data(all_factor_df, rf_data)
+    all_factor_df['Close'] = all_factor_df['Close'] - all_factor_df['Rf']
+    all_factor_df = all_factor_df.drop(['Rf'], axis=1)
 
     if len(all_factor_df) == 0:
         raise ValueError('No data could be loaded!')
 
     if verbose:
         print('Data is ...')
-        print(all_factor_df)
 
     # Check start and end dates
     max_date = max(all_factor_df.index)
@@ -129,8 +132,9 @@ def run_regression(stock_data, carbon_data, ff_data, ticker, start_date=None, en
 # run
 if __name__ == "__main__":
     # Read in the data
-    stock_data, carbon_data, ff_data, ticker = input_function.user_input()
+    stock_data, carbon_data, ff_data, rf_data, ticker = input_function.user_input()
     start_date = input(
         'What would you like the start date to be (format YYYY-MM-DD): ')
 
-    run_regression(stock_data, carbon_data, ff_data, ticker, start_date)
+    run_regression(stock_data, carbon_data, ff_data,
+                   rf_data, ticker, start_date)
