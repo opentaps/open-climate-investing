@@ -166,19 +166,6 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
                             ticker, start_date+dt, end_date, interval, verbose, silent, store)
 
 
-def fetch_regressions_from_db(ticker, start_date=None, end_date=None):
-    sql = '''SELECT * FROM stock_stats WHERE ticker = %s'''
-    params = [ticker]
-    if start_date is not None:
-        sql += ' and from_date >= %s'
-        params.append(start_date)
-    if end_date is not None:
-        sql += ' and thru_date <= %s'
-        params.append(end_date)
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='ticker', params=params)
-
-
 def store_regression_into_db(sql_params):
     del_sql = '''DELETE FROM stock_stats WHERE ticker = %s and from_date = %s and thru_date = %s;'''
     placeholder = ", ".join(["%s"] * len(sql_params))
@@ -194,12 +181,6 @@ def main(args):
     if args.ticker:
         run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
                        verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun))
-    elif args.list:
-        df = fetch_regressions_from_db(
-            args.list, start_date=args.start_date, end_date=args.end_date)
-        print('Loaded from DB: {} entries'.format(len(df)))
-        print(' -- sample (truncated) -- ')
-        print(df)
     elif args.file:
         carbon_data = load_carbon_data_from_db()
         ff_data = load_ff_data_from_db()
@@ -233,8 +214,6 @@ if __name__ == "__main__":
                         help="specify a single ticker to run the regression for, ignores the CSV file")
     parser.add_argument("-o", "--dryrun", action='store_true',
                         help="Only shows the results, do not store the results in the DB")
-    parser.add_argument("-l", "--list",
-                        help="Show all the regression data for a given ticker from the DB, does not run the regression, optionally use with --start_date and --end_date to filter results")
     parser.add_argument("-s", "--start_date",
                         help="Sets the start date for the regression, must be in the YYYY-MM-DD format, defaults to the start date of all the data series for a given stock")
     parser.add_argument("-e", "--end_date",
