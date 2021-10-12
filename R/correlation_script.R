@@ -8,8 +8,10 @@ library(DBI)
 #                  port = 5432,
 #                  user = 'sichen',
 #                  password = 'opentaps')
-# 
+#
 # res <- dbSendQuery(con, "SELECT CR.date as Date, CR.bmg, FF.mkt_rf, FF.smb, FF.hml, FF.wml FROM carbon_risk_factor as CR join ff_factor as FF on CR.date=FF.date")
+# res <- dbSendQuery(con, "SELECT FF.date, (0.5*SD2.return + 0.5*SD3.return) - SD1.return AS XOPXLB_SMOG, FF.mkt_rf, FF.smb, FF.hml, FF.wml FROM ff_factor as FF join stock_data as SD1 on SD1.date = FF.date join stock_data as SD2 on SD1.date = SD2.date join stock_data as SD3 on SD1.date = SD3.date where SD1.ticker = 'XOP' and SD1.date > '2010-01-01' and SD2.ticker = 'SMOG' and SD3.ticker = 'XLB'")# bmg_ff_factors <- dbFetch(res)
+
 # bmg_ff_factors <- dbFetch(res)
 
 ff_factors <- read_csv("data/ff_factors.csv")
