@@ -19,8 +19,8 @@ ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
-final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
 
@@ -32,8 +32,8 @@ final_stock_returns <- final_stock_returns %>%
 
 
 # Read in the sector breakdowns
-#final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
-final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
+#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
 
 # Making the date column have the same name  for the join later
@@ -65,10 +65,9 @@ colnames(all_data)[5] <- "Mkt_less_RF"
 # The output is the residuals on certain dates
 
 
-### Check single OLS
-single_stock_name <- "AAPL"
-start_date <- "2010-01-01"
-end_date <- "2020-12-31"
+single_stock_name <- "CVX"
+start_date <- "2016-06-01"
+end_date <- "2021-09-01"
 
 single_reg <- lm(excess_returns  ~
                    BMG +
@@ -95,8 +94,8 @@ get_bmg_regression_results <- lapply(mass_reg_results, function(x) {
 
 
 # Get the coefficient summary table, R-Squared and Adjusted R-Squared
-bmg_loading_data <- lapply(get_bmg_regression_results, function(x) 
-  {if(get_dataframe_dimensions(x$coefficients)[1] > 2) 
+bmg_loading_data <- lapply(get_bmg_regression_results, function(x)
+  {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
     {data.frame(t(x$coefficients[2, ]),
        x$r.squared,
        x$adj.r.squared)
@@ -128,7 +127,7 @@ panel_data <- pdata.frame(no_bmg_regression_data,
                           index = c("Stock", "Date"))
 
 
-plm_regression <- plm(res ~ BMG, 
+plm_regression <- plm(res ~ BMG,
                       data=panel_data,
                       model = "within",
                       effect = "individual")
@@ -144,8 +143,8 @@ stock_names <- final_stock_returns %>%
 
 ### By sector ###
 stock_breakdowns <- stock_names %>%
-#  inner_join(final_stock_breakdown, by = c("Stock" = "Ticker")) # for msci
-  inner_join(final_stock_breakdown, by = c("Stock" = "Symbol")) # for spx
+  inner_join(final_stock_breakdown, by = c("Stock" = "Ticker")) # for msci
+#  inner_join(final_stock_breakdown, by = c("Stock" = "Symbol")) # for spx
 
 
 ### This is for SPX Only
@@ -156,13 +155,10 @@ colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub")
 # GICS_Sub for SPX by Subsector
 # Sector for MSCI
 
-breakdown_col_name <- "GICS_Sector"
+breakdown_col_name <- "Sector"
 unique_sectors <- stock_breakdowns %>%
   select(breakdown_col_name) %>%
   distinct()
-
-
-
 
 bmg_loading_final <- c()
 no_bmg_regression_data <- tibble(no_bmg_regression_data)
@@ -174,14 +170,15 @@ for (j in 1:nrow(unique_sectors)) {
 
   sector_regression_data <- bmg_regression_data_sector_join %>%
     filter(.[breakdown_col_name] == as.character(unique_sectors[j, 1]))
-  
-  sector_panel_data <- pdata.frame(sector_regression_data, 
+
+  sector_panel_data <- pdata.frame(sector_regression_data,
                                    index = c("Stock", "Date"))
-  
+
   sector_panel_reg <- plm(res~BMG,
                           data=sector_panel_data,
                           model="within",
                           effect="individual")
+
 
   sector_bmg_loading <- data.frame(
     Sector = as.character(unique_sectors[j, 1]),
