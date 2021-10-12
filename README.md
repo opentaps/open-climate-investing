@@ -44,7 +44,6 @@ All instances support optional parameters:
 - `python get_regressions.py` for running all the stocks in the database
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
-- `python get_regressions.py -l ALB` to list the results stored in the DB for a given stock
 
 
 ### Viewing the Results
@@ -114,6 +113,21 @@ This will install all the packages
 ## The Book
 
 A [free book](book/README.md) which explains climate investing and how to use this project.  You can also [read it online at gitbook](https://app.gitbook.com/@opentaps/s/open-climate-investing/v/main/book).
+
+## Data Sources
+
+Data included in this project come from the following sources:
+
+* The Fama French factors plus momentum come from the Developed 3 Factors and Developed MOM Factors from [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html) via the CARIMA project.  There are small differences between their factors and the ones directly from the Dartmouth.
+* Index returns and constituents are based on traded ETF's:
+    * MSCI World is from the [iShares MSCI World Index ETF (ticker XWD)](https://www.blackrock.com/ca/investors/en/products/239697/ishares-msci-world-index-etf)
+    * MSCI All Country World Index (ACWI) is from [iShares MSCI ACWI ETF (ticker ACWI)](https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf#/)
+    * MSCI ACWI Low Carbon Index is from [iShares MSCI ACWI Low Carbon Target ETF (ticker CRBN)](https://www.ishares.com/us/products/271054/ishares-msci-acwi-low-carbon-target-etf)
+    * S&P 500 is from the [Vanguard S&P 500 ETF (ticker VOO)[(https://investor.vanguard.com/etf/profile/VOO)
+    * S&P 500 Paris Aligned is from the [iShares S&P 500 Paris-Aligned Climate UCITS ETF (ticker UPAB)](https://www.ishares.com/uk/individual/en/products/318387/ishares-s-p-500-paris-aligned-climate-ucits-etf)
+    * S&P® Oil & Gas Exploration & Production Select Industry® Index is from the [SPDR® S&P® Oil & Gas Exploration & Production ETF (ticker XOP)](https://www.ssga.com/us/en/intermediary/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop)
+    * MVIS Global Low Carbon Energy Index is from the [VanEck Low Carbon Energy ETF (ticker SMOG)](https://www.vaneck.com/us/en/investments/low-carbon-energy-etf-smog/)
+    
 
 ## References
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)
