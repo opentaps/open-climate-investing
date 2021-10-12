@@ -11,8 +11,8 @@ To make this happen, climate or green investing must go from being a niche inves
 - [Analyzing Investments](Analyzing-Investments.md)
 - [Structuring Portfolios](Structuring-Portfolios.md)
 - [Setting Benchmarks](Setting-Benchmarks.md)
+- [Taking Climate Action](Climate-Action.md)
 - Legal and Regulatory Considerations
-- Climate Action: Turning investments into climate action by engaging with plan sponsors, beneficiaries, and investee companies
 - Emerging Asset Classes: Carbon offsets and negative carbon projects
 - New Technologies: DeFI, blockchains, and open source software
 - [Conclusion](Conclusion.md)
