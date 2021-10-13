@@ -2,14 +2,14 @@
 library(tidyverse)
 # All the important functions are here
 source("R/key_functions.R")
-
+q
 
 ### Improvement in predictions
 
 # Read in the Fama-French and BMG factors
-# carbon_data <- read_csv("data/carbon_risk_factor.csv")
-carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
-  select(-Green_Returns, - Brown_Returns)
+ carbon_data <- read_csv("data/carbon_risk_factor.csv")
+#carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
+#  select(-Green_Returns, - Brown_Returns)
 ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
@@ -72,7 +72,7 @@ get_no_bmg_regression_results <- lapply(mass_reg_results, function(x) {
 # Get the coefficient summary table, R-Squared and Adjusted R-Squared
 bmg_pred_data <- lapply(get_bmg_regression_results, function(x)
   {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
-    {data.frame(x$coefficients[1],
+    {data.frame(x$coefficients[1],x$coefficients[2],x$coefficients[3],x$coefficients[4],x$coefficients[5],x$coefficients[6],
                 x$r.squared,
                 x$adj.r.squared)
     }
@@ -81,7 +81,7 @@ bmg_pred_data <- lapply(get_bmg_regression_results, function(x)
 
 no_bmg_pred_data <- lapply(get_no_bmg_regression_results, function(x)
   {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
-    {data.frame(x$coefficients[1],
+    {data.frame(x$coefficients[1],x$coefficients[2],x$coefficients[3],x$coefficients[4],x$coefficients[5],
                 x$r.squared,
                 x$adj.r.squared)
     }
@@ -101,38 +101,42 @@ if (length(which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0)
 bmg_pred_data <- tibble(Stock=names(bmg_pred_data), bind_rows(bmg_pred_data))
 no_bmg_pred_data <- tibble(Stock=names(no_bmg_pred_data), bind_rows(no_bmg_pred_data))
 
-colnames(bmg_pred_data)[2:4] <- c("FFB_Alpha", "FFB_Rsq", "FFB_AdjRsq")
-colnames(no_bmg_pred_data)[2:4] <- c("FF_Alpha", "FF_Rsq", "FF_AdjRsq")
+colnames(bmg_pred_data)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
+colnames(no_bmg_pred_data)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
 
 pred_power <- bmg_pred_data %>%
   inner_join(no_bmg_pred_data, by = c("Stock"="Stock"))
 
 pred_power <- pred_power %>%
-  relocate(FF_Alpha, .after = Stock) %>%
-  relocate(FFB_Alpha, .after = FF_Alpha) %>%
-  relocate(FF_Rsq, .after = FFB_Alpha) %>%
+  relocate(FF_Rsq, .after = Stock) %>%
   relocate(FFB_Rsq, .after = FF_Rsq) %>%
   relocate(FF_AdjRsq, .after = FFB_Rsq) %>%
-  relocate(FFB_AdjRsq, .after = FF_AdjRsq)
+  relocate(FFB_AdjRsq, .after = FF_AdjRsq) %>%
+  relocate(FF_Alpha, .after = FFB_Alpha)
 
-# mean alpha and RSq without (FF_) and with (FFB_) BMG factor
-mean(pred_power$FF_Alpha)
-mean(pred_power$FFB_Alpha)
-mean(pred_power$FF_Rsq)
-mean(pred_power$FFB_Rsq)
+# all results without (FF_) and with (FFB_) BMG factor
+all_sector_pred_power <- data.frame(
+  "All Sectors",
+mean(pred_power$FF_Alpha),
+mean(pred_power$FFB_Alpha),
+mean(pred_power$FF_Rsq),
+mean(pred_power$FFB_Rsq),
+mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
+mean(pred_power$FF_AdjRsq),
+mean(pred_power$FFB_AdjRsq),
+mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq),
+mean(pred_power$FFB_BMG),
+mean(pred_power$FFB_Mkt_less_RF),
+mean(pred_power$FFB_SMB),
+mean(pred_power$FFB_HML),
+mean(pred_power$FFB_WML),
+mean(pred_power$FF_Mkt_less_RF),
+mean(pred_power$FF_SMB),
+mean(pred_power$FF_HML),
+mean(pred_power$FF_WML)
+)
 
-# Increase in RSq
-mean(pred_power$FFB_Rsq - pred_power$FF_Rsq)
-
-# Increase in Adjusted RSq
-mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq)
-
-all_sector_pred_power <- c(mean(pred_power$FF_Alpha), mean(pred_power$FFB_Alpha),
-                           mean(abs(pred_power$FF_Alpha) - abs(pred_power$FFB_Alpha)),
-                           mean(pred_power$FF_Rsq), mean(pred_power$FFB_Rsq),
-                           mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
-                           mean(pred_power$FF_AdjRsq), mean(pred_power$FFB_AdjRsq),
-                           mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq))
+colnames(all_sector_pred_power) <-c ("", "FF_Alpha", "FFB_Alpha", "FF_Rsq", "FFB_Rsq", "FFB_-FF_Rsq", "FF_AdjRsq", "FFB_AdjRsq", "FFB-FF_AdjRSq", "FFB_BMG", "FFB_Mkt_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FF_Mkt_RF", "FF_SMB", "FF_HML", "FF_WML")
 
 ### By sector
 pred_power <- pred_power %>%
@@ -146,39 +150,36 @@ colnames(pred_power)[7:8] <- c("GICS_Sector", "GICS_Sub")
 
 pred_power_table <- pred_power %>%
   mutate(FF_Alpha=FF_Alpha, FFB_Alpha=FFB_Alpha,
-         Alpha_Diff = abs(FF_Alpha) - abs(FFB_Alpha),
+         Alpha_Diff = abs(FFB_Alpha) - abs(FF_Alpha),
          FF_Rsq =FF_Rsq, FFB_Rsq=FFB_Rsq,
          RSq_Diff = FFB_Rsq - FF_Rsq,
          FF_AdjRsq=FF_AdjRsq, FFB_AdjRsq=FFB_AdjRsq,
          AdjRSq_Diff = FFB_AdjRsq - FF_AdjRsq) %>%
   ### Change the below line by what you want to group things by
   group_by(Sector) %>%
-  summarise("FF Alpha"=mean(FF_Alpha),
-            "FFB Alpha"=mean(FFB_Alpha),
-            "Reduction in Alpha" = mean(Alpha_Diff),
-            "FF Rsq"=mean(FF_Rsq),
-            "FFB Rsq"=mean(FFB_Rsq),
-            "Change in R Squared" = mean(RSq_Diff),
-            "FF Adj Rsq"=mean(FF_AdjRsq),
-            "FFB Adj Rsq"=mean(FFB_AdjRsq),
-            "Change in Adjusted R Squared" = mean(AdjRSq_Diff))
-
-pred_power_table <- pred_power_table %>% tibble::add_row(
-  ### Change line below to match line 93-94
-  Sector = "All Sectors",
-  `FF Alpha` = all_sector_pred_power[1],
-  `FFB Alpha` = all_sector_pred_power[2],
-  `Reduction in Alpha` = all_sector_pred_power[3],
-  `FF Rsq` = all_sector_pred_power[4],
-  `FFB Rsq` = all_sector_pred_power[5],
-  `Change in R Squared` = all_sector_pred_power[6],
-  `FF Adj Rsq` = all_sector_pred_power[7],
-  `FFB Adj Rsq` = all_sector_pred_power[8],
-  `Change in Adjusted R Squared` = all_sector_pred_power[9],
-)
+  summarise("FF_Alpha"=mean(FF_Alpha),
+            "FFB_Alpha"=mean(FFB_Alpha),
+            "FFB_FF_Alpha" = mean(Alpha_Diff),
+            "FF_Rsq"=mean(FF_Rsq),
+            "FFB_Rsq"=mean(FFB_Rsq),
+            "FFB_-FF_Rsq" = mean(RSq_Diff),
+            "FF_AdjRsq"=mean(FF_AdjRsq),
+            "FFB_AdjRsq"=mean(FFB_AdjRsq),
+            "FFB_-FF_AdjRSq" = mean(AdjRSq_Diff),
+            "FFB_BMG" = mean(FFB_BMG),
+            "FFB_Mkt_RF" = mean(FFB_Mkt_less_RF),
+            "FFB_SMB" = mean(FFB_SMB),
+            "FFB_HML" = mean(FFB_HML),
+            "FFB_WML" = mean(FFB_WML),
+            "FF_Mkt_RF" = mean(FF_Mkt_less_RF),
+            "FF_SMB" = mean(FF_SMB),
+            "FF_HML" = mean(FF_HML),
+            "FF_WML" = mean(FF_WML),
+  )
 
 #Display table
 pred_power_table
+all_sector_pred_power
 
 # Write table
 write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
