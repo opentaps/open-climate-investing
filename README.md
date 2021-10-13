@@ -118,7 +118,7 @@ A [free book](book/README.md) which explains climate investing and how to use th
 
 Data included in this project come from the following sources:
 
-* The Fama French factors plus momentum come from the Developed 3 Factors and Developed MOM Factors from [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html) via the CARIMA project.  There are small differences between their factors and the ones directly from the Dartmouth.
+* The Fama French factors, risk free rate, and momentum come from the Developed 3 Factors and Developed MOM Factors from [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html) via the CARIMA project.  There are small differences between their factors and the ones directly from the Dartmouth.
 * Index returns and constituents are based on traded ETF's:
     * MSCI World is from the [iShares MSCI World Index ETF (ticker XWD)](https://www.blackrock.com/ca/investors/en/products/239697/ishares-msci-world-index-etf)
     * MSCI All Country World Index (ACWI) is from [iShares MSCI ACWI ETF (ticker ACWI)](https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf#/)
