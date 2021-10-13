@@ -127,6 +127,8 @@ Data included in this project come from the following sources:
     * S&P 500 Paris Aligned is from the [iShares S&P 500 Paris-Aligned Climate UCITS ETF (ticker UPAB)](https://www.ishares.com/uk/individual/en/products/318387/ishares-s-p-500-paris-aligned-climate-ucits-etf)
     * S&P® Oil & Gas Exploration & Production Select Industry® Index is from the [SPDR® S&P® Oil & Gas Exploration & Production ETF (ticker XOP)](https://www.ssga.com/us/en/intermediary/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop)
     * MVIS Global Low Carbon Energy Index is from the [VanEck Low Carbon Energy ETF (ticker SMOG)](https://www.vaneck.com/us/en/investments/low-carbon-energy-etf-smog/)
+    * List of [ETFs corresponding to S&P 500 sectors](https://www.sectorspdr.com/sectorspdr/)
+    * List of [ETFs corresponding to MSCI sectors](https://www.msci.com/documents/1296102/1360895/MSCI-Exchange-Traded-Products-ETFs-Based-on-MSCI-Indexes-Q4-2018.pdf/4a82c677-0fe4-12f0-1be2-26076423f862) 
     
 
 ## References
