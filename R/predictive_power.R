@@ -2,7 +2,6 @@
 library(tidyverse)
 # All the important functions are here
 source("R/key_functions.R")
-q
 
 ### Improvement in predictions
 
