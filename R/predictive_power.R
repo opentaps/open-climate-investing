@@ -13,14 +13,12 @@ ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
+
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
-
-# Read in the sector breakdowns
-final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
-#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
 # Making the date column have the same name  for the join later
 colnames(carbon_data)[1] <- "Date"
@@ -113,31 +111,11 @@ pred_power <- pred_power %>%
   relocate(FFB_AdjRsq, .after = FF_AdjRsq) %>%
   relocate(FF_Alpha, .after = FFB_Alpha)
 
-# all results without (FF_) and with (FFB_) BMG factor
-all_sector_pred_power <- data.frame(
-  "All Sectors",
-mean(pred_power$FF_Alpha),
-mean(pred_power$FFB_Alpha),
-mean(pred_power$FF_Rsq),
-mean(pred_power$FFB_Rsq),
-mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
-mean(pred_power$FF_AdjRsq),
-mean(pred_power$FFB_AdjRsq),
-mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq),
-mean(pred_power$FFB_BMG),
-mean(pred_power$FFB_Mkt_less_RF),
-mean(pred_power$FFB_SMB),
-mean(pred_power$FFB_HML),
-mean(pred_power$FFB_WML),
-mean(pred_power$FF_Mkt_less_RF),
-mean(pred_power$FF_SMB),
-mean(pred_power$FF_HML),
-mean(pred_power$FF_WML)
-)
-
-colnames(all_sector_pred_power) <-c ("", "FF_Alpha", "FFB_Alpha", "FF_Rsq", "FFB_Rsq", "FFB_-FF_Rsq", "FF_AdjRsq", "FFB_AdjRsq", "FFB-FF_AdjRSq", "FFB_BMG", "FFB_Mkt_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FF_Mkt_RF", "FF_SMB", "FF_HML", "FF_WML")
-
 ### By sector
+# Read in the sector breakdowns
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
+#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+
 pred_power <- pred_power %>%
   inner_join(final_stock_breakdown,
 #             by = c("Stock" = "Symbol"))   # for spx
@@ -176,7 +154,31 @@ pred_power_table <- pred_power %>%
             "FF_WML" = mean(FF_WML),
   )
 
-#Display table
+# all results without (FF_) and with (FFB_) BMG factor
+all_sector_pred_power <- data.frame(
+  "All Sectors",
+  mean(pred_power$FF_Alpha),
+  mean(pred_power$FFB_Alpha),
+  mean(pred_power$FF_Rsq),
+  mean(pred_power$FFB_Rsq),
+  mean(pred_power$FFB_Rsq - pred_power$FF_Rsq),
+  mean(pred_power$FF_AdjRsq),
+  mean(pred_power$FFB_AdjRsq),
+  mean(pred_power$FFB_AdjRsq - pred_power$FF_AdjRsq),
+  mean(pred_power$FFB_BMG),
+  mean(pred_power$FFB_Mkt_less_RF),
+  mean(pred_power$FFB_SMB),
+  mean(pred_power$FFB_HML),
+  mean(pred_power$FFB_WML),
+  mean(pred_power$FF_Mkt_less_RF),
+  mean(pred_power$FF_SMB),
+  mean(pred_power$FF_HML),
+  mean(pred_power$FF_WML)
+)
+
+colnames(all_sector_pred_power) <-c ("", "FF_Alpha", "FFB_Alpha", "FF_Rsq", "FFB_Rsq", "FFB_-FF_Rsq", "FF_AdjRsq", "FFB_AdjRsq", "FFB-FF_AdjRSq", "FFB_BMG", "FFB_Mkt_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FF_Mkt_RF", "FF_SMB", "FF_HML", "FF_WML")
+
+#Display tables by sector and average of all stocks
 pred_power_table
 all_sector_pred_power
 
