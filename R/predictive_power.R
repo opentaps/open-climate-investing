@@ -67,39 +67,101 @@ get_no_bmg_regression_results <- lapply(mass_reg_results, function(x) {
 })
 
 # Get the coefficient summary table, R-Squared and Adjusted R-Squared
-bmg_pred_data <- lapply(get_bmg_regression_results, function(x)
-  {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
-    {data.frame(x$coefficients[1],x$coefficients[2],x$coefficients[3],x$coefficients[4],x$coefficients[5],x$coefficients[6],
-                x$r.squared,
-                x$adj.r.squared)
-    }
+bmg_pred_data <- lapply(get_bmg_regression_results, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 1]),
+               x$r.squared,
+               x$adj.r.squared)
   }
-)
+})
 
-no_bmg_pred_data <- lapply(get_no_bmg_regression_results, function(x)
-  {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
-    {data.frame(x$coefficients[1],x$coefficients[2],x$coefficients[3],x$coefficients[4],x$coefficients[5],
-                x$r.squared,
-                x$adj.r.squared)
-    }
+
+no_bmg_pred_data <- lapply(get_no_bmg_regression_results, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 1]),
+               x$r.squared,
+               x$adj.r.squared)
   }
-)
+})
+
+bmg_pred_data_t <- lapply(get_bmg_regression_results, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 2]))
+  }
+})    
+
+no_bmg_pred_data_t <- lapply(get_no_bmg_regression_results, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 2]))
+  }
+})
 
 # Removing regressions that didn't run
 if (length(which(lapply(bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0) {
   bmg_pred_data <- bmg_pred_data[-which(lapply(bmg_pred_data, function(x) is.null(x)) == TRUE)]
+  bmg_pred_data_t <- bmg_pred_data_t[-which(lapply(bmg_pred_data_t, function(x) is.null(x)) == TRUE)]
 }
 
+    
 if (length(which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0) {
   no_bmg_pred_data <- no_bmg_pred_data[-which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)]
+  no_bmg_pred_data_t <- no_bmg_pred_data_t[-which(lapply(no_bmg_pred_data_t, function(x) is.null(x)) == TRUE)]  
 }
 
 # Final output table
 bmg_pred_data <- tibble(Stock=names(bmg_pred_data), bind_rows(bmg_pred_data))
 no_bmg_pred_data <- tibble(Stock=names(no_bmg_pred_data), bind_rows(no_bmg_pred_data))
 
+bmg_pred_data_t <- tibble(Stock=names(bmg_pred_data_t), bind_rows(bmg_pred_data_t))
+no_bmg_pred_data_t <- tibble(Stock=names(no_bmg_pred_data_t), bind_rows(no_bmg_pred_data_t))
+
+
 colnames(bmg_pred_data)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
 colnames(no_bmg_pred_data)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
+
+full_bmg_table <- c()
+full_no_bmg_table <- c()
+
+
+# Construct the tables by binding the t-statistic rows to the coefficient rows
+for (i in 1:nrow(bmg_pred_data)) {
+  temp_t_holder <- cbind(bmg_pred_data_t[i ,], 0, 0)
+  colnames(temp_t_holder) <- colnames(bmg_pred_data)
+  temp_holder <- rbind(bmg_pred_data[i, ],
+                       temp_t_holder)
+  temp_holder <- temp_holder %>%
+    mutate(Statistic = c("Coefficient", "t-Stat")) %>%
+    relocate(Statistic, .after = Stock)
+  full_bmg_table <- rbind(full_bmg_table,
+                          temp_holder)
+                          
+}
+
+for (i in 1:nrow(bmg_pred_data)) {
+  temp_t_holder <- cbind(no_bmg_pred_data_t[i ,], 0, 0)
+  colnames(temp_t_holder) <- colnames(no_bmg_pred_data)
+  temp_holder <- rbind(no_bmg_pred_data[i, ],
+                       temp_t_holder)
+  temp_holder <- temp_holder %>%
+    mutate(Statistic = c("Coefficient", "t-Stat")) %>%
+    relocate(Statistic, .after = Stock)
+  full_no_bmg_table <- rbind(full_no_bmg_table,
+                             temp_holder)
+}
+
+# Display the full table
+
+full_bmg_table
+full_no_bmg_table
+
+# Write the table
+write.csv(full_bmg_table, "full_bmg_table.csv")
+write.csv(full_no_bmg_table, "full_no_bmg_table.csv")
+
 
 pred_power <- bmg_pred_data %>%
   inner_join(no_bmg_pred_data, by = c("Stock"="Stock"))
