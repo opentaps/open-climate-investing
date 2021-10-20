@@ -9,8 +9,8 @@ carbon_data <- read_csv("data/carbon_risk_factor.csv")
 ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
-final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
-#final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+# final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
 
@@ -53,17 +53,20 @@ stock_names <- unique(all_data$Stock)
 # Need to limit the dataset and do a roll
 start_date <- min(all_data$Date)
 end_date <- max(all_data$Date)
-roll_length <- 84
-min_data <- 18
+roll_length <- 60
+min_data <- 60
 
 num_rolls <- interval(ymd(start_date), ymd(end_date))%/%months(1) - roll_length + 2
+roll_start <- start_date
 
 for (i in 1:num_rolls) {
   roll_end <- ymd(start_date) %m+% months(i) %m+% months(roll_length - 2)
   roll_end <- ceiling_date(roll_end, "month") - days(1)
+  roll_start <- ymd(start_date) %m+% months(i - 1)
+  roll_start <- ceiling_date(roll_start, "month") - days(1)
   
   roll_data <- all_data %>%
-    filter(Date >= start_date,
+    filter(Date >= roll_start,
            Date <= roll_end)
   
   n_obs <- roll_data %>%
@@ -71,7 +74,7 @@ for (i in 1:num_rolls) {
     summarise(n = n())
   
   valid_stocks <- n_obs %>%
-    filter(n > min_data)
+    filter(n >= min_data)
   
   roll_data <- roll_data %>%
     filter(Stock %in% valid_stocks$Stock)
@@ -83,6 +86,9 @@ for (i in 1:num_rolls) {
   
   saved_betas <- rbind(saved_betas,
                        cbind(roll_end, get_data_output(mass_reg_results, 1)$betas))
+
+  roll_start <- ymd(roll_start) %m+% months(1)
+  roll_start <- ceiling_date(roll_start, "month") - days(1)
 }
 
 saved_betas <- saved_betas %>%

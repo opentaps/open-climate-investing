@@ -89,14 +89,14 @@ no_bmg_pred_data <- lapply(get_no_bmg_regression_results, function(x) {
 bmg_pred_data_t <- lapply(get_bmg_regression_results, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
   {
-    data.frame(t(x$coefficients[, 2]))
+    data.frame(t(x$coefficients[, 3]))
   }
 })    
 
 no_bmg_pred_data_t <- lapply(get_no_bmg_regression_results, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
   {
-    data.frame(t(x$coefficients[, 2]))
+    data.frame(t(x$coefficients[, 3]))
   }
 })
 
