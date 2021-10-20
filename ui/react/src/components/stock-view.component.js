@@ -695,6 +695,7 @@ class Stock extends Component {
             <tr key={index}>
               <th>{f.label}</th>
               <td
+                data-pgtabs={values[f.name + "_p_gt_abs_t"]}
                 className={StockDataService.getColoringClassForStat(
                   values[f.name + "_p_gt_abs_t"]
                 )}
@@ -702,6 +703,7 @@ class Stock extends Component {
                 {this.renderFormattedField(f, values)}
               </td>
               <td
+                data-pgtabs={values[f.name + "_p_gt_abs_t"]}
                 className={StockDataService.getColoringClassForStat(
                   values[f.name + "_p_gt_abs_t"]
                 )}
@@ -709,6 +711,7 @@ class Stock extends Component {
                 {this.renderFormattedField(f, values, "_t_stat")}
               </td>
               <td
+                data-pgtabs={values[f.name + "_p_gt_abs_t"]}
                 className={StockDataService.getColoringClassForStat(
                   values[f.name + "_p_gt_abs_t"]
                 )}

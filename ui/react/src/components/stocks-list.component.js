@@ -442,6 +442,7 @@ class StocksList extends Component {
                       <b>{item.ticker}</b>: {item.name}
                     </td>
                     <td
+                      data-pgtabs={item.bmg_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.bmg_p_gt_abs_t
                       )}
@@ -449,6 +450,7 @@ class StocksList extends Component {
                       {item.bmg}
                     </td>
                     <td
+                      data-pgtabs={item.mkt_rf_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.mkt_rf_p_gt_abs_t
                       )}
@@ -456,6 +458,7 @@ class StocksList extends Component {
                       {item.mkt_rf}
                     </td>
                     <td
+                      data-pgtabs={item.smb_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.smb_p_gt_abs_t
                       )}
@@ -463,6 +466,7 @@ class StocksList extends Component {
                       {item.smb}
                     </td>
                     <td
+                      data-pgtabs={item.hml_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.hml_p_gt_abs_t
                       )}
@@ -470,6 +474,7 @@ class StocksList extends Component {
                       {item.hml}
                     </td>
                     <td
+                      data-pgtabs={item.wml_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.wml_p_gt_abs_t
                       )}
@@ -477,6 +482,7 @@ class StocksList extends Component {
                       {item.wml}
                     </td>
                     <td
+                      data-pgtabs={item.r_squared_p_gt_abs_t}
                       className={StockDataService.getColoringClassForStat(
                         item.r_squared_p_gt_abs_t
                       )}
