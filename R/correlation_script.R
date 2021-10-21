@@ -15,19 +15,27 @@ library(DBI)
 # bmg_ff_factors <- dbFetch(res)
 
 ff_factors <- read_csv("data/ff_factors.csv")
-#bmg_factor <- read_csv("data/carbon_risk_factor.csv")
-bmg_factor <- read_csv("data/paris_aligned_bmg.csv") %>%
-  select(-Green_Returns, - Brown_Returns)
+bmg_factor <- read_csv("data/carbon_risk_factor.csv")
+#bmg_factor <- read_csv("data/paris_aligned_bmg.csv") %>%
+#  select(-Green_Returns, - Brown_Returns)
+interest_rates <- read_csv("data/interest_rates.csv")
 
-# all_factors <- ff_factors %>%
-#  inner_join(bmg_factor, by = c("Date" = "month"))
-
-all_factors <- ff_factors %>%
-  inner_join(bmg_factor, by = c("Date" = "Date"))
+ all_factors <- ff_factors %>%
+  inner_join(bmg_factor, by = c("Date" = "month")) %>%
+   inner_join(interest_rates, by = c("Date" = "Date") )
+ colnames(all_factors)[2] <- "Mkt_less_RF"
+#all_factors <- ff_factors %>%
+#  inner_join(bmg_factor, by = c("Date" = "Date"))
 
 cor_matrix <- cor(all_factors %>%
                    select(-Date))
 
+plot(BMG ~ SMB, data=all_factors)
+plot(BMG ~ HML, data=all_factors)
+plot(BMG ~ HiYieldSpreadChg, data=all_factors)
+
+fit <- lm(BMG ~ Mkt_less_RF + SMB + HML + WML + RateChg + CurveChg + HiYieldSpreadChg + BBBSpreadChg, data = all_factors)
+summary(fit)
 # cor_matrix <- cor(bmg_ff_factors %>%
 #                     select(-date))
 
