@@ -2,15 +2,21 @@
 
 _"Every battle is won before it is fought." - Sun Tzu_
 
-Now we come to the climax
 Sponsors choose the index and fund managers manage to them
 Supermarket of fund types: growth, value, international, sector specific, even art, watches and crypto currencies  - enough variety to make Bergdorf blush
 ESG is a fund type
 But climate needs to be in all the fund types: climate growth, value, etc.
 There are a lot of established indices and good new ones.  You can use those and use this as a guide
 Checking up on the index: carbon risk factor for the existing indices, vs portfolios, attributions of results
-Creating your own: Structure portfolio with minimum tracking errors and key metrics (sectors and ratios) while reducing carbon risk factor
-Efficient carbon frontiers
+
+Analyze the S&P 500 Paris Aligned index in detail - How much less carbon risk, and why?
+
+Create example indices which have less carbon risk
+
+Monitoring and rebalancing requirements
+
+Replication errors and minimum securities required to hold
+
 
 ### Who is Right?
 

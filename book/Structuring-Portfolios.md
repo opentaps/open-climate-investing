@@ -55,7 +55,17 @@ A more straightforward approach is for the CIO or investment committee to put on
  * Based on the volatility, size the bet -- How large a carbon risk loading different can we stomach against our benchmark, so that even in large moves against us, the performance will still be acceptable?  Essentially, this is a "Value at Risk" calculation.  For example, given a 2 standard deviation move in carbon risk factor in any year, should we limit the performance downside to 50 bps versus the benchmark?  This determines the amount of carbon risk loading difference we can maintain. 
  * Identify the stocks within each sector with the highest (lowest) carbon risk loadings that we could underweight (overweight)
  * Identify the sectors of the index with the highest (lowest) carbon risk loadings that we could underweight (overweight)
-       
+
+This is not as easy as it first sounds.  The choice of risk sizing could make or break your investment strategy.  Too little risk, and it won’t give you enough of a performance boost, but too much risk could cause to incur larger losses than expected.  If you’re managing against guidelines or using leverage, it could actually cause the loss of the client or wipe out of the portfolio.
+
+With bonds and derivatives, the risk metrics are fundamentally determined - duration, convexity, delta, theta, gamma are all derived from models.  We tend to see risk as the measured risk fluctuating - changes in volatility.  This makes it relatively easier to quantify basis risk.
+
+With stocks, both the risk metrics and the volatilities change.  The factor loadings drift over time, and the volatilities of the underlying assets change.  The two need to be taken together and looked at as the raw volatility.
+
+Finally remember that measurements of volatility are themselves flawed.  Virtually all the academic research and risk models assume that asset prices are normally distributed, but in fact they are not.  Large movements — three, four, five standard deviation moves — are rare, but much more common than the million to one occurrences the models assume they are.  Short term movements are more volatile than longer term movements multiplied by the square root of time, which is what normally distributed volatilities mean.  Covariances between assets may hold steady in ordinary markets, but when start to hit the proverbial fan, all assets move together — down.  Even the hedges will move against you.
+
+Taken together, this means that once in a long time events happen more often and with greater ferocity in the markets than the models predict.  When you make these kinds of bets against your benchmark, be careful.  Don’t oversize these long term core bets.
+
 Then it's time for one of those meetings in the conference room.  Are we better off changing our selection of stocks to maintain the sector weightings, or changing our sector weightings?  This is where the portfolio manager's judgement on the individual stocks comes in.  If their opinion on the individual stocks goes along with the climate risk strategy, then you can realize your climate strategy through issue selection.  Otherwise, go with the sector weightings.
 
 The last option, tactically trading the climate risk of the portfolio versus the benchmark, is really a trading strategy.  It should be attempted if there is a real reversal patterns in the price movements _and_ a fundamental reason why it's happening.  For example, if there's intervention or regulatory-driven trading in the market.  Otherwise, just be careful that you could get whipsawed by the noise.  Or worse, you could decide to sit it out and spend the rest of your life playing "Could have.  Should have.  If only."
