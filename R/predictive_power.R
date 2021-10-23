@@ -7,15 +7,18 @@ source("R/key_functions.R")
 
 # Read in the Fama-French and BMG factors
  carbon_data <- read_csv("data/carbon_risk_factor.csv")
-#carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
+# carbon_data <- read_csv("data/bmg_xop_smog.csv")
+# carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
 #  select(-Green_Returns, - Brown_Returns)
+#carbon_data <- read_csv("data/bmg_eu_ets.csv")
+#carbon_data <- read_csv("data/bmg_acwi_crbn.csv")
 ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
-final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
 
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
@@ -91,7 +94,7 @@ bmg_pred_data_t <- lapply(get_bmg_regression_results, function(x) {
   {
     data.frame(t(x$coefficients[, 3]))
   }
-})    
+})
 
 no_bmg_pred_data_t <- lapply(get_no_bmg_regression_results, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
@@ -106,10 +109,10 @@ if (length(which(lapply(bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0) {
   bmg_pred_data_t <- bmg_pred_data_t[-which(lapply(bmg_pred_data_t, function(x) is.null(x)) == TRUE)]
 }
 
-    
+
 if (length(which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)) > 0) {
   no_bmg_pred_data <- no_bmg_pred_data[-which(lapply(no_bmg_pred_data, function(x) is.null(x)) == TRUE)]
-  no_bmg_pred_data_t <- no_bmg_pred_data_t[-which(lapply(no_bmg_pred_data_t, function(x) is.null(x)) == TRUE)]  
+  no_bmg_pred_data_t <- no_bmg_pred_data_t[-which(lapply(no_bmg_pred_data_t, function(x) is.null(x)) == TRUE)]
 }
 
 # Final output table
@@ -138,7 +141,7 @@ for (i in 1:nrow(bmg_pred_data)) {
     relocate(Statistic, .after = Stock)
   full_bmg_table <- rbind(full_bmg_table,
                           temp_holder)
-                          
+
 }
 
 for (i in 1:nrow(bmg_pred_data)) {
