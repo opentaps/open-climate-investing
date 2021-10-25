@@ -468,7 +468,7 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
     relocate(Statistic, .after = Sector)
   
   full_no_bmg_table_by_sector <- bind_rows(
-    full_bmg_table_by_sector,
+    full_no_bmg_table_by_sector,
     temp_holder
     )
 }
