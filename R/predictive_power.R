@@ -166,10 +166,11 @@ no_bmg_pred_data_t <- tibble(
 colnames(bmg_pred_data)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
 colnames(no_bmg_pred_data)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
 
-full_bmg_table <- c()
-full_no_bmg_table <- c()
+
 
 # 6. T-Statistic & Coefficient Row Binding --------------------------------
+
+full_bmg_table <- c()
 
 for (i in 1:nrow(bmg_pred_data)) {
   temp_t_holder <- bind_cols(bmg_pred_data_t[i ,], 0, 0)
@@ -178,8 +179,7 @@ for (i in 1:nrow(bmg_pred_data)) {
   temp_holder <- bind_rows(
     bmg_pred_data[i, ],
     temp_t_holder
-    )
-  temp_holder <- temp_holder %>%
+    ) %>% 
     mutate(
       Statistic = c("Coefficient", "t-Stat")
       ) %>%
@@ -192,16 +192,19 @@ for (i in 1:nrow(bmg_pred_data)) {
 
 }
 
+full_no_bmg_table <- c()
+
 for (i in 1:nrow(bmg_pred_data)) {
   temp_t_holder <- cbind(no_bmg_pred_data_t[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data)
   
-  temp_holder <- bind_rows(no_bmg_pred_data[i, ],
-                       temp_t_holder)
-  temp_holder <- temp_holder %>%
+  temp_holder <- bind_rows(
+    no_bmg_pred_data[i, ],
+    temp_t_holder
+    ) %>% 
     mutate(
       Statistic = c("Coefficient", "t-Stat")
-      ) %>%
+    ) %>%
     relocate(Statistic, .after = Stock)
   
   full_no_bmg_table <- bind_rows(
@@ -271,7 +274,7 @@ pred_power_table <- pred_power %>%
 all_sector_pred_power <- pred_power %>% 
   summarise(
     across(where(is.double), mean)
-    )
+  )
 
 # Display tables by sector and average of all stocks
 pred_power_table
@@ -355,7 +358,7 @@ get_bmg_regression_results_by_sector <- lapply(mass_reg_results_by_sector, funct
 
 # * 8.5 - Get the coefficient summary table, R-Squared and Adjuste --------
 
-no_bmg_pred_data_by_sector <- lapply(get_no_bmg_regression_results, function(x) {
+no_bmg_pred_data_by_sector <- lapply(get_no_bmg_regression_results_by_sector, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
   {
     data.frame(t(x$coefficients[, 1]),
@@ -373,7 +376,7 @@ bmg_pred_data_by_sector <- lapply(get_bmg_regression_results_by_sector, function
   }
 })
 
-no_bmg_pred_data_t_by_sector <- lapply(get_no_bmg_regression_results, function(x) {
+no_bmg_pred_data_t_by_sector <- lapply(get_bmg_regression_results_by_sector, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
   {
     data.frame(t(x$coefficients[, 3]))
@@ -389,11 +392,13 @@ bmg_pred_data_t_by_sector <- lapply(get_bmg_regression_results_by_sector, functi
 
 # * 8.6 - Removing regressions that didn't run ----------------------------
 
+# BMG
 if (length(which(lapply(bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)) > 0) {
   bmg_pred_data_by_sector <- bmg_pred_data_by_sector[-which(lapply(bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)]
   bmg_pred_data_t_by_sector <- bmg_pred_data_t_by_sector[-which(lapply(bmg_pred_data_t_by_sector, function(x) is.null(x)) == TRUE)]
 }
 
+# no BMG
 if (length(which(lapply(no_bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)) > 0) {
   no_bmg_pred_data_by_sector <- no_bmg_pred_data_by_sector[-which(lapply(no_bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)]
   bmg_pred_data_t_by_sector <- bmg_pred_data_t_by_sector[-which(lapply(bmg_pred_data_t_by_sector, function(x) is.null(x)) == TRUE)]
@@ -406,7 +411,6 @@ bmg_pred_data_by_sector <- tibble(
   bind_rows(bmg_pred_data_by_sector)
 )
 
-# Check this object
 no_bmg_pred_data_by_sector <- tibble(
   Sector = names(no_bmg_pred_data_by_sector),
   bind_rows(no_bmg_pred_data_by_sector)
@@ -417,33 +421,28 @@ bmg_pred_data_t_by_sector <- tibble(
   bind_rows(bmg_pred_data_t_by_sector)
 )
 
-# Check this object and onwards
-bmg_pred_data_t_by_sector <- tibble(
-  Sector = names(bmg_pred_data_t_by_sector),
-  bind_rows(bmg_pred_data_t_by_sector)
-)
-
 colnames(bmg_pred_data_by_sector)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
 colnames(no_bmg_pred_data_by_sector)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
 
-full_bmg_table <- c()
-full_no_bmg_table <- c()
 
 # * 8.8 - T-Statistic & Coefficient Row Binding ---------------------------
 
-for (i in 1:nrow(bmg_pred_data_by_sector)) {
-  temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[i ,], 0, 0)
+full_bmg_table <- c()
+
+# BMG by Sector Stats
+for (j in 1:nrow(bmg_pred_data_by_sector)) {
+
+  temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[j ,], 0, 0)
   colnames(temp_t_holder) <- colnames(bmg_pred_data_by_sector)
   
   temp_holder <- bind_rows(
-    bmg_pred_data_by_sector[i, ],
+    bmg_pred_data_by_sector[j, ],
     temp_t_holder
-  )
-  temp_holder <- temp_holder %>%
+    ) %>% 
     mutate(
       Statistic = c("Coefficient", "t-Stat")
-      ) %>%
-    relocate(Statistic, .after = Stock)
+    ) %>%
+    relocate(Statistic, .after = Sector)
   
   full_bmg_table_by_sector <- bind_rows(
     full_bmg_table,
@@ -452,19 +451,21 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
   
 }
 
+full_no_bmg_table <- c()
+
+# No BMG Stats by Sector
 for (i in 1:nrow(bmg_pred_data_by_sector)) {
-  temp_t_holder <- cbind(bmg_pred_data_t_by_sector[i ,], 0, 0)
+  temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data_by_sector)
   
   temp_holder <- bind_rows(
     no_bmg_pred_data_by_sector[i, ],
     temp_t_holder
-    )
-  temp_holder <- temp_holder %>%
+    ) %>% 
     mutate(
       Statistic = c("Coefficient", "t-Stat")
-      ) %>%
-    relocate(Statistic, .after = Stock)
+    ) %>%
+    relocate(Statistic, .after = Sector)
   
   full_no_bmg_table_by_sector <- bind_rows(
     full_no_bmg_table,
@@ -485,11 +486,11 @@ write.csv(full_no_bmg_table_by_sector, "full_no_bmg_table.csv")
 pred_power_by_sector <- bmg_pred_data_by_sector %>%
   inner_join(
     no_bmg_pred_data_by_sector, 
-    by = c("Stock" = "Stock") # Check name of column
+    by = c("Sector" = "Sector") # Check name of column
   )
 
-pred_power <- pred_power %>%
-  relocate(FF_Rsq, .after = Stock) %>%
+pred_power_by_sector <- pred_power_by_sector %>%
+  relocate(FF_Rsq, .after = Sector) %>%
   relocate(FFB_Rsq, .after = FF_Rsq) %>%
   relocate(FF_AdjRsq, .after = FFB_Rsq) %>%
   relocate(FFB_AdjRsq, .after = FF_AdjRsq) %>%
