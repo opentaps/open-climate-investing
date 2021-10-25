@@ -427,7 +427,7 @@ colnames(no_bmg_pred_data_by_sector)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "F
 
 # * 8.8 - T-Statistic & Coefficient Row Binding ---------------------------
 
-full_bmg_table <- c()
+full_bmg_table_by_sector <- c()
 
 # BMG by Sector Stats
 for (j in 1:nrow(bmg_pred_data_by_sector)) {
@@ -445,7 +445,7 @@ for (j in 1:nrow(bmg_pred_data_by_sector)) {
     relocate(Statistic, .after = Sector)
   
   full_bmg_table_by_sector <- bind_rows(
-    full_bmg_table,
+    full_bmg_table_by_sector,
     temp_holder
   )
   
