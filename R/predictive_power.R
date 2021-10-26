@@ -316,10 +316,9 @@ returns_by_sector <- all_data_by_sector %>%
     .f = function(x) {
       x %>% 
         mutate(
-          Weighted_Returns = Returns * Weight,
-          Returns = cumsum(Weighted_Returns)
+         Returns = mean(Returns)
           ) %>% 
-        slice_tail() %>% 
+        slice_tail() %>%
         select(Date, Sector, Returns)
     }
   )
