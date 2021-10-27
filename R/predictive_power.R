@@ -479,6 +479,10 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
     )
 }
 
+# Removal of empty column
+full_no_bmg_table_by_sector <- full_no_bmg_table_by_sector %>% 
+  select(-last_col())
+
 # * 8.9 - Display the full table ------------------------------------------
 
 full_bmg_table_by_sector
