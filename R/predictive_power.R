@@ -32,7 +32,8 @@ ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+final_stock_returns <- read.csv('data/msci_world_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 #final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
 
@@ -480,7 +481,7 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
 }
 
 # Removal of empty column
-full_no_bmg_table_by_sector <- full_no_bmg_table_by_sector %>% 
+full_no_bmg_table_by_sector <- full_no_bmg_table_by_sector %>%
   select(-last_col())
 
 # * 8.9 - Display the full table ------------------------------------------
