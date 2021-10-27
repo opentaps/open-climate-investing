@@ -22,9 +22,9 @@ carbon_data <- read_csv("data/carbon_risk_factor.csv")
 #  select(-Green_Returns, - Brown_Returns)
 #carbon_data <- read_csv("data/bmg_eu_ets.csv")
 #carbon_data <- read_csv("data/bmg_acwi_crbn.csv")
- 
+
 # * 3.2  - Fama-French Factors --------------------------------------------
- 
+
 ff_data <- read_csv("data/ff_factors.csv")
 
 # * 3.3 - Risk Free -------------------------------------------------------
@@ -35,6 +35,8 @@ risk_free <- read_csv("data/risk_free.csv")
 final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 #final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
+
+# Debug - write.csv(final_stock_returns[final_stock_returns$Stock=="ORA.PA",], "final_stock_returns.csv")
 
 # 4. Data Preprocessing -----------------------------------------------------
 
@@ -53,11 +55,11 @@ risk_free[, -1] <- risk_free[, -1]/100
 # Combine the carbon data with the Fama-French factors
 all_factor_data <- carbon_data %>%
   left_join(
-    ff_data, 
+    ff_data,
     by = c("Date" = "Date")
-    ) %>% 
+    ) %>%
   left_join(
-    risk_free, 
+    risk_free,
     by = c("Date"="Date")
     )
 
@@ -65,8 +67,8 @@ all_data <- final_stock_returns %>%
   inner_join(
     all_factor_data,
     by = c("Date" = "Date")
-    ) %>% 
-  mutate(excess_returns = Returns - Rf) %>% 
+    ) %>%
+  mutate(excess_returns = Returns - Rf) %>%
   rename(Mkt_less_RF = `Mkt-RF`) # Change market return data column to be more compatible
 
 # 5. Regression Analysis --------------------------------------------------
@@ -175,16 +177,16 @@ full_bmg_table <- c()
 for (i in 1:nrow(bmg_pred_data)) {
   temp_t_holder <- bind_cols(bmg_pred_data_t[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(bmg_pred_data)
-  
+
   temp_holder <- bind_rows(
     bmg_pred_data[i, ],
     temp_t_holder
-    ) %>% 
+    ) %>%
     mutate(
       Statistic = c("Coefficient", "t-Stat")
       ) %>%
     relocate(Statistic, .after = Stock)
-  
+
   full_bmg_table <- bind_rows(
     full_bmg_table,
     temp_holder
@@ -197,16 +199,16 @@ full_no_bmg_table <- c()
 for (i in 1:nrow(bmg_pred_data)) {
   temp_t_holder <- cbind(no_bmg_pred_data_t[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data)
-  
+
   temp_holder <- bind_rows(
     no_bmg_pred_data[i, ],
     temp_t_holder
-    ) %>% 
+    ) %>%
     mutate(
       Statistic = c("Coefficient", "t-Stat")
     ) %>%
     relocate(Statistic, .after = Stock)
-  
+
   full_no_bmg_table <- bind_rows(
     full_no_bmg_table,
     temp_holder
@@ -225,7 +227,7 @@ write.csv(full_no_bmg_table, "full_no_bmg_table.csv")
 
 pred_power <- bmg_pred_data %>%
   inner_join(
-    no_bmg_pred_data, 
+    no_bmg_pred_data,
     by = c("Stock" = "Stock")
     )
 
@@ -271,7 +273,7 @@ pred_power_table <- pred_power %>%
 
 # * 7.3 - Mean Predictive Power by each Factor across all Stocks ----------
 
-all_sector_pred_power <- pred_power %>% 
+all_sector_pred_power <- pred_power %>%
   summarise(
     across(where(is.double), mean)
   )
@@ -289,40 +291,44 @@ write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
 
 all_data_by_sector <- all_data %>% # I only need stock data
   left_join(
-    final_stock_breakdown %>% 
+    final_stock_breakdown %>%
       select(Ticker, Sector),
     by = c("Stock" = "Ticker")
-  ) %>% 
+  ) %>%
   mutate(
     across(
       .cols = c(Stock, Sector),
       .fns  = factor
     )
-  ) %>% 
-  group_by(Sector) %>% 
+  ) %>%
+  group_by(Sector) %>%
   mutate(
     n_Stocks = length(levels(Stock)),
     Weight   = 1 / n_Stocks
-  ) %>% 
-  select(Date, Returns, Stock, Sector, n_Stocks, Weight) %>% 
+  ) %>%
+  select(Date, Returns, Stock, Sector, n_Stocks, Weight) %>%
   ungroup()
 
 # * 8.2 - Calculate equal weighted portfolio returns by Sector ------------
 
-returns_by_sector <- all_data_by_sector %>% 
-  group_split(Sector, Date) %>% 
+# Debug - write.csv(all_data_by_sector[all_data_by_sector$Date == '2010-09-30',], "all_data_by_setor.csv")
+
+returns_by_sector <- all_data_by_sector %>%
+  group_split(Sector, Date) %>%
   purrr::map_dfr(
     .x = .,
     .f = function(x) {
-      x %>% 
+      x %>%
         mutate(
-          Weighted_Returns = Returns * Weight,
-          Returns = cumsum(Weighted_Returns)
-          ) %>% 
-        slice_tail() %>% 
+          Returns = mean(Returns)
+          ) %>%
+        slice_tail() %>%
         select(Date, Sector, Returns)
     }
   )
+
+
+# Debug - write.csv(returns_by_sector[returns_by_sector$Sector == 'Energy',], "returns_by_sector_energy.csv")
 
 # * 8.3 - Unite Factor Data with EW Portfolio Returns ---------------------
 
@@ -330,15 +336,15 @@ return_factor_data_by_sector <- returns_by_sector %>%
   inner_join(
     all_factor_data,
     by = c("Date" = "Date")
-  ) %>% 
+  ) %>%
   mutate(
-    Sector         = as.character(Sector), 
+    Sector         = as.character(Sector),
     excess_returns = Returns - Rf
-    ) %>% 
+    ) %>%
   rename(Mkt_less_RF = `Mkt-RF`)
 
 # * 8.4 - Regression Analysis by Sector -----------------------------------
-  
+
 mass_reg_results_by_sector <- mass_regression(
   stock_data     = return_factor_data_by_sector,
   stock_col_name = "Sector",
@@ -434,21 +440,21 @@ for (j in 1:nrow(bmg_pred_data_by_sector)) {
 
   temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[j ,], 0, 0)
   colnames(temp_t_holder) <- colnames(bmg_pred_data_by_sector)
-  
+
   temp_holder <- bind_rows(
     bmg_pred_data_by_sector[j, ],
     temp_t_holder
-    ) %>% 
+    ) %>%
     mutate(
       Statistic = c("Coefficient", "t-Stat")
     ) %>%
     relocate(Statistic, .after = Sector)
-  
+
   full_bmg_table_by_sector <- bind_rows(
     full_bmg_table_by_sector,
     temp_holder
   )
-  
+
 }
 
 full_no_bmg_table_by_sector <- c()
@@ -457,16 +463,16 @@ full_no_bmg_table_by_sector <- c()
 for (i in 1:nrow(bmg_pred_data_by_sector)) {
   temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data_by_sector)
-  
+
   temp_holder <- bind_rows(
     no_bmg_pred_data_by_sector[i, ],
     temp_t_holder
-    ) %>% 
+    ) %>%
     mutate(
       Statistic = c("Coefficient", "t-Stat")
     ) %>%
     relocate(Statistic, .after = Sector)
-  
+
   full_no_bmg_table_by_sector <- bind_rows(
     full_no_bmg_table_by_sector,
     temp_holder
@@ -485,7 +491,7 @@ write.csv(full_no_bmg_table_by_sector, "full_no_bmg_table.csv")
 
 pred_power_by_sector <- bmg_pred_data_by_sector %>%
   inner_join(
-    no_bmg_pred_data_by_sector, 
+    no_bmg_pred_data_by_sector,
     by = c("Sector" = "Sector") # Check name of column
   )
 
