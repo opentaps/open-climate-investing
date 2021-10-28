@@ -6,7 +6,7 @@ source("R/key_functions.R")
 ### Improvement in predictions
 
 # Read in the Fama-French and BMG factors
- carbon_data <- read_csv("data/carbon_risk_factor.csv")
+carbon_data <- read_csv("data/carbon_risk_factor.csv")
 # carbon_data <- read_csv("data/bmg_xop_smog.csv")
 # carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
 #  select(-Green_Returns, - Brown_Returns)
@@ -16,8 +16,8 @@ ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
-#final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+# final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 #final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
 
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
@@ -179,23 +179,43 @@ pred_power <- pred_power %>%
 ### By sector
 # Read in the sector breakdowns
 final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
-#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+# final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
 pred_power <- pred_power %>%
   inner_join(final_stock_breakdown,
-#             by = c("Stock" = "Symbol"))   # for spx
-by = c("Stock" = "Ticker"))   # for msci
+             # by = c("Stock" = "Symbol"))   # for spx
+             by = c("Stock" = "Ticker"))   # for msci
 
 ### This is for SPX Only
-colnames(pred_power)[7:8] <- c("GICS_Sector", "GICS_Sub")
+colnames(pred_power)[(length(colnames(pred_power)) - 1):length(colnames(pred_power))] <- c("Sector", "Sub_Sector")
 
+
+### Working on financials ###
+unique(pred_power$Sub_Sector)
+pred_power <- pred_power %>%
+  mutate(final_sector = Sector)
+
+financial_sectors <- c("Multi-Sector Holdings",
+                       "Diversified Banks",
+                       "Investment Banking & Brokerage",
+                       "Asset Management & Custody Bank",
+                       "Financial Exchanges & Data",
+                       "Consumer Finance",
+                       "Regional Banks",
+                       "Property & Casualty Insurance",
+                       "Insurance Brokers",
+                       "Life & Health Insurance",
+                       "Multi-line Insurance",
+                       "Reinsurance",
+                       "Thrifts & Mortgage Finance")
 
 pred_power_table <- pred_power %>%
-  mutate(FF_Alpha=FF_Alpha, FFB_Alpha=FFB_Alpha,
+  mutate(FF_Alpha = FF_Alpha,
+         FFB_Alpha = FFB_Alpha,
          Alpha_Diff = abs(FFB_Alpha) - abs(FF_Alpha),
-         FF_Rsq =FF_Rsq, FFB_Rsq=FFB_Rsq,
+         FF_Rsq = FF_Rsq, FFB_Rsq=FFB_Rsq,
          RSq_Diff = FFB_Rsq - FF_Rsq,
-         FF_AdjRsq=FF_AdjRsq, FFB_AdjRsq=FFB_AdjRsq,
+         FF_AdjRsq = FF_AdjRsq, FFB_AdjRsq=FFB_AdjRsq,
          AdjRSq_Diff = FFB_AdjRsq - FF_AdjRsq) %>%
   ### Change the below line by what you want to group things by
   group_by(Sector) %>%
@@ -204,10 +224,10 @@ pred_power_table <- pred_power %>%
             "FFB_FF_Alpha" = mean(Alpha_Diff),
             "FF_Rsq"=mean(FF_Rsq),
             "FFB_Rsq"=mean(FFB_Rsq),
-            "FFB_-FF_Rsq" = mean(RSq_Diff),
+            "FFB_Rsq-FF_Rsq" = mean(RSq_Diff),
             "FF_AdjRsq"=mean(FF_AdjRsq),
             "FFB_AdjRsq"=mean(FFB_AdjRsq),
-            "FFB_-FF_AdjRSq" = mean(AdjRSq_Diff),
+            "FFB_AdjRsq-FF_AdjRSq" = mean(AdjRSq_Diff),
             "FFB_BMG" = mean(FFB_BMG),
             "FFB_Mkt_RF" = mean(FFB_Mkt_less_RF),
             "FFB_SMB" = mean(FFB_SMB),
@@ -249,3 +269,51 @@ all_sector_pred_power
 
 # Write table
 write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
+
+
+
+# Creating equally-weighted portfolios
+all_data_sectors <- all_data %>%
+  left_join(final_stock_breakdown, by = c("Stock" = "Symbol"))
+
+colnames(all_data_sectors)[(length(colnames(all_data_sectors)) - 1):length(colnames(all_data_sectors))] <- c("Sector", "GICS_Sub")
+
+all_data_sectors <- all_data_sectors %>%
+  group_by(Sector, Date) %>%
+  summarise(sector_return = mean(excess_returns))
+
+all_data_sectors <- all_data_sectors %>%
+  left_join(ff_data, by = c("Date" = "Date"))
+
+all_data_sectors <- all_data_sectors %>%
+  left_join(carbon_data, by = c("Date" = "month"))
+
+colnames(all_data_sectors)[which(colnames(all_data_sectors) == "Mkt-RF")] <- "Mkt_less_RF"
+
+mass_sector_reg_results <- mass_regression(all_data_sectors,
+                                           "Sector",
+                                           c("sector_return ~ Mkt_less_RF + SMB + HML + WML",
+                                             "sector_return ~ BMG + Mkt_less_RF + SMB + HML + WML"))
+
+get_sector_bmg_regression_results <- lapply(mass_sector_reg_results, function(x) {
+  summary(x[["Regression"]][[2]])
+})
+
+
+# Get the coefficient summary table, R-Squared and Adjusted R-Squared
+bmg_sector_loading_data <- lapply(get_sector_bmg_regression_results, function(x)
+  {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
+    {data.frame(t(x$coefficients[2, ]),
+            x$r.squared,
+            x$adj.r.squared)
+    }
+  }
+)
+
+# Removing regressions that didn't run
+if (length(which(lapply(bmg_sector_loading_data, function(x) is.null(x)) == TRUE)) > 0) {
+  bmg_sector_loading_data <- bmg_sector_loading_data[-which(lapply(bmg_sector_loading_data, function(x) is.null(x)) == TRUE)]
+}
+
+bmg_sector_loading_data <- tibble(Sector=names(bmg_sector_loading_data), bind_rows(bmg_sector_loading_data))
+princomp()

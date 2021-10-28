@@ -7,7 +7,8 @@ get_dataframe_dimensions <- function(x) {
 
 mass_regression <- function(stock_data,
                             stock_col_name,
-                            reg_formulas) {
+                            reg_formulas,
+                            print = TRUE) {
   
   stock_reg_data <- list()
   
@@ -17,7 +18,9 @@ mass_regression <- function(stock_data,
   
   for (i in 1:nrow(stock_names)) {
     ind_stock_name <- as.character(stock_names[i, 1])
-    print(paste0(i, ": ", ind_stock_name))
+    if (print == TRUE) {
+      print(paste0(i, ": ", ind_stock_name))
+    }
     ind_stock_data <- stock_data[which(stock_data[stock_col_name] == ind_stock_name), ]
     if (nrow(ind_stock_data) > 12) {
       for (j in 1:length(reg_formulas)) {

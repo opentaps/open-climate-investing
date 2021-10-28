@@ -12,15 +12,16 @@ library(plm)
 source("R/key_functions.R")
 
 # Read in the Fama-French and BMG factors
-# carbon_data <- read_csv("data/carbon_risk_factor.csv")
-carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
-  select(-Green_Returns, - Brown_Returns)
+carbon_data <- read_csv("data/carbon_risk_factor.csv")
+# carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
+#   select(-Green_Returns, - Brown_Returns)
 ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
+interest_rates <- read_csv("data/interest_rates.csv")
 
 # Read in the SPX return data from the bulk downloader
 final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
-#final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
+# final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
 final_stock_returns[, 1] <- as.Date(final_stock_returns[, 1])
 final_stock_returns <- as_tibble(final_stock_returns)
 
@@ -33,7 +34,7 @@ final_stock_returns <- final_stock_returns %>%
 
 # Read in the sector breakdowns
 final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
-#final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+# final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
 
 # Making the date column have the same name  for the join later
@@ -51,6 +52,26 @@ all_factor_data <- carbon_data %>%
 all_factor_data <- all_factor_data %>%
   inner_join(risk_free, by = c("Date"="Date"))
 
+interest_rate_data_final <- interest_rates %>%
+  select(Date,
+         RateChg,
+         CurveChg,
+         HiYieldSpreadChg,
+         BBBSpreadChg)
+
+all_factor_data <- all_factor_data %>%
+  inner_join(interest_rate_data_final, by = c("Date"="Date"))
+
+# "Cleaning" BMG Data
+bmg_clean_reg <- lm(BMG ~ .,
+                    data = all_factor_data %>%
+                      select(-Date))
+bmg_clean <- bmg_clean_reg$residuals
+
+all_factor_data <- all_factor_data %>%
+  mutate(BMG = bmg_clean)
+
+# Final Data Join
 all_data <- final_stock_returns %>%
   full_join(all_factor_data, by = c("Date" = "Date")) %>%
   drop_na()
@@ -113,7 +134,21 @@ if (length(which(lapply(bmg_loading_data, function(x) is.null(x)) == TRUE)) > 0)
 bmg_loading_data <- tibble(Stock=names(bmg_loading_data), bind_rows(bmg_loading_data))
 
 # Join sector data to stock
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
+# final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
 
+bmg_loading_data <- bmg_loading_data %>%
+  inner_join(final_stock_breakdown,
+             # by = c("Stock" = "Symbol"))   # for spx
+             by = c("Stock" = "Ticker"))   # for msci
+
+### This is for SPX Only
+colnames(bmg_loading_data)[(length(colnames(bmg_loading_data)) - 1):length(colnames(bmg_loading_data))] <- c("Sector", "Sub_Sector")
+
+### Get mean coefficients by sector
+bmg_loading_data %>%
+  group_by(Sector) %>%
+  summarise(mean(Estimate))
 
 # Panel Regression on Market Residuals
 
@@ -148,7 +183,7 @@ stock_breakdowns <- stock_names %>%
 
 
 ### This is for SPX Only
-colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub")
+colnames(final_stock_breakdown)[3:4] <- c("GICS_Sector", "GICS_Sub")
 
 ### Choose breakdown
 # GICS_Sector for SPX by Sector
@@ -156,7 +191,7 @@ colnames(stock_breakdowns)[3:4] <- c("GICS_Sector", "GICS_Sub")
 # Sector for MSCI
 
 breakdown_col_name <- "Sector"
-unique_sectors <- stock_breakdowns %>%
+unique_sectors <- final_stock_returns %>%
   select(breakdown_col_name) %>%
   distinct()
 
@@ -203,3 +238,48 @@ bmg_loading_final <- bmg_loading_final %>%
 
 bmg_loading_final$`p-Value` <- round(bmg_loading_final$`p-Value`, 4)
 write_csv(bmg_loading_final, "Loadings Table.csv")
+
+# Creating equally-weighted portfolios
+all_data_sectors <- all_data %>%
+  left_join(final_stock_breakdown, by = c("Stock" = "Ticker"))
+
+### This is for SPX ONLY ###
+colnames(all_data_sectors)[(length(colnames(all_data_sectors)) - 1):length(colnames(all_data_sectors))] <- c("Sector", "Sub_Sector")
+
+
+all_data_sectors <- all_data_sectors %>%
+  group_by(Sector, Date) %>%
+  summarise(sector_return = mean(excess_returns))
+
+all_data_sectors <- all_data_sectors %>%
+  left_join(all_factor_data, by = c("Date" = "Date"))
+
+colnames(all_data_sectors)[which(colnames(all_data_sectors) == "Mkt-RF")] <- "Mkt_less_RF"
+
+mass_sector_reg_results <- mass_regression(all_data_sectors,
+                                    "Sector",
+                                    c("sector_return ~ Mkt_less_RF + SMB + HML + WML",
+                                      "sector_return ~ BMG + Mkt_less_RF + SMB + HML + WML"))
+
+get_sector_bmg_regression_results <- lapply(mass_sector_reg_results, function(x) {
+  summary(x[["Regression"]][[2]])
+})
+
+
+# Get the coefficient summary table, R-Squared and Adjusted R-Squared
+bmg_sector_loading_data <- lapply(get_sector_bmg_regression_results, function(x)
+  {if(get_dataframe_dimensions(x$coefficients)[1] > 2)
+    {data.frame(t(x$coefficients[2, ]),
+            x$r.squared,
+            x$adj.r.squared)
+    }
+  }
+)
+
+# Removing regressions that didn't run
+if (length(which(lapply(bmg_sector_loading_data, function(x) is.null(x)) == TRUE)) > 0) {
+  bmg_sector_loading_data <- bmg_sector_loading_data[-which(lapply(bmg_sector_loading_data, function(x) is.null(x)) == TRUE)]
+}
+
+bmg_sector_loading_data <- tibble(Sector=names(bmg_sector_loading_data), bind_rows(bmg_sector_loading_data))
+bmg_sector_loading_data
