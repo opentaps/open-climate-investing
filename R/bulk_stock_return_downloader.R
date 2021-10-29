@@ -15,11 +15,12 @@ for (i in 1:nrow(stock_tickers)) {
   temp_holder <- tryCatch({
     getSymbols(stock_tickers[i, 1],
                auto.assign = FALSE,
-               periodicity = "monthly")
+               periodicity = "monthly",
+               from = "1999-12-01")
   },
   error=function(cond) {
+    ticker_error_codes <<- c(ticker_error_codes, stock_tickers[i, 1])
     message(paste("Stock does not seem to exist:", stock_tickers[i, 1]))
-    ticker_error_codes <- c(ticker_error_codes, stock_tickers[i, 1])
     return(NA)
   })
 
@@ -29,6 +30,7 @@ for (i in 1:nrow(stock_tickers)) {
     temp_holder <- temp_holder[, 4]
     # Calculate the monthly returns of the stock using Quantmod
     temp_holder <- monthlyReturn(temp_holder)
+    temp_holder <- temp_holder[-1]
 
     # Change the object from XTS to a tibble (to make sure month ends are the same)
     temp_holder <- tibble(index(temp_holder), as.vector(temp_holder))
@@ -51,4 +53,4 @@ for (i in 1:nrow(stock_tickers)) {
 
 
 # Saves the returns as a CSV
-write_csv(final_stock_returns, "msci_world_returns.csv")
+write_csv(final_stock_returns, "msci_constituent_returns.csv")
