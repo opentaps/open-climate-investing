@@ -16,8 +16,8 @@ source("R/key_functions.R")
 # 3. Data -----------------------------------------------------------------
 
 # * 3.1 - Carbon Risk Factor ----------------------------------------------
-carbon_data <- read_csv("data/carbon_risk_factor.csv")
-# carbon_data <- read_csv("data/bmg_xop_smog.csv")
+# carbon_data <- read_csv("data/carbon_risk_factor.csv")
+carbon_data <- read_csv("data/bmg_xop_smog.csv")
 # carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
 #  select(-Green_Returns, - Brown_Returns)
 #carbon_data <- read_csv("data/bmg_eu_ets.csv")
@@ -316,70 +316,8 @@ all_data_sectors <- all_data_sectors %>%
   summarise(excess_returns = mean(excess_returns))
 
 all_data_sectors <- all_data_sectors %>%
-  left_join(ff_data, by = c("Date" = "Date"))
-
-all_data_sectors <- all_data_sectors %>%
-  left_join(carbon_data, by = c("Date" = "Date"))
-
-colnames(all_data_sectors)[which(colnames(all_data_sectors) == "Mkt-RF")] <- "Mkt_less_RF"
-
-# 
-# 8 - Equally Weighted Portfolios by Sector -------------------------------
-
-# * 8.1 - Sector Data & Portfolio Weights ---------------------------------
-
-all_data_by_sector <- all_data %>% # I only need stock data
-  left_join(
-    final_stock_breakdown %>%
-      select(Ticker, Sector),
-    by = c("Stock" = "Ticker")
-  ) %>%
-  mutate(
-    across(
-      .cols = c(Stock, Sector),
-      .fns  = factor
-    )
-  ) %>%
-  group_by(Sector) %>%
-  mutate(
-    n_Stocks = length(levels(Stock)),
-    Weight   = 1 / n_Stocks
-  ) %>%
-  select(Date, Returns, Stock, Sector, n_Stocks, Weight) %>%
-  ungroup()
-
-# * 8.2 - Calculate equal weighted portfolio returns by Sector ------------
-
-# Debug - write.csv(all_data_by_sector[all_data_by_sector$Date == '2010-09-30',], "all_data_by_setor.csv")
-
-returns_by_sector <- all_data_by_sector %>%
-  group_split(Sector, Date) %>%
-  purrr::map_dfr(
-    .x = .,
-    .f = function(x) {
-      x %>%
-        mutate(
-          Returns = mean(Returns)
-          ) %>%
-        slice_tail() %>%
-        select(Date, Sector, Returns)
-    }
-  )
-
-
-# Debug - write.csv(returns_by_sector[returns_by_sector$Sector == 'Energy',], "returns_by_sector_energy.csv")
-
-# * 8.3 - Unite Factor Data with EW Portfolio Returns ---------------------
-
-return_factor_data_by_sector <- returns_by_sector %>%
-  inner_join(
-    all_factor_data,
-    by = c("Date" = "Date")
-  ) %>%
-  mutate(
-    Sector         = as.character(Sector),
-    excess_returns = Returns - Rf
-    ) %>%
+  left_join(ff_data, by = c("Date" = "Date")) %>%
+  left_join(carbon_data, by = c("Date" = "Date")) %>% 
   rename(Mkt_less_RF = `Mkt-RF`)
 
 # * 8.4 - Regression Analysis by Sector -----------------------------------
@@ -500,7 +438,7 @@ full_no_bmg_table_by_sector <- c()
 
 # No BMG Stats by Sector
 for (i in 1:nrow(bmg_pred_data_by_sector)) {
-  temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[i ,], 0, 0)
+  temp_t_holder <- bind_cols(no_bmg_pred_data_t_by_sector[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data_by_sector)
 
   temp_holder <- bind_rows(
