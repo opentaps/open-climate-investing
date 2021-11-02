@@ -404,6 +404,11 @@ bmg_pred_data_t_by_sector <- tibble(
   bind_rows(bmg_pred_data_t_by_sector)
 )
 
+no_bmg_pred_data_t_by_sector <- tibble(
+  Sector = names(no_bmg_pred_data_t_by_sector),
+  bind_rows(no_bmg_pred_data_t_by_sector)
+)
+
 colnames(bmg_pred_data_by_sector)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
 colnames(no_bmg_pred_data_by_sector)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
 

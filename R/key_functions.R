@@ -25,6 +25,8 @@ mass_regression <- function(stock_data,
         print(paste0(i, ": ", ind_stock_name))
       }
       ind_stock_data <- stock_data[which(stock_data[stock_col_name] == ind_stock_name), ]
+      ind_stock_data <- ind_stock_data %>%
+        drop_na()
       if (nrow(ind_stock_data) > 12) {
         for (j in 1:length(reg_formulas)) {
           j_reg_formula <- as.formula(reg_formulas[j])
