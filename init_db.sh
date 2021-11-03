@@ -45,7 +45,7 @@ DELETE FROM stock_components WHERE ticker = 'XWD.TO';
 COPY _stock_comps FROM STDIN WITH (FORMAT CSV, HEADER);
 INSERT INTO stocks (ticker, name, sector) SELECT
 ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;
-INSERT INTO stock_components (ticker, component_stock, percentage) SELECT
-'XWD.TO', ticker, weight FROM _stock_comps;
+INSERT INTO stock_components (ticker, component_stock, percentage, sector, country) SELECT
+'XWD.TO', ticker, weight, sector, country FROM _stock_comps;
 DROP TABLE IF EXISTS _stock_comps CASCADE;
 " < data/msci_constituent_details.csv

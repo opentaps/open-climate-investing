@@ -38,6 +38,9 @@ CREATE TABLE stock_components (
     ticker text,
     component_stock text REFERENCES stocks (ticker),
     percentage decimal(8, 5),
+    sector varchar(50),
+    sub_sector varchar(50),
+    country varchar(10),
     PRIMARY KEY (ticker, component_stock)
 );
 
