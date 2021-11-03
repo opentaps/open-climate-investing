@@ -17,7 +17,7 @@ library(DBI)
 ff_factors <- read_csv("data/ff_factors.csv")
 #bmg_factor <- read_csv("data/carbon_risk_factor.csv")
 #bmg_factor <- read_csv("data/bmg_acwi_crbn.csv")
-#bmg_factor <- read_csv("data/eu_ets.csv")
+#bmg_factor <- read_csv("data/bmg_eu_ets.csv")
 bmg_factor <- read_csv("data/bmg_xop_smog.csv")
 
 #bmg_factor <- read_csv("data/paris_aligned_bmg.csv") %>%
@@ -25,7 +25,7 @@ bmg_factor <- read_csv("data/bmg_xop_smog.csv")
 interest_rates <- read_csv("data/interest_rates.csv")
 
 all_factors <- ff_factors %>%
-  inner_join(bmg_factor, by = c("Date" = "month")) %>%
+  inner_join(bmg_factor, by = c("Date" = "Date")) %>%
   inner_join(interest_rates, by = c("Date" = "Date") )
 colnames(all_factors)[2] <- "Mkt_less_RF"
 #all_factors <- ff_factors %>%
@@ -40,6 +40,7 @@ cor_matrix <- cor(all_factors %>%
 plot(BMG ~ SMB, data=all_factors)
 plot(BMG ~ HML, data=all_factors)
 plot(BMG ~ HiYieldSpreadChg, data=all_factors)
+plot(BMG ~ CurveChg, data=all_factors)
 
 
 corrplot(cor_matrix,
