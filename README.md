@@ -136,6 +136,6 @@ Data included in this project come from the following sources:
 
 ## References
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)
-- [A Practitioner's Guide to Factor Models] (https://www.cfainstitute.org/en/research/foundation/1994/a-practitioners-guide-to-factor-models)
+- [A Practitioner's Guide to Factor Models](https://www.cfainstitute.org/en/research/foundation/1994/a-practitioners-guide-to-factor-models)
 - [The Barra US Equity Model (USE4)](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf)
 - [Network for Greening the Financial System, Case Studies of Environmental Risk Analysis Methodologies](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf)
