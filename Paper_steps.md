@@ -66,9 +66,13 @@ Reload stocks from msci_sector_breakdowns.csv
 
 ## Construct your own BMG
 
-It's easy and fun!  First get the tickers for the stocks you want to use.  Put them in a CSV file such as `data/my-bmg-tickers.csv`.
+It's easy and fun!  
 
-Then use `get_stocks.py` to get the historical prices of those stocks.
+First use `get_stocks.py` to get the historical prices of your stocks, if you don't have them already:
+```
+python get_stocks.py -t ACWI
+python get_stocks.py -t CRBN 
+```
 
 Finally use this SQL:
 ```
