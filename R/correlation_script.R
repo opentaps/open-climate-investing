@@ -18,7 +18,9 @@ ff_factors <- read_csv("data/ff_factors.csv")
 #bmg_factor <- read_csv("data/carbon_risk_factor.csv")
 #bmg_factor <- read_csv("data/bmg_acwi_crbn.csv")
 #bmg_factor <- read_csv("data/bmg_eu_ets.csv")
-bmg_factor <- read_csv("data/bmg_xop_smog.csv")
+#bmg_factor <- read_csv("data/bmg_xop_smog.csv")
+bmg_factor <- read_csv("data/bmg_xop_smog_orthogonalized_1.csv") # XOP-SMOG orthogonalized for Rate Change, Curve Change, BBB Spread Change
+#bmg_factor <- read_csv("data/bmg_xop_smog_orthogonalized_2.csv")  # XOP-SMOG additionally orthogonalized for HML Fama-French factor
 
 #bmg_factor <- read_csv("data/paris_aligned_bmg.csv") %>%
 #  select(-Green_Returns, - Brown_Returns)
