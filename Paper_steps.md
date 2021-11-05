@@ -80,11 +80,12 @@ ending from 2015-01-31 to 2021-09-28.
 
 Then
 ```
-select distinct S.sector, SS.ticker, count(SS.thru_date)
+select distinct S.sector, SS.ticker, S.name, count(SS.thru_date) as Count_Significant_Periods, 
+avg(SS.bmg) as Avg_BMG, min(SS.bmg_t_stat) as min_BMG_t_stat, avg(SS.bmg_t_stat) as avg_BMG_t_stat, max(SS.bmg_t_stat) as max_BMG_t_stat
 from stock_stats as SS
 left outer join stocks as S on S.ticker = SS.ticker
 where SS.bmg_p_gt_abs_t < 0.05
-group by S.sector, SS.ticker
+group by S.sector, SS.ticker, S.name
 having count(SS.thru_date) > 40
 order by S.sector
 ```
