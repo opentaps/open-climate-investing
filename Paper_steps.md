@@ -35,6 +35,12 @@ Then to run it for other BMG series:
 ```
 psql open_climate_investing  -c 'COPY carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < new-bmg-series.csv
 ```
+
+Check that the carbon risk factor you loaded is the same as your CSV file with SQL
+```
+select * from carbon_risk_factor
+```
+
 - Run all regressions
 ```
 python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30
