@@ -34,6 +34,12 @@ psql open_climate_investing  -c 'COPY carbon_risk_factor FROM STDIN WITH (FORMAT
 ```
 python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30
 ```
+
+If you want to see how your regressions are doing, you can run this query:
+```
+select * from stock_stats order by ticker desc, thru_date desc
+```
+
 - Get the stocks with significant BMG results:
 ```
 select SS.thru_date, S.ticker, S.name, S.sector, SS.bmg, SS.bmg_t_stat 
@@ -52,7 +58,28 @@ and SS.bmg_p_gt_abs_t < 0.05
 group by S.sector
 ```
 Substitute '2021-09-01' for the last date of your regression results.
+- Get a count of how many stocks with each sector had significant BMG results for at least half of the rolling regressions:
 
+First we need to figure out how many time periods there were.  Choose any stock (COP will do): 
+```
+select count(thru_date) from stock_stats
+where ticker = 'COP'
+```
+
+This returned 81 for me using the `data/bmg_xop_smog_orthogonalized_2.csv` which means there were 81 rolling regressions of 60 months each, 
+ending from 2015-01-31 to 2021-09-28.
+
+Then
+```
+select distinct S.sector, SS.ticker, count(SS.thru_date)
+from stock_stats as SS
+left outer join stocks as S on S.ticker = SS.ticker
+where SS.bmg_p_gt_abs_t < 0.05
+group by S.sector, SS.ticker
+having count(SS.thru_date) > 40
+order by S.sector
+```
+where 40 is half the number you got from the regression for how many ending dates.
 
 ### Fixing Missing Stock Tickers
 
