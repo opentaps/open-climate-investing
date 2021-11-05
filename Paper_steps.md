@@ -41,10 +41,19 @@ select * from stock_stats order by ticker desc, thru_date desc
 ```
 
 - Get the stocks with significant BMG results:
+
+First we need to figure out the last signfiicant time period.  Choose any stock (COP will do): 
+```
+select max(thru_date) from stock_stats
+where ticker = 'COP'
+```
+
+I got 2021-09-28 using `data/bmg_xop_smog_orthogonalized_2.csv`, so let's use `> 2021-09-01` in the queries below:
+ 
 ```
 select SS.thru_date, S.ticker, S.name, S.sector, SS.bmg, SS.bmg_t_stat 
 from stock_stats as SS join stocks as S on S.ticker = SS.ticker 
-where SS.thru_date > '2018-12-01'
+where SS.thru_date > '2021-09-01'
 and SS.bmg_p_gt_abs_t < 0.05
 order by S.sector, bmg
 ```
@@ -60,13 +69,13 @@ group by S.sector
 Substitute '2021-09-01' for the last date of your regression results.
 - Get a count of how many stocks with each sector had significant BMG results for at least half of the rolling regressions:
 
-First we need to figure out how many time periods there were.  Choose any stock (COP will do): 
+Now we need to figure out how many time periods there were.  Choose any stock (COP will do): 
 ```
 select count(thru_date) from stock_stats
 where ticker = 'COP'
 ```
 
-This returned 81 for me using the `data/bmg_xop_smog_orthogonalized_2.csv` which means there were 81 rolling regressions of 60 months each, 
+This returned 81 for me using `data/bmg_xop_smog_orthogonalized_2.csv` which means there were 81 rolling regressions of 60 months each, 
 ending from 2015-01-31 to 2021-09-28.
 
 Then
