@@ -1,6 +1,11 @@
 # Steps to Replicate the Paper's Results
 
-These are steps to replicate the paper "Comparison of Equity Risk Factors Constructed from ESG Data".  Please also see [the video](https://youtu.be/Dr3G14ogceU) which shows you the steps.  The results for comparison are in two Google spreadsheets: [Carbon Loadings Results - CARIMA](https://docs.google.com/spreadsheets/d/1JJ8pGqze3TcXxYbPcai_1nOOckha8XLYoLk8vk4Y7vo/edit?usp=sharing) and [Carbon Loadings Results - Alternates](https://docs.google.com/spreadsheets/d/12NXsB2aR2w4JhA9VtjQXbDwSiTivkWMRbfbpoHxz1SY/edit?usp=sharing)
+These are steps to replicate the paper "Comparison of Equity Risk Factors Constructed from ESG Data".  Please also see the videos:
+- [Replicating Paper Results - Introduction and R Scripts](https://youtu.be/Dr3G14ogceU)
+- [Replicating Paper Results with Python Scripts - 1](https://youtu.be/W0D8f0CqlPM)
+- [Replicating Paper Results with Python Scripts - 2](https://youtu.be/YA0S69_1u0o)
+
+The results for comparison are in two Google spreadsheets: [Carbon Loadings Results - CARIMA](https://docs.google.com/spreadsheets/d/1JJ8pGqze3TcXxYbPcai_1nOOckha8XLYoLk8vk4Y7vo/edit?usp=sharing) and [Carbon Loadings Results - Alternates](https://docs.google.com/spreadsheets/d/12NXsB2aR2w4JhA9VtjQXbDwSiTivkWMRbfbpoHxz1SY/edit?usp=sharing)
 
 ## R Scripts
 
