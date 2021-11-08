@@ -310,6 +310,11 @@ write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
 
 # 8.1 - 8.3 MB Version
 # Creating equally-weighted portfolios
+
+# Read in the sector breakdowns
+final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
+# final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+
 all_data_sectors <- all_data %>%
   left_join(final_stock_breakdown, by = c("Stock" = "Ticker"))
 
@@ -361,7 +366,7 @@ bmg_pred_data_by_sector <- lapply(get_bmg_regression_results_by_sector, function
   }
 })
 
-no_bmg_pred_data_t_by_sector <- lapply(get_bmg_regression_results_by_sector, function(x) {
+no_bmg_pred_data_t_by_sector <- lapply(get_no_bmg_regression_results_by_sector, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
   {
     data.frame(t(x$coefficients[, 3]))
