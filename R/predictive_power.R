@@ -430,7 +430,7 @@ full_bmg_table_by_sector <- c()
 # BMG by Sector Stats
 for (j in 1:nrow(bmg_pred_data_by_sector)) {
 
-  temp_t_holder <- bind_cols(bmg_pred_data_t_by_sector[j ,], 0, 0)
+  temp_t_holder <- cbind(bmg_pred_data_t_by_sector[j ,], 0, 0)
   colnames(temp_t_holder) <- colnames(bmg_pred_data_by_sector)
 
   temp_holder <- bind_rows(
@@ -453,7 +453,7 @@ full_no_bmg_table_by_sector <- c()
 
 # No BMG Stats by Sector
 for (i in 1:nrow(bmg_pred_data_by_sector)) {
-  temp_t_holder <- bind_cols(no_bmg_pred_data_t_by_sector[i ,], 0, 0)
+  temp_t_holder <- cbind(no_bmg_pred_data_t_by_sector[i ,], 0, 0)
   colnames(temp_t_holder) <- colnames(no_bmg_pred_data_by_sector)
 
   temp_holder <- bind_rows(
@@ -471,9 +471,6 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
     )
 }
 
-# Removal of empty column
-full_no_bmg_table_by_sector <- full_no_bmg_table_by_sector %>%
-  select(-last_col())
 
 # * 8.9 - Display the full table ------------------------------------------
 
