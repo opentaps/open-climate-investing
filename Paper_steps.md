@@ -164,6 +164,11 @@ Get the stock returns of WMAT.L
 python3 get_stocks.py -t WMAT.L
 ```
 
+Again, clear out the abnormal returns:
+```
+delete from stock_data where return > 1
+```
+
 Get the difference as save as a CSV file `data/bmg_wmat_crbn_mat.csv`:
 ```
 select SD1.date, SD1.return - SD2.return
