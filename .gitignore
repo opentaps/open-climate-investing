@@ -112,6 +112,6 @@ dist
 .RData
 .Rhistory
 reg_output.csv
-*.csv
+/*.csv
 *.Rproj
 rsconnect/
