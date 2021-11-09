@@ -142,3 +142,31 @@ where SD1.ticker = 'XOP' and SD1.date > '2010-01-01'
 and SD2.ticker = 'SMOG'
 ```
 and substitute `XOP` and `SMOG` with your tickers.  If the results look good, only select the date and BMG columns into a CSV file.
+
+### Constructing the XLB-CRBN_MAT BMG
+
+This is a series of the SSgA SPDR ETFs Europe II plc - SPDR MSCI World Materials UCITS ETF. (WMAT.L) as the Brown stocks minus the Materials sector stocks of the iShares MSCI ACWI Low Carbon Target ETF (CRBN) as the Green stocks.
+
+Get the stock returns of the CRBN Materials sector
+```
+python3 get_stocks.py -f data/stock_tickers_crbn_materials.csv 
+```
+
+Run the final part of `init_db.sh` under "CRBN Materials"
+
+Get the stock returns of WMAT.L
+```
+python3 get_stocks.py -t WMAT.L
+```
+
+Get the difference as save as a CSV file `data/bmg_wmat_crbn_mat.csv`:
+```
+select SD1.date, SD1.return - SD2.return
+from stock_data as SD1
+join stock_data as SD2 on SD1.date = SD2.date
+join carbon_risk_factor as CR on SD1.date = CR.date
+where SD1.ticker = 'WMAT.L' and SD1.date > '2010-01-01'
+and SD2.ticker = 'CRBN-MAT'
+```
+
+
