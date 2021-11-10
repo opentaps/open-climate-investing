@@ -16,6 +16,10 @@ def convert_to_form(df):
 
 def convert_to_form_db(df):
     try:
+        for col in df.columns:
+            if col == 'date':
+                df.index = df['date']
+                df = df.drop['date']
         df['date_converted'] = df.index
         df.index = df['date_converted']
         df = df.drop(['date_converted'], axis=1)
