@@ -16,7 +16,7 @@ def convert_to_form(df):
 
 def convert_to_form_db(df):
     try:
-        df['date_converted'] = pd.to_datetime(df.index)
+        df['date_converted'] = df.index
         df.index = df['date_converted']
         df = df.drop(['date_converted'], axis=1)
         df.rename(columns={"close": "Close"}, inplace=True)
