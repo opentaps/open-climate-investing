@@ -31,6 +31,7 @@ You only need to do this once to populate the stock history data.
 Clear out abnormal returns data:
 ```
 delete from stock_data where return > 1
+delete from stock_data where return = 'NaN'
 ```
 
 Then to run it for other BMG series:
@@ -47,8 +48,14 @@ select * from carbon_risk_factor
 ```
 
 - Run all regressions
+For CARIMA and CARIMA orthogonalized,
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30
+python get_regressions.py -f data/stock_tickers_msci_world.csv -sd
+```
+
+For other BMG factors, we can run longer
+```
+python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -sd 
 ```
 
 If you want to see how your regressions are doing, you can run this query:
