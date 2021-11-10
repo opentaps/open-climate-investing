@@ -85,6 +85,9 @@ def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_
     else:
         stock_data = get_stocks.import_stock(ticker)
 
+    if verbose:
+        print(stock_data)
+
     if len(stock_data) == 0:
         print('No stock data for {} !'.format(ticker))
         return
