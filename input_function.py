@@ -19,7 +19,7 @@ def convert_to_form_db(df):
         for col in df.columns:
             if col == 'date':
                 df.index = df['date']
-                df = df.drop['date']
+                df = df.drop(['date'], axis = 1)
         df['date_converted'] = df.index
         df.index = df['date_converted']
         df = df.drop(['date_converted'], axis=1)
