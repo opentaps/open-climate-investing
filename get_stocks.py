@@ -16,13 +16,18 @@ def load_stocks_csv(filename):
 
 
 def import_stock(stock_name):
-    stock_data = load_stocks_data(stock_name)
     try:
-        import_stocks_into_db(stock_name, stock_data)
-    except DataError as e:
-        print('!! Cannot import {} due to DataError inserting the data:'.format(stock_name))
-        print(e)
-        # return an empty data frame in that case
+        stock_data = load_stocks_data(stock_name)
+        try:
+            import_stocks_into_db(stock_name, stock_data)
+        except DataError as e:
+            print(
+                '!! Cannot import {} due to DataError inserting the data:'.format(stock_name))
+            print(e)
+            # return an empty data frame in that case
+            return pd.DataFrame()
+    except ValueError as ve:
+        print(ve)
         return pd.DataFrame()
     return stock_data
 
@@ -87,6 +92,7 @@ def main(args):
 
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
+            print("Trying to get: " + stock_name)
             import_stock(stock_name)
 
 

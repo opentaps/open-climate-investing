@@ -14,6 +14,17 @@ def convert_to_form(df):
     return(df)
 
 
+def convert_to_form_db(df):
+    try:
+        df['date_converted'] = pd.to_datetime(df.index)
+        df.index = df['date_converted']
+        df = df.drop(['date_converted'], axis=1)
+        df.rename(columns={"close": "Close"}, inplace=True)
+    except dateutil.parser._parser.ParserError:
+        df = False
+    return(df)
+
+
 def get_convert_file(file_name):
     try:
         data = pd.read_csv(file_name)

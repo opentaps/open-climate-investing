@@ -4,6 +4,8 @@ import pandas as pd
 import db
 import get_stocks
 import factor_regression
+import input_function
+import datetime
 
 
 conn = db.get_db_connection()
@@ -51,7 +53,7 @@ def load_rf_data_from_db():
                              index_col='Date')
 
 
-def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_data=None, rf_data=None, verbose=False, silent=False, store=False):
+def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_data=None, rf_data=None, verbose=False, silent=False, store=False, from_db=False):
     if carbon_data is None:
         carbon_data = load_carbon_data_from_db()
         if verbose:
@@ -77,7 +79,12 @@ def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_
         print('Got risk-fre rate')
         print(rf_data)
 
-    stock_data = get_stocks.import_stock(ticker)
+    if from_db:
+        stock_data = get_stocks.load_stocks_from_db(ticker)
+        stock_data = input_function.convert_to_form_db(stock_data)
+    else:
+        stock_data = get_stocks.import_stock(ticker)
+
     if len(stock_data) == 0:
         print('No stock data for {} !'.format(ticker))
         return
@@ -91,6 +98,7 @@ def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_
 def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, start_date, end_date, interval, verbose, silent, store):
     try:
         if start_date:
+            start_date = pd.Period(start_date, freq='M').end_time.date()
             start_date = factor_regression.parse_date('Start', start_date)
         else:
             # use the common start date of all series:
@@ -99,20 +107,24 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
 
         interval_dt = relativedelta(months=interval)
         if end_date:
+            end_date = pd.Period(end_date, freq='M').end_time.date()
             end_date = factor_regression.parse_date('End Date', end_date)
         else:
             # use the common end date of all series:
             end_date = min(max(stock_data.index), max(
                 carbon_data.index), max(ff_data.index), max(rf_data.index))
         r_end_date = start_date+interval_dt
+        r_end_date = pd.Period(r_end_date, freq='M').end_time.date()
         if r_end_date > end_date:
             print('!! Done running regression on stock {} from {} to {} (next regression would end in {})'.format(
                 ticker, start_date, end_date, r_end_date))
             return
+        start_date += datetime.timedelta(days=1)
         start_date, r_end_date, data_start_date, data_end_date, model_output, coef_df_simple = factor_regression.run_regression(
             stock_data, carbon_data, ff_data, rf_data, ticker, start_date, end_date=r_end_date, verbose=verbose, silent=silent)
         if verbose:
-            print("-- {} ran regression start={} end={} data_start={} data_end={} wanted_end={}".format(ticker, start_date, r_end_date, data_start_date, data_end_date, end_date))
+            print("-- {} ran regression start={} end={} data_start={} data_end={} wanted_end={}".format(
+                ticker, start_date, r_end_date, data_start_date, data_end_date, end_date))
     except factor_regression.DateInRangeError as e:
         print('!! Error running regression on stock {} from {} to {}: {}'.format(
             ticker, start_date, end_date, e))
@@ -135,7 +147,7 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
 
     if store:
         print('Ran regression for {} from {} to {} ...'.format(
-            ticker, start_date, end_date))
+            ticker, start_date, r_end_date))
         # store results in the DB
         fields = ['Constant', 'BMG', 'Mkt-RF', 'SMB', 'HML', 'WML',
                   'Jarque-Bera', 'Breusch-Pagan', 'Durbin-Watson', 'R Squared']
@@ -162,6 +174,7 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
 
     # recurse the new interval
     dt = relativedelta(months=1)
+    start_date -= datetime.timedelta(days=1)
     run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
                             ticker, start_date+dt, end_date, interval, verbose, silent, store)
 
@@ -179,8 +192,12 @@ def store_regression_into_db(sql_params):
 
 def main(args):
     if args.ticker:
-        run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
-                       verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun))
+        if args.stock_from_db:
+            run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
+                           verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun), from_db=True)
+        else:
+            run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
+                           verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun))
     elif args.file:
         carbon_data = load_carbon_data_from_db()
         ff_data = load_ff_data_from_db()
@@ -189,8 +206,12 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
             print('* running regression for {} ... '.format(stock_name))
-            run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
-                           ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun))
+            if args.stock_from_db:
+                run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+                               ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), from_db=True)
+            else:
+                run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+                               ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun))
     else:
         carbon_data = load_carbon_data_from_db()
         ff_data = load_ff_data_from_db()
@@ -222,4 +243,6 @@ if __name__ == "__main__":
                         help="Sets number of months for the regresssion interval, defaults to 60")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")
+    parser.add_argument("-sd", "--stock_from_db", action='store_true',
+                        help="import stock data from the DB instead of downloading")
     main(parser.parse_args())
