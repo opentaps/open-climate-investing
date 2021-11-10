@@ -28,6 +28,11 @@ python get_stocks.py -f data/stock_tickers_msci_world.csv
 
 You only need to do this once to populate the stock history data.
 
+Clear out abnormal returns data:
+```
+delete from stock_data where return > 1
+```
+
 Then to run it for other BMG series:
 - Run SQL `delete from stock_stats`
 - Run SQL `delete from carbon_risk_factor`
@@ -143,7 +148,7 @@ and SD2.ticker = 'SMOG'
 ```
 and substitute `XOP` and `SMOG` with your tickers.  If the results look good, only select the date and BMG columns into a CSV file.
 
-### Constructing the XLB-CRBN_MAT BMG
+### Constructing the WMAT-CRBN_MAT BMG
 
 This is a series of the SSgA SPDR ETFs Europe II plc - SPDR MSCI World Materials UCITS ETF. (WMAT.L) as the Brown stocks minus the Materials sector stocks of the iShares MSCI ACWI Low Carbon Target ETF (CRBN) as the Green stocks.
 
@@ -157,6 +162,11 @@ Run the final part of `init_db.sh` under "CRBN Materials"
 Get the stock returns of WMAT.L
 ```
 python3 get_stocks.py -t WMAT.L
+```
+
+Again, clear out the abnormal returns:
+```
+delete from stock_data where return > 1
 ```
 
 Get the difference as save as a CSV file `data/bmg_wmat_crbn_mat.csv`:
