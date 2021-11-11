@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DB_NAME="open_climate_investing"
+DB_NAME="open_climate_investing_carima"
 
 createdb ${DB_NAME}
 
@@ -49,3 +49,26 @@ INSERT INTO stock_components (ticker, component_stock, percentage, sector, count
 'XWD.TO', ticker, weight, sector, country FROM _stock_comps;
 DROP TABLE IF EXISTS _stock_comps CASCADE;
 " < data/msci_constituent_details.csv
+
+# CRBN Materials
+psql ${DB_NAME} -c "INSERT INTO stocks (ticker, name) VALUES ('CRBN-MAT', 'iShares ACWI Low Carbon Target ETF - Materials');"
+
+psql ${DB_NAME} -c "DROP TABLE IF EXISTS _stock_comps CASCADE; CREATE TABLE _stock_comps (
+    ticker text,
+    name text,
+    market_value text,
+    weight decimal(8, 5),
+    sector text,
+    PRIMARY KEY (ticker)
+);
+COPY _stock_comps FROM STDIN WITH (FORMAT CSV, HEADER);
+INSERT INTO stocks (ticker, name, sector) SELECT
+ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;
+INSERT INTO stock_components (ticker, component_stock, percentage, sector) SELECT
+'CRBN-MAT', ticker, weight, sector FROM _stock_comps;
+DROP TABLE IF EXISTS _stock_comps CASCADE;
+" < data/crbn_materials_constituent_details.csv
+
+# Clean Up Data
+psql ${DB_NAME} -c "delete from stock_data where return > 1";
+
