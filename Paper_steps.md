@@ -118,21 +118,9 @@ where 40 is half the number you got from the regression for how many ending date
 
 You probably won't encounter this, but if the SQL queries from above show any stocks without name and sector, it's because the tickers in the `data/msci_constituent_details.csv` and `data/stock_tickers_msci_world.csv` didn't match.  To fix this:
 - Edit  `data/msci_constituent_details.csv` and look for the ticker.  I've found there might be a different ending (.L or .AS or .SW) for the exchange.  Fix them to be the ticker in your query result.
-- Create a file `data/msci_sector_breakdowns.csv` with the same fields as `data/spx_sector_breakdown.csv` from the `data/msci_constituent_details.csv` 
-- Delete the stocks with SQL:
+- Use SQL to insert the right ticker into the database:
 ```
-DROP TABLE STOCKS CASCADE;
-CREATE TABLE stocks (
-    ticker text,
-    name text,
-    sector text,
-    sub_sector text,
-    PRIMARY KEY (ticker)
-);
-```
-- Reload stocks from msci_sector_breakdowns.csv:
-```
-psql open_climate_investing -c 'COPY stocks FROM STDIN WITH (FORMAT CSV, HEADER);' < data/msci_sector_breakdowns.csv 
+insert into stocks (ticker, name, industry) values ('0066.HK', 'MTR CORPORATION CORP LTD', 'Industrials')
 ```
 
 ## Construct your own BMG
