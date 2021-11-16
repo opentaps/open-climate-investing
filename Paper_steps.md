@@ -114,6 +114,18 @@ order by S.sector
 ```
 where 40 is half the number you got from the regression for how many ending dates.
 
+### Count Index Stocks by Sector
+
+Use
+```
+select distinct S.sector, count(SC.component_stock)
+from stocks as S
+join stock_components as SC
+on S.ticker = SC.component_stock
+where SC.ticker = 'XWD.TO'
+group by S.sector
+```
+
 ### Fixing Missing Stock Tickers
 
 You probably won't encounter this, but if the SQL queries from above show any stocks without name and sector, it's because the tickers in the `data/msci_constituent_details.csv` and `data/stock_tickers_msci_world.csv` didn't match.  To fix this:
