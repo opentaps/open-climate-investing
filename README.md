@@ -6,9 +6,7 @@ __STOP__
 
 This project is here to make climate investing actionable.  We are building both open source software and openly available data sets so that you can identify relative value trades, optimize portfolios, and structure benchmarks for climate aligned investing.
 
-Our first project is an implementation of the [Carbon Risk Management (CARIMA) model](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/) developed by Universtat Augsburg with funding from the German
-Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French 3 Factor Model plus an additional Brown Minus Green (BMG) return history, provided as part of the original
-research project.  It can be used for a variety of climate investing applications, including:
+Our first project is a multi-factor equity returns model which adds a climate factor, or Brown Minus Green, to the popular Fama French and Carhart models.  This additional Brown Minus Green (BMG) return factor could be used for a variety of climate investing applications, including:
 - Calculate the market-implied carbon risk of a stock, investment portfolio, mutual fund, or bond based on historical returns
 - Determine the market reaction to the climate policies of a company
 - Optimize a portfolio to minimize carbon risk subject to other parameters, such as index tracking or growth-value-sector investment strategies.
@@ -70,7 +68,7 @@ python factor_regression.py
 ```
 The inputs are:
 - Stock return data: Use the `stock_data.csv` or enter a ticker
-- Carbon data: The BMG return history.  By default use `carbon_risk_factor.csv` from the original CARIMA project.
+- Carbon data: The BMG return history.  By default use `carbon_risk_factor.csv`.
 - Fama-French factors: Use either `ff_factors.csv` from the original CARIMA project or `ff_factors_north_american.csv` which is the Fama/French North American 3 Factors series and the North American Momentum Factor (Mom) series from the [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
 
 The output will be a print output of the statsmodel object, the statsmodel coefficient summary, including the coefficient & p-Values (to replicate that of the CARIMA paper)

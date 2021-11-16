@@ -17,10 +17,8 @@ Later, I met a Trader at a Big Firm.  This Big Firm had lots of analysts, includ
 
 ![A Market Based Model for Mortgage Backed Securities](images/mbs_market_model.PNG)
 
-That's it???  There's no sophisticated quantitative finance at work.  It was a spreadsheet he maintained himself (I think) without any of the research
-department's fancy models.  People thought of his scatterplots as something between a toy and a joke.  But as he told it, "This is the market's OAS model.  I've got the history of the market and all those analysts with
-all their models to compare the current prices with.  That's better than any one person's model."  He was way ahead of all the Wisdom of the Crowd talk that's in vogue nowadays, 
-but it worked well for him.  This market-based model helped him identify mispricings and opportunities where big fancy models failed.  He went on to be _very_ successful.  
+That's it???  It was a spreadsheet he maintained himself.  People thought of his scatterplots as something between a toy and a joke.  But as he told it, "This is the market's OAS model.  I've got the history of the market and all those analysts with
+all their models to compare the current prices with.  That's better than any one person's model."  And that was exactly what it was.  He took part a full fledged OAS model to its basic components, and then instead of creating a black box full of incomprehensible formulae, opened it up and fitted it with actual market prices.  In this way, he was way ahead of the Wisdom of the Crowd talk.  This market-based model helped him identify mispricings and opportunities where big fancy models could not.  He went on to be _very_ successful.  
 
 Today we're told that ESG or climate investing is hard because it's hard to get the data and hard to interpret them.  Hard to know which long-term scenario to use and how to 
 analyze them.  But this is nothing new, and there is a way to get around these problems.  Let the market tell you.  There are hundreds, probably thousands, of smart people already looking at the climate risks of all sorts of 
@@ -52,8 +50,7 @@ physicists than accountants.  And though it is still vociferously by the "stock 
 But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, researchers found other  
 statistically significant factors in returns.  The [Fama French 3-factor model](https://rady.ucsd.edu/faculty/directory/valkanov/pub/classes/mfe/docs/fama_french_jfe_1993.pdf) from 1993 became popular because it added two more parameters, one for size and one for balance sheet leverage.  This was followed up by the [Carhart 4-factor model](https://doi.org/10.1111/j.1540-6261.1997.tb03808.x) from 1997, which introduced a fourth factor, momentum. Today there are ever more sophisticated factor models with ever more factors, such as the [MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
 
-For analyzing climate risk, we found one such model: [Carbon Risk Management (CARIMA)](https://www.uni-augsburg.de/de/fakultaet/wiwi/prof/bwl/wilkens/sustainable-finance/downloads/).  It was developed by Universtat Augsburg 
-with funding from the German Federal Ministry of Education and Research.  CARIMA is a multi-factor market returns model based on the Fama French and Carhart models plus an additional risk factor for climate risk.  Its risk factors are:
+For analyzing climate risk, we started with multi-factor equity returns model such as Fama French and Carhart models, and added an additional factor for climate exposure.  The factors we are using are:
 
  * Market: Returns of the market over the riskfree rate, similar to the original Beta from CAPM 
  * SMB: Small Minus Big, the return difference of small cap stocks vs large cap stocks
@@ -62,7 +59,7 @@ with funding from the German Federal Ministry of Education and Research.  CARIMA
  * BMG: Brown Minus Green, the return difference of stocks with high climate risk (Brown) vs low climate risk (Green)
  
 What this model does is explain the sensitivity of any asset (could be a stock or a fund, or even futures on commodities -- anything that is traded would work) based on the return differential of stocks with high carbon risk (Brown) vs
-those with low carbon risk (Green).  The original research paper provided a data series for the Brown Minus Green (BMG) factor until the end of 2018.  With this model, we could now get the market's measure of the climate risk of a
+those with low carbon risk (Green).  With this model, we could now get the market's measure of the climate risk of a
 stock by seeing how its prices have behaved.  In other words, what do all those smart people pouring through carbon disclosures, ESG data, and running scenarios, not to mention analyzing the company's business model, assets, and 
 operations, really think?
 
