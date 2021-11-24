@@ -1,8 +1,10 @@
 DROP TABLE IF EXISTS carbon_risk_factor CASCADE;
 
 CREATE TABLE carbon_risk_factor (
-    date date primary key,
-    bmg decimal(12, 10)
+    date date,
+	factor_name text DEFAULT 'DEFAULT',
+    bmg decimal(12, 10),
+	PRIMARY KEY (date, factor_name)
 );
 
 DROP TABLE IF EXISTS ff_factor CASCADE;
@@ -57,6 +59,7 @@ CREATE TABLE stock_data (
 DROP TABLE IF EXISTS stock_stats CASCADE;
 CREATE TABLE stock_stats (
     ticker text,
+    bmg_factor_name text,
     from_date date,
     thru_date date,
     data_from_date date,
@@ -91,13 +94,14 @@ CREATE TABLE stock_stats (
     breusch_pagan_p_gt_abs_t decimal(12, 5),
     durbin_watson decimal(12, 5),
     r_squared decimal(12, 5),
-    PRIMARY KEY (ticker, from_date, thru_date)
+    PRIMARY KEY (ticker, bmg_factor_name, from_date, thru_date)
 );
 
 DROP VIEW IF EXISTS stock_and_stats;
 CREATE VIEW stock_and_stats AS
 select
 s.* ,
+ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
 ss.data_from_date,
@@ -136,12 +140,13 @@ from stocks s
 left join (
 select
     ticker,
+    bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker
+    ticker, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 -- query this parent_ticker to get data of the components of that stock
 DROP VIEW IF EXISTS stock_component_and_stats;
@@ -150,6 +155,7 @@ select
 s.*,
 sc.ticker as parent_ticker,
 sc.percentage,
+ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
 ss.data_from_date,
@@ -189,12 +195,13 @@ left join stocks s on s.ticker = sc.component_stock
 left join (
 select
     ticker,
+    bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker
+    ticker, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 
 -- query this component_stock to get data of the parent stocks
@@ -204,6 +211,7 @@ select
 s.*,
 sc.component_stock,
 sc.percentage,
+ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
 ss.data_from_date,
@@ -243,9 +251,10 @@ left join stocks s on s.ticker = sc.ticker
 left join (
 select
     ticker,
+    bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker
+    ticker, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;

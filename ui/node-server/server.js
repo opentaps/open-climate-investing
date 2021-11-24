@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
@@ -32,6 +32,7 @@ require("./app/routes/stock_components.routes")(app);
 require("./app/routes/stock_parents.routes")(app);
 require("./app/routes/stock_data.routes")(app);
 require("./app/routes/stock_stats.routes")(app);
+require("./app/routes/stock_factor_names.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

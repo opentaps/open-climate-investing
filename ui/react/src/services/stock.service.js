@@ -13,6 +13,10 @@ class StockDataService {
     return http.get("/data", { params });
   }
 
+  getFactorNames(params) {
+    return http.get("/factor_names", { params });
+  }
+
   getStats(params) {
     return http.get("/stats", { params });
   }
