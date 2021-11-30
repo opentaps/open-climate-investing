@@ -7,7 +7,20 @@ createdb ${DB_NAME}
 psql ${DB_NAME} < init_schema.sql
 
 psql ${DB_NAME} -c 'COPY ff_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/ff_factors.csv
-psql ${DB_NAME} -c 'COPY carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/carbon_risk_factor.csv
+
+# import carbon risk factor, 
+psql ${DB_NAME} -c 'DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;
+CREATE TABLE _import_carbon_risk_factor (
+    date date,
+    bmg decimal(12, 10),
+	PRIMARY KEY (date)
+);'
+
+psql ${DB_NAME} -c 'COPY _import_carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/carbon_risk_factor.csv
+psql ${DB_NAME} -c "INSERT INTO carbon_risk_factor (date, bmg, factor_name) SELECT date, bmg, 'DEFAULT' FROM _import_carbon_risk_factor;"
+psql ${DB_NAME} -c 'DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;'
+
+
 psql ${DB_NAME} -c 'COPY risk_free FROM STDIN WITH (FORMAT CSV, HEADER);' < data/risk_free.csv
 
 # load stocks with sector and sub-sector
