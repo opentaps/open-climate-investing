@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DB_NAME="open_climate_investing_carima"
+DB_NAME="open_climate_investing"
 
 createdb ${DB_NAME}
 
