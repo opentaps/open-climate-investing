@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
@@ -102,6 +103,7 @@ const GRAPH_OPTIONS = {
 };
 
 class Stock extends Component {
+
   constructor(props) {
     super(props);
     this.getStock = this.getStock.bind(this);
@@ -184,7 +186,7 @@ class Stock extends Component {
     this.props.history.goBack();
   }
 
-  handleTabChange(event, newValue) {
+  handleTabChange(_event, newValue) {
     this.setState({
       current_tab: newValue,
     });
@@ -664,7 +666,7 @@ class Stock extends Component {
     );
   }
 
-  renderFieldsTableHeaders(fields, opts) {
+  renderFieldsTableHeaders(fields) {
     return (
       <thead>
         <tr>
@@ -1097,6 +1099,16 @@ class Stock extends Component {
       </div>
     );
   }
+}
+
+
+Stock.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    }),
+  }),
+  history: PropTypes.any
 }
 
 export default withRouter(Stock);

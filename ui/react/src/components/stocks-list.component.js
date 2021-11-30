@@ -1,5 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
@@ -191,7 +192,7 @@ class StocksList extends Component {
     this.retrieveStocks();
   }
 
-  setActiveStock(stock, index) {
+  setActiveStock(stock) {
     console.log("Changed active stock: ", stock);
     this.props.history.push(`/stocks/${stock.ticker}`);
   }
@@ -246,7 +247,7 @@ class StocksList extends Component {
     if (this.state.searchFields.length <= 1) return;
     this.setState(
       (prevState) => ({
-        searchFields: prevState.searchFields.filter((el, j) => index !== j),
+        searchFields: prevState.searchFields.filter((_el, j) => index !== j),
       }),
       () => {
         this.refreshListFirstPage();
@@ -504,6 +505,18 @@ class StocksList extends Component {
       </div>
     );
   }
+}
+
+StocksList.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+      page: PropTypes.number,
+      pageSize: PropTypes.number,
+      filters: PropTypes.array,
+    }),
+  }),
+  history: PropTypes.any
 }
 
 export default withRouter(StocksList);
