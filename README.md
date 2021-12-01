@@ -32,17 +32,17 @@ The stock interface uses `get_stocks.py` will save the output in the `stock_data
 - `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`
 - `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
 
-Running the regression, the `get_regressions.py` script will save the output in the `stock_stats` table.
-
-All instances support optional parameters:
-- `-s YYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
-- `-e YYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
-- `-i N` for the regression interval in months (defaults to 60 months).
-
+To run the regression, use `get_regressions.py` to save the output in the `stock_stats` table:
 - `python get_regressions.py` for running all the stocks in the database
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
 
+All instances support optional parameters:
+- `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
+- `-e YYYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
+- `-i N` for the regression interval in months (defaults to 60 months).
+- `-c FACTOR_NAME` to specify the BMG factor to use.  If not specified, `DEFAULT` will be used.
+- `-h` to see all parameters available
 
 ### Viewing the Results
 
