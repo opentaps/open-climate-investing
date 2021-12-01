@@ -7,7 +7,7 @@ library(ggplot)
 ### Improvement in predictions
 
 # Read in the Fama-French and BMG factors
-carbon_data <- read_csv("data/carbon_risk_factor.csv")
+carbon_data <- read_csv("data/bmg_carima.csv")
 ff_data <- read_csv("data/ff_factors.csv")
 
 # Read in the SPX return data from the bulk downloader

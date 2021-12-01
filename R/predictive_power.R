@@ -16,14 +16,15 @@ source("R/key_functions.R")
 # 3. Data -----------------------------------------------------------------
 
 # * 3.1 - Carbon Risk Factor ----------------------------------------------
-# carbon_data <- read_csv("data/carbon_risk_factor.csv")   # Original CARIMA BMG Factor
-carbon_data <- read_csv("data/bmg_eu_ets.csv")
+# carbon_data <- read_csv("data/bmg_carima.csv")   
+#carbon_data <- read_csv("data/bmg_eu_ets.csv")
 #carbon_data <- read_csv("data/bmg_acwi_crbn.csv")
 # carbon_data <- read_csv("data/bmg_xop_smog.csv")
 #carbon_data <- read_csv("data/bmg_xop_smog_orthogonalized_1.csv")   # XOP-SMOG orthogonalized for Rate Change, Curve Change, BBB Spread Change
 #carbon_data <- read_csv("data/bmg_xop_smog_orthogonalized_2.csv")  # XOP-SMOG additionally orthogonalized for HML Fama-French factor
-# carbon_data <- read_csv("data/bmg_wmat_crbn_mat.csv")
+#carbon_data <- read_csv("data/bmg_wmat_crbn_mat.csv")
 # carbon_data <- read_csv("data/bmg_carima_orthogonalized.csv")
+carbon_data <- read_csv("data/bmg_xop_smog_wmat_crbn_mat.csv")
 
 # carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
 #  select(-Green_Returns, - Brown_Returns)
@@ -37,10 +38,10 @@ ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
 
 # Read in the SPX return data from the bulk downloader
-#final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
+final_stock_returns <- read.csv('data/msci_constituent_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/msci_world_returns.csv') # for msci
 #final_stock_returns <- read.csv('data/spx_constituent_returns.csv') # for spx
-final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
+#final_stock_returns <- read.csv('data/msci_sector_returns.csv') # for msci
 
 # Debug - write.csv(final_stock_returns[final_stock_returns$Stock=="ORA.PA",], "final_stock_returns.csv")
 

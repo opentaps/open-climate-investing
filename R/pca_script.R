@@ -33,7 +33,7 @@ components_through_time <- pca_results$scores
 
 ff_data <- read_csv("data/ff_factors.csv")
 risk_free <- read_csv("data/risk_free.csv")
-carbon_data <- read_csv("data/carbon_risk_factor.csv")
+carbon_data <- read_csv("data/bmg_carima.csv")
 
 # Making the date column have the same name  for the join later
 colnames(carbon_data)[1] <- "Date"
