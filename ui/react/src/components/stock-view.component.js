@@ -18,7 +18,7 @@ const componentDecorator = (href, text, key) => (
 );
 
 const STAT_TABLE_FIELDS = [
-  { label: "Carbon", name: "bmg" },
+  { label: "BMG", name: "bmg" },
   { label: "Market", name: "mkt_rf" },
   { label: "SMB", name: "smb" },
   { label: "HML", name: "hml" },
@@ -37,7 +37,7 @@ const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const DEFAULT_FACTOR_NAME = "DEFAULT";
-const DEFAULT_GRAPH = "Carbon";
+const DEFAULT_GRAPH = "BMG";
 const STAT_GRAPHS_MIN = -3;
 const STAT_GRAPHS_MAX = 3;
 const GRAPH_OPTIONS = {
@@ -398,7 +398,7 @@ class Stock extends Component {
           }
           let stat_series = [
             {
-              name: "Carbon",
+              name: "BMG",
               data: arr.map((d) => [d.thru_date, parseFloat(d.bmg)]),
             },
             {
