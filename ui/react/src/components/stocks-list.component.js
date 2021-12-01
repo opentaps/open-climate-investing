@@ -424,7 +424,7 @@ class StocksList extends Component {
             <thead>
               <tr>
                 <th scope="col">Stock</th>
-                <th scope="col">Carbon</th>
+                <th scope="col">BMG</th>
                 <th scope="col">Market</th>
                 <th scope="col">SMB</th>
                 <th scope="col">HML</th>

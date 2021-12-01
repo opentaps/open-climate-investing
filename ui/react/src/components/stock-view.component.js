@@ -2,14 +2,17 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import FormControl from "@mui/material/FormControl";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Select from "@mui/material/Select";
 import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
+import { MenuItem } from "@mui/material";
 
 const componentDecorator = (href, text, key) => (
   <a href={href} key={key} target="_blank" rel="noreferrer">
@@ -18,7 +21,7 @@ const componentDecorator = (href, text, key) => (
 );
 
 const STAT_TABLE_FIELDS = [
-  { label: "Carbon", name: "bmg" },
+  { label: "BMG", name: "bmg" },
   { label: "Market", name: "mkt_rf" },
   { label: "SMB", name: "smb" },
   { label: "HML", name: "hml" },
@@ -37,7 +40,7 @@ const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const DEFAULT_FACTOR_NAME = "DEFAULT";
-const DEFAULT_GRAPH = "Carbon";
+const DEFAULT_GRAPH = "BMG";
 const STAT_GRAPHS_MIN = -3;
 const STAT_GRAPHS_MAX = 3;
 const GRAPH_OPTIONS = {
@@ -398,7 +401,7 @@ class Stock extends Component {
           }
           let stat_series = [
             {
-              name: "Carbon",
+              name: "BMG",
               data: arr.map((d) => [d.thru_date, parseFloat(d.bmg)]),
             },
             {
@@ -631,7 +634,8 @@ class Stock extends Component {
     );
   }
 
-  handleFactorNameChange(event, value) {
+  handleFactorNameChange(event) {
+    let value = event.target.value;
     console.log("handleFactorNameChange:: ", event, value);
     this.setState({
       factor_name: value,
@@ -885,20 +889,20 @@ class Stock extends Component {
             </h4>
 
             {factor_names && factor_names.length > 1 && (
-              <div>
-                <b className="me-2">Factor Names:</b>
-                <ToggleButtonGroup
-                  color="primary"
-                  value={factor_name}
-                  exclusive
-                  onChange={this.handleFactorNameChange}
-                >
+              <div className="d-flex flex-row align-items-baseline">
+                <b className="me-2">BMG Factor</b>
+                <FormControl variant="standard">
+                  <Select
+                    value={factor_name}
+                    onChange={this.handleFactorNameChange}
+                  >
                   {factor_names.map((fname) => (
-                    <ToggleButton key={fname} value={fname}>
+                    <MenuItem key={fname} value={fname}>
                       {fname}
-                    </ToggleButton>
+                    </MenuItem>
                   ))}
-                </ToggleButtonGroup>
+                  </Select>
+                </FormControl>
               </div>
             )}
 
