@@ -886,7 +886,7 @@ class Stock extends Component {
 
             {factor_names && factor_names.length > 1 && (
               <div>
-                <b className="me-2">Factor Names:</b>
+                <b className="me-2">BMG Factor:</b>
                 <ToggleButtonGroup
                   color="primary"
                   value={factor_name}
