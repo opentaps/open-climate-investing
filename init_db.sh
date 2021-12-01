@@ -16,7 +16,7 @@ CREATE TABLE _import_carbon_risk_factor (
 	PRIMARY KEY (date)
 );'
 
-psql ${DB_NAME} -c 'COPY _import_carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/carbon_risk_factor.csv
+psql ${DB_NAME} -c 'COPY _import_carbon_risk_factor FROM STDIN WITH (FORMAT CSV, HEADER);' < data/bmg_carima.csv
 psql ${DB_NAME} -c "INSERT INTO carbon_risk_factor (date, bmg, factor_name) SELECT date, bmg, 'DEFAULT' FROM _import_carbon_risk_factor;"
 psql ${DB_NAME} -c 'DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;'
 
