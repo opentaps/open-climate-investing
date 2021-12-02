@@ -10,6 +10,8 @@ conn = db.get_db_connection()
 
 
 def load_stocks_csv(filename):
+    if not filename:
+        return None
     print('Loading stock tickers CSV {} ...'.format(filename))
     all_stock_data = pd.read_csv(filename, header=None)
     return all_stock_data.values
@@ -87,13 +89,16 @@ def main(args):
         print('Loaded from DB: {} entries'.format(len(df)))
         print(' -- sample (truncated) -- ')
         print(df)
-    else:
+    elif args.file:
         stocks = load_stocks_csv(args.file)
 
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
             print("Trying to get: " + stock_name)
             import_stock(stock_name)
+    else:
+        return False
+    return True
 
 
 # run
@@ -107,4 +112,6 @@ if __name__ == "__main__":
                         help="specify a single ticker to import, ignores the CSV file")
     parser.add_argument("-s", "--show",
                         help="Show the data for a given ticker, for testing")
-    main(parser.parse_args())
+    if not main(parser.parse_args()):
+        parser.print_help()
+
