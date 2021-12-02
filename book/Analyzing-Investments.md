@@ -208,7 +208,7 @@ Now you'll have a number for climate cost that would allow comparing different i
 
 _"In the short run, the market is a voting machine but in the long run, it is a weighing machine." - Ben Graham_
 
-In the end, investments converge on fundamentals: Bonds are either repaid, or they default.  Stocks are ownership in businesses, which either create or lose value.  Any investment model must be rooted in the fundamentals of the assets you invest in, or they will lead you astray.  Either you will lose money, or worse, lead a career full of sound of fury, but ultimately signifying nothing.
+In the end, investments converge on fundamentals: Bonds are either repaid, or they default.  Stocks are ownership in businesses, which either make or lose money.  Any investment model must be rooted in the fundamentals of the assets you invest in, or they will lead you astray.  Either you will lose money, or worse, lead a career full of sound of fury, but ultimately signifying nothing.
 
 The goal of climate investing is to pick the companies that are really reducing their exposures to climate change, and in the process encourage all companies to do the same.  Therefore, it must be rooted in sound fundamental analysis about companies' real emissions and their strategies to reduce them.  
 
