@@ -29,7 +29,7 @@ const STAT_TABLE_FIELDS = [
 ];
 
 const STAT_BOX_FIELDS = [
-  { label: "R2", name: "r_squared" },
+  { label: "R-sq", name: "r_squared" },
   { label: "Jarque-Bera", name: "jarque_bera" },
   { label: "Breusch-Pagan", name: "breusch_pagan" },
   { label: "Durbin-Watson", name: "durbin_watson" },

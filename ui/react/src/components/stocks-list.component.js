@@ -408,7 +408,6 @@ class StocksList extends Component {
           </div>
         </div>
         <div className="col-12">
-          <h4>Stocks List</h4>
           {this.renderSpinner(this.state.loadingIndicator)}
           {errorMessage ? (
             <div
@@ -429,7 +428,7 @@ class StocksList extends Component {
                 <th scope="col">SMB</th>
                 <th scope="col">HML</th>
                 <th scope="col">WML</th>
-                <th scope="col">R2</th>
+                <th scope="col">R-sq</th>
               </tr>
             </thead>
             <tbody>
