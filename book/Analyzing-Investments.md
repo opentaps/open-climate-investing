@@ -28,16 +28,16 @@ The problem with financial data and analysis is that if you know it, and I also 
 
 Long ago (up to the 1950's), investing meant sifting through financial statements, combing through the news wires, and scuttling about for every little "butt" of information about companies.  Then in the early 1960's, a young group of
 finance professors revolutionized the field by saying none of that mattered.  In fact, it didn't even matter if you knew you were investing in livestock or preferred stock.  All that mattered was how the assets you owned
-moved with the overall market.  That could be summarized in a simple statistic, called the _Beta_, which could be calculated from a regression of the returns of an asset versus the returns of the market.  Once you had this Beta,
+moved with the overall market.  That could be summarized in a simple statistic, called the _Beta_ or _factor loading_, which could be calculated as the relative  returns of an asset versus the returns of the market from a regression.  Once you had this Beta,
 you could tell how risky an asset was, how two assets should move versus each other, and whether an asset returned enough to compensate for its risks.  
 
 This revolutionary insight turned finance into a quantitative field.  Today few finance departments teach investing the way Ben Graham taught it to Warren Buffett.  The top traders at hedge funds are more likely to be 
-physicists than accountants.  And though it is still vociferously by the "stock pickers" in the industry, the truth is that this new way of thinking, called "Modern Portfolio Theory," worked well -- in some important applications:
+physicists than accountants.  And though it is still vociferously denounced by the "stock pickers" in the industry, the truth is that this new way of thinking, called "Modern Portfolio Theory," works well in some important applications:
 
  * It's great for finding short-term mispricings and trade around them.  If two stocks are supposed to move together at a certain ratio with high probability, and one moves first, it's (usually) a good bet the other will move soon.
  * It's great for analyzing the performance of portfolios.  While the investment industry touts its stock picking prowess, most funds contain so many stocks, their returns could be reduced to statistical relationships versus major index returns.
 
-But the first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, researchers found other statistically significant factors in returns.  The [Fama French 3-factor model](https://rady.ucsd.edu/faculty/directory/valkanov/pub/classes/mfe/docs/fama_french_jfe_1993.pdf) from 1993 became popular because it added two more parameters, one for size and one for balance sheet leverage.  This was followed up by the [Carhart 4-factor model](https://doi.org/10.1111/j.1540-6261.1997.tb03808.x) from 1997, which introduced a fourth factor, momentum. Today there are ever more sophisticated factor models with ever more factors, such as the [MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
+The first model of Modern Portfolio Theory, called "Capital Asset Pricing Model" with the single Beta, was just the beginning.  Over time, researchers found other statistically significant factors in returns.  The [Fama French 3-factor model](https://rady.ucsd.edu/faculty/directory/valkanov/pub/classes/mfe/docs/fama_french_jfe_1993.pdf) from 1993 became popular because it added two more parameters, one for size and one for balance sheet leverage.  This was followed up by the [Carhart 4-factor model](https://doi.org/10.1111/j.1540-6261.1997.tb03808.x) from 1997, which introduced a fourth factor, momentum. Today there are ever more sophisticated factor models with ever more factors, such as the [MSCI BARRA Multi Factor Model](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf).
 
 For analyzing climate risk, we started with multi-factor equity returns model such as Fama French and Carhart models, and added an additional factor for climate exposure.  The factors we are using are:
 
@@ -56,57 +56,33 @@ Most importantly, we have turned all those disclosures, data, and scenarios -- t
 "How the f@#! am I going to make money with this s#&!") -- into something you could trade with.  Furthermore, we've gotten around the commonly known problem of inconsistencies between ESG disclosures and scores by
 using the market as the benchmark.   So using a market implied model, you don't have to bet on which ESG disclosure is "right."  You just have to be more right than what the market, as an aggregate, thinks.
 
-Now let's see what it looks like with a few examples.  (Note that these examples use data up to the end of 2018, but the ideas are the same.)  We have taken the original model and created an [open source project](https://github.com/opentaps/open-climate-investing) which could be used to run it as scale and analyze large samples of stocks and portfolios over time.  You can check out the code and run it yourself.
+All you have to know is which stocks are Brown and which are Green.
+
+Using a BMG factor we developed from the return difference of the SPDR Series Trust - SPDR S&P Oil & Gas Exploration & Production ETF (XOP) as Brown stocks and the VanEck Vectors Low Carbon Energy ETF (SMOG) as the Green stocks, we developed a BMG series called the "XOP-SMOG ORTHO 1".  It was quite an adventure.  We wrote it up as a [research paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613).  Now let's see how it works like with an example. 
 
 #### Analyzing Stocks and Funds
 
-First let's look at a list of [7 Best Oil Stocks to Buy](https://money.usnews.com/investing/investing-101/slideshows/best-oil-stocks-to-buy) and [7 Renewable Energy Stocks and ETFs to Consider](https://money.usnews.com/investing/stock-market-news/slideshows/renewable-energy-stocks-to-consider), and see what the market tells us about them:
+Let's look at a list of [7 Best Oil Stocks to Buy](https://money.usnews.com/investing/investing-101/slideshows/best-oil-stocks-to-buy) and [7 Renewable Energy Stocks and ETFs to Consider](https://money.usnews.com/investing/stock-market-news/slideshows/renewable-energy-stocks-to-consider), and see what the market tells us about them:
 
-![Market Based Carbon Risk Factor for Oil Stocks and Renewable Energy Stocks and ETFs](images/carbon_risk_oil_renewables.png)
+![Market Based Carbon Risk Factor for Oil Stocks and Renewable Energy Stocks and ETFs](images/carbon_risk_oil_renewables_XOPSMOGORTHO1.png)
 
-Look in the "BMG" column: It shows the market implied carbon risk factor, along with its statistical significance, measured by standard error, t-statistic, and a probability for this t-statistic.  The larger the t-statistic, the smaller the probability measure, and the more significant this carbon risk factor is.
+Look in the "BMG" column.  This is the market implied climate risk for these stocks.  What these numbers mean is that all else equal, for every 1% that the Brown stock XOP outperforms the Green stocks SMOG, ConocoPhillips (COP) will on average outperform by 0.55% and Marathon Petroleum (MPC) by 0.25%.  Conversely, when SMOG outperforms XOP by 1%, we could expect Vestas Wind Systems (VWDRY) on average to outperform by 0.48% and NextEra Energy (NEE) by 0.20%.  Note that these are average expected results -- The last column, R-squared, shows how well the model explains the returns of each stock.  The oil stocks are generally well explained by the model with R-squared of up to 0.87 for Schlumberger, while the renewable stocks much less so, with NextEra Energy at only 0.31.   
 
-According to the market, Exxon-Mobil (XOM) has a carbon risk factor of 0.44, with T-statistic of 2.14 which means a probability of only 3.5% that this number could actually be zero.  So this means that Exxon's stock price is moving with high statistical significance relative to other high carbon (Brown) stocks.  Not surprising.  But is it surprising that Chevron (CVX) and ConocoPhillips have nearly twice the carbon risk factor, at 0.85 and 0.74, than Exxon, while Marathon Petroleum (MPC) has no carbon risk factor?  In other words, next time you see some big climate-related headline, should Chevron move twice as much as Exxon, while Marathon not much at all?  Or is 
-the market in fact miscalling Exxon, Chevron, ConocoPhillips, and Marathon versus each other -- and there could be real trading opportunities here?
+In general, the oil stocks have positive climate risk factor loadings, and the renewables have negative ones, and they're all statistically significant except for Albermarle which is greyed out.  This seems to show that the market is generally pricing the climate exposures of these energy companies in line with their oil versus renewables exposures.  Whether their relative amounts are correct, though, is another question.  Does Marathon Petroleum really have half the climate exposure of ConocoPhillips?  Is Vestas really that much more sustainable than the stocks in the Invesco Solar ETF?  
 
-Next, look at Schlumberger (SLB) and Pioneer Natural Resources (PXD).  These oil exploration companies have carbon risk factors of about 1.3, nearly three times those of Exxon and 50% more than Chevron and ConocoPhillips.  Do these stocks in fact have higher carbon risk than the integrated oil majors?  Even a casual observer (like me) could see that they probably do: While the oil majors have large assets in the ground, which could potentially be extracted for different
-purposes and at different prices in the future, the exploration companies are more dependent on drilling for new oil.  Therefore, a decline in demand for oil would probably more directly impact their business models.  But again,
-the question is how much?  At least with a market based model, you know what hurdle you need to beat.
-
-Then let's look at the renewables.  What's interesting about this list is that with the exception of Vesta Wind (VWDRY), _none_ of the renewable energy stocks and ETF's have statistically significant negative carbon risk factors. The Invesco Solar ETF (TAN) has a negative carbon risk factor of -0.52, but it is not statistically significant with a t-statistic of -1.05, meaning there is a 30% chance this statistic is actually null.  This means that
-these stocks are in fact not falling when Brown (high carbon risk) stocks rise and vice versa.  Is this a problem with the BMG risk factor we've constructed?  Perhaps -- but then why is this statistics seemingly giving the
-right numbers for the integrated oil majors and oil exploration stocks, not to mention Vesta Wind?  Is the market misvaluing these stocks, giving you opportunities to trade them for a profit?  Or are these companies in fact
-not as green or low in carbon risk as we thought?
-
-What interesting questions...
+Or are there mispricings in how the market is analyzing the climate exposures of these companies.   
 
 #### Analyzing Market Sectors
 
-This model could also tell us what the market as a whole thinks about the climate transition.  Using the iShares Core S&P 500 ETF, we calculated the carbon risk factors of the major sectors of the S&P 500:
+This is where we still have work to do.  In our [research paper](chttps://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613), we found that the XOP-SMOG ORTHO1 BMG series could explain the climate exposures of the Energy industry quite well, but really doesn't work outside of it.  Meanwhile other BMG series constructed from different ESG metrics could literally give you the opposite answers to the climate exposure of whole industries.  Depending on which one you used, you could believe that Auto Manufacturers, Utilities, Banks, and even Mining companies could either gain or lose from climate change.
 
-![Sector Carbon Risk Factors of S&P500](images/sp-500-sector-carbon-risk-factors.png)
+What does this mean?  One of three things:
 
-So we see that the market, as a whole, thinks that Energy has the highest carbon risk factors -- it is the most sensitive to climate change.  Makes sense in light of the strong carbon risk factors we got for both the oil majors
-and oil exploration companies.  Then, interestingly enough, comes the Materials sector -- chemicals, paper, steel, and mining.  Then comes Utilities, followed by Real estate.  Industrials, Communications, Information Technology, and
-Consumer products have very low sensitivities.  Finally very significant negative carbon risk factors for Health Care stocks.  The very high and significant negative carbon risk factors for Financials should be ignored, as the Fama French-style factor models are not recommended for these stocks.
+ * The market isn't pricing in climate risk in other industries, because it doesn't know how climate change will affect those industries.
+ * The market doesn't have a consistent climate risk gauge across industries, because each industry has a different mix of transition and physical risk.
+ * We haven't found the right way to capture the market's climate risk exposure in other industries.
 
-What does this mean?  The market believes that energy and energy-intensive sectors are most as risk to climate change, probably through shifting demand and potential carbon taxes.  Utilities are less sensitive, presumably because
-they could shift their fuel mix to renewables, and maybe their regulators would allow them to pass those on to their customers.  Real estate companies even less so, because energy is not as big a part of their costs.  
-
-Is this a logical transition scenario?  That's where "market implied" comes in.  Market implied means relative to other traded assets in the market.  _Relative to the other assets_, how risky is it?  Is it over- or undervalued?  And, most important of all, is the market missing something, or are you?  It also means that you can trade one set of assets against another, such as underweighting the stocks with higher climate risks than the market currently expects.
-
-![Sub-Sector Carbon Risk Factors of S&P500](images/sp-500-subsector-carbon-risk-factors.png)
-
-Let's take a closer look at the carbon risk factors by sub-sector of the S&P 500.  Generally a t-statistic above 2 is considered statistically significant (at a 5% confidence level), though given the current level of climate investing
-knowledge, perhaps a 10% or 20% confidence level is still worth looking at.  Here again, we see patterns, some of which seem to make sense, some of which raise question marks:
-
- * It seems to make sense that the oil & gas exploration, production, and services stocks have such high carbon risk factors.
- * It also seems to make sense that fertilizers and agricultural chemicals have high carbon risk factors, but what should be the correct relative risk factors for this sector?
- * What causes such high carbon risk factors for copper and gold?
- * Should REITs really have higher carbon risk factors than electric and even natural gas utilities?
- * Is the risk factor for steel companies high enough, given the highly emissions of steelmaking?  Remember, a ton of steel on average produces 1.85 tons of GHG emissions.
-
-Similar analyses could be performed on portfolios, dissecting their carbon risk factors to the sectors, sub-sectors, and individual stocks.  
+We are continuing to work on this.  [Sign up](https://opentaps.org/subscribe/) to find out what we find.
 
 ### Fundamental Analysis
 
@@ -117,7 +93,7 @@ probably a lot of opportunities if you invested some time in analyzing companies
 
 Climate change is a long-term process with a lot of uncertainty.  How it plays out, and then how that affects an actual company, could depend on a number of scenarios.  Thus
 analyzing climate exposure is, in many ways, similar to analyzing mortgage-backed securities:  You will need to project multiple scenarios far into the future, calculate their 
-financial impacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Now you see why I needed to tell you aobut mortgages and OAS models.)
+financial impacts, and then attach probabilities to the scenarios to arrive at their expected values today.  (Now you see why I needed to tell you about mortgages and OAS models.)
 
 The key steps of this analysis are:
 
@@ -230,14 +206,14 @@ Now you'll have a number for climate cost that would allow comparing different i
 
 ### Putting it All Together
 
-_"Many paths lead from the foot of the mountain, but at the peak we all gaze at the single bright moon." - IKKYU, Zen Monk and Poet._
+_"In the short run, the market is a voting machine but in the long run, it is a weighing machine." - Ben Graham_
 
-In the end, market-based and fundamental analyses must come together.  The market is simply a big voting machine of all the participants' believes at any one time, which means that it's applying the market's probability weightings to all the scenarios that all the investors and traders are consciously or unconsciously running in their minds.
+In the end, investments converge on fundamentals: Bonds are either repaid, or they default.  Stocks are ownership in businesses, which either create or lose value.  Any investment model must be rooted in the fundamentals of the assets you invest in, or they will lead you astray.  Either you will lose money, or worse, lead a career full of sound of fury, but ultimately signifying nothing.
 
-So when you've run through your scenarios to come up with the climate costs of different investments, you can compare it to how they're actually trading in the market.  Are some stocks not moving as much with others?  Is it because your climate costs are wrong?  Or will those stocks' climate costs eventually catch up with them with a big adjustment?
+The goal of climate investing is to pick the companies that are really reducing their exposures to climate change, and in the process encourage all companies to do the same.  Therefore, it must be rooted in sound fundamental analysis about companies' real emissions and their strategies to reduce them.  
 
-Now, this is cool: It could also work the other way!  You could come up with climate risks of private, non-traded investments such as private equity and venture capital companies.  Start with a fundamental analysis for those companies to identify their climate risks: transition, physical, energy use, etc.  Then compare those with the fundamental climate risks of public companies to identify their closest peers.  This gives you a public portfolio that shadows your private companies' climate risks.  If you ever see the public market behaving very differently than your fundamental analysis would indicate (ie, much more or less sensitivity to climate risks), it might be a warning.
+But fundamental analysis is hard, because it involves forecasting the future.  Many investors have also gone astray believing in their analysis all the way to the bankruptcy court.  And if we get climate investing wrong, it's the whole financial system that would be headed that way.
 
-All it would take is a fundamental model of climate change's effects on company financials, run through a probability-weighted set of scenarios of climate change and carbon pricing.
+So the market implied models could help us as a sanity check.  Are we sure what we're right?  Or does everybody else know something we don't?  It is the yin to the yang of fundamental research.
 
-I don't think we're there yet.  Not enough companies are disclosing their emissions, and not enough investors understand climate investing.  In time, though, the two should both improve, and climate investing will be like investing in other long-dated assets with high uncertainty.  Eventually there will be Climated-Adjusted valuation models, just like there are now Option- and Credit-Adjusted models.
+It could also help you make some money finding mispricings in the market, which is always a nice thing.
