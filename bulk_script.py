@@ -64,7 +64,7 @@ use_default = input(
 use_default = use_default.upper()
 
 if use_default == 'Y':
-    carbon_data = pd.read_csv('data/carbon_risk_factor.csv')
+    carbon_data = pd.read_csv('data/bmg_carima.csv')
     ff_data = pd.read_csv('data/ff_factors.csv')
     carbon_data = input_function.convert_to_form(carbon_data)
     ff_data = input_function.convert_to_form(ff_data)

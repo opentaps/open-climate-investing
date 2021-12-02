@@ -17,15 +17,16 @@ def load_stocks_csv(filename):
     return all_stock_data.values
 
 
-def load_carbon_data_from_db():
+def load_carbon_data_from_db(factor_name):
     sql = '''SELECT
             date as "Date",
             bmg as "BMG"
         FROM carbon_risk_factor
+        WHERE factor_name = %s
         ORDER BY date
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='Date')
+                             index_col='Date', params=(factor_name,))
 
 
 def load_ff_data_from_db():
@@ -53,9 +54,9 @@ def load_rf_data_from_db():
                              index_col='Date')
 
 
-def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_data=None, rf_data=None, verbose=False, silent=False, store=False, from_db=False):
+def run_regression(ticker, factor_name, start_date, end_date, interval, carbon_data=None, ff_data=None, rf_data=None, verbose=False, silent=False, store=False, from_db=False):
     if carbon_data is None:
-        carbon_data = load_carbon_data_from_db()
+        carbon_data = load_carbon_data_from_db(factor_name)
         if verbose:
             print('Loaded carbon_data ...')
             print(carbon_data)
@@ -95,10 +96,10 @@ def run_regression(ticker, start_date, end_date, interval, carbon_data=None, ff_
     stock_data = stock_data.pct_change(periods=1)
 
     run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
-                            ticker, start_date, end_date, interval, verbose, silent, store)
+                            ticker, factor_name, start_date, end_date, interval, verbose, silent, store)
 
 
-def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, start_date, end_date, interval, verbose, silent, store):
+def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, factor_name, start_date, end_date, interval, verbose, silent, store):
     try:
         if start_date:
             start_date = pd.Period(start_date, freq='M').end_time.date()
@@ -161,6 +162,7 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
         }
         sql_params = {
             'ticker': ticker,
+            'bmg_factor_name': factor_name,
             'from_date': start_date,
             'thru_date': r_end_date,
             'data_from_date': data_start_date,
@@ -179,30 +181,30 @@ def run_regression_internal(stock_data, carbon_data, ff_data, rf_data, ticker, s
     dt = relativedelta(months=1)
     start_date -= datetime.timedelta(days=1)
     run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
-                            ticker, start_date+dt, end_date, interval, verbose, silent, store)
+                            ticker, factor_name, start_date+dt, end_date, interval, verbose, silent, store)
 
 
 def store_regression_into_db(sql_params):
-    del_sql = '''DELETE FROM stock_stats WHERE ticker = %s and from_date = %s and thru_date = %s;'''
+    del_sql = '''DELETE FROM stock_stats WHERE ticker = %s and bmg_factor_name = %s and from_date = %s and thru_date = %s;'''
     placeholder = ", ".join(["%s"] * len(sql_params))
     stmt = "INSERT INTO stock_stats ({columns}) values ({values});".format(
         columns=",".join(sql_params.keys()), values=placeholder)
     with conn.cursor() as cursor:
         cursor.execute(
-            del_sql, (sql_params['ticker'], sql_params['from_date'], sql_params['thru_date']))
+            del_sql, (sql_params['ticker'], sql_params['bmg_factor_name'], sql_params['from_date'], sql_params['thru_date']))
         cursor.execute(stmt, list(sql_params.values()))
 
 
 def main(args):
     if args.ticker:
         if args.stock_from_db:
-            run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
+            run_regression(args.ticker, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval,
                            verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun), from_db=True)
         else:
-            run_regression(args.ticker, args.start_date, end_date=args.end_date, interval=args.interval,
+            run_regression(args.ticker, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval,
                            verbose=args.verbose, store=(not args.dryrun), silent=(not args.dryrun))
     elif args.file:
-        carbon_data = load_carbon_data_from_db()
+        carbon_data = load_carbon_data_from_db(args.factor_name)
         ff_data = load_ff_data_from_db()
         rf_data = load_rf_data_from_db()
         stocks = load_stocks_csv(args.file)
@@ -210,20 +212,20 @@ def main(args):
             stock_name = stocks[i].item()
             print('* running regression for {} ... '.format(stock_name))
             if args.stock_from_db:
-                run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+                run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                                ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), from_db=True)
             else:
-                run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+                run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                                ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun))
     else:
-        carbon_data = load_carbon_data_from_db()
+        carbon_data = load_carbon_data_from_db(args.factor_name)
         ff_data = load_ff_data_from_db()
         rf_data = load_rf_data_from_db()
         stocks = get_stocks.load_stocks_defined_in_db()
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* running regression for {} ... '.format(stock_name))
-            run_regression(stock_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+            run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                            ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun))
 
 
@@ -244,6 +246,8 @@ if __name__ == "__main__":
                         help="Sets the end date for the regression, must be in the YYYY-MM-DD format, defaults to the last date of all the data series for a given stock")
     parser.add_argument("-i", "--interval", default=60, type=int,
                         help="Sets number of months for the regresssion interval, defaults to 60")
+    parser.add_argument("-c", "--factor_name", default='DEFAULT',
+                        help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")
     parser.add_argument("-sd", "--stock_from_db", action='store_true',

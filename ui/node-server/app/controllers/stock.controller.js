@@ -135,6 +135,8 @@ exports.findAll = (req, res) => {
   let modelsMap = {};
   let assocConditionsMap = {};
   for (let k in req.query) {
+    // ignore facto_name handled below
+    if ('factor_name' === k || 'bmg_factor_name' === k) continue;
     let cond = _makeCondition(k, null, req.query[k]);
     if (cond) {
       if (cond.model) {
@@ -144,14 +146,22 @@ exports.findAll = (req, res) => {
           assocConditions = [];
           modelsMap[key] = cond.model;
         }
-        console.log("findAll -> adding assocConditions", cond.model, cond.cond);
+        console.log("stock.controller::findAll -> adding assocConditions", cond.model, cond.cond);
         assocConditionsMap[key] = assocConditions.concat(cond.cond);
       } else {
-        console.log("findAll -> adding conditions", cond);
+        console.log("stock.controller::findAll -> adding conditions", cond);
         conditions = conditions.concat(cond);
       }
     }
   }
+  // always filter the factor_name
+  let factor_name = req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  console.log(`stock.controller::findAll -> factor_name = ${factor_name}`);
+  conditions.push(
+    Sequelize.where(Sequelize.col("bmg_factor_name"), {
+      [Op.eq]: `${factor_name}`,
+    })
+  );
 
   const { limit, offset } = common.getPagination(page, size);
 
@@ -165,7 +175,7 @@ exports.findAll = (req, res) => {
   let includes = [];
   for (let model in assocConditionsMap) {
     let assocConditions = assocConditionsMap[model];
-    console.log("findAll -> add include query for ", model, assocConditions);
+    console.log("stock.controller::findAll -> add include query for ", model, assocConditions);
     let includeCondition = {
       model: modelsMap[model],
       attributes: [],
@@ -182,11 +192,11 @@ exports.findAll = (req, res) => {
     query.subQuery = false;
   }
   query.order = ["ticker"];
-  console.log("findAll -> query", query);
+  console.log("stock.controller::findAll -> query", query);
 
   Stock.findAndCountAll(query)
     .then((data) => {
-      console.log(`findAll -> findAndCountAll = ${data}`);
+      console.log(`stock.controller::findAll -> findAndCountAll = ${data}`);
       const response = common.getPagingData(data, page, limit);
       res.send(response);
     })
@@ -223,15 +233,24 @@ exports.findComponents = (req, res) => {
     offset,
   };
 
-  query.where = [
-    Sequelize.where(Sequelize.col("parent_ticker"), { [Op.eq]: id }),
-  ];
+  let conditions = [];
+  conditions.push(Sequelize.where(Sequelize.col("parent_ticker"), { [Op.eq]: id }));
+  let factor_name =
+    req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}`);
+  conditions.push(
+    Sequelize.where(Sequelize.col("bmg_factor_name"), {
+      [Op.eq]: `${factor_name}`,
+    })
+  );
+
+  query.where = conditions;
   query.order = [["percentage", "DESC"], "ticker"];
-  console.log("findComponents -> query", query);
+  console.log("stock.controller::findComponents -> query", query);
 
   StockComponent.findAndCountAll(query)
     .then((data) => {
-      console.log(`findComponents -> findAndCountAll = ${data}`);
+      console.log(`stock.controller::findComponents -> findAndCountAll = ${data}`);
       const response = common.getPagingData(data, page, limit);
       res.send(response);
     })
@@ -256,15 +275,24 @@ exports.findParents = (req, res) => {
     offset,
   };
 
-  query.where = [
-    Sequelize.where(Sequelize.col("component_stock"), { [Op.eq]: id }),
-  ];
+  let conditions = [];
+  conditions.push(Sequelize.where(Sequelize.col("component_stock"), { [Op.eq]: id }));
+  let factor_name =
+    req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}`);
+  conditions.push(
+    Sequelize.where(Sequelize.col("bmg_factor_name"), {
+      [Op.eq]: `${factor_name}`,
+    })
+  );
+
+  query.where = conditions;
   query.order = [["percentage", "DESC"], "ticker"];
-  console.log("findParents -> query", query);
+  console.log("stock.controller::findParents -> query", query);
 
   StockParent.findAndCountAll(query)
     .then((data) => {
-      console.log(`findParents -> findAndCountAll = ${data}`);
+      console.log(`stock.controller::findParents -> findAndCountAll = ${data}`);
       const response = common.getPagingData(data, page, limit);
       res.send(response);
     })

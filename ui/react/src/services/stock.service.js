@@ -13,6 +13,10 @@ class StockDataService {
     return http.get("/data", { params });
   }
 
+  getFactorNames(params) {
+    return http.get("/factor_names", { params });
+  }
+
   getStats(params) {
     return http.get("/stats", { params });
   }
@@ -43,7 +47,7 @@ class StockDataService {
       { label: "Name", name: "name", searchOnly: true },
       { label: "Sector", name: "sector" },
       { label: "Sub Sector", name: "sub_sector" },
-      { label: "Carbon", name: "bmg" },
+      { label: "BMG", name: "bmg" },
       { label: "Market", name: "mkt_rf" },
       { label: "SMB", name: "smb" },
       { label: "HML", name: "hml" },
@@ -122,7 +126,7 @@ class StockDataService {
       { label: "Name", name: "name", searchOnly: true },
       { label: "Sector", name: "sector", searchOnly: true },
       { label: "Sub Sector", name: "sub_sector", searchOnly: true },
-      { label: "Carbon", name: "bmg" },
+      { label: "BMG", name: "bmg" },
       { label: "Market", name: "mkt_rf" },
       { label: "SMB", name: "smb" },
       { label: "HML", name: "hml" },

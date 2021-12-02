@@ -1,14 +1,10 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import Pagination from "@mui/material/Pagination";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
+import { CircularProgress, Pagination, Tab, Tabs, ToggleButton, ToggleButtonGroup, FormControl, MenuItem, Select } from "@mui/material";
 
 const componentDecorator = (href, text, key) => (
   <a href={href} key={key} target="_blank" rel="noreferrer">
@@ -17,7 +13,7 @@ const componentDecorator = (href, text, key) => (
 );
 
 const STAT_TABLE_FIELDS = [
-  { label: "Carbon", name: "bmg" },
+  { label: "BMG", name: "bmg" },
   { label: "Market", name: "mkt_rf" },
   { label: "SMB", name: "smb" },
   { label: "HML", name: "hml" },
@@ -25,7 +21,7 @@ const STAT_TABLE_FIELDS = [
 ];
 
 const STAT_BOX_FIELDS = [
-  { label: "R2", name: "r_squared" },
+  { label: "R-sq", name: "r_squared" },
   { label: "Jarque-Bera", name: "jarque_bera" },
   { label: "Breusch-Pagan", name: "breusch_pagan" },
   { label: "Durbin-Watson", name: "durbin_watson" },
@@ -35,7 +31,8 @@ const STAT_BOX_FIELDS = [
 const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
-const DEFAULT_GRAPH = "Carbon";
+const DEFAULT_FACTOR_NAME = "DEFAULT";
+const DEFAULT_GRAPH = "BMG";
 const STAT_GRAPHS_MIN = -3;
 const STAT_GRAPHS_MAX = 3;
 const GRAPH_OPTIONS = {
@@ -101,6 +98,7 @@ const GRAPH_OPTIONS = {
 };
 
 class Stock extends Component {
+
   constructor(props) {
     super(props);
     this.getStock = this.getStock.bind(this);
@@ -121,6 +119,7 @@ class Stock extends Component {
     this.handleCurrentSeriesChange = this.handleCurrentSeriesChange.bind(this);
     this.onStockComponentClick = this.onStockComponentClick.bind(this);
     this.onStockParentClick = this.onStockParentClick.bind(this);
+    this.handleFactorNameChange = this.handleFactorNameChange.bind(this);
 
     this.pageSizes = [10, 25, 50, 100];
     let stock_graph_options = Object.assign({}, GRAPH_OPTIONS);
@@ -131,6 +130,8 @@ class Stock extends Component {
         name: "",
       },
       message: "",
+      factor_name: DEFAULT_FACTOR_NAME,
+      factor_names: [],
       data: [],
       data_page: 1,
       data_count: 0,
@@ -180,7 +181,7 @@ class Stock extends Component {
     this.props.history.goBack();
   }
 
-  handleTabChange(event, newValue) {
+  handleTabChange(_event, newValue) {
     this.setState({
       current_tab: newValue,
     });
@@ -192,22 +193,29 @@ class Stock extends Component {
         this.setState({
           current: response.data,
           current_tab: DEFAULT_TAB,
+          factor_name: DEFAULT_FACTOR_NAME,
+          factor_names: [],
           message: "",
         });
         console.log(response.data);
         window.scrollTo(0, 0);
-        this.retrieveData();
-        this.retrieveStats();
-        this.retrieveComponents();
-        this.retrieveParents();
-        this.retrieveStockGraph();
+        this.retrieveFactorNames();
+        this.retrieveAllStockData();
       })
       .catch((e) => {
         console.log(e);
       });
   }
 
-  getRequestParams(stock, page, pageSize) {
+  retrieveAllStockData() {
+    this.retrieveData();
+    this.retrieveStats();
+    this.retrieveComponents();
+    this.retrieveParents();
+    this.retrieveStockGraph();
+  }
+
+  getRequestParams(stock, page, pageSize, factorName) {
     if (!stock || !stock.ticker) {
       return null;
     }
@@ -222,32 +230,53 @@ class Stock extends Component {
       params["size"] = pageSize;
     }
 
+    if (factorName) {
+      params["factor_name"] = factorName;
+    }
+
     console.log("getRequestParams:: params", params);
     return params;
   }
 
-  retrieveData() {
-    const { current, data_page, data_pageSize } = this.state;
+  async retrieveFactorNames() {
+    const { current } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch data for !");
       return;
     }
-    StockDataService.getData(
-      this.getRequestParams(current, data_page, data_pageSize)
-    )
-      .then((data_response) => {
-        const { items, totalPages, totalItems } = data_response.data;
-        this.setState({
-          data: items,
-          data_count: totalPages,
-          data_total: totalItems,
-        });
-        this.setState({ data_loadingIndicator: false });
-      })
-      .catch((e) => {
-        this.setState({ data_loadingIndicator: false });
-        console.log(e);
+    try {
+      const { data: factor_names } = await StockDataService.getFactorNames({
+        ticker: current.ticker,
       });
+      this.setState({
+        factor_names: factor_names.map((e) => e.factor_name),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async retrieveData() {
+    const { current, data_page, data_pageSize, factor_name } = this.state;
+    if (!current || !current.ticker) {
+      console.log("No current stock to fetch data for !");
+      return;
+    }
+    try {
+      const data_response = await StockDataService.getData(
+        this.getRequestParams(current, data_page, data_pageSize, factor_name)
+      );
+      const { items, totalPages, totalItems } = data_response.data;
+      this.setState({
+        data: items,
+        data_count: totalPages,
+        data_total: totalItems,
+      });
+      this.setState({ data_loadingIndicator: false });
+    } catch (err) {
+      this.setState({ data_loadingIndicator: false });
+      console.log(err);
+    }
   }
 
   handleDataPageChange(event, value) {
@@ -276,7 +305,7 @@ class Stock extends Component {
   }
 
   retrieveStockGraph(page, arr) {
-    const { current } = this.state;
+    const { current, factor_name } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch data for !");
       return;
@@ -285,8 +314,9 @@ class Stock extends Component {
     if (!page) page = 0;
     StockDataService.getData({
       ticker: current.ticker,
-      page: page,
+      page,
       size: 100,
+      factor_name
     })
       .then((stats_response) => {
         const { items, totalPages } = stats_response.data;
@@ -319,7 +349,7 @@ class Stock extends Component {
   }
 
   retrieveStatsGraph(page, arr) {
-    const { current } = this.state;
+    const { current, factor_name } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
@@ -328,8 +358,9 @@ class Stock extends Component {
     if (!page) page = 0;
     StockDataService.getStats({
       ticker: current.ticker,
-      page: page,
+      page,
       size: 100,
+      factor_name
     })
       .then((stats_response) => {
         const { items, totalPages } = stats_response.data;
@@ -362,7 +393,7 @@ class Stock extends Component {
           }
           let stat_series = [
             {
-              name: "Carbon",
+              name: "BMG",
               data: arr.map((d) => [d.thru_date, parseFloat(d.bmg)]),
             },
             {
@@ -422,14 +453,14 @@ class Stock extends Component {
   }
 
   retrieveComponents() {
-    const { current, comp_page, comp_pageSize } = this.state;
+    const { current, comp_page, comp_pageSize, factor_name } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
     }
     StockDataService.getComponents(
       current.ticker,
-      this.getRequestParams(current, comp_page, comp_pageSize)
+      this.getRequestParams(current, comp_page, comp_pageSize, factor_name)
     )
       .then((comp_response) => {
         const { items, totalPages, totalItems } = comp_response.data;
@@ -482,14 +513,19 @@ class Stock extends Component {
   }
 
   retrieveParents() {
-    const { current, parents_page, parents_pageSize } = this.state;
+    const { current, parents_page, parents_pageSize, factor_name } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
     }
     StockDataService.getParents(
       current.ticker,
-      this.getRequestParams(current, parents_page, parents_pageSize)
+      this.getRequestParams(
+        current,
+        parents_page,
+        parents_pageSize,
+        factor_name
+      )
     )
       .then((parents_response) => {
         const { items, totalPages, totalItems } = parents_response.data;
@@ -542,13 +578,13 @@ class Stock extends Component {
   }
 
   retrieveStats() {
-    const { current, stats_page, stats_pageSize } = this.state;
+    const { current, stats_page, stats_pageSize, factor_name } = this.state;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
     }
     StockDataService.getStats(
-      this.getRequestParams(current, stats_page, stats_pageSize)
+      this.getRequestParams(current, stats_page, stats_pageSize, factor_name)
     )
       .then((stats_response) => {
         const { items, totalPages, totalItems } = stats_response.data;
@@ -590,6 +626,16 @@ class Stock extends Component {
     );
   }
 
+  handleFactorNameChange(event) {
+    let value = event.target.value;
+    console.log("handleFactorNameChange:: ", event, value);
+    this.setState({
+      factor_name: value,
+    }, () => {
+      this.retrieveAllStockData();
+    });
+  }
+
   handleCurrentSeriesChange(event, value) {
     console.log("handleCurrentSeriesChange:: ", event, value);
     this.setState({
@@ -616,15 +662,17 @@ class Stock extends Component {
     );
   }
 
-  renderFieldsTableHeaders(fields, opts) {
+  renderFieldsTableHeaders(fields) {
     return (
       <thead>
         <tr>
-          {fields.filter(f=>!f.searchOnly).map((f) => (
-            <th key={f.label} scope="col">
-              {f.label}
-            </th>
-          ))}
+          {fields
+            .filter((f) => !f.searchOnly)
+            .map((f) => (
+              <th key={f.label} scope="col">
+                {f.label}
+              </th>
+            ))}
         </tr>
       </thead>
     );
@@ -633,29 +681,33 @@ class Stock extends Component {
   renderFieldsTableRow(fields, item, index, opts) {
     return (
       <tr key={index}>
-        {!opts || !opts.skipTicker ?
+        {!opts || !opts.skipTicker ? (
           <td data-index={index} onClick={opts ? opts.onRowClick : null}>
             <b>{item.ticker}</b>: {item.name}
           </td>
-        :null}
-        {fields.filter(f=>!f.searchOnly&&f.name!=='ticker'&&f.name!=='name').map((f) =>
-          f.linkify ? (
-            <Linkify componentDecorator={componentDecorator}>
-              <td>{this.renderFormattedField(f, item)}</td>
-            </Linkify>
-          ) : (
-            <td
-              key={`${index}_${f.label}`}
-              data-index={index}
-              onClick={opts ? opts.onRowClick : null}
-              className={StockDataService.getColoringClassForStat(
-                item[f.name + "_p_gt_abs_t"]
-              )}
-            >
-              {this.renderFormattedField(f, item)}
-            </td>
+        ) : null}
+        {fields
+          .filter(
+            (f) => !f.searchOnly && f.name !== "ticker" && f.name !== "name"
           )
-        )}
+          .map((f) =>
+            f.linkify ? (
+              <Linkify componentDecorator={componentDecorator}>
+                <td>{this.renderFormattedField(f, item)}</td>
+              </Linkify>
+            ) : (
+              <td
+                key={`${index}_${f.label}`}
+                data-index={index}
+                onClick={opts ? opts.onRowClick : null}
+                className={StockDataService.getColoringClassForStat(
+                  item[f.name + "_p_gt_abs_t"]
+                )}
+              >
+                {this.renderFormattedField(f, item)}
+              </td>
+            )
+          )}
       </tr>
     );
   }
@@ -810,6 +862,8 @@ class Stock extends Component {
       parents_total,
       parents_pageSize,
       parents_loadingIndicator,
+      factor_name,
+      factor_names,
     } = this.state;
 
     return (
@@ -825,6 +879,24 @@ class Stock extends Component {
                 Back
               </button>
             </h4>
+
+            {factor_names && factor_names.length > 1 && (
+              <div className="d-flex flex-row align-items-baseline">
+                <b className="me-2">BMG Factor</b>
+                <FormControl variant="standard">
+                  <Select
+                    value={factor_name}
+                    onChange={this.handleFactorNameChange}
+                  >
+                  {factor_names.map((fname) => (
+                    <MenuItem key={fname} value={fname}>
+                      {fname}
+                    </MenuItem>
+                  ))}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
 
             <Tabs
               value={current_tab}
@@ -943,7 +1015,7 @@ class Stock extends Component {
               {this.renderFieldsTable(
                 StockDataService.stock_data_fields(),
                 data,
-                { skipTicker : true }
+                { skipTicker: true }
               )}
               {this.renderPaginator(
                 data_count,
@@ -959,7 +1031,7 @@ class Stock extends Component {
               {this.renderFieldsTable(
                 StockDataService.stock_stats_fields(),
                 stats,
-                { skipTicker : true }
+                { skipTicker: true }
               )}
               {this.renderPaginator(
                 stats_count,
@@ -1023,6 +1095,16 @@ class Stock extends Component {
       </div>
     );
   }
+}
+
+
+Stock.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    }),
+  }),
+  history: PropTypes.any
 }
 
 export default withRouter(Stock);

@@ -12,7 +12,7 @@ library(plm)
 source("R/key_functions.R")
 
 # Read in the Fama-French and BMG factors
-carbon_data <- read_csv("data/carbon_risk_factor.csv")
+carbon_data <- read_csv("data/bmg_carima.csv")
 # carbon_data <- read_csv("data/paris_aligned_bmg.csv") %>%
 #   select(-Green_Returns, - Brown_Returns)
 ff_data <- read_csv("data/ff_factors.csv")

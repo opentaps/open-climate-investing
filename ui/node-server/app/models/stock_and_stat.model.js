@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         primaryKey: true,
       },
+      bmg_factor_name: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+      },
       name: Sequelize.STRING,
       sector: Sequelize.STRING,
       sub_sector: Sequelize.STRING,
