@@ -1,11 +1,15 @@
 import pgdb
 import psycopg2.extras
 import psycopg2
+import configparser
 
-DB_HOST = '127.0.01'
-DB_NAME = 'open_climate_investing'
-DB_USER = ''
-DB_PASS = ''
+config = configparser.ConfigParser()
+config.read('db.ini')
+
+DB_HOST = config['DEFAULT']['DatabaseHost']
+DB_NAME = config['DEFAULT']['DatabaseName']
+DB_USER = config['DEFAULT']['DatabaseUser']
+DB_PASS = config['DEFAULT']['DatabasePassword']
 
 DB_CREDENTIALS = "postgresql://{}:{}@{}/{}".format(
     DB_USER, DB_PASS, DB_HOST, DB_NAME)

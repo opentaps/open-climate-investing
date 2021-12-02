@@ -68,10 +68,16 @@ get_data_output <- function(x, reg_num) {
   residuals <- lapply(x, function(x) {x[["Regression"]][[reg_num]]$residuals})
   x_data <- lapply(x, function(x) {x[["Data"]][[reg_num]]})
   beta_data <- lapply(x, function(x) {x[["Regression"]][[reg_num]]$coefficients})
+  t_data <- lapply(x, function(x) {summary(x[["Regression"]][[reg_num]])$coefficients[, 3]})
+  p_data <- lapply(x, function(x) {summary(x[["Regression"]][[reg_num]])$coefficients[, 4]})
   flatten_residuals <- data.frame(grp=rep(names(residuals), lengths(residuals)), num=unlist(residuals), row.names = NULL)
   flatten_data <- bind_rows(x_data)
   flatten_betas <- data.frame("Stock" = names(beta_data), bind_rows(beta_data))
+  flatten_t <- data.frame("Stock" = names(t_data), bind_rows(t_data))
+  flatten_p <- data.frame("Stock" = names(p_data), bind_rows(p_data))
   return(list(residuals = flatten_residuals,
               data = flatten_data,
-              betas = flatten_betas))
+              betas = flatten_betas,
+              t_data = flatten_t,
+              p_data = flatten_p))
 }

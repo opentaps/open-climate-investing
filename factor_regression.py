@@ -129,12 +129,88 @@ def run_regression(stock_data, carbon_data, ff_data, rf_data, ticker, start_date
     return (start_date, end_date, data_start_date, data_end_date, model_output, coef_df_simple)
 
 
+def run_regression_bulk(all_factor_df, ticker, start_date=None, end_date=None, verbose=True, silent=False):
+
+    if len(all_factor_df) == 0:
+        raise ValueError('No data could be loaded!')
+
+    if verbose:
+        print('Data is ...')
+
+    # Check start and end dates
+    max_date = max(all_factor_df.index)
+    min_date = min(all_factor_df.index)
+    if verbose:
+        print('Data available from {} to {}'.format(min_date, max_date))
+
+    if start_date is not None:
+        start_date = parse_date('Start', start_date)
+    else:
+        start_date = min_date
+
+    if end_date is not None:
+        end_date = parse_date('End', end_date)
+    else:
+        end_date = max_date
+
+    if verbose:
+        print('start_date is {}, end_date is {}'.format(start_date, end_date))
+    if start_date >= max_date:
+        raise DateInRangeError(start_date, min_date, max_date, 'Start date')
+    if end_date <= min_date:
+        raise DateInRangeError(end_date, min_date, max_date, 'End date')
+
+    data_start_date = start_date
+    data_end_date = end_date
+    if start_date >= min_date:
+        all_factor_df = all_factor_df[(all_factor_df.index >= start_date)]
+        if verbose:
+            print('all_factor_df >= {}'.format(start_date))
+            print(all_factor_df)
+    else:
+        if verbose or not silent:
+            print('Start Date too early, using {} instead.'.format(min_date))
+        data_start_date = min_date
+    if end_date <= max_date:
+        all_factor_df = all_factor_df[(all_factor_df.index <= end_date)]
+        if verbose:
+            print('all_factor_df <= {}'.format(end_date))
+            print(all_factor_df)
+    else:
+        if verbose or not silent:
+            print('End Date too late, using {} instead.'.format(max_date))
+        data_end_date = max_date
+
+    # could be empty now if the ticker has no data after the start date
+    if len(all_factor_df) == 0:
+        raise ValueError('No data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
+            ticker, start_date))
+    # the statistical functions are not valid with less than 20 data points
+    if len(all_factor_df) < 20:
+        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
+            ticker, start_date))
+
+    if verbose or not silent:
+        print('Running {} - {} regression using data from {} to {} -- data has {} entries'.format(start_date,
+                                                                                                  end_date, data_start_date, data_end_date, len(all_factor_df)))
+
+    model_output, coef_df_simple = regfun.regression_input_output(
+        all_factor_df, ticker)
+
+    if (verbose or not silent) and model_output is not False:
+        print(model_output.summary())
+        print(coef_df_simple.to_string())
+    return (start_date, end_date, data_start_date, data_end_date, model_output, coef_df_simple)
+
+
 # run
 if __name__ == "__main__":
     # Read in the data
     stock_data, carbon_data, ff_data, rf_data, ticker = input_function.user_input()
     start_date = input(
         'What would you like the start date to be (format YYYY-MM-DD): ')
+    end_date = input(
+        'What would you like the end date to be (format YYYY-MM-DD): ')
 
     run_regression(stock_data, carbon_data, ff_data,
-                   rf_data, ticker, start_date)
+                   rf_data, ticker, start_date, end_date)

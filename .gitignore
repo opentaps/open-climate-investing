@@ -115,3 +115,6 @@ reg_output.csv
 /*.csv
 *.Rproj
 rsconnect/
+
+# Config files
+*.ini
