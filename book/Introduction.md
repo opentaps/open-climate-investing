@@ -50,7 +50,7 @@ While the events he describes certainly sound true, I also see another interpret
  * This means, though, that we need to talk to those same pension funds and foundations.  They're the ones who are supposed to invest long-term for their beneficiaries.  If they've already signed to one of many climate investment pledges, then they need to use climate-aligned investment indices so that the fund managers could act accordingly.
  * Similarly, when marketing ESG to mutual fund and hedge fund investors, we must sign them up for the long-term with climate-aligned indices as our benchmarks.  This may mean fewer investors initially, but the greatest investors like Warren Buffett all know that the key is cultivating relationships with long-term investors.
  * Yes, it's not clear how useful a lot that ESG data really is.  We have a few suggestions.  Stay tuned...
- * Books could be written (and probably have been) about the failure of government climate programs.  Yes, government action would help--if it's done right.  Even if the governments of the world encompass comprehensive climate policies such as carbon taxes, though, businesses will have to act on them, and investors will have monitor them.
+ * Government action is necessary but not sufficient.  After about fifteen years, the European Union's Emissions Trading Scheme is the world's largest government program on climate change.  It's also a good example of what governments can and cannot do.  It has imposed emissions caps on the industries with the highest emissions, but with significant "holes" (See [this article](https://www.eca.europa.eu/en/Pages/DocItem.aspx?did=54392) about what it misses.)  It is limited to the big companies in those industries located in the EU.  Without the private sector's and investors' involvement, it can neither solve its own design problems nor reduce emissions in the rest of the economy in other countries. 
 
 Another interesting objection which I heard yesterday: "Public markets are just trading existing assets and don't affect the real economy."  Sadly true for many of the people who spend their days shuffling paper.  Long term, though,
  public markets play an enormously important role.  As investors shift from one asset class to another, the relative valuations change.  Higher valued public companies fund more investments, buy more innovative startups, 
@@ -99,8 +99,10 @@ This book is meant for investors (in the Ben Graham and Warren Buffett sense of 
   * New asset classes such as carbon offsets
   * Legal and regulatory considerations, including ERISA Fiduciary responsibility rules
   * Using the latest technologies such as DeFI, blockchains, and open source software
-  * Engaging with your plans, beneficiaries, and investees
+  * Engaging with your plans, beneficiaries, and investee companies
 
 Climate change is happening because we're all living and working in our own little silos.  The only way to fix is to work together.
 
 Ultimately we will live in the world that we worked to create, so let's get started and work to make it better.
+
+_"If you only do what you can do, you will never be more than you are now." ― Master Oogway_
