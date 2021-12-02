@@ -1,9 +1,8 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import Pagination from "@mui/material/Pagination";
 import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
+import { CircularProgress, Pagination, FormControl, MenuItem, Select } from "@mui/material";
 
 const FIELD_OPS = [
   { label: "=", value: "eq" },
@@ -16,6 +15,7 @@ const FIELD_OPS = [
 ];
 
 const DEFAULT_PAGE_SIZE = 25;
+const DEFAULT_FACTOR_NAME = "DEFAULT";
 
 class StocksList extends Component {
   constructor(props) {
@@ -33,6 +33,7 @@ class StocksList extends Component {
     this.addSearchField = this.addSearchField.bind(this);
     this.removeSearchField = this.removeSearchField.bind(this);
     this.syncCurrentUrl = this.syncCurrentUrl.bind(this);
+    this.handleFactorNameChange = this.handleFactorNameChange.bind(this);
 
     this.state = {
       errorMessage: null,
@@ -42,6 +43,8 @@ class StocksList extends Component {
         { ...StockDataService.fields()[0], value: "", op: "contains" },
       ],
 
+      factor_name: DEFAULT_FACTOR_NAME,
+      factor_names: [],
       page: 1,
       count: 0,
       pageSize: DEFAULT_PAGE_SIZE,
@@ -66,6 +69,7 @@ class StocksList extends Component {
   }
 
   componentDidMount() {
+    this.retrieveFactorNames();
     if (this.props.match.params.pageSize || this.props.match.params.page) {
       let update = {};
       if (this.props.match.params.pageSize) {
@@ -119,13 +123,24 @@ class StocksList extends Component {
     }
   }
 
+  async retrieveFactorNames() {
+    try {
+      const { data: factor_names } = await StockDataService.getFactorNames();
+      this.setState({
+        factor_names: factor_names.map((e) => e.factor_name),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   searchOnKeyUp(event) {
     if (event.charCode === 13) {
       this.refreshListFirstPage();
     }
   }
 
-  getRequestParams(searchFields, page, pageSize) {
+  getRequestParams(searchFields, page, pageSize, factorName) {
     let params = {};
 
     if (searchFields && searchFields.length) {
@@ -142,18 +157,22 @@ class StocksList extends Component {
       params["size"] = pageSize;
     }
 
+    if (factorName) {
+      params["factor_name"] = factorName;
+    }
+
     console.log("getRequestParams:: params", params);
     return params;
   }
 
   retrieveStocks() {
     console.log("retrieveStocks:: state", this.state);
-    const { searchFields, page, pageSize } = this.state;
+    const { searchFields, page, pageSize, factor_name } = this.state;
 
     // reset error
     this.setState({ errorMessage: null });
 
-    const params = this.getRequestParams(searchFields, page, pageSize);
+    const params = this.getRequestParams(searchFields, page, pageSize, factor_name);
 
     this.setState({ loadingIndicator: true });
 
@@ -204,6 +223,16 @@ class StocksList extends Component {
         j === index ? { ...el, value: val } : el
       ),
     }));
+  }
+
+  handleFactorNameChange(event) {
+    let value = event.target.value;
+    console.log("handleFactorNameChange:: ", event, value);
+    this.setState({
+      factor_name: value,
+    }, () => {
+      this.retrieveStocks();
+    });
   }
 
   handleSearchFieldChange(event, index) {
@@ -340,11 +369,29 @@ class StocksList extends Component {
   }
 
   render() {
-    const { searchFields, stocks, page, count, pageSize, errorMessage } =
+    const { searchFields, stocks, page, count, pageSize, errorMessage, factor_name, factor_names } =
       this.state;
 
     return (
       <div className="list row">
+
+        {factor_names && factor_names.length > 1 && (
+          <div className="col-12 ms-1 mb-2 d-flex flex-row align-items-baseline">
+            <b className="me-2">BMG Factor</b>
+            <FormControl variant="standard">
+              <Select
+                value={factor_name}
+                onChange={this.handleFactorNameChange}
+              >
+                {factor_names.map((fname) => (
+                  <MenuItem key={fname} value={fname}>
+                    {fname}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        )}
         <div className="col-12">
           <div className="input-group mb-3">
             {searchFields.map((sf, i) => (
