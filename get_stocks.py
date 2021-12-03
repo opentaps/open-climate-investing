@@ -194,6 +194,9 @@ def main(args):
         print(df)
     elif args.file:
         stocks = load_stocks_csv(args.file)
+        if stocks is None:
+            print('Error reading CSV file {}'.format(args.file))
+            return False
 
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
