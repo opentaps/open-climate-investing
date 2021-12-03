@@ -49,6 +49,16 @@ def delete_carbon_risk_factor_from_db(factor_name):
         cursor.execute(sql, (factor_name,))
 
 
+def load_carbon_risk_factor_from_db(factor_name):
+    sql = '''SELECT date, bmg
+        FROM carbon_risk_factor
+        WHERE factor_name = %s
+        ORDER BY date
+        '''
+    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+                             index_col='date', params=(factor_name,))
+
+
 def import_carbon_risk_factor_into_db(data):
     sql = '''INSERT INTO
         carbon_risk_factor (date, factor_name, bmg)
@@ -76,6 +86,17 @@ def import_stocks_into_db(stock_name, stock_data):
             cursor.execute(sql, (stock_name, index, row['Close'], row['r']))
 
 
+def import_stocks_returns_into_db(stock_name, stock_data):
+    sql = '''INSERT INTO
+        stock_data (ticker, date, return)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (ticker, date) DO
+        UPDATE SET return = EXCLUDED.return;'''
+    with conn.cursor() as cursor:
+        for index, row in stock_data.iterrows():
+            cursor.execute(sql, (stock_name, index, row['return']))
+
+
 def load_stocks_returns_from_db(stock_name, try_composite=True):
     sql = '''SELECT date, return
         FROM stock_data
@@ -84,9 +105,10 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
         '''
     data = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                              index_col='date', params=(stock_name,))
-    print('*** load_stocks_from_db for {}'.format(stock_name))
-    print(data)
     if not data.empty:
+        # filter out the NANs
+        data = data[data['return'].notna()]
+        data['return'] = data['return'].astype(str).apply(Decimal)
         return data
 
     if not try_composite:
@@ -109,38 +131,29 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
             # this is a composite
             composite = None
             sum_percentage = Decimal(0)
-            prev_rows = 0
             # return of the ticker will be:
             #   sum (percentage of each stock component * return of each stock component) / sum (percentage of each stock component)
+            print('*** stock {} is a composite, calculating returns from components ...'.format(stock_name))
             for (ticker, percentage) in components:
                 c_data = load_stocks_returns_from_db(ticker)
-                print('*** loaded component data for ' + ticker)
-                print(c_data)
                 if c_data is None:
                     continue
-                c_data['return'] = c_data['return'].astype(str).apply(Decimal) * percentage
+                c_data['return'] = c_data['return'] * percentage
                 sum_percentage = sum_percentage + percentage
                 if composite is None:
                     composite = c_data
-                    (prev_rows, _) = composite.shape
                 else:
                     # merge with existing data
-                    composite = composite.join(c_data, rsuffix='_y')
+                    composite = composite.join(c_data, how="inner", rsuffix='_y')
                     # do the sum
                     composite['return'] = composite['return'] + composite['return_y']
                     composite.drop(columns=['return_y'], inplace=True)
-                    # filter out the NANs
-                    composite = composite[composite['return'].notna()]
-                    (rows, _) = composite.shape
-                    if rows < prev_rows:
-                        raise Exception("Dataframe lost data points ? from {} to {}".format(prev_rows, rows))
-                    print('**** added component to composite returns')
-                    print(composite)
             # finally do the last calculation, dividing by the sum of percentage
             if composite is not None:
                 composite['return'] = composite['return'] / sum_percentage
-                print('**** loaded composite returns')
-                print(composite)
+                # save the return data
+                import_stocks_returns_into_db(stock_name, composite)
+            return composite
 
 
 
