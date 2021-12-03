@@ -89,7 +89,7 @@ def run_regression(ticker, factor_name, start_date, end_date, interval, carbon_d
     if verbose:
         print(stock_data)
 
-    if len(stock_data) == 0:
+    if stock_data is None or len(stock_data) == 0:
         print('No stock data for {} !'.format(ticker))
         return
     # convert to pct change
@@ -245,7 +245,7 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--end_date",
                         help="Sets the end date for the regression, must be in the YYYY-MM-DD format, defaults to the last date of all the data series for a given stock")
     parser.add_argument("-i", "--interval", default=60, type=int,
-                        help="Sets number of months for the regresssion interval, defaults to 60")
+                        help="Sets number of months for the regression interval, defaults to 60")
     parser.add_argument("-c", "--factor_name", default='DEFAULT',
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-v", "--verbose", action='store_true',
