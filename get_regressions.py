@@ -22,7 +22,7 @@ def load_carbon_data_from_db(factor_name):
             date as "Date",
             bmg as "BMG"
         FROM carbon_risk_factor
-        WHERE bmg_factor_name = %s
+        WHERE factor_name = %s
         ORDER BY date
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
@@ -324,7 +324,7 @@ def main(args):
     start_time = datetime.datetime.now()
     if args.ticker:
         run_regression(ticker=args.ticker,
-                       factor_name=args.bmg_factor_name,
+                       factor_name=args.factor_name,
                        start_date=args.start_date,
                        end_date=args.end_date,
                        interval=args.interval,
@@ -334,24 +334,24 @@ def main(args):
                        from_db=args.stocks_from_db,
                        bulk=args.bulk_regression)
     elif args.file:
-        carbon_data = load_carbon_data_from_db(args.bmg_factor_name)
+        carbon_data = load_carbon_data_from_db(args.factor_name)
         ff_data = load_ff_data_from_db()
         rf_data = load_rf_data_from_db()
         stocks = load_stocks_csv(args.file)
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
             print('* running regression for {} ... '.format(stock_name))
-            run_regression(stock_name, factor_name=args.bmg_factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+            run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                            ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), from_db=args.stock_from_db, bulk=args.bulk_regression)
     else:
-        carbon_data = load_carbon_data_from_db(args.bmg_factor_name)
+        carbon_data = load_carbon_data_from_db(args.factor_name)
         ff_data = load_ff_data_from_db()
         rf_data = load_rf_data_from_db()
         stocks = get_stocks.load_stocks_defined_in_db()
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* running regression for {} ... '.format(stock_name))
-            run_regression(stock_name, factor_name=args.bmg_factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
+            run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                            ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), bulk=args.bulk_regression)
     end_time = datetime.datetime.now()
     print(end_time - start_time)
@@ -374,7 +374,7 @@ if __name__ == "__main__":
                         help="Sets the end date for the regression, must be in the YYYY-MM-DD format, defaults to the last date of all the data series for a given stock")
     parser.add_argument("-i", "--interval", default=60, type=int,
                         help="Sets number of months for the regresssion interval, defaults to 60")
-    parser.add_argument("-c", "--bmg_factor_name", default='DEFAULT',
+    parser.add_argument("-c", "--factor_name", default='DEFAULT',
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")

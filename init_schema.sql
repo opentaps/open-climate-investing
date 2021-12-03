@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS carbon_risk_factor CASCADE;
 
 CREATE TABLE carbon_risk_factor (
     date date,
-	bmg_factor_name text DEFAULT 'DEFAULT',
+	factor_name text DEFAULT 'DEFAULT',
     bmg decimal(12, 10),
 	PRIMARY KEY (date, bmg_factor_name)
 );
