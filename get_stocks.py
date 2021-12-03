@@ -99,7 +99,7 @@ def import_stocks_returns_into_db(stock_name, stock_data):
             cursor.execute(sql, (stock_name, index, row['return']))
 
 
-def load_stocks_returns_from_db(stock_name, try_composite=True):
+def load_stocks_returns_from_db(stock_name, try_composite=True, verbose=False):
     sql = '''SELECT date, return
         FROM stock_data
         WHERE ticker = %s
@@ -130,7 +130,7 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
             # not a composite ?
             print('*** stock {} is not a composite (no components found), try to import it ...'.format(stock_name))
             import_stock(stock_name)
-            return load_stocks_returns_from_db(stock_name, try_composite=False)
+            return load_stocks_returns_from_db(stock_name, try_composite=False, verbose=verbose)
         else:
             # this is a composite
             composite = None
@@ -139,11 +139,15 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
             #   sum (percentage of each stock component * return of each stock component) / sum (percentage of each stock component)
             print('*** stock {} is a composite, calculating returns from components ...'.format(stock_name))
             for (ticker, percentage) in components:
-                c_data = load_stocks_returns_from_db(ticker)
+                c_data = load_stocks_returns_from_db(ticker, verbose=verbose)
                 if c_data is None:
+                    print('**** no data could be loaded for {}, skipping'.format(ticker))
                     continue
                 c_data['return'] = c_data['return'] * percentage
                 sum_percentage = sum_percentage + percentage
+                if verbose:
+                    print('**** return weighted by {} percentage for {} ->'.format(percentage, ticker))
+                    print(c_data)
                 if composite is None:
                     composite = c_data
                 else:
@@ -152,6 +156,12 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
                     # do the sum
                     composite['return'] = composite['return'] + composite['return_y']
                     composite.drop(columns=['return_y'], inplace=True)
+                    if verbose:
+                        print('**** merged composite data ->')
+                        print(composite)
+                if composite.empty:
+                    print('*** empty merged data for {}, stopped after loading component stock {}'.format(stock_name, ticker))
+                    break
             # finally do the last calculation, dividing by the sum of percentage
             if composite is not None:
                 composite['return'] = composite['return'] / sum_percentage
