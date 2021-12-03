@@ -101,7 +101,7 @@ def run_regression(ticker,
     if verbose:
         print(stock_data)
 
-    if len(stock_data) == 0:
+    if stock_data is None or len(stock_data) == 0:
         print('No stock data for {} !'.format(ticker))
         return
     # convert to pct change
