@@ -2,7 +2,6 @@
 
 _"I don't throw darts at a board. I bet on sure things." - Gordon Gekko_
 
-
 More true stories.
 
 Early in my career, a man came into office and said he was the heir to a hair care products fortune.  He was moving to Los Angeles and looking for an investment company to manage his money.  Would we be interested?
@@ -13,7 +12,7 @@ So there I sat in a conference room overlooking the Pacific ocean, listening to 
 
 We never heard from the man again.  We called their family office.  He was not real.
 
-Fast forward a few years.  I'm now a senior portfolio manager at a different firm in New York.  Another man (yes, they were both men) came recommended as the "shoo in" for the Governor of a major State.  He's meeting people in New York today.  It would be a _really_ good idea for us to meet him.
+Fast forward a few years.  I'm now in New York.  Another man (yes, they were both men) came recommended as the "shoo in" for the Governor of a major State.  He's meeting people in town today.  It would be a _really_ good idea for us to meet him.
 
 So another conference room, this time overlooking the rooftops of the Manhattan skyline.  Now I'm one of the featured attractions.  We talked about our investment process and risk controls.  The man nodded and smiled.
 
@@ -31,9 +30,9 @@ Which is not to say that the presentations aren't true.  In fact, most investmen
 
 Outside of a few high quant shops, though, most investors just don't think of things in factor terms.  We don't show up to work thinking "I got to adjust my HML today because I see a big move for low book value stocks next month."
 
-Instead, we show up to work like shopaholics heading to the mall.  Most investors, whether individuals or big institutions, show up every morning looking to hunt down the latest bargains (those are your value investors), the latest and greatest (growth/momentum), or the truly unique, one-of-a-kind Sneakerhead finds (special situations, distressed, arbitrage.)  We then tuck away our finds and reminisce about how we found each bargain in our collection.  We can tell you exactly how it felt on the day we bought our favorite stock/bond/derivative years after the deed.  Even the ones who trade in esoteric derivatives using full blown models are like that.  They just know their investments by serial numbers instead of company names, and think of them in terms of weird metrics instead of real people.
+Instead, we show up to work like shopaholics heading to the mall.  Most investors, whether individuals or big institutions, show up every morning looking to hunt down the latest bargains (those are your value investors), the latest and greatest (growth/momentum), or the truly unique, one-of-a-kind Sneakerhead finds (special situations, distressed, arbitrage.)  We then tuck away our finds and reminisce about how we found each bargain in our collection.  We can tell you exactly how it felt on the day we bought our favorite stock/bond/derivative years after the trade.  Even the ones who trade in esoteric derivatives are like that.  They just know their investments by serial numbers instead of company names, and think of them in terms of mathematical models instead of real people.  
 
-For individual investors and funds managed by star stockpickers, that's usually it.  They know what they know, and they're so good at it, they don't need to bother with a little bit of everything else.  You don't get to listen to Uncle Harvey talk about his buying Microsoft, AOL, Facebook, or Tesla in the early days, then explain about the utilities and non-bank financials he bought to diversify his portfolio.  
+For individual investors and funds managed by star stockpickers, that's usually it.  They know what they know, and they're so good at it, they don't need to bother with a little bit of everything else.  You never hear Uncle Harvey talk about his buying Microsoft, AOL, Facebook, or Tesla in the early days, then explain about the utilities and non-bank financials he bought to diversify his portfolio.  
 
 At larger firms, there is (usually) some adult supervision involved, in the form of a Chief Investment Officer (CIO) or investment committee, or both.  They'll look over the portfolio and gather the key metrics, usually an overall risk measure (duration for bonds, market beta for stocks) and a sector breakdown.  These metrics are compared to the index that the portfolio is benchmarked against.  The adult supervision is there to make sure that the differences are reasonable, that the portfolio manager is not taking too much risk.  Here is where we could have some fun.
 
@@ -41,9 +40,9 @@ Some investment management firms's investment policies are extremely conservativ
 
 A few brave ones (Bill Gross and PIMCO come to mind) will proclaim that they believe the market will systematically go in one direction over the long term.  They then maintain a calculated bet against their benchmark.  It will result in greater short term volatility, and some clients will not take it.  Over time, though, if they're right, these long-term views will really boost returns.  The key is to make sure that your bets taken don't cause you to wipe out due to short term volatility.
 
-Many others believe they can tactically trade against their benchmarks.  For example, generally overweight some sectors or go long the market, but take them off from time to time.  This is not easy, though, because markets could be quite volatile in the short term, even if the long term direction is well known.
+Many others believe they can tactically trade against their benchmarks.  For example, generally overweight some sectors or go long the market, but take them off from time to time.  This is not easy, though, because markets could be quite volatile in the short term.
 
-The great thing with climate investing is that given how little it is understood right now, it's not as hard to find opportunities to .  Here are some ideas on how to do this with a 
+The great thing with climate investing is that given how little it is understood right now, there are several different ways to incorporate it into your investment process.
 
 First, let's say you want to be pure stockpickers and want no systematic biases versus your benchmarks.  The carbon risk loadings that our model could identify is an additional way to find market anomalies that's not in the general know.  You could keep your portfolio aligned with your benchmark but have upside as climate change plays out.  Or you could even find stocks with the same carbon risk loadings as the market _right now_, but which could perform differently as their climate risks become better known.  Think of it as an option on climate risk embedded in your portfolio.
 
@@ -58,10 +57,6 @@ A more straightforward approach is for the CIO or investment committee to put on
 
 This is not as easy as it first sounds.  The choice of risk sizing could make or break your investment strategy.  Too little risk, and it won’t give you enough of a performance boost, but too much risk could cause to incur larger losses than expected.  If you’re managing against guidelines or using leverage, it could actually cause the loss of the client or wipe out of the portfolio.
 
-With bonds and derivatives, the risk metrics are fundamentally determined - duration, convexity, delta, theta, gamma are all derived from models.  We tend to see risk as the measured risk fluctuating - changes in volatility.  This makes it relatively easier to quantify basis risk.
-
-With stocks, both the risk metrics and the volatilities change.  The factor loadings drift over time, and the volatilities of the underlying assets change.  The two need to be taken together and looked at as the raw volatility.
-
 Finally remember that measurements of volatility are themselves flawed.  Virtually all the academic research and risk models assume that asset prices are normally distributed, but in fact they are not.  Large movements — three, four, five standard deviation moves — are rare, but much more common than the million to one occurrences the models assume they are.  Short term movements are more volatile than longer term movements multiplied by the square root of time, which is what normally distributed volatilities mean.  Covariances between assets may hold steady in ordinary markets, but when start to hit the proverbial fan, all assets move together — down.  Even the hedges will move against you.
 
 Taken together, this means that once in a long time events happen more often and with greater ferocity in the markets than the models predict.  When you make these kinds of bets against your benchmark, be careful.  Don’t oversize these long term core bets.
@@ -70,6 +65,8 @@ Then it's time for one of those meetings in the conference room.  Are we better 
 
 The last option, tactically trading the climate risk of the portfolio versus the benchmark, is really a trading strategy.  It should be attempted if there is a real reversal patterns in the price movements _and_ a fundamental reason why it's happening.  For example, if there's intervention or regulatory-driven trading in the market.  Otherwise, just be careful that you could get whipsawed by the noise.  Or worse, you could decide to sit it out and spend the rest of your life playing "Could have.  Should have.  If only."
 
-Portfolio return attribution
+Now let's look at some examples based on the model from the chapter on [Analyzing Investments](Analyzing-Investments.md).  
+
+
 
 
