@@ -33,6 +33,7 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
     merged['bmg'] = merged['return_x'] - merged['return_y']
     merged['factor_name'] = factor_name
     merged.drop(columns=['return_x', 'return_y'], inplace=True)
+    # cleanup NaN values
     has_value = merged['bmg'].notna()
     merged = merged[has_value]
 

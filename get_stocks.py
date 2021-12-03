@@ -81,6 +81,8 @@ def import_stocks_into_db(stock_name, stock_data):
         pc = stock_data.pct_change()
         pc.rename(columns={'Close': 'r'}, inplace=True)
         stock_data = pd.merge(stock_data, pc, on='date_converted')
+        # Remove abnormal return values
+        stock_data = stock_data[stock_data['r'] <= 1]
         for index, row in stock_data.iterrows():
             #print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
             cursor.execute(sql, (stock_name, index, row['Close'], row['r']))
@@ -108,6 +110,8 @@ def load_stocks_returns_from_db(stock_name, try_composite=True):
     if not data.empty:
         # filter out the NANs
         data = data[data['return'].notna()]
+        # filter out values greater than 1 (abnormal returns)
+        data = data[data['return'] <= 1]
         data['return'] = data['return'].astype(str).apply(Decimal)
         return data
 
