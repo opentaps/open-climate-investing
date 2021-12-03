@@ -74,7 +74,7 @@ Or are there mispricings in how the market is analyzing the climate exposures of
 
 #### Analyzing Market Sectors
 
-This is where we still have work to do.  In our [research paper](chttps://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613), we found that the XOP-SMOG ORTHO1 BMG series could explain the climate exposures of the Energy industry quite well, but really doesn't work outside of it.  Meanwhile other BMG series constructed from different ESG metrics could literally give you the opposite answers to the climate exposure of whole industries.  Depending on which one you used, you could believe that Auto Manufacturers, Utilities, Banks, and even Mining companies could either gain or lose from climate change.
+This is where we still have work to do.  In our [research paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613), we found that the XOP-SMOG ORTHO1 BMG series could explain the climate exposures of the Energy industry quite well, but really doesn't work outside of it.  Meanwhile other BMG series constructed from different ESG metrics could literally give you the opposite answers to the climate exposure of whole industries.  Depending on which one you used, you could believe that Auto Manufacturers, Utilities, Banks, and even Mining companies could either gain or lose from climate change.
 
 What does this mean?  One of three things:
 
