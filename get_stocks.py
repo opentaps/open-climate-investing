@@ -5,6 +5,7 @@ import input_function
 import db
 from pg import DataError
 from decimal import Decimal
+import numpy as np
 
 
 conn = db.get_db_connection()
@@ -39,6 +40,14 @@ def load_stocks_data(stock_name):
     stock_data = spf.stock_df_grab(stock_name)
     stock_data = input_function.convert_to_form(stock_data)
     return stock_data
+
+
+def delete_stock_from_db(ticker):
+    sql = '''DELETE FROM
+        stock_data
+        WHERE ticker = %s;'''
+    with conn.cursor() as cursor:
+        cursor.execute(sql, (ticker,))
 
 
 def delete_carbon_risk_factor_from_db(factor_name):
@@ -134,7 +143,6 @@ def load_stocks_returns_from_db(stock_name, try_composite=True, verbose=False):
         else:
             # this is a composite
             composite = None
-            sum_percentage = Decimal(0)
             # return of the ticker will be:
             #   sum (percentage of each stock component * return of each stock component) / sum (percentage of each stock component)
             print('*** stock {} is a composite, calculating returns from components ...'.format(stock_name))
@@ -144,7 +152,7 @@ def load_stocks_returns_from_db(stock_name, try_composite=True, verbose=False):
                     print('**** no data could be loaded for {}, skipping'.format(ticker))
                     continue
                 c_data['return'] = c_data['return'] * percentage
-                sum_percentage = sum_percentage + percentage
+                c_data['percentage'] = percentage
                 if verbose:
                     print('**** return weighted by {} percentage for {} ->'.format(percentage, ticker))
                     print(c_data)
@@ -152,19 +160,31 @@ def load_stocks_returns_from_db(stock_name, try_composite=True, verbose=False):
                     composite = c_data
                 else:
                     # merge with existing data
-                    composite = composite.join(c_data, how="inner", rsuffix='_y')
+                    composite = composite.join(c_data, how="outer", lsuffix='_x', rsuffix='_y')
+                    # composite.fillna(0, inplace=True)
                     # do the sum
-                    composite['return'] = composite['return'] + composite['return_y']
-                    composite.drop(columns=['return_y'], inplace=True)
+                    composite['return'] = Decimal(0)
+                    composite['percentage'] = Decimal(0)
+                    composite['return'] = np.where(composite['return_x'].notna() & composite['return_y'].notna(), composite['return_x'] + composite['return_y'], composite['return'])
+                    composite['return'] = np.where(composite['return_x'].isna() & composite['return_y'].notna(), composite['return_y'], composite['return'])
+                    composite['return'] = np.where(composite['return_x'].notna() & composite['return_y'].isna(), composite['return_x'], composite['return'])
+                    composite['percentage'] = np.where(composite['return_x'].notna() & composite['return_y'].notna(), composite['percentage_x'] + composite['percentage_y'], composite['percentage'])
+                    composite['percentage'] = np.where(composite['return_x'].isna() & composite['return_y'].notna(), composite['percentage_y'], composite['percentage'])
+                    composite['percentage'] = np.where(composite['return_x'].notna() & composite['return_y'].isna(), composite['percentage_x'], composite['percentage'])
                     if verbose:
                         print('**** merged composite data ->')
                         print(composite)
+                    composite.drop(columns=['return_x', 'percentage_x', 'return_y', 'percentage_y'], inplace=True)
                 if composite.empty:
                     print('*** empty merged data for {}, stopped after loading component stock {}'.format(stock_name, ticker))
                     break
             # finally do the last calculation, dividing by the sum of percentage
             if composite is not None:
-                composite['return'] = composite['return'] / sum_percentage
+                if verbose:
+                    print('**** DONE with composite current values prior to dividing ->')
+                    print(composite)
+                composite['return'] = composite['return'] / composite['percentage']
+                composite.drop(columns=['percentage'], inplace=True)
                 # save the return data
                 import_stocks_returns_into_db(stock_name, composite)
             return composite
@@ -199,6 +219,8 @@ def main(args):
             print('* loading stocks for {} ... '.format(stock_name))
             import_stock(stock_name)
 
+    elif args.delete:
+        delete_stock_from_db(args.delete)
     elif args.ticker:
         import_stock(args.ticker)
     elif args.show:
@@ -230,6 +252,8 @@ if __name__ == "__main__":
                         help="import of tickers in the stocks table of the Database instead of using a CSV file")
     parser.add_argument("-t", "--ticker",
                         help="specify a single ticker to import, ignores the CSV file")
+    parser.add_argument("-x", "--delete",
+                        help="specify a single ticker to delete")
     parser.add_argument("-s", "--show",
                         help="Show the data for a given ticker, for testing")
     if not main(parser.parse_args()):
