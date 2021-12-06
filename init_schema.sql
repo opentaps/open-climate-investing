@@ -25,6 +25,15 @@ CREATE TABLE risk_free (
 );
 
 
+DROP TABLE IF EXISTS additional_factors CASCADE;
+
+CREATE TABLE additional_factors (
+    date date,
+    factor_name text,
+    factor_value decimal(8, 5)
+);
+
+
 DROP TABLE IF EXISTS stocks CASCADE;
 CREATE TABLE stocks (
     ticker text,
@@ -55,6 +64,7 @@ CREATE TABLE stock_data (
     return decimal(20, 10),
     PRIMARY KEY (ticker, date)
 );
+
 
 DROP TABLE IF EXISTS stock_stats CASCADE;
 CREATE TABLE stock_stats (

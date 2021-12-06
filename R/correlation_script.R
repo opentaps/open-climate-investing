@@ -29,8 +29,9 @@ bmg_factor <- read_csv("data/bmg_carima.csv")
 interest_rates <- read_csv("data/interest_rates.csv")
 
 all_factors <- ff_factors %>%
-  inner_join(bmg_factor, by = c("Date" = "Date")) %>%
-  inner_join(interest_rates, by = c("Date" = "Date") )
+  inner_join(bmg_factor, by = c("Date" = "month")) %>%
+  inner_join(interest_rates, by = c("Date" = "Date") ) %>%
+  select(-factor_name)
 colnames(all_factors)[2] <- "Mkt_less_RF"
 #all_factors <- ff_factors %>%
 #  inner_join(bmg_factor, by = c("Date" = "Date"))
