@@ -4,7 +4,7 @@ CREATE TABLE carbon_risk_factor (
     date date,
 	factor_name text DEFAULT 'DEFAULT',
     bmg decimal(12, 10),
-	PRIMARY KEY (date, bmg_factor_name)
+	PRIMARY KEY (date, factor_name)
 );
 
 DROP TABLE IF EXISTS ff_factor CASCADE;
