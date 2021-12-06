@@ -133,6 +133,7 @@ Data included in this project come from the following sources:
     * High Yield OAS is from [St Louis Fed BAMLH0A0HYM2](https://fred.stlouisfed.org/series/BAMLH0A0HYM2/downloaddata) using Frequenty=Monthly, Aggregation=End of Period																		
 
 ## References
+- [Constructing and Validating Climate Risk Factors from ESG Data: an Empirical Comparison](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613)
 - [Carbon Risk Management (CARIMA) Manual](https://assets.uni-augsburg.de/media/filer_public/ad/69/ad6906c0-cad0-493d-ba3d-1ec7fee5fb72/carima_manual_english.pdf)
 - [A Practitioner's Guide to Factor Models](https://www.cfainstitute.org/en/research/foundation/1994/a-practitioners-guide-to-factor-models)
 - [The Barra US Equity Model (USE4)](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf)
