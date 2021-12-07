@@ -122,7 +122,7 @@ def main(args):
     if args.verbose:
         print(model.summary())
 
-    orthog_name = args.bmg_factor_name + "-ORTHOGONALISED"
+    orthog_name = args.bmg_factor_name + "-ORTHO"
 
     resid_table = pd.DataFrame()
     resid_table["date"] = model.resid.index
