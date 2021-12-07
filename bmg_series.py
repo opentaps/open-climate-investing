@@ -6,7 +6,7 @@ import textwrap
 import pandas as pd
 
 
-def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end_date=None, verbose=False):
+def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end_date=None):
     if not factor_name:
         print(' factor name is required !')
         return False
@@ -22,10 +22,10 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
         return False
 
     print('*** adding factor {} from stocks {} and {} ...'.format(factor_name, green_ticker, brown_ticker))
-    green_data = get_stocks.load_stocks_returns_from_db(green_ticker, verbose=verbose)
+    green_data = get_stocks.load_stocks_returns_from_db(green_ticker)
     print('** green_data -> ')
     print(green_data)
-    brown_data = get_stocks.load_stocks_returns_from_db(brown_ticker, verbose=verbose)
+    brown_data = get_stocks.load_stocks_returns_from_db(brown_ticker)
     print('** brown_data -> ')
     print(brown_data)
 
@@ -97,7 +97,7 @@ def main(args):
             if not delete_bmg_series(args.factor_name):
                 return False
         if args.green_ticker or args.brown_ticker:
-            if not add_bmg_series(args.factor_name, args.green_ticker, args.brown_ticker, start_date=args.start_date, end_date=args.end_date, verbose=args.verbose):
+            if not add_bmg_series(args.factor_name, args.green_ticker, args.brown_ticker, start_date=args.start_date, end_date=args.end_date):
                 return False
         return args.delete or args.green_ticker or args.brown_ticker
 

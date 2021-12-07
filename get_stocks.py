@@ -108,89 +108,56 @@ def import_stocks_returns_into_db(stock_name, stock_data):
             cursor.execute(sql, (stock_name, index, row['return']))
 
 
-def load_stocks_returns_from_db(stock_name, try_composite=True, verbose=False):
-    sql = '''SELECT date, return
+def load_stocks_returns_from_db(stock_name):
+    df = load_stocks_data_with_returns_from_db(stock_name, with_components=True, import_when_missing=True)
+    is_composite = 'composite_return' in df.columns
+    # remove columns we do not need here
+    if is_composite:
+        df = df[['composite_return']].rename(columns={'composite_return': 'return'})
+    else:
+        df = df[['return']]
+    # if it was a composite, save the resulting return values in the DB as well
+    import_stocks_returns_into_db(stock_name, df)
+    return df
+
+
+def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False):
+    sql = '''SELECT date, close, return
         FROM stock_data
         WHERE ticker = %s
         ORDER BY date
         '''
-    data = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                              index_col='date', params=(stock_name,))
-    if not data.empty:
-        # filter out the NANs
-        data = data[data['return'].notna()]
-        # filter out values greater than 1 (abnormal returns)
-        data = data[data['return'] <= 1]
-        data['return'] = data['return'].astype(str).apply(Decimal)
-        return data
+    if (df is None or df.empty) and import_when_missing:
+        import_stock(stock_name)
+        # try again
+        df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+                             index_col='date', params=(stock_name,))
 
-    if not try_composite:
-        return data
-
-    # check if the stock is a composite
-    sql = '''SELECT component_stock, percentage
+    if with_components:
+        sql = '''SELECT component_stock, percentage
              FROM stock_components
              WHERE ticker = %s
              ORDER BY component_stock'''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name,))
-        components = cursor.fetchall()
-        if not components:
-            # not a composite ?
-            print('*** stock {} is not a composite (no components found), try to import it ...'.format(stock_name))
-            import_stock(stock_name)
-            return load_stocks_returns_from_db(stock_name, try_composite=False, verbose=verbose)
-        else:
-            # this is a composite
-            composite = None
-            # return of the ticker will be:
-            #   sum (percentage of each stock component * return of each stock component) / sum (percentage of each stock component)
-            print('*** stock {} is a composite, calculating returns from components ...'.format(stock_name))
-            for (ticker, percentage) in components:
-                c_data = load_stocks_returns_from_db(ticker, verbose=verbose)
-                if c_data is None:
-                    print('**** no data could be loaded for {}, skipping'.format(ticker))
-                    continue
-                c_data['return'] = c_data['return'] * percentage
-                c_data['percentage'] = percentage
-                if verbose:
-                    print('**** return weighted by {} percentage for {} ->'.format(percentage, ticker))
-                    print(c_data)
-                if composite is None:
-                    composite = c_data
-                else:
-                    # merge with existing data
-                    composite = composite.join(c_data, how="outer", lsuffix='_x', rsuffix='_y')
-                    # composite.fillna(0, inplace=True)
-                    # do the sum
-                    composite['return'] = Decimal(0)
-                    composite['percentage'] = Decimal(0)
-                    composite['return'] = np.where(composite['return_x'].notna() & composite['return_y'].notna(), composite['return_x'] + composite['return_y'], composite['return'])
-                    composite['return'] = np.where(composite['return_x'].isna() & composite['return_y'].notna(), composite['return_y'], composite['return'])
-                    composite['return'] = np.where(composite['return_x'].notna() & composite['return_y'].isna(), composite['return_x'], composite['return'])
-                    composite['percentage'] = np.where(composite['return_x'].notna() & composite['return_y'].notna(), composite['percentage_x'] + composite['percentage_y'], composite['percentage'])
-                    composite['percentage'] = np.where(composite['return_x'].isna() & composite['return_y'].notna(), composite['percentage_y'], composite['percentage'])
-                    composite['percentage'] = np.where(composite['return_x'].notna() & composite['return_y'].isna(), composite['percentage_x'], composite['percentage'])
-                    if verbose:
-                        print('**** merged composite data ->')
-                        print(composite)
-                    composite.drop(columns=['return_x', 'percentage_x', 'return_y', 'percentage_y'], inplace=True)
-                if composite.empty:
-                    print('*** empty merged data for {}, stopped after loading component stock {}'.format(stock_name, ticker))
-                    break
-            # finally do the last calculation, dividing by the sum of percentage
-            if composite is not None:
-                if verbose:
-                    print('**** DONE with composite current values prior to dividing ->')
-                    print(composite)
-                composite['return'] = composite['return'] / composite['percentage']
-                composite.drop(columns=['percentage'], inplace=True)
-                # save the return data
-                import_stocks_returns_into_db(stock_name, composite)
-            return composite
-
-
-
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (stock_name,))
+            components = cursor.fetchall()
+            if not components:
+                # not a composite ?
+                print('*** stock {} is not a composite (no components found) !'.format(stock_name))
+                return df
+            else:
+                for (ticker, percentage) in components:
+                    df2 = load_stocks_data_with_returns_from_db(ticker, import_when_missing=import_when_missing)
+                    df = df.join(df2, how="outer", rsuffix='_{}'.format(ticker))
+                    df['percentage_{}'.format(ticker)] = percentage
+                    df['p_return_{}'.format(ticker)] = df['return_{}'.format(ticker)].astype(str).apply(Decimal) * percentage
+                # sum the specific columns
+                df['sum_p_returns'] = df.filter(regex="p_return").astype(float).sum(axis=1)
+                df['sum_percentages'] = df.filter(regex="percentage").sum(axis=1)
+                df['composite_return'] = df['sum_p_returns'] / df['sum_percentages']
+    return df
 
 
 def load_stocks_from_db(stock_name):
@@ -224,10 +191,15 @@ def main(args):
     elif args.ticker:
         import_stock(args.ticker)
     elif args.show:
-        df = load_stocks_from_db(args.show)
+        if args.with_returns:
+            df = load_stocks_data_with_returns_from_db(args.show, with_components=args.with_components)
+        else:
+            df = load_stocks_from_db(args.show)
         print('Loaded from DB: {} entries'.format(len(df)))
         print(' -- sample (truncated) -- ')
         print(df)
+        if args.output:
+            df.to_csv(args.output)
     elif args.file:
         stocks = load_stocks_csv(args.file)
         if stocks is None:
@@ -256,6 +228,12 @@ if __name__ == "__main__":
                         help="specify a single ticker to delete")
     parser.add_argument("-s", "--show",
                         help="Show the data for a given ticker, for testing")
+    parser.add_argument("--with_returns", action='store_true',
+                        help="When showing, also show the return values")
+    parser.add_argument("--with_components", action='store_true',
+                        help="When showing, JOIN the values of the component stocks")
+    parser.add_argument("-o", "--output",
+                        help="When showing, save all the data into this CSV file")
     if not main(parser.parse_args()):
         parser.print_help()
 
