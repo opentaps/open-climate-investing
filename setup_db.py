@@ -6,10 +6,51 @@ import os
 import argparse
 
 
-def import_data_into_sql(table_name, file_name, cursor):
-    sql_query = "COPY " + table_name + " FROM %s WITH (FORMAT CSV, HEADER);"
-    data = (file_name, )
-    cursor.execute(sql_query, data)
+def import_data_into_sql(table_name, file_name, cursor, bmg=False):
+    if bmg is not False:
+        sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
+        cursor.execute(sql_query)
+        sql_query = "CREATE TABLE _import_carbon_risk_factor (date date, bmg decimal(12, 10), PRIMARY KEY (date));"
+        cursor.execute(sql_query)
+        sql_query = "COPY _import_carbon_risk_factor FROM %s WITH (FORMAT CSV, HEADER);"
+    else:
+        sql_query = "COPY " + table_name + \
+            " FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    if bmg is not False:
+        sql_query = "INSERT INTO carbon_risk_factor (date, factor_name, bmg) SELECT date, '" + \
+                                                     bmg + "', bmg FROM _import_carbon_risk_factor;"
+        cursor.execute(sql_query)
+        sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
+        cursor.execute(sql_query)
+
+
+def import_spx_constituents_into_sql(table_name, file_name, cursor, constituent_ticker):
+    cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
+    cursor.execute(
+            "CREATE TABLE _stock_weights (ticker text, weight DECIMAL(5,2), PRIMARY KEY (ticker));")
+    cursor.execute(
+        "DELETE FROM stock_components WHERE ticker = '" + constituent_ticker + "';")
+    sql_query = "COPY _stock_weights FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    sql_query = "INSERT INTO stock_components(ticker, component_stock, percentage) SELECT '" + \
+        constituent_ticker + "', ticker, weight FROM _stock_weights;"
+    cursor.execute(sql_query)
+    cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
+
+
+def import_msci_constituents_into_sql(table_name, file_name, cursor, constituent_ticker):
+    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
+    cursor.execute(
+            "CREATE TABLE _stock_comps (ticker text, name text, weight decimal(8, 5), market_value text, sector text, country text, PRIMARY KEY (ticker));")
+    cursor.execute(
+        "DELETE FROM stock_components WHERE ticker = '" + constituent_ticker + "';")
+    sql_query = "COPY _stock_comps FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    cursor.execute(
+        "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;")
+    cursor.execute("INSERT INTO stock_components (ticker, component_stock, percentage, sector, country) SELECT 'XWD.TO', ticker, weight, sector, country FROM _stock_comps;")
+    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
 def main(args):
@@ -75,13 +116,36 @@ def main(args):
     if args.add_data:
         ff_data = (data_dir + '/ff_factors.csv')
         carbon_data = (data_dir + '/bmg_carima.csv')
+        xop_carbon_data = (data_dir + '/bmg_xop_smog_orthogonalized_1.csv')
         risk_free_data = (data_dir + '/risk_free.csv')
         additional_factor_data = (data_dir + '/additional_factor_data.csv')
+        sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
+        spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
+        msci_constituent_data = data_dir + '/msci_constituent_details.csv'
+
         import_data_into_sql("ff_factor", ff_data, cursor)
-        import_data_into_sql("carbon_risk_factor", carbon_data, cursor)
+        import_data_into_sql("carbon_risk_factor",
+                             carbon_data, cursor, bmg="CARIMA")
+        import_data_into_sql("carbon_risk_factor",
+                             xop_carbon_data, cursor, bmg="DEFAULT")
         import_data_into_sql("risk_free", risk_free_data, cursor)
         import_data_into_sql("additional_factors",
                              additional_factor_data, cursor)
+        cursor.execute(
+            "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&P 500');")
+        cursor.execute(
+            "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');")
+
+        import_data_into_sql("stocks",
+                             sector_breakdown_data, cursor)
+
+        # import components and weights of spx
+        import_spx_constituents_into_sql(
+            "stock_components", spx_constituent_data, cursor, "IVV")
+
+        # import components and weights of msci
+        import_msci_constituents_into_sql(
+            0, msci_constituent_data, cursor, "XWD.TO")
 
 
 # run
