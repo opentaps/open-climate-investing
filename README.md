@@ -21,12 +21,10 @@ pip install -r requirements.txt
 
 Init the Database using:
 ```
-./init_db.sh
+python setup_db.py -d
 ```
 
-Note: if you need a different database or credentials, edit both `init_db.sh` and `db.py`.
-
-The stock interface uses `get_stocks.py` will save the output in the `stock_data` table and can used the following ways:
+Then use `get_stocks.py` to save stock return history in the `stock_data` table:
 
 - `python get_stocks.py -f some_ticker_file.csv` for using a csv source file
 - `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`

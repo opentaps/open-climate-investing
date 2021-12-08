@@ -1,3 +1,6 @@
+#
+# This script is deprecated.  Use the python setup_db.py instead
+#
 #!/bin/sh
 
 DB_NAME="open_climate_investing"
