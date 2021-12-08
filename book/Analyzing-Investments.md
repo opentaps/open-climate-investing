@@ -70,7 +70,19 @@ Look in the "BMG" column.  This is the market implied climate risk for these sto
 
 In general, the oil stocks have positive climate risk factor loadings, and the renewables have negative ones, and they're all statistically significant except for Albermarle which is greyed out.  This seems to show that the market is generally pricing the climate exposures of these energy companies in line with their oil versus renewables exposures.  Whether their relative amounts are correct, though, is another question.  Does Marathon Petroleum really have half the climate exposure of ConocoPhillips?  Is Vestas really that much more sustainable than the stocks in the Invesco Solar ETF?  
 
-Or are there mispricings in how the market is analyzing the climate exposures of these companies.   
+Or are there inefficiencies in how the market is analyzing the climate exposures of these companies.   
+
+Having a measure climate risk like the BMG factor loading then allows us to compare companies' valuations versus their climate risk exposures.  This table shows that the companies with negative BMG factor loadings have much higher price to book ratios than the oil companies with positive BMG factor loadings:
+
+![Price to Book Ratio versus BMG Climate Factor Loading](images/Valuation_BMG_Table.png)
+
+If you're a visual person:
+
+![Price to Book Ratio versus BMG Climate Factor Loading Chart](images/Valuation_BMG_Chart.png)
+
+Even though they're across industries, the general message is clear.  The stock market values companies more when they have less climate exposure.
+
+Alternatively, you could look at this table/chart as a place to start looking for opportunities.  Will some of the oil companies will be successful at reducing their climate exposure, so that in time their prices would rise as the market recognizes it?  Is Vestas Wind (VWDRY) so much better than the other NextEra Energy (NEE), and is it in turn so much better than First Solar (FSLR)? 
 
 #### Analyzing Market Sectors
 

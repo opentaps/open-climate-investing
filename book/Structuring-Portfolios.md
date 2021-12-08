@@ -67,6 +67,28 @@ The last option, tactically trading the climate risk of the portfolio versus the
 
 Now let's look at some examples based on the model from the chapter on [Analyzing Investments](Analyzing-Investments.md).  
 
+![Portfolio Optimization using BMG Factor Loadings](images/Portfolio_BMG_Optimization.png)
 
+Here are those oil companies and renewable stocks again.  Let's say that you're managing against the Energy index.  What do you do?
 
+If you're a stock picker, you've probably already thought a lot about whether ConocoPhillips (COP) is better at a 6.89x EBITDA multiple or Chevron (CVX) better at a 8.9x EBITDA multiple.  Now add the fact that ConocoPhillips (COP) has a BMG factor loading of 0.32 and Chevron has a BMG factor loading of 0.55 to your thought process.  
 
+If you're making a more strategic climate bet, then you might want to try to create a portfolio which will track your index but have a lower climate risk exposure.  As a very simple example, the index has a market factor loading (Beta) of 1.23 and a BMG factor loading of 0.29, so you could try to structure a portfolio with a market factor loading also of 1.23 but a BMG factor loading of 0.  Let's assume (again, just for example) you can put at most 20% into any stock and cannot short any stocks (not uncommon for pension funds.)  An optimizer could give you a portfolio which has an EBITDA multiple of 27.49.  A little off the targeted values could bring that down to the 17x - 18x EBITDA multiples range.  
+
+How good is this bet?  Let's take a look at the distribution of the BMG series since 2010:
+
+![Distribution of BMG Series](images/BMG_distribution_table.png)
+
+Interestingly, the BMG series has an average of -0.65% per month but a standard deviation of 9.27%.  The information ratio of the performance versus standard deviation is 0.07, compared to 0.22 for the stock market and 0.09 for long-term interest rates.  In other words, a lot of variability for the performance gain.  A look at the distribution of results shows that there were many periods where Brown stocks in fact outperformed:
+
+![Histogram of BMG Series](images/BMG_distribution_chart.png)
+
+If you structured your portfolio with a BMG factor loading of 0 versus 0.29 for the index, you could expect
+
+ * An average outperformance of 0.29 * 0.65% = 0.19% per month
+ * A tracking error or standard deviation of 2.69% per month
+ * A 5% probability of a 4.9% underperformance 
+
+That's before basis risk.  Note the low R-squared for the renewables stocks versus the oil companies.  This means that the model doesn't track their returns as well as the oil companies, so there could be a lot of times when your oil stocks are down, you think the renewables should be up, and they're not.  
+
+_"Yah koo KAchap, oo-kowb-doo-noo neeSAH!" -- Jabba the Hutt_
