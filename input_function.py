@@ -20,7 +20,7 @@ def convert_to_form_db(df):
             if col == 'date':
                 df.index = df['date']
                 df = df.drop(['date'], axis=1)
-        df['date_converted'] = df.index
+        df.insert(0, 'date_converted', df.index, True)
         df.index = df['date_converted']
         df = df.drop(['date_converted'], axis=1)
         df.rename(columns={"close": "Close"}, inplace=True)

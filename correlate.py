@@ -86,7 +86,11 @@ def main(args):
         final_df = final_df.drop('factor_name', axis=1)
         final_df = final_df.dropna()
 
-    print(final_df.corr())
+    bmg_corr = final_df.corr().iloc[1:, 0].to_frame()
+    bmg_corr.columns = ['Correlation to ' + args.bmg_factor_name + ' Factor']
+    bmg_corr.index.name = 'Factor'
+    # print(bmg_corr.columns)
+    print(bmg_corr)
 
     y = final_df[final_df.columns[0]]
     x = final_df.drop(final_df.columns[0], axis=1)

@@ -109,11 +109,13 @@ def import_stocks_returns_into_db(stock_name, stock_data):
 
 
 def load_stocks_returns_from_db(stock_name):
-    df = load_stocks_data_with_returns_from_db(stock_name, with_components=True, import_when_missing=True)
+    df = load_stocks_data_with_returns_from_db(
+        stock_name, with_components=True, import_when_missing=True)
     is_composite = 'composite_return' in df.columns
     # remove columns we do not need here
     if is_composite:
-        df = df[['composite_return']].rename(columns={'composite_return': 'return'})
+        df = df[['composite_return']].rename(
+            columns={'composite_return': 'return'})
     else:
         df = df[['return']]
     # if it was a composite, save the resulting return values in the DB as well
@@ -128,12 +130,12 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
         ORDER BY date
         '''
     df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='date', params=(stock_name,))
+                           index_col='date', params=(stock_name,))
     if (df is None or df.empty) and import_when_missing:
         import_stock(stock_name)
         # try again
         df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='date', params=(stock_name,))
+                               index_col='date', params=(stock_name,))
 
     if with_components:
         sql = '''SELECT component_stock, percentage
@@ -145,18 +147,25 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
             components = cursor.fetchall()
             if not components:
                 # not a composite ?
-                print('*** stock {} is not a composite (no components found) !'.format(stock_name))
+                print(
+                    '*** stock {} is not a composite (no components found) !'.format(stock_name))
                 return df
             else:
                 for (ticker, percentage) in components:
-                    df2 = load_stocks_data_with_returns_from_db(ticker, import_when_missing=import_when_missing)
-                    df = df.join(df2, how="outer", rsuffix='_{}'.format(ticker))
+                    df2 = load_stocks_data_with_returns_from_db(
+                        ticker, import_when_missing=import_when_missing)
+                    df = df.join(df2, how="outer",
+                                 rsuffix='_{}'.format(ticker))
                     df['percentage_{}'.format(ticker)] = percentage
-                    df['p_return_{}'.format(ticker)] = df['return_{}'.format(ticker)].astype(str).apply(Decimal) * percentage
+                    df['p_return_{}'.format(ticker)] = df['return_{}'.format(
+                        ticker)].astype(str).apply(Decimal) * percentage
                 # sum the specific columns
-                df['sum_p_returns'] = df.filter(regex="p_return").astype(float).sum(axis=1)
-                df['sum_percentages'] = df.filter(regex="percentage").sum(axis=1)
-                df['composite_return'] = df['sum_p_returns'] / df['sum_percentages']
+                df['sum_p_returns'] = df.filter(
+                    regex="p_return").astype(float).sum(axis=1)
+                df['sum_percentages'] = df.filter(
+                    regex="percentage").sum(axis=1)
+                df['composite_return'] = df['sum_p_returns'] / \
+                    df['sum_percentages']
     return df
 
 
@@ -168,6 +177,15 @@ def load_stocks_from_db(stock_name):
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                              index_col='date', params=(stock_name,))
+
+
+def load_all_stocks_from_db():
+    sql = '''SELECT *
+        FROM stock_data
+        ORDER BY ticker, date
+        '''
+    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+                             index_col='date')
 
 
 def load_stocks_defined_in_db():
@@ -192,7 +210,8 @@ def main(args):
         import_stock(args.ticker)
     elif args.show:
         if args.with_returns:
-            df = load_stocks_data_with_returns_from_db(args.show, with_components=args.with_components)
+            df = load_stocks_data_with_returns_from_db(
+                args.show, with_components=args.with_components)
         else:
             df = load_stocks_from_db(args.show)
         print('Loaded from DB: {} entries'.format(len(df)))
@@ -236,4 +255,3 @@ if __name__ == "__main__":
                         help="When showing, save all the data into this CSV file")
     if not main(parser.parse_args()):
         parser.print_help()
-

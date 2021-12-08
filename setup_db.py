@@ -55,7 +55,6 @@ def import_msci_constituents_into_sql(table_name, file_name, cursor, constituent
 
 def main(args):
     root_dir = os.getcwd()
-    print(root_dir)
 
     # User input for database management
     DB_HOST = input(
@@ -147,10 +146,16 @@ def main(args):
         import_msci_constituents_into_sql(
             0, msci_constituent_data, cursor, "XWD.TO")
 
+        if args.add_stock_data:
+            msci_constituent_return_data = data_dir + '/msci_comparison_returns.csv'
+            import_data_into_sql("stock_data",
+                                 msci_constituent_return_data, cursor)
+
 
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
                         help="Import default data")
+    parser.add_argument("-s", "--add_stock_data", action='store_true')
     main(parser.parse_args())
