@@ -49,7 +49,23 @@ def import_msci_constituents_into_sql(table_name, file_name, cursor, constituent
     cursor.execute(sql_query, (file_name, ))
     cursor.execute(
         "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;")
-    cursor.execute("INSERT INTO stock_components (ticker, component_stock, percentage, sector, country) SELECT 'XWD.TO', ticker, weight, sector, country FROM _stock_comps;")
+    cursor.execute("INSERT INTO stock_components (ticker, component_stock, percentage, sector, country) SELECT '"
+                   + constituent_ticker + "', ticker, weight, sector, country FROM _stock_comps;")
+    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
+
+
+def import_carbon_constituents_into_sql(table_name, file_name, cursor, constituent_ticker):
+    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
+    cursor.execute(
+            "CREATE TABLE _stock_comps (ticker text, name text, market_value text, weight decimal(8, 5), sector text, PRIMARY KEY (ticker));")
+    cursor.execute(
+        "DELETE FROM stock_components WHERE ticker = '" + constituent_ticker + "';")
+    sql_query = "COPY _stock_comps FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    cursor.execute(
+        "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;")
+    cursor.execute(
+        "INSERT INTO stock_components (ticker, component_stock, percentage, sector) SELECT '" + constituent_ticker + "', ticker, weight, sector FROM _stock_comps;")
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
@@ -121,6 +137,7 @@ def main(args):
         sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
         msci_constituent_data = data_dir + '/msci_constituent_details.csv'
+        carbon_constituent_data = data_dir + '/crbn_materials_constituent_details.csv'
 
         import_data_into_sql("ff_factor", ff_data, cursor)
         import_data_into_sql("carbon_risk_factor",
@@ -145,6 +162,9 @@ def main(args):
         # import components and weights of msci
         import_msci_constituents_into_sql(
             0, msci_constituent_data, cursor, "XWD.TO")
+
+        import_carbon_constituents_into_sql(
+            0, carbon_constituent_data, cursor, "CRBN-MAT")
 
         if args.add_stock_data:
             msci_constituent_return_data = data_dir + '/msci_comparison_returns.csv'
