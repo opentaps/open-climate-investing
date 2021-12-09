@@ -298,7 +298,7 @@ def main(args):
             run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
                            ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), bulk=args.bulk_regression)
     end_time = datetime.datetime.now()
-    print(end_time - start_time)
+    print("Total run time: ", end_time - start_time)
 
 
 # run
