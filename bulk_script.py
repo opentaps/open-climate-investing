@@ -19,6 +19,7 @@ def merge_data(df1, df2):
 
 # Read in the data
 ret_provided = False
+all_stock_data = None
 
 print('This application generates a factor model as per Fama-French')
 print('It requires certain items')
@@ -63,6 +64,7 @@ use_default = input(
     "Would you like to use the default Carbon Risk and Fama-French Factors? \n (Y if you have/N if you don't): ")
 use_default = use_default.upper()
 
+ff_data = None
 if use_default == 'Y':
     carbon_data = pd.read_csv('data/bmg_carima.csv')
     ff_data = pd.read_csv('data/ff_factors.csv')
@@ -98,54 +100,57 @@ else:
             print('File is not a CSV')
         else:
             ff_data = input_function.convert_to_form(ff_data)
-            if ff_data is not False:
+            if ff_data is not None:
                 loop_close = True
             else:
                 print('CSV is not in correct form')
 
 
 # FF to percentages
-ff_data = ff_data/100
-
-i = 1
-# Create holder dataframe
-coef_all = pd.DataFrame()
-
-if ret_provided is False:
-    start_range = 0
-    end_range = len(all_stock_data)
+if ff_data is None or all_stock_data is None:
+    print('!! error processing ff_data')
 else:
-    start_range = 1
-    end_range = len(all_stock_data.columns)
+    ff_data = ff_data/100
 
-for i in range(start_range, end_range):
+    i = 1
+# Create holder dataframe
+    coef_all = pd.DataFrame()
 
-    # Convert stock prices to returns and FF to percentages
     if ret_provided is False:
-        stock_name = all_stock_data[i].item()
-        stock_data = spf.stock_df_grab(stock_name)
-        stock_data = input_function.convert_to_form(stock_data)
-        stock_data = stock_data.pct_change(periods=1)
-        stock_data.dropna(inplace=True)
+        start_range = 0
+        end_range = len(all_stock_data)
     else:
-        stock_data = all_stock_data[[
-            all_stock_data.columns[0], all_stock_data.columns[i]]]
-        # stock_data = input_function.convert_to_form(stock_data)
-        stock_name = all_stock_data.columns[i]
+        start_range = 1
+        end_range = len(all_stock_data.columns)
 
-    # Merge the 3 data frames together (inner join on dates)
-    all_factor_df = merge_data(
-        stock_data, carbon_data)
-    all_factor_df = merge_data(all_factor_df, ff_data)
+    for i in range(start_range, end_range):
 
-    # Estimate regression
-    model, coef_df_simple = regfun.regression_input_output(
-        all_factor_df, stock_name)
-    if model is not False:
-        print(stock_name)
-        coef_all = coef_all.append(coef_df_simple)
-    else:
-        print(f'Error with stock {stock_name}')
+        # Convert stock prices to returns and FF to percentages
+        if ret_provided is False:
+            stock_name = all_stock_data[i].item()
+            stock_data = spf.stock_df_grab(stock_name)
+            stock_data = input_function.convert_to_form(stock_data)
+            stock_data = stock_data.pct_change(periods=1)
+            stock_data.dropna(inplace=True)
+        else:
+            stock_data = all_stock_data[[
+                all_stock_data.columns[0], all_stock_data.columns[i]]]
+            # stock_data = input_function.convert_to_form(stock_data)
+            stock_name = all_stock_data.columns[i]
 
-print(coef_all)
-pd.DataFrame.to_csv(coef_all, 'reg_output.csv')
+        # Merge the 3 data frames together (inner join on dates)
+        all_factor_df = merge_data(
+            stock_data, carbon_data)
+        all_factor_df = merge_data(all_factor_df, ff_data)
+
+        # Estimate regression
+        model, coef_df_simple = regfun.regression_input_output(
+            all_factor_df, stock_name)
+        if model is not False:
+            print(stock_name)
+            coef_all = coef_all.append(coef_df_simple)
+        else:
+            print(f'Error with stock {stock_name}')
+
+    print(coef_all)
+    pd.DataFrame.to_csv(coef_all, 'reg_output.csv')

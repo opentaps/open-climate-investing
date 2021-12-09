@@ -10,7 +10,7 @@ def convert_to_form(df):
         df.index = df['date_converted']
         df = df.drop([df.columns[0], 'date_converted'], axis=1)
     except dateutil.parser._parser.ParserError:
-        df = False
+        df = None
     return(df)
 
 
@@ -25,7 +25,7 @@ def convert_to_form_db(df):
         df = df.drop(['date_converted'], axis=1)
         df.rename(columns={"close": "Close"}, inplace=True)
     except dateutil.parser._parser.ParserError:
-        df = False
+        df = None
     return(df)
 
 
@@ -41,7 +41,7 @@ def get_convert_file(file_name):
     else:
         try:
             data = convert_to_form(data)
-            if data is not False:
+            if data is not None:
                 data.index = pd.to_datetime(
                         data.index, format="%Y%m") + MonthEnd(1)
                 return(data)

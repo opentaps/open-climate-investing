@@ -62,8 +62,10 @@ def bulk_regression_transformer(final_data, ff_names, rf_names, factor_name, int
     for temp_ticker in ticker_names:
         temp_data = final_data.loc[final_data.ticker == temp_ticker, :]
         stock_data = temp_data[['ticker', 'return']]
-        stock_data = input_function.convert_to_form_db(
-            stock_data)
+        stock_data = input_function.convert_to_form_db(stock_data)
+        if stock_data is None:
+            print('!! error processing {}'.format(temp_ticker))
+            continue
         stock_data = stock_data.rename(columns={'return': 'Close'})
         stock_data = stock_data.drop(columns=['ticker'])
         ff_data = temp_data[ff_names]
@@ -89,8 +91,7 @@ def run_regression(ticker,
                    rf_data=None,
                    verbose=False,
                    silent=False,
-                   store=False,
-                   from_db=False):
+                   store=False):
     if carbon_data is None:
         carbon_data = load_carbon_data_from_db(factor_name)
         if verbose:
@@ -116,16 +117,15 @@ def run_regression(ticker,
         print('Got risk-fre rate')
         print(rf_data)
 
-    if from_db:
-        stock_data = get_stocks.load_stocks_from_db(ticker)
-        stock_data = input_function.convert_to_form_db(stock_data)
-    else:
+    stock_data = get_stocks.load_stocks_from_db(ticker)
+    stock_data = input_function.convert_to_form_db(stock_data)
+    if stock_data is None or stock_data.empty:
         stock_data = get_stocks.import_stock(ticker)
 
     if verbose:
         print(stock_data)
 
-    if stock_data is None or len(stock_data) == 0:
+    if stock_data is None or stock_data.empty:
         print('No stock data for {} !'.format(ticker))
         return
     # convert to pct change
@@ -252,8 +252,7 @@ def main(args):
                        interval=args.interval,
                        verbose=args.verbose,
                        store=(not args.dryrun),
-                       silent=(not args.dryrun),
-                       from_db=args.stocks_from_db)
+                       silent=(not args.dryrun))
     elif args.file:
         carbon_data = load_carbon_data_from_db(args.factor_name)
         ff_data = load_ff_data_from_db()
@@ -272,8 +271,7 @@ def main(args):
                            rf_data=rf_data,
                            verbose=args.verbose,
                            silent=(not args.dryrun),
-                           store=(not args.dryrun),
-                           from_db=args.stock_from_db)
+                           store=(not args.dryrun))
     elif args.bulk_regression:
         carbon_data = load_carbon_data_from_db(args.factor_name)
         # print(carbon_data)
@@ -296,7 +294,7 @@ def main(args):
             stock_name = stocks[i]
             print('* running regression for {} ... '.format(stock_name))
             run_regression(stock_name, factor_name=args.factor_name, start_date=args.start_date, end_date=args.end_date, interval=args.interval, carbon_data=carbon_data,
-                           ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun), bulk=args.bulk_regression)
+                           ff_data=ff_data, rf_data=rf_data, verbose=args.verbose, silent=(not args.dryrun), store=(not args.dryrun))
     end_time = datetime.datetime.now()
     print("Total run time: ", end_time - start_time)
 
@@ -317,13 +315,11 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--end_date",
                         help="Sets the end date for the regression, must be in the YYYY-MM-DD format, defaults to the last date of all the data series for a given stock")
     parser.add_argument("-i", "--interval", default=60, type=int,
-                        help="Sets number of months for the regresssion interval, defaults to 60")
+                        help="Sets number of months for the regression interval, defaults to 60")
     parser.add_argument("-c", "--factor_name", default='DEFAULT',
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")
-    parser.add_argument("-sd", "--stock_from_db", default=False, action='store_true',
-                        help="Import stock data from the DB instead of downloading")
     parser.add_argument("-b", "--bulk_regression", action='store_true',
                         help="Run bulk regression that should run faster")
     main(parser.parse_args())
