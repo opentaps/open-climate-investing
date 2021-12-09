@@ -4,18 +4,24 @@ import json
 from pandas.tseries.offsets import MonthEnd
 
 
+def stock_details_grabber(ticker):
+    stock = yf.Ticker(ticker)
+    info = stock.info
+    return info
+
+
 def stock_grabber(ticker):
     stock = yf.Ticker(ticker)
     attempt_num = 3
     while attempt_num > 0:
         try:
-            hist = stock.history(period='max', interval='1mo')
-            hist.drop(hist.tail(1).index, inplace=True)
-            hist.index = hist.index + MonthEnd(1)
-            hist = hist['Close']
-            hist = hist.dropna()
+            history = stock.history(period='max', interval='1mo')
+            history.drop(history.tail(1).index, inplace=True)
+            history.index = history.index + MonthEnd(1)
+            history = history['Close']
+            history = history.dropna()
             attempt_num = 0
-            return(hist)
+            return(history)
         except json.decoder.JSONDecodeError:
             attempt_num -= 1
             print("Attempt timed out. Trying again")
@@ -35,4 +41,4 @@ def stock_df_grab(x):
         stock_data = stock_data.reset_index(drop=True)
         return(stock_data)
     except ValueError as ve:
-        raise ValueError("Skipping stock")
+        raise ValueError("Skipping stock: {}".format(ve))

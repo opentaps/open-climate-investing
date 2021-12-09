@@ -19,9 +19,9 @@ def load_stocks_csv(filename):
     return all_stock_data.values
 
 
-def import_stock(stock_name):
+def import_stock(stock_name, always_update_details=False):
     try:
-        stock_data = load_stocks_data(stock_name)
+        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details)
         try:
             import_stocks_into_db(stock_name, stock_data)
         except DataError as e:
@@ -36,7 +36,38 @@ def import_stock(stock_name):
     return stock_data
 
 
-def load_stocks_data(stock_name):
+def update_stocks_info_data(stock_name):
+    info = spf.stock_details_grabber(stock_name)
+    sql = '''
+        INSERT INTO stocks (ticker, name, sector, sub_sector)
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT (ticker) DO
+        UPDATE SET
+            name = EXCLUDED.name,
+            sector = EXCLUDED.sector,
+            sub_sector = EXCLUDED.sub_sector
+        ;
+    '''
+    with conn.cursor() as cursor:
+        cursor.execute(sql, (stock_name, info.get('shortName'), info.get('sector'), info.get('industry')))
+
+
+def check_stocks_info_exist(stock_name):
+    # check if the stock is in the DB stocks table
+    sql = 'SELECT 1 FROM stocks WHERE ticker = %s;'
+    with conn.cursor() as cursor:
+        cursor.execute(sql, (stock_name,))
+        result = cursor.fetchone()
+        if not result:
+            return False
+        return True
+
+
+
+def load_stocks_data(stock_name, always_update_details=False):
+    has_info = check_stocks_info_exist(stock_name)
+    if always_update_details or not has_info:
+        update_stocks_info_data(stock_name)
     stock_data = spf.stock_df_grab(stock_name)
     stock_data = input_function.convert_to_form(stock_data)
     return stock_data
@@ -123,7 +154,7 @@ def load_stocks_returns_from_db(stock_name):
     return df
 
 
-def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False):
+def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False):
     sql = '''SELECT date, close, return
         FROM stock_data
         WHERE ticker = %s
@@ -132,7 +163,7 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
     df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                            index_col='date', params=(stock_name,))
     if (df is None or df.empty) and import_when_missing:
-        import_stock(stock_name)
+        import_stock(stock_name, always_update_details=always_update_details)
         # try again
         df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                                index_col='date', params=(stock_name,))
@@ -195,6 +226,13 @@ def load_stocks_defined_in_db():
     return df.index
 
 
+def get_stock_details(ticker):
+    sql = '''SELECT * FROM stocks WHERE ticker = %s'''
+    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+                           index_col='ticker', params=(ticker,))
+    return df
+
+
 def main(args):
     if args.from_db:
         stocks = load_stocks_defined_in_db()
@@ -202,13 +240,16 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* loading stocks for {} ... '.format(stock_name))
-            import_stock(stock_name)
+            import_stock(stock_name, always_update_details=args.update_stocks_details)
 
     elif args.delete:
         delete_stock_from_db(args.delete)
     elif args.ticker:
-        import_stock(args.ticker)
+        import_stock(args.ticker, always_update_details=args.update_stocks_details)
     elif args.show:
+        sd = get_stock_details(args.show)
+        print('-- Stock details for {}'.format(args.show))
+        print(sd.T)
         if args.with_returns:
             df = load_stocks_data_with_returns_from_db(
                 args.show, with_components=args.with_components)
@@ -228,7 +269,7 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
             print("Trying to get: " + stock_name)
-            import_stock(stock_name)
+            import_stock(stock_name, always_update_details=args.update_stocks_details)
     else:
         return False
     return True
@@ -247,6 +288,8 @@ if __name__ == "__main__":
                         help="specify a single ticker to delete")
     parser.add_argument("-s", "--show",
                         help="Show the data for a given ticker, for testing")
+    parser.add_argument("--update_stocks_details", action='store_true',
+                        help="When importing stocks, always update the stock details from YF in the stocks entry even if a value already exist")
     parser.add_argument("--with_returns", action='store_true',
                         help="When showing, also show the return values")
     parser.add_argument("--with_components", action='store_true',
