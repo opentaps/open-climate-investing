@@ -166,6 +166,16 @@ python3 get_stocks.py -f data/stock_tickers_crbn_materials.csv
 
 Run the final part of `init_db.sh` under "CRBN Materials"
 
+Calculate the CRBN-MAT returns
+```
+insert into stock_data (ticker, date, return)
+select 'CRBN-MAT', SS.date, sum(SS.return*SC.percentage) from stock_data as SS join stock_components as SC on SS.ticker = SC.component_stock
+where SC.ticker = 'CRBN-MAT'
+and SS.return <> 'NaN'
+group by SS.date
+order by SS.date
+```
+
 Get the stock returns of WMAT.L
 ```
 python3 get_stocks.py -t WMAT.L
