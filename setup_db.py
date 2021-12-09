@@ -7,6 +7,11 @@ import sys
 import argparse
 
 
+def import_bond_factor_into_sql(file_name, cursor):
+    sql_query = 'COPY bond_factor FROM %s WITH (FORMAT CSV, HEADER);'
+    cursor.execute(sql_query, (file_name,))
+
+
 def import_data_into_sql(table_name, file_name, cursor, bmg=False):
     if bmg is not False:
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
@@ -175,6 +180,7 @@ def main(args):
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
         msci_constituent_data = data_dir + '/msci_constituent_details.csv'
         carbon_constituent_data = data_dir + '/crbn_materials_constituent_details.csv'
+        bond_factor_data = data_dir + '/interest_rates.csv'
 
         if args.verbose:
             print('** importing ff_factor')
@@ -195,6 +201,11 @@ def main(args):
         import_data_into_sql("additional_factors",
                              additional_factor_data, cursor)
         
+        # import the bond_factor
+        if args.verbose:
+            print('** importing bond factor')
+        import_bond_factor_into_sql(bond_factor_data, cursor)
+
         if args.verbose:
             print('** adding stocks IVV and XWD.TO')
         cursor.execute(

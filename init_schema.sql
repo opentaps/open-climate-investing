@@ -24,6 +24,20 @@ CREATE TABLE risk_free (
     Rf decimal(8, 5)
 );
 
+DROP TABLE IF EXISTS bond_factor CASCADE;
+
+CREATE TABLE bond_factor (
+    date date primary key,
+    rate decimal(5, 3),
+    curve decimal(5, 3),
+    hi_yield_spread decimal(5, 3),
+    bbb_spread decimal(5, 3),
+    rate_chg decimal(5, 3),
+    curve_chg decimal(5, 3),
+    hi_yield_spread_chg decimal(5, 3),
+    bbb_spread_chg decimal(5, 3)
+);
+
 
 DROP TABLE IF EXISTS additional_factors CASCADE;
 
