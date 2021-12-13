@@ -19,9 +19,13 @@ def load_stocks_csv(filename):
     return all_stock_data.values
 
 
-def import_stock(stock_name, always_update_details=False):
+def import_stock(stock_name, always_update_details=False, verbose=False):
     try:
+        if verbose:
+            print("*** importing stock {}".format(stock_name))
         stock_data = load_stocks_data(stock_name, always_update_details=always_update_details)
+        if verbose and (stock_data is None or stock_data.empty):
+            print("*** no stock data could be loaded for {}".format(stock_name))
         try:
             import_stocks_into_db(stock_name, stock_data)
         except DataError as e:
@@ -99,6 +103,16 @@ def load_carbon_risk_factor_from_db(factor_name):
                              index_col='date', params=(factor_name,))
 
 
+def get_components_from_db(stock_name):
+    sql = '''SELECT component_stock, percentage
+             FROM stock_components
+             WHERE ticker = %s
+             ORDER BY component_stock'''
+    with conn.cursor() as cursor:
+        cursor.execute(sql, (stock_name,))
+        return cursor.fetchall()
+
+
 def import_carbon_risk_factor_into_db(data):
     sql = '''INSERT INTO
         carbon_risk_factor (date, factor_name, bmg)
@@ -154,7 +168,7 @@ def load_stocks_returns_from_db(stock_name):
     return df
 
 
-def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False):
+def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False, verbose=False):
     sql = '''SELECT date, close, return
         FROM stock_data
         WHERE ticker = %s
@@ -163,40 +177,40 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
     df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                            index_col='date', params=(stock_name,))
     if (df is None or df.empty) and import_when_missing:
+        if verbose:
+            print("*** no data in DB for {}, will import it".format(stock_name))
         import_stock(stock_name, always_update_details=always_update_details)
         # try again
         df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                                index_col='date', params=(stock_name,))
 
     if with_components:
-        sql = '''SELECT component_stock, percentage
-             FROM stock_components
-             WHERE ticker = %s
-             ORDER BY component_stock'''
-        with conn.cursor() as cursor:
-            cursor.execute(sql, (stock_name,))
-            components = cursor.fetchall()
-            if not components:
-                # not a composite ?
-                print(
-                    '*** stock {} is not a composite (no components found) !'.format(stock_name))
-                return df
-            else:
-                for (ticker, percentage) in components:
-                    df2 = load_stocks_data_with_returns_from_db(
-                        ticker, import_when_missing=import_when_missing)
-                    df = df.join(df2, how="outer",
-                                 rsuffix='_{}'.format(ticker))
-                    df['percentage_{}'.format(ticker)] = percentage
-                    df['p_return_{}'.format(ticker)] = df['return_{}'.format(
-                        ticker)].astype(str).apply(Decimal) * percentage
-                # sum the specific columns
-                df['sum_p_returns'] = df.filter(
-                    regex="p_return").astype(float).sum(axis=1)
-                df['sum_percentages'] = df.filter(
-                    regex="percentage").sum(axis=1)
-                df['composite_return'] = df['sum_p_returns'] / \
-                    df['sum_percentages']
+        components = get_components_from_db(stock_name)
+        if not components:
+            # not a composite ?
+            if verbose:
+                print('*** stock {} is not a composite (no components found) !'.format(stock_name))
+            return df
+        else:
+            if verbose:
+                print("*** loading components for {} ...".format(stock_name))
+            for (ticker, percentage) in components:
+                if verbose:
+                    print("*** loading component {} as {} of {} ...".format(ticker, percentage, stock_name))
+                df2 = load_stocks_data_with_returns_from_db(
+                    ticker, import_when_missing=import_when_missing)
+                df = df.join(df2, how="outer",
+                             rsuffix='_{}'.format(ticker))
+                df['percentage_{}'.format(ticker)] = percentage
+                df['p_return_{}'.format(ticker)] = df['return_{}'.format(
+                    ticker)].astype(str).apply(Decimal) * percentage
+            # sum the specific columns
+            df['sum_p_returns'] = df.filter(
+                regex="p_return").astype(float).sum(axis=1)
+            df['sum_percentages'] = df.filter(
+                regex="percentage").sum(axis=1)
+            df['composite_return'] = df['sum_p_returns'] / \
+                df['sum_percentages']
     return df
 
 
@@ -233,6 +247,20 @@ def get_stock_details(ticker):
     return df
 
 
+def import_stock_or_returns(stock_name, always_update_details=False, verbose=False):
+    df = import_stock(stock_name, always_update_details=always_update_details, verbose=verbose)
+    if (df is None or df.empty) and get_components_from_db(stock_name):
+        # for a composite, we can compute and import the returns only
+        print("** Stock {} is a composite, will only compute and save the returns ...".format(stock_name))
+        df = load_stocks_returns_from_db(stock_name)
+
+    if verbose:
+        print("results -> ")
+        print(df)
+    else:
+        print("-> imported {} rows".format(len(df)))
+
+
 def main(args):
     if args.from_db:
         stocks = load_stocks_defined_in_db()
@@ -240,12 +268,12 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* loading stocks for {} ... '.format(stock_name))
-            import_stock(stock_name, always_update_details=args.update_stocks_details)
+            import_stock_or_returns(stock_name, always_update_details=args.update_stocks_details, verbose=args.verbose)
 
     elif args.delete:
         delete_stock_from_db(args.delete)
     elif args.ticker:
-        import_stock(args.ticker, always_update_details=args.update_stocks_details)
+        import_stock_or_returns(args.ticker, always_update_details=args.update_stocks_details, verbose=args.verbose)
     elif args.show:
         sd = get_stock_details(args.show)
         print('-- Stock details for {}'.format(args.show))
@@ -296,5 +324,7 @@ if __name__ == "__main__":
                         help="When showing, JOIN the values of the component stocks")
     parser.add_argument("-o", "--output",
                         help="When showing, save all the data into this CSV file")
+    parser.add_argument("-v", "--verbose", action='store_true',
+                        help="More verbose output.")
     if not main(parser.parse_args()):
         parser.print_help()
