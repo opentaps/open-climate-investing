@@ -19,28 +19,41 @@ pip install -r requirements.txt
 
 ### Using a Database
 
+All python scripts have a `--help` option to show you the latest parameters available. 
+
 Init the Database using:
 ```
 python setup_db.py -d
 ```
 
-Then use `get_stocks.py` to save stock return history in the `stock_data` table:
+Then use `get_stocks.py` to get stock information for `stocks` table and return history for the `stock_data` table:
 
 - `python get_stocks.py -f some_ticker_file.csv` for using a csv source file
 - `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`
 - `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
+
+If your stock ticker is a composite stock, it will calculate the historical returns using the weights in the `stock_components` table.
 
 To run the regression, use `get_regressions.py` to save the output in the `stock_stats` table:
 - `python get_regressions.py` for running all the stocks in the database
 - `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python get_regressions.py -t ALB` to run and store the regression for a given stock
 
-All instances support optional parameters:
+It will use the stock returns in the database by default, or if none are found, get them first.  It has some optional parameters:
 - `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
 - `-e YYYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
 - `-i N` for the regression interval in months (defaults to 60 months).
 - `-c FACTOR_NAME` to specify the BMG factor to use.  If not specified, `DEFAULT` will be used.
 - `-h` to see all parameters available
+
+To calculate a BMG series and store it in the database:
+```
+python bmg_series.py -n XOP-SMOG -g SMOG -b XOP
+```
+where
+- `-n <series name>` is the name of your bmg series
+- `-b` is the ticker of your Brown stock 
+- `-g` is the ticker of your Green stock
 
 ### Viewing the Results
 
