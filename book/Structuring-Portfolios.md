@@ -69,7 +69,9 @@ Now let's look at some examples based on the model from the chapter on [Analyzin
 
 ![Portfolio Optimization using BMG Factor Loadings](images/Portfolio_BMG_Optimization.png)
 
-Here are those oil companies and renewable stocks again.  Let's say that you're managing against the Energy index.  What do you do?
+Here are those oil companies and renewable stocks again.  Let's say that you're managing against the Energy index--maybe you have an "Climate Transitions Energy Fund", or you're just the energy specialist in a team.
+
+What do you do?
 
 If you're a stock picker, you've probably already thought a lot about whether ConocoPhillips (COP) is better at a 6.89x EBITDA multiple or Chevron (CVX) better at a 8.9x EBITDA multiple.  Now add the fact that ConocoPhillips (COP) has a BMG factor loading of 0.32 and Chevron has a BMG factor loading of 0.55 to your thought process.  
 
@@ -89,6 +91,18 @@ If you structured your portfolio with a BMG factor loading of 0 versus 0.29 for 
  * A tracking error or standard deviation of 2.69% per month
  * A 5% probability of a 4.9% underperformance 
 
-That's before basis risk.  Note the low R-squared for the renewables stocks versus the oil companies.  This means that the model doesn't track their returns as well as the oil companies, so there could be a lot of times when your oil stocks are down, you think the renewables should be up, and they're not.  
+That's the theory.  Now for a dose of reality: look at the low R-squared for the renewables stocks versus the oil companies.  This means that the model doesn't track their returns as well as the oil companies, so there could be a lot of times when your oil stocks are down, you think the renewables should be up, and they're not.  This is called "basis risk" -- the risk of your hedge not moving as expected against your risks.
 
-_"Yah koo KAchap, oo-kowb-doo-noo neeSAH!" -- Jabba the Hutt_
+An easy way to see how much basis risk there is is to run a simulation of the actual portfolio.  Here, we ran the optimized, zero climate risk optimized portfolio against the index and calculated the monthly relative returns:
+
+![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_Minus_Energy_Index_Distribution.png)
+
+In reality, there were more instances where the portfolio underperformed the Energy index by more than 5% in one month -- 19 months out of 144, or 13.2% of the time, nearly three times more often:
+
+![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_Minus_Energy_Index_LT_Neg5PCT_Instances.png)
+
+If this is shocking to you, welcome to the markets.  Correlation shifts, volatility drifts, and extreme market moves are just the realities that traders and portfolio managers deal with.  And if you recall from the [Analyzing Investments](Analyzing-Investments.md) chapter, this is when there is even some correlation between high and low climate risk stocks.  We found __no__ correlation, for example, be carbon credits markets and stock markets, so if you tried trading stocks against carbon credits such as the EUA futures, who knows where you'd end up.
+
+And finally, half the stocks in your zero climate risk portfolio are oil companies!  Imagine the uproar!  It'll probably sound like [this debate at MIT about divesting from fossil fuel companies](https://mitsloan.mit.edu/ideas-made-to-matter/mit-divest-all-ideas-welcome-pursuit-one-big-goal)
+
+Which brings us back to my original point in the [Introduction](Introduction.md): Climate investing is not the job of the portfolio manager.  Asset owners must specify their climate goals in the investment guidelines of their funds.  They must be willing to make those long term choices.  That is our topic for the next chapter. 
