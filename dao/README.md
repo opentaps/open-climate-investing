@@ -25,7 +25,7 @@ All work performed by the DAO is part of the open source project.  Companies may
 
 The DAO will eventually have a group of Judges (similar to committers or maintainers of open source projects and editors at Wikipedia) who will decide on whether to accept contribution or work for the project based on purely technical merits.  Once their work is accepted by the Judges, the members will receive Reputation tokens.  To become a Judge, a member must have a high number of Reputation tokens.
 
-The DAO will also have a group of Administrators to manage the project.  They may be the same persons as the Judges.
+The DAO will also have a group of Administrators to manage the project.  This group includes Judges and other members who are not technical experts (based on Reputations) but have made significant contributions based on their holdings of Activity tokens.  Each member's standing in the Administrators is determined based on 2x their holdings of Reputation tokens and 1x their holdings of Activity tokens.  A member can participate in votes of Administrators if they have at least 5% of this (2x Reputation + 1x Activity) tokens total.  Administrators will vote on a range of issues such as approve a new release or changes to the project (mundane) to revoking tokens for bad behavior (extraordinary.)  Mundane issues can be decided by a simple majority, and extraordinary issues will require super-majority (2/3) or more (80%?) 
 
 The DAO will have a Treasury which sells and redeems Activity tokens for stablecoins.  Customers could buy Activity tokens to sponsor work in the project.  Contributors could redeem Activity tokens to get cash payments for the work they did.  The bid/ask spread of Activity tokens provides a permanent source of revenue to support the project.     
 
@@ -121,3 +121,6 @@ The DAO solves these problems:
 - Should those who voted on the wrong answer lose Reputation tokens?
 - How quickly should Reputation tokens expire?  Is 2% per month reasonable (half life of 36 months)?
 - How to keep Judges honest and agreeable to working together?  
+- How to prevent collusion and bad behavior, possibly off chain?
+- Do we need a separate token for general standing in the community, or is the 2x Reputation + 1x Activity tokens count sufficient?
+- What is the right combination of Reputation and Activity tokens to determine general standing in the community?
