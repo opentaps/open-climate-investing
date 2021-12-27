@@ -2,6 +2,8 @@
 
 So, by now, you're probably thinking -- Why even bother?  It is so much work analyzing these big, old fashioned, Greenhouse Gas emitting companies or, even worse, getting them to cut their emissions.  How about we just invest in projects that reduce or remove those GHG's?  All the cool people are investing in those.  
 
+Carbon price projections here.
+
 These __may__ well turn out to be good investments, but they are not without risks of their own.  Here are a few to consider:
 
 Basis risk: The lack of correlation between negative carbon assets and other assets.  For example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
@@ -15,6 +17,8 @@ Technology risk: These projects have their own specific risks, depending on what
 - Soil carbon: Could we actually be wrong about whether the soil really sequesters carbon, or how much or how permanent the sequestration is?
 
 Market risk: During the pilot phase, there are philanthropic funders who will pay to help these new technologies get off the ground.  But to scale up for mass adoption, they will need to be economically viable.  When will they achieve economic viability?  Will they depend on government policies until they do so?  Renewable energy saw a lot of help from government policy until they became cost competitive.  Other carbon removal projects may permanently need carbon credits to pay for them.  If you rely on government policies such as compliance carbon credit schemes, remember that they are both complex and slow.  If you are planning to tap into the voluntary carbon credits markets, know that market is very, very small.
+
+How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
 
 Obsolence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
 
