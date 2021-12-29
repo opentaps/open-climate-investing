@@ -1,15 +1,8 @@
 # Open Climate Investing DAO
 
-## Goals
-
-A DAO for creating open source climate investing analysis, including learning materials such as [the book](../book/README.md), industry specific climate analytical models (for example, energy, freight, airlines), and up to date analyses of individual companies' climate risk exposure.  
-
-- Provide open, inclusive approach to rating companies' climate risk exposure.  "With enough eyeballs all bugs are shallow."
-- Free for everybody: investors, government agencies, NGO's, and private individuals.
-- Empower people everywhere with the knowledge and tools to understand what companies are doing (or not doing) about climate change.
-- Create the broadest coverage of climate analysis for companies, following the Wikipedia, TripAdvisor, and Yelp models. 
-
-This DAO will only provide climate investing analysis.  It is not a general investment analysis DAO.  It does not make investments.  It does not cover areas of Environmental, Social, Governance (ESG) or Corporate Social Responsibility (CSR) beyond climate.  It provides analysis of the climate risk exposure for investing in companies, which could be used as a gauge of the companies' climate actions.
+## TLDR
+ 
+A DAO to govern an open source alternative to traditional ESG ratings services which are expensive and inaccurate for climate investing. 
 
 ## Why this DAO?
 
@@ -26,6 +19,17 @@ The DAO solves these problems with a formal implementation of the informal gover
 - A blockchain removes the need for the project to maintain a registry of these tokens.  Open source projects are small and don't need more overhead.
 - The tokens are permanently owned by the members.  They don't depend on the continued existence of one contributor or company in the project.  
 
+## Goals
+
+A DAO for creating open source climate investing analysis, including learning materials such as [the book](../book/README.md), industry specific climate analytical models (for example, energy, freight, airlines), and up to date analyses of individual companies' climate risk exposure.  
+
+- Provide open, inclusive approach to rating companies' climate risk exposure.  "With enough eyeballs all bugs are shallow."
+- Free for everybody: investors, government agencies, NGO's, and private individuals.
+- Empower people everywhere with the knowledge and tools to understand what companies are doing (or not doing) about climate change.
+- Create the broadest coverage of climate analysis for companies, following the Wikipedia, TripAdvisor, and Yelp models. 
+
+This DAO will only provide climate investing analysis.  It is not a general investment analysis DAO.  It does not make investments.  It does not cover areas of Environmental, Social, Governance (ESG) or Corporate Social Responsibility (CSR) beyond climate.  It provides analysis of the climate risk exposure for investing in companies, which could be used as a gauge of the companies' climate actions.
+
 ## Business Model
 
 In today's financial markets, both companies looking to raise capital ("issuers") and investors pay fees to third parties such as Standard & Poor's and Moody's to rate investments.  Third-party ratings of companies' financial condition help objectively define what investments are appropriate for different group of investors.  This in turn allows companies sell securities to investors based on such ratings.  
@@ -36,11 +40,11 @@ The DAO's work similarly has value because it provides an objective, third-party
 
 This DAO will use a combination of non-fungible Reputation, fungible Activity tokens, and badges:
 
-- Reputation tokens represent the holder's level of expertise and cannot be transferred.  All members will start with a small balance of Reputation tokens.  They can earn more by taking some short online classes.  Most importantly, members earn more Reputation tokens by creating or improving the quality of the project's work: Its models, analyses, and training materials.  Reputation tokens gradually expire on their own, so inactive members eventually lose their standing.  
+- Reputation tokens represent the holder's level of expertise and cannot be transferred, bought, or sold.  All members will start with a small balance of Reputation tokens.  They can earn more by taking some short online classes.  Most importantly, members earn more Reputation tokens by creating or improving the quality of the project's work: Its models, analyses, and training materials.  Reputation tokens gradually expire on their own, so inactive members eventually lose their standing.  
 - Activity tokens can be used to pay for work by community members and can be transferred.  Members are given Activity tokens for performing work for the project, which could include building analytical models, analyzing companies, as well as writing code, maintaining content, and serving as ambassadors or community managers.  
 - Badges represent the holder's specializations and cannot be transferred.  For example, they could represent specific areas of knowledge ("carbon markets", "climate accounting", "energy") or contribution ("investment analysis", "community building", "software development")  Over time they could be used to make Reputation tokens more "specific", for example identifying experts in specific areas.
 
-Work is performed collaboratively in the DAO.  Each member contributes to a project and stakes a certain amount of Reputation tokens.  Once the required number of Reputation tokens is staked, then the project can be judged.  Each member who contributed in a project receives an allocation of the Activity tokens in proportion to the Reputation tokens they staked in the project.
+Work is performed collaboratively in the DAO.  Each member contributes to a project and stakes a certain amount of Reputation tokens.  Once the required number of Reputation tokens is staked, then the project can be judged.  Only Reputation tokens can be used for staking on the validity of work for the project.  Each member who contributed in a project receives an allocation of the Activity tokens in proportion to the Reputation tokens they staked in the project.
 
 All work performed by the DAO is part of the open source project.  Companies may engage the contributors "off project" to work on other jobs, and the contributors' Reputation tokens could help them get these jobs, but the results will not be certified by the DAO.  Contributors will need to stay active in the project if they want to maintain their levels of Reputation, as existing Reputation tokens expire automatically.
 
