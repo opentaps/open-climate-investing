@@ -48,9 +48,9 @@ Assuming that you decide "Yes, this is fundamental to our investment policy," th
 
 Do you engage or divest?  
 
-On the surface, it seems the answer is simple.  The recent campaign by Harvard students serve as a good example.  In their [open letter](https://divestharvard.medium.com/letter-to-harvard-corporation-on-its-2050-net-zero-pledge-a7260fd2e76), "...engagement with the fossil fuel industry is dangerous and irresponsible. These companies are bad-faith partners in an effort towards decarbonization: their business models are predicated on continued extraction and exploitation of the world’s most vulnerable communities. They are not substantially transitioning to clean energy systems, have a record of attacking climate researchers (including Harvard’s own), and continue to block meaningful climate policy solutions..." 
+On the surface, it seems the answer is simple.  As the Harvard students who wrote an [open letter](https://divestharvard.medium.com/letter-to-harvard-corporation-on-its-2050-net-zero-pledge-a7260fd2e76) put it, "...engagement with the fossil fuel industry is dangerous and irresponsible. These companies are bad-faith partners in an effort towards decarbonization: their business models are predicated on continued extraction and exploitation of the world’s most vulnerable communities. They are not substantially transitioning to clean energy systems, have a record of attacking climate researchers (including Harvard’s own), and continue to block meaningful climate policy solutions..." 
 
-Yet nothing in climate change is ever simple.  An article by Daniel Yergin, "[Why the Energy Transition Will Be So Complicated](https://www.theatlantic.com/international/archive/2021/11/energy-shock-transition/620813/)", sums it up pretty well.  These companies are so embedded in our world that many parts of our lives could not go on without them.  Furthermore, major countries whose economies are entirely dependent on oil and natural gas exports could not function without them.      
+Yet nothing in climate change is ever simple.  An article by Daniel Yergin, "[Why the Energy Transition Will Be So Complicated](https://www.theatlantic.com/international/archive/2021/11/energy-shock-transition/620813/)" points to that petroleum is so embedded in our world that many parts of our lives could not go on without them, not to mention the major countries whose economies are entirely dependent on oil and natural gas exports.      
 
 As investors, there is one more problem with a pure divest strategy: Valuations.  Look again at the relative valuations of the oil companies versus renewables:
 
@@ -58,26 +58,56 @@ As investors, there is one more problem with a pure divest strategy: Valuations.
 
 The market is already pricing in a hefty premium for the renewables companies.  Even in the course of a long transition to a low carbon world, if the oil companies just have a few "dead cat bounces," it would cause the kind of short-term underperformance discussed earlier.  And what if a few of them really did change their act and became viable in that low carbon world?  Removing them completely could be a costly, not to mention unnecessary, mistake.
 
-The alternative may be more difficult still: Engage with the oil and gas companies.  In 2015, leading UK environmentalist Jonathon Porritt wrote "[It is 'impossible' for today’s big oil companies to adapt to climate change](https://www.theguardian.com/environment/2015/jan/15/it-is-impossible-todays-big-oil-companies-adapt-climate-change-jonathon-porritt)".  Yet we're still trying.  Last year, institutional investors of ExxonMobil banded together to elect new directors with a focus on climate change, despite intense management opposition.  Meanwhile, CEO'S of major oil companies have come together under the [Oil and Gas Climate Initiative](https://www.ogci.com) with the stated aims to "accelerate the industry response to climate change" and "explicitly support the Paris Agreement and its aims."
+Finally, where does the divesting stop?  Airlines?  Utilities?  Car manufacturers?  Companies who use plastic packaging like Coca Cola and Pepsi?  Freight carriers like UPS and Fedex?  Their customers like Amazon?  Amazon's customers like you and me?
+
+It feels good to wash our hands clean and divest, but somewhere along the line, we all have to get down to the hard work:
+
+Engaging.  
+
+In 2015, after trying for several years, leading UK environmentalist Jonathon Porritt wrote "[It is 'impossible' for today’s big oil companies to adapt to climate change](https://www.theguardian.com/environment/2015/jan/15/it-is-impossible-todays-big-oil-companies-adapt-climate-change-jonathon-porritt)".  Yet we're still trying.  Last year, institutional investors of ExxonMobil banded together to elect new directors with a focus on climate change, despite intense management opposition.  Meanwhile, CEO'S of major oil companies have come together under the [Oil and Gas Climate Initiative](https://www.ogci.com) with the stated aims to "accelerate the industry response to climate change" and "explicitly support the Paris Agreement and its aims."
  
-Just what this could do ore recently, the UN Partnership for Responsible Investing's [collaborative engagement between major oil companies and their institutional investors](https://www.unpri.org/climate-change/engaging-oil-and-gas-companies-on-climate-results-of-the-pri-collaborative-engagement/6826.article).
+Will this do any good?  The UN Partnership for Responsible Investing's [collaborative engagement between major oil companies and their institutional investors](https://www.unpri.org/climate-change/engaging-oil-and-gas-companies-on-climate-results-of-the-pri-collaborative-engagement/6826.article) is a good summary of where the industry really is.  Twenty-five major oil companies sat down with institutional investors and other groups over a two and a half year period, and
 
-Assuming you make those decisions, now choose an index.
+- All the oil companies acknowledged that climate change as a significant issue for the business and have a policy commitment to act on it.
+- 16 of the 25 have improved their climate disclosures.
+- and 19 of the 25 have set long-term quantitative targets for reducing emissions.
 
+But
+
+- 15 of the 25 companies are only committing to reducing their operational emissions from extracting and refining (Scope 1 and 2) 
+- Only 5 have targeted reducing Scope 3 emissions from the use of their products.
+- Meanwhile, they all keep on drilling: "approximately 30%-40% of the engaged companies’ capex is unviable in a below 2˚C pathway."   
+
+Reducing Scope 1 and 2 emissions from oil and gas production is no small potatoes.  [Methane flaring](https://www.iea.org/reports/flaring-emissions) causes 265 million tCO2e of GHG emissions each year, more than Florida or the Philippines and five to ten times that of Bitcoin.   
+
+But is it realistic to think that's all there is for the industry to do?  I could just picture it now: A group of environmentalists go to a conference and ask an oil company to reduce their Scope 3 emissions from the use of oil and gas.  The company executives respond, "You caused those emissions by flying and driving here, staying at a hotel, and using the internet to organize.  So those emissions are on you."  Perhaps true technically, but then what?   
+
+![EU Carbon Prices - TradingEconomics.com](images/EU-Carbon-Prices-TradingEconomics.com.png)
+
+As countries implement carbon pricing and carbon prices rise, would there not be natural economic substitution to low carbon energy sources?  Would that then reduce the demand for the output of oil and gas companies?  Meanwhile, as oil companies continue to spend billions drilling for oil in the face of falling demand, they may be setting up a [carbon bubble](https://carbontracker.org/terms/carbon-bubble/)  Would they then fight to keep up demand for the oil, making climate change worse?  Or would they have to write off their assets, costing you billions in losses?  Or both?	
+  
+To be viable long-term, these companies must address more than just Scope 1 and 2 emissions.  They must address the Scope 3 emissions in a way that is acceptable globally, not just in the host countries where the companies operate.  Otherwise, they will all be much smaller as rising carbon prices, not to mention consumer boycotts, will cause the utilities to switch to renewables, airlines to switch to alternative fuels, and car manufacturers to switch to electric vehicles.   
+
+As investors, then, you must make a call here--it's your job.  Do these companies in fact have a viable business model?
+
+- Could they invest the cashflows from legacy oil and gas businesses in renewable energy _successfully_?
+- Could they create a low or zero carbon energy product, using carbon capture and sequestration technology, hydrogen, or carbon offsets, that will be _acceptable_ in enough markets around the world?  
+- Is there another use for their output, such as plastics, that will also be _acceptable_ to the general public?  
+- Failing all of the above, will they reduce capex and return capital to shareholders?
+
+If they do, then engage with them and help see these strategies through.  But if there is no viable strategy, or the companies will not pursue with them, then what exactly are we engaging to do?
+
+Now that you've made the important long-term decisions, the next step is to work out a set of benchmarks for your portfolio managers.
+
+The benchmark should incorporate your long-term climate strategy into a neutral index so that your portfolio managers would manage (and hopefully outperform) against it.  It should include the amount of climate-aligned difference or "tilt" versus standard indices such as the S&P 500 or MSCI World.  If you choose to divest from oil companies, they should not be in the index.  If you choose to engage with them, it should include only the companies that qualify for your engagement strategy.
+
+Should portfolio managers vote proxies? 
 
 Benchmarks -- ESG models - Are they correct?  Have they been too watered down?  Evaluating ESG-based indices.  Do they make sense?
 
+If this sounds like a lot of work, let the Sage of Omaha inspire you:
 
-Engage vs Divest?
-- Engage: Can you really move the company?
-- Divest: risk of valuation and industry gap.  SSRN articles cited here.
-
-- Engage at a Price
-- If inaction, then lower valuations as more people divest
-- Or maybe company cannot transition and will liquidate and return capital to shareholders
-- Worst is to continue to invest in industry going away
-
-"There's no use running if you're on the wrong road. " - Warren Buffett
+_"There's no use running if you're on the wrong road. " - Warren Buffett_
 
 
 #### Footnote
