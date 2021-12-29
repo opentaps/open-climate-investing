@@ -95,11 +95,11 @@ That's the theory.  Now for a dose of reality: look at the low R-squared for the
 
 An easy way to see how much basis risk there is is to run a simulation of the actual portfolio.  Here, we ran the optimized, zero climate risk optimized portfolio against the index and calculated the monthly relative returns:
 
-![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_Minus_Energy_Index_Distribution.png)
+![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_vs_Energy_Index_Distribution.png)
 
 In reality, there were more instances where the portfolio underperformed the Energy index by more than 5% in one month -- 19 months out of 144, or 13.2% of the time, nearly three times more often:
 
-![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_Minus_Energy_Index_LT_Neg5PCT_Instances.png)
+![Zero Carbon Optimized Portfolio Minus Energy Index](images/Portfolio_Zero_Carbon_vs_Energy_Index_LT_Neg5PCT_Instances.png)
 
 If this is shocking to you, welcome to the markets.  Correlation shifts, volatility drifts, and extreme market moves are just the realities that traders and portfolio managers deal with.  And if you recall from the [Analyzing Investments](Analyzing-Investments.md) chapter, this is when there is even some correlation between high and low climate risk stocks.  We found __no__ correlation, for example, be carbon credits markets and stock markets, so if you tried trading stocks against carbon credits such as the EUA futures, who knows where you'd end up.
 
