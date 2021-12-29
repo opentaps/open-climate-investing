@@ -4,11 +4,11 @@ _"Every battle is won before it is fought." - Sun Tzu_*
 
 As a portfolio manager, I often felt like we were in the mud up front while our clients sat in castles miles away, obliviously sipping tea while giving us benchmarks that were out of touch with reality.  They would exclude out of favor assets that offered the best opportunities while piling into flavor of the month investments that offered few.  They wanted short-term results from investments that clearly required long-term time horizons. Finally, they would exclude perfectly safe investments while allowing highly risky ones on the basis of arbitrary ratings.  The last one, by the way, is exactly what caused the Credit Crisis and Great Recession of 2008 -- read [The Big Short](https://amzn.to/33TkSnl) by Michael Lewis.
 
-Of course I was biased.  With a little time and experience being the client, I now see I was as rash as Hans Solo -- "Never tell me the odds."  But how could the client decide except by looking at the numbers?  Yet judging "by the numbers" alone could also lead to a short term, academic view of risk and return that would not only be bad for your long-term investment results but also have disastrous consequences for climate change and the economy as a whole.  
+As I started to invest for myself over the years, I realized how young and foolish I was.  When I made my own direct investments, I never cared about any benchmark index.  But when I invest in funds managed by others, I would compare the managers' results versus their benchmarks and fees.  Eventually, I ended up replacing several actively managed funds with super low cost index funds, not because I believe markets are efficient or indexing is the best way to go, but simply because their performance couldn't justify the fees.   So even though the portfolio manager in me was a bit Hans Solo -- "Never tell me the odds"--as the client, how could I decide except by looking at the numbers?  
 
-What we had was a failure to communicate.  Guidelines and benchmarks should be set in consultation with the portfolio manager, but the portfolio manager should also be humble enough to understand that the client has more at stake than the latest and greatest trade.
+Yet judging "by the numbers" alone could also lead to a short term, academic view of risk and return that would not only be bad for your long-term investment results but also have disastrous consequences for climate change and the economy as a whole.  
 
-This chapter, then, is my attempt to bring the two sides together.  It's me the portfolio manager talking with me the investor, in the hope that we could integrate long-term thinking about climate change into the investment process.
+This chapter, then, is my attempt to bring the two sides together.  It's me the portfolio manager talking with me the client, in the hope that we could integrate long-term thinking about climate change into the investment process.
 
 The first thing we should all do is take a look at risk.  This chart shows the performance of the optimized zero carbon risk portfolio versus the Energy index from the previous chapter on [Structuring Portfolios](Structuring-Portfolios.md):
 
@@ -95,15 +95,16 @@ As investors, then, you must make a call here--it's your job.  Do these companie
 - Is there another use for their output, such as plastics, that will also be _acceptable_ to the general public?  
 - Failing all of the above, will they reduce capex and return capital to shareholders?
 
-If they do, then engage with them and help see these strategies through.  But if there is no viable strategy, or the companies will not pursue with them, then what exactly are we engaging to do?
+If they do, then engage with them and help see these strategies through.  Perhaps it will happen in stages, and eliminating those methane flares would be a good first step.  But we also need to move quickly and cannot stay there.  As the investor, you need to do more than just say "Great job."  And if you realize there is no viable strategy, or the companies will not pursue with them, then what exactly are we engaging to do?
 
 Now that you've made the important long-term decisions, the next step is to work out a set of benchmarks for your portfolio managers.
 
-The benchmark should incorporate your long-term climate strategy into a neutral index so that your portfolio managers would manage (and hopefully outperform) against it.  It should include the amount of climate-aligned difference or "tilt" versus standard indices such as the S&P 500 or MSCI World.  If you choose to divest from oil companies, they should not be in the index.  If you choose to engage with them, it should include only the companies that qualify for your engagement strategy.
+The benchmark should reflect your long-term climate strategy into a neutral index so that your portfolio managers would manage (and hopefully outperform) against it.  It should include the amount of climate-aligned difference or "tilt" versus standard indices such as the S&P 500 or MSCI World.  If you choose to divest from oil companies, they should not be in the index.  If you choose to engage with them, it should include only the companies that qualify for your engagement strategy.
+
+Neutral index which reflects your climate strategy but still be as diversified and capture the overall market -- ESG models - Are they correct?  Have they been too watered down?  Must have "hard" ESG ratings like credit ratings, not grading on a curve.  How to evaluating ESG-based indices.  Do they make sense?
 
 Should portfolio managers vote proxies? 
 
-Benchmarks -- ESG models - Are they correct?  Have they been too watered down?  Evaluating ESG-based indices.  Do they make sense?
 
 If this sounds like a lot of work, let the Sage of Omaha inspire you:
 
