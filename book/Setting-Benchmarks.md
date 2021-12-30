@@ -1,10 +1,10 @@
 ## Setting Benchmarks
 
-_"Every battle is won before it is fought." - Sun Tzu_*
+_"There's no use running if you're on the wrong road. " - Warren Buffett_
 
-As a portfolio manager, I often felt like we were in the mud up front while our clients sat in castles miles away, obliviously sipping tea while giving us benchmarks that were out of touch with reality.  They would exclude out of favor assets that offered the best opportunities while piling into flavor of the month investments that offered few.  They wanted short-term results from investments that clearly required long-term time horizons. Finally, they would exclude perfectly safe investments while allowing highly risky ones on the basis of arbitrary ratings.  The last one, by the way, is exactly what caused the Credit Crisis and Great Recession of 2008 -- read [The Big Short](https://amzn.to/33TkSnl) by Michael Lewis.
+As a portfolio manager, I often felt like we were in the mud up front while our clients sat in castles miles away, obliviously sipping tea while giving us benchmarks that were out of touch with reality.  They would exclude out of favor assets that offered the best opportunities while piling into flavor of the month investments that offered few.  They wanted short-term results from investments that clearly required long-term time horizons. Finally, they would exclude perfectly safe investments while allowing highly risky ones on the basis of arbitrary ratings.  The last one, by the way, is exactly what caused the Credit Crisis and Great Recession of 2008 -- read [The Big Short](https://amzn.to/33TkSnl) by Michael Lewis.  If only I could be the client...
 
-As I started to invest for myself over the years, I realized how young and foolish I was.  When I made my own direct investments, I never cared about any benchmark index.  But when I invested in funds managed by others, I would compare the managers' results versus their benchmarks and fees.  Eventually, I ended up replacing several actively managed funds with super low cost index funds, not because I believe markets are efficient or indexing is the best way to go, but simply because their performance couldn't justify the fees.   So even though the portfolio manager in me was a bit Hans Solo -- "Never tell me the odds"--as the client, how could I decide except by looking at the numbers?  
+Then I started to invest for myself.  True to my wish, when I made my own direct investments, I never cared about any benchmark index.  But when I invested in funds managed by others, I would compare the managers' results versus their benchmarks and fees.  Sure, I took a longer perspective, took the time to understand their investment process, and looked for out of favor sectors.  But if the manager couldn't outperform by at least twice their fee over a five year period, then it was time to say good bye.  Eventually, I ended up replacing several actively managed funds with super low cost index funds, not because I believe markets are efficient or indexing is the best way to go, but simply because their performance couldn't justify the fees.  Because even though the portfolio manager in me likes to be Hans Solo -- "Never tell me the odds"--as the client, how could I decide except by looking at the numbers?  
 
 Yet judging "by the numbers" alone could also lead to a short term, academic view of risk and return that would not only be bad for your long-term investment results but also have disastrous consequences for climate change and the economy as a whole.  
 
@@ -28,7 +28,7 @@ The oil stocks are rallying again.  The press is calling it an [ESG bubble](http
 
 Do you stay the course?  
 
-Warren Buffett famously said that "The true investor welcomes volatility."  But he has the rare luxury of time that most do not.  He invests with a faith in long-term principles that is also backed up by a reputation and an investment vehicle that took decades to establish.  Most portfolio managers and their clients, the investment officers of pension funds, endowments, reinsurers, or private banks, would not be around to see the rebound after a 40% underperformance.  Even principals investing their own money usually have liquidity needs, as well as a partner who would (reasonably) question their sanity.  
+Warren Buffett famously said that "The true investor welcomes volatility."  But he has the rare luxury of time that most do not.  He invests with a faith in the long-term principles that is also backed up by a reputation and an investment vehicle that took decades to establish.  Most portfolio managers and their clients, the investment officers of pension fund, endowment, reinsurer, or private banks, would not be around to see the rebound after a 40% underperformance.  Even principals investing their own money usually have liquidity needs, as well as a partner who would (reasonably) question their sanity.  
 
 Yet [Buffett and other great investors](http://mastersinvest.com/volatilityquotes) are right.  Great investments, like the transition to a low carbon economy, take time.  The path to get there could be rocky, but the long-term outcome is not in doubt.  Volatility is not risk but opportunity--if you could survive the journey.
 
@@ -38,7 +38,7 @@ Part of your decision will have to be based on actuarial analysis: How much cont
 
 A bigger part, though, is one of values.  Why are you making a climate-aligned investment?  Do you believe some companies will outperform during transition to a low carbon economy?  If so, what is the time horizon for this to happen?  Five years?  Ten?  Twenty?  Thirty years?  
 
-Or do you believe that climate change is fundamentally harmful to the well being of your constituents, so that you cannot invest in companies that contribute to climate change?  In that case, are broad market benchmarks such as the S&P 500 ever relevant, since they contain companies that contribute to climate change?
+Or do you believe that climate change is fundamentally harmful to the well being of your constituents, so that you cannot invest in companies that contribute to climate change?  In that case, then are broad market benchmarks such as the S&P 500 even relevant, since they contain companies that contribute to climate change?
 
 Taken a step further, do your constituents agree with you?  Do they want you making this decision for them?  Do they agree with your analysis of which companies contribute to climate change, and which do not?
 
@@ -50,13 +50,17 @@ Do you engage or divest?
 
 On the surface, it seems the answer is simple.  As the Harvard students who wrote an [open letter](https://divestharvard.medium.com/letter-to-harvard-corporation-on-its-2050-net-zero-pledge-a7260fd2e76) put it, "...engagement with the fossil fuel industry is dangerous and irresponsible. These companies are bad-faith partners in an effort towards decarbonization: their business models are predicated on continued extraction and exploitation of the world’s most vulnerable communities. They are not substantially transitioning to clean energy systems, have a record of attacking climate researchers (including Harvard’s own), and continue to block meaningful climate policy solutions..." 
 
-Yet nothing in climate change is ever simple.  An article by Daniel Yergin, "[Why the Energy Transition Will Be So Complicated](https://www.theatlantic.com/international/archive/2021/11/energy-shock-transition/620813/)" points out that petroleum is so embedded in our world that many parts of our lives could not go on without them, not to mention the major countries whose economies are entirely dependent on oil and natural gas exports.      
+Yet nothing in climate change is ever simple.  An article by Daniel Yergin, "[Why the Energy Transition Will Be So Complicated](https://www.theatlantic.com/international/archive/2021/11/energy-shock-transition/620813/)" points out that petroleum is so embedded in our world that many parts of our lives could not go on without them, not to mention the major countries whose economies are entirely dependent on oil and natural gas exports.  Articles like [Why divestment doesn’t work — and just won’t die](https://www.greenbiz.com/article/why-divestment-doesnt-work-and-just-wont-die) are even more blunt.
 
-As investors, there is one more problem with a pure divest strategy: Valuations.  Look again at the relative valuations of the oil companies versus renewables:
+Divesting has its appeal.  These companies are off your books.  You send a message about doing something for climate.  You could also avoid the potential losses of being caught on the wrong side of the carbon transition.  If enough people do it, then the stock prices of the companies will fall and their cost of capital increase.  
+
+But perversely, then, the opposite happens: The companies look more attractive on a pure value basis.  This is already happening.  Look again at the relative valuations of the oil companies versus renewables:
 
 ![Relative Value of Renewable and Oil Majors Stocks](images/Valuation_BMG_Table.png)
 
-The market is already pricing in a hefty premium for the renewables companies.  Even in the course of a long transition to a low carbon world, if the oil companies just have a few "dead cat bounces," it would cause the kind of short-term underperformance discussed earlier.  And what if a few of them really did change their act and became viable in that low carbon world?  Would their valuations increase significantly?  If so, then removing them completely could be a costly, not to mention unnecessary, mistake.
+The market is already pricing in a hefty premium for the renewables companies.  Even in the course of a long transition to a low carbon world, if the oil companies just have a few "dead cat bounces," it would cause the kind of short-term underperformance discussed earlier.  And what if a few of them really did change their act and became viable in that low carbon world?  Removing them completely could be a costly, not to mention unnecessary, mistake.
+
+Meanwhile, falling prices could attract the shadowy world of private equity buyers and the shadowier world of sovereign wealth funds.  They are less responsive to the general public, have a shorter term focus (five years is the norm) vs long-term pension funds, and will be focused on cash flows than long-term climate change.
 
 Finally, where does the divesting stop?  Airlines?  Utilities?  Car manufacturers?  Companies who use plastic packaging like Coca Cola and Pepsi?  Freight carriers like UPS and Fedex?  Their customers like Amazon?  Amazon's customers like you and me?
 
@@ -80,22 +84,32 @@ But
 
 Reducing Scope 1 and 2 emissions from oil and gas production is no small potatoes.  [Methane flaring](https://www.iea.org/reports/flaring-emissions) causes 265 million tCO2e of GHG emissions each year, more than Florida or the Philippines and five to ten times that of Bitcoin.   
 
-But is it realistic to think that's all the industry needs to do?  I could just picture it now: A group of environmentalists go to a conference and ask an oil company to reduce their Scope 3 emissions from the use of oil and gas.  The company executives retort, "You caused those emissions by flying and driving here, staying at a hotel, and using the internet to organize.  So those emissions are on you."  Perhaps true technically, but then what?   
+But is it realistic to think that's all there is for the industry to do?  I could just picture it now: A group of environmentalists go to a conference and ask an oil company to reduce their Scope 3 emissions from the use of oil and gas.  The company executives respond, "You caused those emissions by flying and driving here, staying at a hotel, and using the internet to organize.  So those emissions are on you."  Perhaps true technically, but then what?   
 
-![EU Carbon Prices - TradingEconomics.com](images/EU-Carbon-Prices-TradingEconomics.com.png)
+![EU Carbon Prices to December 29, 2021 - TradingEconomics.com](images/EU-Carbon-Prices-TradingEconomics.com.png)
 
-As countries implement carbon pricing and carbon prices rise, would there not be natural economic substitution to low carbon energy sources?  Would that then reduce the demand for the output of oil and gas companies?  Meanwhile, as oil companies continue to spend billions drilling for oil in the face of falling demand, are they setting up a [carbon bubble](https://carbontracker.org/terms/carbon-bubble/)?  Would they then fight to keep up demand for the oil, making climate change worse?  Or would they have to write off their assets, costing you billions in losses?  Or both?	
+As countries implement carbon pricing and carbon prices rise, would there not be natural economic substitution to low carbon energy sources?  Would that then reduce the demand for the output of oil and gas companies?  Meanwhile, as oil companies continue to spend billions drilling for oil in the face of falling demand, they may be setting up a [carbon bubble](https://carbontracker.org/terms/carbon-bubble/)  Would they then fight to keep up demand for the oil, making climate change worse?  Or would they have to write off their assets, costing you billions in losses?  Or both?	
   
 To be viable long-term, these companies must address more than just Scope 1 and 2 emissions.  They must address the Scope 3 emissions in a way that is acceptable globally, not just in the host countries where the companies operate.  Otherwise, they will all be much smaller as rising carbon prices, not to mention consumer boycotts, will cause the utilities to switch to renewables, airlines to switch to alternative fuels, and car manufacturers to switch to electric vehicles.   
 
 As investors, then, you must make a call here--it's your job.  Do these companies in fact have a viable business model?
 
 - Could they invest the cashflows from legacy oil and gas businesses in renewable energy _successfully_?
-- Could they create a low or zero carbon energy product, using carbon capture and sequestration, hydrogen, or carbon offsets, that will be _acceptable_ in enough markets around the world?  
+- Could they create a low or zero carbon energy product, using carbon capture and sequestration technology, hydrogen, or carbon offsets, that will be _acceptable_ in enough markets around the world?  
 - Is there another use for their output, such as plastics, that will also be _acceptable_ to the general public?  
 - Failing all of the above, will they reduce capex and return capital to shareholders?
 
-If they do, then engage with them and help see these strategies through.  Perhaps it will happen in stages, and eliminating those methane flares would be a good first step.  But we also need to move quickly and cannot stay there.  As the investor, you need to do more than just say "Great job."  And if you realize there is no viable strategy, or the companies will not pursue with them, then what exactly are we engaging to do?
+If they do, then engage with them and help see these strategies through.  Perhaps it will happen in stages, and eliminating those methane flares would be a good first step.  But we also need to move quickly and cannot stay there.  As the investor, you need to act like a coach and not a buddy.  You need to do more than just say "Great job" and actively understand the companies' strategies and monitor their progress.  If you realize there is no viable strategy, or the companies are not following through with them, then you must think about whether it would be better to divest after all.  You can at least save your own investment if not the world.  But if the companies are pursuing a viable transition strategy, then be their champion as well.  Make them see that doing the right thing will reward them with higher valuations, stock prices, and bonuses, rather than fall prey to buyouts and layoffs.
+
+This is what is really hard about engaging right now.  It's easy to jump on the divest bandwagon.  You've sold your shares, announced it to the public, and you're one of the good guys.  But if you're engaging, how does anyone know that you're really working through the carbon transition with your companies, instead of just greenwashing?  What do those of us who choose to engage rally around?  It requires many stakeholders to work together: investors, the companies, the general public.  Could we agree on what the goals of the engagement should be?  Could we agree on what the metrics of progress should be?
+
+One possibility is to rally around the Science Based Targets Initiative (SBTi)'s commitment to a 1.5 degree transition.  Amazingly, there are nine oil and gas companies that have signed up for it, including oil exploration companies like Schlumberger and Halliburton:
+ 
+![SBTI committed oil and gas companies, December 30, 2021](images/SBTI-committed-oil-gas-companies.png)
+
+But what have they committed to?  Unfortunately there's no more information available on the SBTi website.  
+
+In conclusion, divesting and engaging should not be opposites but rather two sides of the same coin.  Some companies you would engage with, and some you would just have to divest.  To divest alone would not have much impact in the real world.  To engage without the prospect (threat?) of divesting would probably achieve very little as well.
 
 Now that you've made the important long-term decisions, the next step is to work out a set of benchmarks for your portfolio managers.
 
@@ -104,14 +118,4 @@ The benchmark should reflect your long-term climate strategy into a neutral inde
 Neutral index which reflects your climate strategy but still be as diversified and capture the overall market -- ESG models - Are they correct?  Have they been too watered down?  Must have "hard" ESG ratings like credit ratings, not grading on a curve.  How to evaluating ESG-based indices.  Do they make sense?
 
 Should portfolio managers vote proxies? 
-
-
-If this sounds like a lot of work, let the Sage of Omaha inspire you:
-
-_"There's no use running if you're on the wrong road. " - Warren Buffett_
-
-
-#### Footnote
-
-*The quote at the beginning is mistranslated.  The original Chinese, "胜可知，而不可为", means that the conditions for success are known in advance.  Once you have laid down the grounds for success, don't  force it.  It'll come to you.
 
