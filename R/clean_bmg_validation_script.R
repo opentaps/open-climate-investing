@@ -144,11 +144,14 @@ bmg_loading_data <- bmg_loading_data %>%
 
 ### This is for SPX Only
 colnames(bmg_loading_data)[(length(colnames(bmg_loading_data)) - 1):length(colnames(bmg_loading_data))] <- c("Sector", "Sub_Sector")
+write.csv(bmg_loading_data, "bmg_loading_data.csv")
 
 ### Get mean coefficients by sector
-bmg_loading_data %>%
+mean_bmgs <- bmg_loading_data %>%
   group_by(Sector) %>%
-  summarise(mean(Estimate))
+  summarise(mean_bmg = mean(Estimate))
+
+write.csv(mean_bmgs, "mean_bmgs.csv")
 
 # Panel Regression on Market Residuals
 
