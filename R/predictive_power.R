@@ -312,8 +312,7 @@ all_sector_pred_power
 write.csv(pred_power_table, "MSCI Predictive Power Table by Sector.csv")
 
 
-# 8.1 - 8.3 MB Version
-# Creating equally-weighted portfolios
+# * 8.1 - Creating equally-weighted portfolios -----------------------------
 
 # Read in the sector breakdowns
 final_stock_breakdown <- read_csv("data/msci_constituent_details.csv") # for msci
@@ -327,11 +326,12 @@ all_data_sectors <- all_data_sectors %>%
   summarise(excess_returns = mean(excess_returns))
 
 all_data_sectors <- all_data_sectors %>%
-  left_join(ff_data, by = c("Date" = "Date")) %>%
-  left_join(carbon_data, by = c("Date" = "Date")) %>%
+  left_join(
+    all_factor_data,
+    by = c("Date" = "Date")) %>%
   rename(Mkt_less_RF = `Mkt-RF`)
 
-# * 8.4 - Regression Analysis by Sector -----------------------------------
+# * 8.2 - Regression Analysis by Sector -----------------------------------
 
 mass_reg_results_by_sector <- mass_regression(
   stock_data     = all_data_sectors,
@@ -350,7 +350,7 @@ get_bmg_regression_results_by_sector <- lapply(mass_reg_results_by_sector, funct
   summary(x[["Regression"]][[2]])
 })
 
-# * 8.5 - Get the coefficient summary table, R-Squared and Adjuste --------
+# * 8.3 - Get the coefficient summary table, R-Squared and Adjuste --------
 
 no_bmg_pred_data_by_sector <- lapply(get_no_bmg_regression_results_by_sector, function(x) {
   if (get_dataframe_dimensions(x$coefficients)[1] > 2)
@@ -384,7 +384,7 @@ bmg_pred_data_t_by_sector <- lapply(get_bmg_regression_results_by_sector, functi
   }
 })
 
-# * 8.6 - Removing regressions that didn't run ----------------------------
+# * 8.4 - Removing regressions that didn't run ----------------------------
 
 # BMG
 if (length(which(lapply(bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)) > 0) {
@@ -398,7 +398,7 @@ if (length(which(lapply(no_bmg_pred_data_by_sector, function(x) is.null(x)) == T
   bmg_pred_data_t_by_sector <- bmg_pred_data_t_by_sector[-which(lapply(bmg_pred_data_t_by_sector, function(x) is.null(x)) == TRUE)]
 }
 
-# * 8.7 - Final Output Table ----------------------------------------------
+# * 8.5 - Final Output Table ----------------------------------------------
 
 bmg_pred_data_by_sector <- tibble(
   Sector = names(bmg_pred_data_by_sector),
@@ -424,7 +424,7 @@ colnames(bmg_pred_data_by_sector)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_les
 colnames(no_bmg_pred_data_by_sector)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
 
 
-# * 8.8 - T-Statistic & Coefficient Row Binding ---------------------------
+# * 8.6 - T-Statistic & Coefficient Row Binding ---------------------------
 
 full_bmg_table_by_sector <- c()
 
@@ -473,12 +473,12 @@ for (i in 1:nrow(bmg_pred_data_by_sector)) {
 }
 
 
-# * 8.9 - Display the full table ------------------------------------------
+# * 8.7 - Display the full table ------------------------------------------
 
 full_bmg_table_by_sector
 full_no_bmg_table_by_sector
 
-# 9 - Write data ----------------------------------------------------------
+# * 8.8 - Write data ----------------------------------------------------------
 
 write.csv(full_bmg_table_by_sector, "full_bmg_table.csv")
 write.csv(full_no_bmg_table_by_sector, "full_no_bmg_table.csv")
@@ -495,3 +495,182 @@ pred_power_by_sector <- pred_power_by_sector %>%
   relocate(FF_AdjRsq, .after = FFB_Rsq) %>%
   relocate(FFB_AdjRsq, .after = FF_AdjRsq) %>%
   relocate(FF_Alpha, .after = FFB_Alpha)
+
+
+# * 9.1 - Using sector ETFs for breakdowns  --------------------------------
+
+# Read in the Sector ETFs  -------------------------------------------------
+
+final_sector_returns <- read_csv("data/msci_sector_returns.csv") # for msci
+# final_stock_breakdown <- read_csv("data/spx_sector_breakdown.csv") # for spx
+sector_etf_mapping <- read_csv("data/msci_etf_sector_mapping.csv")
+final_sector_returns <- final_sector_returns %>%
+  left_join(sector_etf_mapping, by = c("Stock" = "ETF")) %>%
+  filter(Stock != "XWD.TO")
+
+all_data_sectors <- final_sector_returns %>%
+  inner_join(
+    all_factor_data,
+    by = c("Date" = "Date")
+  ) %>%
+  mutate(excess_returns = Returns - Rf) %>%
+  rename(Mkt_less_RF = `Mkt-RF`) # Change market return data column to be more compatible
+
+
+# * 9.2 - Regression Analysis by Sector -----------------------------------
+
+mass_reg_results_by_sector <- mass_regression(
+  stock_data     = all_data_sectors,
+  stock_col_name = "Sector",
+  reg_formulas   = c(
+    "excess_returns ~ Mkt_less_RF + SMB + HML + WML",
+    "excess_returns ~ BMG + Mkt_less_RF + SMB + HML + WML"),
+  by_sector      = TRUE
+)
+
+get_no_bmg_regression_results_by_sector <- lapply(mass_reg_results_by_sector, function(x) {
+  summary(x[["Regression"]][[1]])
+})
+
+get_bmg_regression_results_by_sector <- lapply(mass_reg_results_by_sector, function(x) {
+  summary(x[["Regression"]][[2]])
+})
+
+# * 9.3 - Get the coefficient summary table, R-Squared and Adjuste --------
+
+no_bmg_pred_data_by_sector <- lapply(get_no_bmg_regression_results_by_sector, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 1]),
+               x$r.squared,
+               x$adj.r.squared)
+  }
+})
+
+bmg_pred_data_by_sector <- lapply(get_bmg_regression_results_by_sector, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 1]),
+               x$r.squared,
+               x$adj.r.squared)
+  }
+})
+
+no_bmg_pred_data_t_by_sector <- lapply(get_no_bmg_regression_results_by_sector, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 3]))
+  }
+})
+
+bmg_pred_data_t_by_sector <- lapply(get_bmg_regression_results_by_sector, function(x) {
+  if (get_dataframe_dimensions(x$coefficients)[1] > 2)
+  {
+    data.frame(t(x$coefficients[, 3]))
+  }
+})
+
+# * 9.4 - Removing regressions that didn't run ----------------------------
+
+# BMG
+if (length(which(lapply(bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)) > 0) {
+  bmg_pred_data_by_sector <- bmg_pred_data_by_sector[-which(lapply(bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)]
+  bmg_pred_data_t_by_sector <- bmg_pred_data_t_by_sector[-which(lapply(bmg_pred_data_t_by_sector, function(x) is.null(x)) == TRUE)]
+}
+
+# no BMG
+if (length(which(lapply(no_bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)) > 0) {
+  no_bmg_pred_data_by_sector <- no_bmg_pred_data_by_sector[-which(lapply(no_bmg_pred_data_by_sector, function(x) is.null(x)) == TRUE)]
+  bmg_pred_data_t_by_sector <- bmg_pred_data_t_by_sector[-which(lapply(bmg_pred_data_t_by_sector, function(x) is.null(x)) == TRUE)]
+}
+
+# * 9.5 - Final Output Table ----------------------------------------------
+
+bmg_pred_data_by_sector <- tibble(
+  Sector = names(bmg_pred_data_by_sector),
+  bind_rows(bmg_pred_data_by_sector)
+)
+
+no_bmg_pred_data_by_sector <- tibble(
+  Sector = names(no_bmg_pred_data_by_sector),
+  bind_rows(no_bmg_pred_data_by_sector)
+)
+
+bmg_pred_data_t_by_sector <- tibble(
+  Sector = names(bmg_pred_data_t_by_sector),
+  bind_rows(bmg_pred_data_t_by_sector)
+)
+
+no_bmg_pred_data_t_by_sector <- tibble(
+  Sector = names(no_bmg_pred_data_t_by_sector),
+  bind_rows(no_bmg_pred_data_t_by_sector)
+)
+
+colnames(bmg_pred_data_by_sector)[2:9] <- c("FFB_Alpha", "FFB_BMG", "FFB_Mkt_less_RF", "FFB_SMB", "FFB_HML", "FFB_WML", "FFB_Rsq", "FFB_AdjRsq")
+colnames(no_bmg_pred_data_by_sector)[2:8] <- c("FF_Alpha",  "FF_Mkt_less_RF", "FF_SMB", "FF_HML", "FF_WML","FF_Rsq", "FF_AdjRsq")
+
+
+# * 9.6 - T-Statistic & Coefficient Row Binding ---------------------------
+
+full_bmg_table_by_sector <- c()
+
+# BMG by Sector Stats
+for (j in 1:nrow(bmg_pred_data_by_sector)) {
+  
+  temp_t_holder <- cbind(bmg_pred_data_t_by_sector[j ,], 0, 0)
+  colnames(temp_t_holder) <- colnames(bmg_pred_data_by_sector)
+  
+  temp_holder <- bind_rows(
+    bmg_pred_data_by_sector[j, ],
+    temp_t_holder
+  ) %>%
+    mutate(
+      Statistic = c("Coefficient", "t-Stat")
+    ) %>%
+    relocate(Statistic, .after = Sector)
+  
+  full_bmg_table_by_sector <- bind_rows(
+    full_bmg_table_by_sector,
+    temp_holder
+  )
+  
+}
+
+full_bmg_table_by_sector <- full_bmg_table_by_sector %>%
+  arrange(Sector, Statistic)
+
+full_no_bmg_table_by_sector <- c()
+
+# No BMG Stats by Sector
+for (i in 1:nrow(bmg_pred_data_by_sector)) {
+  temp_t_holder <- cbind(no_bmg_pred_data_t_by_sector[i ,], 0, 0)
+  colnames(temp_t_holder) <- colnames(no_bmg_pred_data_by_sector)
+  
+  temp_holder <- bind_rows(
+    no_bmg_pred_data_by_sector[i, ],
+    temp_t_holder
+  ) %>%
+    mutate(
+      Statistic = c("Coefficient", "t-Stat")
+    ) %>%
+    relocate(Statistic, .after = Sector)
+  
+  full_no_bmg_table_by_sector <- bind_rows(
+    full_no_bmg_table_by_sector,
+    temp_holder
+  )
+}
+
+full_no_bmg_table_by_sector <- full_no_bmg_table_by_sector %>%
+  arrange(Sector, Statistic)
+
+
+# * 9.7 - Display the full table --------------------------------------------
+
+full_bmg_table_by_sector
+full_no_bmg_table_by_sector
+
+# 9.8 - Write data ----------------------------------------------------------
+
+write.csv(full_bmg_table_by_sector, "full_bmg_table.csv")
+write.csv(full_no_bmg_table_by_sector, "full_no_bmg_table.csv")
