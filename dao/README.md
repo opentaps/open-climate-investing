@@ -6,7 +6,11 @@ A DAO to govern an open source alternative to traditional ESG ratings services w
 
 ## Why this DAO?
 
+### ESG and Climate Risk
+
 Analyzing companies' climate risk exposure and climate actions is complex -- see [the chapter on Analyzing Investments](../book/Analyzing-Investments.md).  Today, most of this analysis is performed by ESG vendors using proprietary data sets and models.  Only the largest institutional investors could afford detailed ESG analysis from these vendors, yet the results are often difficult to use for making investment decisions.  Furthermore, as the experience of the 2008 Credit Crisis shows, the vendors' incentives may be often aligned with those of the companies being rated rather than investors or the general public.  As a result, ESG metrics suffer from a lack of trust, and this in turn limits the incentives for companies to make climate disclosures.  
+
+### Open Source
 
 An open source approach to climate risk analysis based on openly available tools and community development creates a free data set of climate analysis which is available to anyone to use, study, and improve upon.  It could help individuals and NGO's along with institutional investors and government agencies understand what companies are doing or not doing about climate change.  By creating the largest base of potential users, we create an incentive for them to want and work for a better that is more useful for them.  As more users use it and improve upon it, it becomes more useful and draws in more users, creating a "flywheel effect."  If successful, such a community could produce the highest quality, least cost, and most inclusive source of information.
 
