@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+from setup_db import cleanup_abnormal_returns
 import stock_price_function as spf
 import input_function
 import db
@@ -262,6 +263,11 @@ def import_stock_or_returns(stock_name, always_update_details=False, verbose=Fal
 
 
 def main(args):
+    if args.clean_bad_returns:
+        with conn.cursor() as cursor:
+            cleanup_abnormal_returns(cursor)
+            print("-- {} entries affected.".format(cursor.rowcount))
+        return True
     if args.from_db:
         stocks = load_stocks_defined_in_db()
 
@@ -320,6 +326,8 @@ if __name__ == "__main__":
                         help="When importing stocks, always update the stock details from YF in the stocks entry even if a value already exist")
     parser.add_argument("--with_returns", action='store_true',
                         help="When showing, also show the return values")
+    parser.add_argument("--clean_bad_returns", action='store_true',
+                        help="Cleanup the bad returns (NaN and > 1) for a given stock with -t else for all stocks")
     parser.add_argument("--with_components", action='store_true',
                         help="When showing, JOIN the values of the component stocks")
     parser.add_argument("-o", "--output",

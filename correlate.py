@@ -1,4 +1,5 @@
 import pandas as pd
+from bmg_series import get_bmg_series
 import db
 import argparse
 import statsmodels.api as sm
@@ -10,7 +11,7 @@ def execute_batch(conn, df, table):
     """
     Using psycopg2.extras.execute_batch() to insert the dataframe
     """
-    # Create a list of tupples from the dataframe values
+    # Create a list of tuples from the dataframe values
     tuples = [tuple(x) for x in df.to_numpy()]
     # Comma-separated dataframe columns
     cols = ','.join(list(df.columns))
@@ -29,7 +30,7 @@ def execute_batch(conn, df, table):
     cursor.close()
 
 
-def main(args):
+def process_factor(bmg_factor_name, significance=0.1, verbose=False):
 
     conn = db.get_db_connection()
     sql = '''SELECT
@@ -42,7 +43,7 @@ def main(args):
         '''
 
     additional_factor_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                             index_col='date', params=(args.bmg_factor_name,))
+                                             index_col='date', params=(bmg_factor_name,))
 
     additional_factor_names = additional_factor_df['factor_name'].unique()
 
@@ -68,7 +69,7 @@ def main(args):
         '''
 
     bmg_factors_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                       index_col='date', params=(args.bmg_factor_name,))
+                                       index_col='date', params=(bmg_factor_name,))
 
     final_df = bmg_factors_df
     final_df = pd.merge(bmg_factors_df,
@@ -82,12 +83,12 @@ def main(args):
                             individual_factor_df,
                             on='date',
                             how='left')
-        final_df = final_df.rename(columns={'factor_value': factor_name})
-        final_df = final_df.drop('factor_name', axis=1)
-        final_df = final_df.dropna()
+        final_df.rename(columns={'factor_value': factor_name}, inplace=True)
+        final_df.drop('factor_name', axis=1, inplace=True)
+        final_df.dropna(inplace=True)
 
     bmg_corr = final_df.corr().iloc[1:, 0].to_frame()
-    bmg_corr.columns = ['Correlation to ' + args.bmg_factor_name + ' Factor']
+    bmg_corr.columns = ['Correlation to ' + bmg_factor_name + ' Factor']
     bmg_corr.index.name = 'Factor'
     # print(bmg_corr.columns)
     print(bmg_corr)
@@ -99,7 +100,7 @@ def main(args):
     # Estimate regression
     model = sm.OLS(y, x).fit()
 
-    if args.verbose:
+    if verbose:
         print(model.summary())
 
     # Get coefficient results
@@ -113,7 +114,7 @@ def main(args):
 
     # Get the p-values of the coefficients and select below significance
     chosen_vars = coef_df_simple.iloc[3, :]
-    chosen_vars = chosen_vars[chosen_vars < args.significance]
+    chosen_vars = chosen_vars[chosen_vars < significance]
     chosen_vars = chosen_vars.index
     chosen_vars = chosen_vars[chosen_vars != "Constant"]
 
@@ -121,18 +122,18 @@ def main(args):
     x = x.loc[:, chosen_vars]
     x.insert(0, 'Constant', 1)
 
-    # Run final orthogonalisation regresssion
+    # Run final orthogonalisation regression
     model = sm.OLS(y, x).fit()
-    if args.verbose:
+    if verbose:
         print(model.summary())
 
-    orthog_name = args.bmg_factor_name + "-ORTHO"
+    orthog_name = bmg_factor_name + "-ORTHO"
 
     resid_table = pd.DataFrame()
     resid_table["date"] = model.resid.index
     resid_table["factor_name"] = orthog_name
     resid_table["bmg"] = model.resid.values
-    if args.verbose:
+    if verbose:
         print(resid_table)
 
     # Delete if previously orthogonalised
@@ -148,8 +149,24 @@ def main(args):
     execute_batch(conn, resid_table, 'carbon_risk_factor')
 
 
+def main(args):
+    if args.all:
+        series = get_bmg_series()
+        if not series:
+            print("No BMG series found in the DB.")
+        else:
+            for (factor_name, _from, _to) in series:
+                if factor_name.endswith('-ORTHO'):
+                    continue
+                process_factor(factor_name, args.significance, args.verbose)
+    else:
+        process_factor(args.bmg_factor_name, args.significance, args.verbose)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("-a", "--all", action='store_true',
+                        help="Process all factor names")
     parser.add_argument("-c", "--bmg_factor_name", default='DEFAULT',
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-s", "--significance", default=0.1,

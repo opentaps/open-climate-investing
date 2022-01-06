@@ -30,8 +30,7 @@ You only need to do this once to populate the stock history data.
 
 Clear out abnormal returns data:
 ```
-delete from stock_data where return > 1
-delete from stock_data where return = 'NaN'
+python get_stocks.py --cleanup_bad_returns
 ```
 
 Then to run it for other BMG series:
@@ -50,12 +49,12 @@ select * from carbon_risk_factor
 - Run all regressions
 For CARIMA and CARIMA orthogonalized,
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -sd
+python get_regressions.py -f data/stock_tickers_msci_world.csv -d
 ```
 
 For other BMG factors, we can run longer
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -sd 
+python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -d -c FACTOR_NAME
 ```
 
 If you want to see how your regressions are doing, you can run this query:
@@ -65,7 +64,7 @@ select * from stock_stats order by ticker desc, thru_date desc
 
 - Get the stocks with significant BMG results:
 
-First we need to figure out the last signfiicant time period.  Choose any stock (COP will do): 
+First we need to figure out the last significant time period.  Choose any stock (COP will do): 
 ```
 select max(thru_date) from stock_stats
 where ticker = 'COP'
@@ -79,6 +78,45 @@ from stock_stats as SS join stocks as S on S.ticker = SS.ticker
 where SS.thru_date > '2021-09-01'
 and SS.bmg_p_gt_abs_t < 0.05
 order by S.sector, bmg
+```
+- Get a count of significant regressions per stock and BMG factor:
+```
+select ticker, bmg_factor_name,
+count(1) as total,
+count(CASE WHEN bmg_p_gt_abs_t >= 0.05 THEN 1 END) as not_significant,
+count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) as significant
+from stock_stats group by ticker, bmg_factor_name;
+```
+- Get a list of stocks and BMG factors for which at least half the regressions are significant:
+```
+select ticker, bmg_factor_name,
+count(1) as total,
+count(CASE WHEN bmg_p_gt_abs_t >= 0.05 THEN 1 END) as not_significant,
+count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) as significant
+from stock_stats group by ticker, bmg_factor_name
+having count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= 0.05 THEN 1 END);
+```
+OR
+```
+python bmg_series.py --list_stocks_with_significant_regressions
+```
+- Get the number of stocks in each sector with statistically significant BMG regression factor loading for at least half of the regressions
+```
+select sector, bmg_factor_name, count(ticker)
+from (select ss.ticker, ss.bmg_factor_name, s.sector,
+count(1) as total,
+count(CASE WHEN bmg_p_gt_abs_t >= 0.05 THEN 1 END) as not_significant,
+count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) as significant
+from stock_stats ss
+left join stocks s on s.ticker = ss.ticker
+group by ss.ticker, ss.bmg_factor_name, s.sector
+having count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= 0.05 THEN 1 END)) x
+group by sector, bmg_factor_name
+order by count(ticker) desc, sector;
+```
+OR
+```
+python bmg_series.py --list_sectors_with_significant_regressions
 ```
 - Get a count of the stocks with significant BMG results by sector:
 ```

@@ -75,8 +75,11 @@ def import_carbon_constituents_into_sql(file_name, cursor, constituent_ticker):
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
-def cleanup_abnormal_returns(cursor):
-    cursor.execute('delete from stock_data where return > 1;')
+def cleanup_abnormal_returns(cursor, ticker=None):
+    if ticker:
+        cursor.execute("delete from stock_data where ticker = ? and (return > 1 or return = 'NaN');", (ticker,))
+    else:
+        cursor.execute("delete from stock_data where return > 1 or return = 'NaN';")
 
 
 CONFIG_FILE = 'db.ini'
