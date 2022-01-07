@@ -28,53 +28,64 @@ def get_count_of_stocks_per_sector_map(index_stock):
     return dict(rows)
 
 
-def get_stocks_with_significant_final_regression(significance):
+def get_stocks_with_significant_final_regression(significance, factor_name=None):
     sql = '''
         select x.ticker, x.bmg_factor_name, ss.bmg_p_gt_abs_t
         from
             (select ticker, bmg_factor_name, max(thru_date) as thru_date
             from stock_stats group by ticker, bmg_factor_name) x
         left join stock_stats ss on ss.ticker = x.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date
-        where ss.bmg_p_gt_abs_t < %s;
+        where ss.bmg_p_gt_abs_t < %s
         '''
+    if factor_name:
+        sql += ' AND x.bmg_factor_name = %s'
     with conn.cursor() as cursor:
-        cursor.execute(sql, (significance,))
+        if factor_name:
+            cursor.execute(sql, (significance,factor_name,))
+        else:
+            cursor.execute(sql, (significance,))
         return cursor.fetchall()
 
 
-def show_stocks_with_significant_final_regression(significance):
-    rows = get_stocks_with_significant_final_regression(significance)
+def show_stocks_with_significant_final_regression(significance, factor_name=None):
+    rows = get_stocks_with_significant_final_regression(significance, factor_name=factor_name)
     print('stock,bmg_factor_name')
     for (ticker,factor,*_) in rows:
         print('{},{}'.format(ticker,factor))
     return True
 
 
-def get_stocks_with_significant_regressions(significance):
+def get_stocks_with_significant_regressions(significance, factor_name=None):
     sql = '''
         select ss.ticker, ss.bmg_factor_name, s.sector,
         count(1) as total,
         count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END) as not_significant,
         count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) as significant
         from stock_stats ss
-        left join stocks s on ss.ticker = s.ticker
+        left join stocks s on ss.ticker = s.ticker'''
+    if factor_name:
+        sql += ' where bmg_factor_name = %s '
+    sql += '''
         group by ss.ticker, ss.bmg_factor_name, s.sector
         having count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END);
         '''
     with conn.cursor() as cursor:
-        cursor.execute(sql, (significance, significance, significance, significance))
+        if factor_name:
+            cursor.execute(sql, (significance, significance, factor_name, significance, significance))
+        else:
+            cursor.execute(sql, (significance, significance, significance, significance))
         return cursor.fetchall()
 
 
-def show_stocks_with_significant_regressions(significance):
-    rows = get_stocks_with_significant_regressions(significance)
+def show_stocks_with_significant_regressions(significance, factor_name=None):
+    rows = get_stocks_with_significant_regressions(significance, factor_name=factor_name)
     print('stock,bmg_factor_name,sector')
     for (ticker,factor,*_) in rows:
         print('{},{}'.format(ticker,factor))
     return True
 
 
-def get_sectors_with_significant_regressions(significance):
+def get_sectors_with_significant_regressions(significance, factor_name=None):
     sql = '''
         select sector, bmg_factor_name, count(ticker)
         from (select ss.ticker, ss.bmg_factor_name, s.sector,
@@ -82,19 +93,25 @@ def get_sectors_with_significant_regressions(significance):
         count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END) as not_significant,
         count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) as significant
         from stock_stats ss
-        left join stocks s on s.ticker = ss.ticker
+        left join stocks s on s.ticker = ss.ticker'''
+    if factor_name:
+        sql += ' where bmg_factor_name = %s '
+    sql += '''
         group by ss.ticker, ss.bmg_factor_name, s.sector
         having count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END)) x
         group by sector, bmg_factor_name
         order by count(ticker) desc, sector;
         '''
     with conn.cursor() as cursor:
-        cursor.execute(sql, (significance, significance, significance, significance))
+        if factor_name:
+            cursor.execute(sql, (significance, significance, factor_name, significance, significance))
+        else:
+            cursor.execute(sql, (significance, significance, significance, significance))
         return cursor.fetchall()
 
 
-def show_sectors_with_significant_regressions(significance, index_stock=None):
-    rows = get_sectors_with_significant_regressions(significance)
+def show_sectors_with_significant_regressions(significance, factor_name=None, index_stock=None):
+    rows = get_sectors_with_significant_regressions(significance, factor_name=factor_name)
     index_map = dict()
     if index_stock:
         print('sector,bmg_factor_name,count,ratio')
@@ -114,7 +131,7 @@ def show_sectors_with_significant_regressions(significance, index_stock=None):
     return True
 
 
-def get_sectors_with_significant_final_regression(significance):
+def get_sectors_with_significant_final_regression(significance, factor_name=None):
     sql = '''
         select sector, bmg_factor_name, count(ticker)
         from (
@@ -124,18 +141,24 @@ def get_sectors_with_significant_final_regression(significance):
                 from stock_stats group by ticker, bmg_factor_name) x
             left join stock_stats ss on ss.ticker = x.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date
             left join stocks s on s.ticker = ss.ticker
-            where ss.bmg_p_gt_abs_t < %s
+            where ss.bmg_p_gt_abs_t < %s'''
+    if factor_name:
+        sql += ' AND ss.bmg_factor_name = %s'
+    sql += '''
         ) y
         group by sector, bmg_factor_name
         order by count(ticker) desc, sector;
         '''
     with conn.cursor() as cursor:
-        cursor.execute(sql, (significance,))
+        if factor_name:
+            cursor.execute(sql, (significance,factor_name,))
+        else:
+            cursor.execute(sql, (significance,))
         return cursor.fetchall()
 
 
-def show_sectors_with_significant_final_regression(significance, index_stock=None):
-    rows = get_sectors_with_significant_final_regression(significance)
+def show_sectors_with_significant_final_regression(significance, factor_name=None, index_stock=None):
+    rows = get_sectors_with_significant_final_regression(significance, factor_name=factor_name)
     index_map = dict()
     if index_stock:
         print('sector,bmg_factor_name,count,ratio')
@@ -157,13 +180,13 @@ def show_sectors_with_significant_final_regression(significance, index_stock=Non
 
 def main(args):
     if args.list_stocks_with_significant_final_regression:
-        return show_stocks_with_significant_final_regression(args.significance)
+        return show_stocks_with_significant_final_regression(args.significance, factor_name=args.factor_name)
     if args.list_stocks_with_significant_regressions:
-        return show_stocks_with_significant_regressions(args.significance)
+        return show_stocks_with_significant_regressions(args.significance, factor_name=args.factor_name)
     if args.list_sectors_with_significant_regressions:
-        return show_sectors_with_significant_regressions(args.significance, index_stock=args.index_stock)
+        return show_sectors_with_significant_regressions(args.significance, factor_name=args.factor_name, index_stock=args.index_stock)
     if args.list_sectors_with_significant_final_regression:
-        return show_sectors_with_significant_final_regression(args.significance, index_stock=args.index_stock)
+        return show_sectors_with_significant_final_regression(args.significance, factor_name=args.factor_name, index_stock=args.index_stock)
     return False
 
 if __name__ == "__main__":
