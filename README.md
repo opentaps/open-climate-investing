@@ -43,7 +43,7 @@ It will use the stock returns in the database by default, or if none are found, 
 - `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
 - `-e YYYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
 - `-i N` for the regression interval in months (defaults to 60 months).
-- `-c FACTOR_NAME` to specify the BMG factor to use.  If not specified, `DEFAULT` will be used.
+- `-n FACTOR_NAME` to specify the BMG factor to use.  If not specified, `DEFAULT` will be used.
 - `-h` to see all parameters available
 
 To calculate a BMG series and store it in the database:

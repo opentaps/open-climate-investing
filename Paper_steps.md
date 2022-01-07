@@ -54,7 +54,7 @@ python get_regressions.py -f data/stock_tickers_msci_world.csv -d
 
 For other BMG factors, we can run longer
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -d -c FACTOR_NAME
+python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -d -n FACTOR_NAME
 ```
 
 If you want to see how your regressions are doing, you can run this query:
