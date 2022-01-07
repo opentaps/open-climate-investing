@@ -103,86 +103,7 @@ def show_bmg_series(factor_name, start_date=None, end_date=None):
     return True
 
 
-def get_stocks_with_significant_final_regression(significance):
-    sql = '''
-        select x.ticker, x.bmg_factor_name, ss.bmg_p_gt_abs_t
-        from
-            (select ticker, bmg_factor_name, max(thru_date) as thru_date
-            from stock_stats group by ticker, bmg_factor_name) x
-        left join stock_stats ss on ss.ticker = x.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date
-        where ss.bmg_p_gt_abs_t < %s;
-        '''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (significance,))
-        return cursor.fetchall()
-
-
-def show_stocks_with_significant_final_regression(significance):
-    rows = get_stocks_with_significant_final_regression(significance)
-    print('stock,bmg_factor_name')
-    for (ticker,factor,*_) in rows:
-        print('{},{}'.format(ticker,factor))
-    return True
-
-
-def get_stocks_with_significant_regressions(significance):
-    sql = '''
-        select ss.ticker, ss.bmg_factor_name, s.sector,
-        count(1) as total,
-        count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END) as not_significant,
-        count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) as significant
-        from stock_stats ss
-        left join stocks s on ss.ticker = s.ticker
-        group by ss.ticker, ss.bmg_factor_name, s.sector
-        having count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END);
-        '''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (significance, significance, significance, significance))
-        return cursor.fetchall()
-
-
-def show_stocks_with_significant_regressions(significance):
-    rows = get_stocks_with_significant_regressions(significance)
-    print('stock,bmg_factor_name,sector')
-    for (ticker,factor,*_) in rows:
-        print('{},{}'.format(ticker,factor))
-    return True
-
-
-def get_sectors_with_significant_regressions(significance):
-    sql = '''
-        select sector, bmg_factor_name, count(ticker)
-        from (select ss.ticker, ss.bmg_factor_name, s.sector,
-        count(1) as total,
-        count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END) as not_significant,
-        count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) as significant
-        from stock_stats ss
-        left join stocks s on s.ticker = ss.ticker
-        group by ss.ticker, ss.bmg_factor_name, s.sector
-        having count(CASE WHEN bmg_p_gt_abs_t < %s THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= %s THEN 1 END)) x
-        group by sector, bmg_factor_name
-        order by count(ticker) desc, sector;
-        '''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (significance, significance, significance, significance))
-        return cursor.fetchall()
-
-
-def show_sectors_with_significant_regressions(significance):
-    rows = get_sectors_with_significant_regressions(significance)
-    print('sector,bmg_factor_name,count')
-    for (sector,factor,count) in rows:
-        print('{},{},{}'.format(sector,factor,count))
-    return True
-
-
 def main(args):
-    if args.list_stocks_with_significant_final_regression:
-        return show_stocks_with_significant_final_regression(args.significance)
-    if args.list_stocks_with_significant_regressions:
-        return show_stocks_with_significant_regressions(args.significance)
-    if args.list_sectors_with_significant_regressions:
-        return show_sectors_with_significant_regressions(args.significance)
     if args.show:
         return show_bmg_series(args.factor_name, start_date=args.start_date, end_date=args.end_date)
     else:
@@ -226,14 +147,6 @@ if __name__ == "__main__":
                         help="specify the factor name for the BMG series to operate on, cannot be DEFAULT which is a reserved name")
     parser.add_argument("-o", "--show", action='store_true',
                         help="display the series from the DB, for testing")
-    parser.add_argument("--list_sectors_with_significant_regressions", action='store_true',
-                        help="display the count of stocks by sectors that have at least half of their regressions being significant (bmg_p_gt_abs_t > SIGNIFICANCE) from the DB")
-    parser.add_argument("--list_stocks_with_significant_regressions", action='store_true',
-                        help="display the stocks that have at least half of their regressions being significant (bmg_p_gt_abs_t > SIGNIFICANCE) from the DB")
-    parser.add_argument("--list_stocks_with_significant_final_regression", action='store_true',
-                        help="display the stocks that have their final regression being significant (bmg_p_gt_abs_t > SIGNIFICANCE) from the DB")
-    parser.add_argument("--significance", default=0.01,
-                        help="Sets the p-value that is considered significant for list_stocks_with_significant_regressions")
     parser.add_argument("-d", "--delete", action='store_true',
                         help="remove the series from the DB")
     parser.add_argument("-g", "--green_ticker",

@@ -98,7 +98,7 @@ having count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) > count(CASE WHEN bmg_p
 ```
 OR
 ```
-python bmg_series.py --list_stocks_with_significant_regressions
+python bmg_analyze.py --list_stocks_with_significant_regressions
 ```
 - Get the number of stocks in each sector with statistically significant BMG regression factor loading for at least half of the regressions
 ```
@@ -116,7 +116,7 @@ order by count(ticker) desc, sector;
 ```
 OR
 ```
-python bmg_series.py --list_sectors_with_significant_regressions
+python bmg_analyze.py --list_sectors_with_significant_regressions
 ```
 - Get a count of the stocks with significant BMG results by sector:
 ```
