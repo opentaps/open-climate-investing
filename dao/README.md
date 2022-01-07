@@ -141,3 +141,7 @@ Harold            600
 - Do we need a separate token for general standing in the community, or is the 2x Reputation + 1x Activity tokens count sufficient?
 - What is the right combination of Reputation and Activity tokens to determine general standing in the community?
 - Should Administrators be voted in, or just based on their Reputation and Activity tokens?  If the latter, what happens if a big holder who suddenly goes quiet?
+
+## Reference
+
+- [A Novel Framework for Reputation-Based Systems](https://future.a16z.com/reputation-based-systems/)
