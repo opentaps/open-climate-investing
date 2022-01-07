@@ -204,7 +204,7 @@ if __name__ == "__main__":
                         help="display the count of stocks by sectors that have at least half of their regressions being significant (bmg_p_gt_abs_t > SIGNIFICANCE) from the DB, if index_stock is given also give the ratio of that number by the number of stocks in the index for the same sector")
     parser.add_argument("--list_sectors_with_significant_final_regression", action='store_true',
                         help="display the sectors that have their final regression being significant (bmg_p_gt_abs_t > SIGNIFICANCE) from the DB, if index_stock is given also give the ratio of that number by the number of stocks in the index for the same sector")
-    parser.add_argument("--significance", default=0.01,
+    parser.add_argument("--significance", default=0.05,
                         help="Sets the p-value that is considered significant for list_stocks_with_significant_regressions")
     parser.add_argument("-i", "--index_stock",
                         help="Sets the index stock to compare to, eg: XWD.TO")
