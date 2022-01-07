@@ -208,10 +208,6 @@ if __name__ == "__main__":
                         help="Sets the p-value that is considered significant for list_stocks_with_significant_regressions")
     parser.add_argument("-i", "--index_stock",
                         help="Sets the index stock to compare to, eg: XWD.TO")
-    parser.add_argument("-s", "--start_date",
-                        help="Sets the start date for the series, must be in the YYYY-MM-DD format, defaults to the earliest date on record")
-    parser.add_argument("-e", "--end_date",
-                        help="Sets the end date for the series, must be in the YYYY-MM-DD format, defaults to the latest date on record")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="more output")
     if not main(parser.parse_args()):
