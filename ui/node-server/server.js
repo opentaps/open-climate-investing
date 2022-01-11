@@ -33,6 +33,7 @@ require("./app/routes/stock_parents.routes")(app);
 require("./app/routes/stock_data.routes")(app);
 require("./app/routes/stock_stats.routes")(app);
 require("./app/routes/stock_factor_names.routes")(app);
+require("./app/routes/bmg_analysis.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

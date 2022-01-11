@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import StockView from "./components/stock-view.component";
 import StocksList from "./components/stocks-list.component";
+import BmgAnalysis from "./components/bmg-analysis.component";
 
 class App extends Component {
   getBaseUrl() {
@@ -26,6 +27,10 @@ class App extends Component {
                 <Link to={"/stocks"} className="nav-link">
                   Stocks
                 </Link>
+              </li><li className="nav-item">
+                <Link to={"/bmg-analysis"} className="nav-link">
+                  BMG Analysis
+                </Link>
               </li>
             </div>
           </nav>
@@ -45,6 +50,7 @@ class App extends Component {
                 component={StocksList}
               />
               <Route exact path="/stocks/:id" component={StockView} />
+              <Route exact path="/bmg-analysis" component={BmgAnalysis} />
               <Route exact path="/about">
                 <h1>About</h1>
                 <p>The Open Climate Investing about page.</p>

@@ -29,6 +29,18 @@ class StockDataService {
     return http.get(`/stock_parents/${id}`, { params });
   }
 
+  getBmgAnalysisBaseCount(params) {
+    return http.get(`/bmg_analysis/count`, { params });
+  }
+
+  getStocksBmgAnalysis(params) {
+    return http.get(`/bmg_analysis/stocks`, { params });
+  }
+
+  getSectorsBmgAnalysis(params) {
+    return http.get(`/bmg_analysis/sectors`, { params });
+  }
+
   getColoringClassForStat(p_gt_abs_t) {
     if (p_gt_abs_t === undefined) {
       return "";
