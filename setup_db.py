@@ -8,15 +8,17 @@ import argparse
 
 
 def import_bond_factor_into_sql(file_name, cursor):
+    print("-- import_bond_factor_into_sql file={}".format(file_name,))
     sql_query = 'COPY bond_factor FROM %s WITH (FORMAT CSV, HEADER);'
     cursor.execute(sql_query, (file_name,))
 
 
 def import_data_into_sql(table_name, file_name, cursor, bmg=False):
+    print("-- import_data_into_sql file={} table={}".format(file_name, table_name))
     if bmg is not False:
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
         cursor.execute(sql_query)
-        sql_query = "CREATE TABLE _import_carbon_risk_factor (date date, bmg decimal(12, 10), PRIMARY KEY (date));"
+        sql_query = "CREATE TABLE _import_carbon_risk_factor (date date, frequency text, bmg decimal(12, 10), PRIMARY KEY (date));"
         cursor.execute(sql_query)
         sql_query = "COPY _import_carbon_risk_factor FROM %s WITH (FORMAT CSV, HEADER);"
     else:
@@ -24,7 +26,7 @@ def import_data_into_sql(table_name, file_name, cursor, bmg=False):
             " FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
     if bmg is not False:
-        sql_query = "INSERT INTO carbon_risk_factor (date, factor_name, bmg) SELECT date, '" + \
+        sql_query = "INSERT INTO carbon_risk_factor (date, frequency, factor_name, bmg) SELECT date, frequency, '" + \
                                                      bmg + "', bmg FROM _import_carbon_risk_factor;"
         cursor.execute(sql_query)
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"

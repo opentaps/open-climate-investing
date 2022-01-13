@@ -2,32 +2,38 @@ DROP TABLE IF EXISTS carbon_risk_factor CASCADE;
 
 CREATE TABLE carbon_risk_factor (
     date date,
-	factor_name text DEFAULT 'DEFAULT',
+    frequency text,
+    factor_name text DEFAULT 'DEFAULT',
     bmg decimal(12, 10),
-	PRIMARY KEY (date, factor_name)
+    PRIMARY KEY (date, frequency, factor_name)
 );
 
 DROP TABLE IF EXISTS ff_factor CASCADE;
 
 CREATE TABLE ff_factor (
-    date date primary key,
+    date date,
+    frequency text,
     mkt_rf decimal(8, 5),
     smb decimal(8, 5),
     hml decimal(8, 5),
-    wml decimal(8, 5)
+    wml decimal(8, 5),
+    PRIMARY KEY (date, frequency)
 );
 
 DROP TABLE IF EXISTS risk_free CASCADE;
 
 CREATE TABLE risk_free (
-    date date primary key,
-    Rf decimal(8, 5)
+    date date,
+    frequency text,
+    Rf decimal(8, 5),
+    PRIMARY KEY (date, frequency)
 );
 
 DROP TABLE IF EXISTS bond_factor CASCADE;
 
 CREATE TABLE bond_factor (
-    date date primary key,
+    date date,
+    frequency text,
     rate decimal(5, 3),
     curve decimal(5, 3),
     hi_yield_spread decimal(5, 3),
@@ -35,7 +41,8 @@ CREATE TABLE bond_factor (
     rate_chg decimal(5, 3),
     curve_chg decimal(5, 3),
     hi_yield_spread_chg decimal(5, 3),
-    bbb_spread_chg decimal(5, 3)
+    bbb_spread_chg decimal(5, 3),
+    PRIMARY KEY (date, frequency)
 );
 
 
@@ -43,8 +50,10 @@ DROP TABLE IF EXISTS additional_factors CASCADE;
 
 CREATE TABLE additional_factors (
     date date,
+    frequency text,
     factor_name text,
-    factor_value decimal(8, 5)
+    factor_value decimal(8, 5),
+    PRIMARY KEY (date, frequency, factor_name)
 );
 
 
@@ -73,16 +82,18 @@ CREATE TABLE stock_components (
 DROP TABLE IF EXISTS stock_data CASCADE;
 CREATE TABLE stock_data (
     ticker text,
+    frequency text,
     date date,
     close decimal(40, 10),
     return decimal(20, 10),
-    PRIMARY KEY (ticker, date)
+    PRIMARY KEY (ticker, frequency, date)
 );
 
 
 DROP TABLE IF EXISTS stock_stats CASCADE;
 CREATE TABLE stock_stats (
     ticker text,
+    frequency text,
     bmg_factor_name text,
     from_date date,
     thru_date date,
@@ -118,13 +129,14 @@ CREATE TABLE stock_stats (
     breusch_pagan_p_gt_abs_t decimal(12, 5),
     durbin_watson decimal(12, 5),
     r_squared decimal(12, 5),
-    PRIMARY KEY (ticker, bmg_factor_name, from_date, thru_date)
+    PRIMARY KEY (ticker, frequency, bmg_factor_name, from_date, thru_date)
 );
 
 DROP VIEW IF EXISTS stock_and_stats;
 CREATE VIEW stock_and_stats AS
 select
 s.* ,
+ss.frequency,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -164,13 +176,14 @@ from stocks s
 left join (
 select
     ticker,
+    frequency,
     bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, bmg_factor_name
+    ticker, frequency, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 -- query this parent_ticker to get data of the components of that stock
 DROP VIEW IF EXISTS stock_component_and_stats;

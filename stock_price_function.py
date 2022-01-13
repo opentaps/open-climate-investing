@@ -10,14 +10,20 @@ def stock_details_grabber(ticker):
     return info
 
 
-def stock_grabber(ticker):
+def stock_grabber(ticker, frequency='MONTHLY'):
     stock = yf.Ticker(ticker)
     attempt_num = 3
     while attempt_num > 0:
         try:
-            history = stock.history(period='max', interval='1mo')
+            if frequency == 'DAILY':
+                history = stock.history(period='max', interval='1d')
+            elif frequency == 'MONTHLY':
+                history = stock.history(period='max', interval='1mo')
+            else:
+                raise Exception('Unsupported frequency {}'.format(frequency))
             history.drop(history.tail(1).index, inplace=True)
-            history.index = history.index + MonthEnd(1)
+            if frequency != 'DAILY':
+                history.index = history.index + MonthEnd(1)
             history = history['Close']
             history = history.dropna()
             attempt_num = 0
@@ -29,9 +35,9 @@ def stock_grabber(ticker):
         raise ValueError("Timed out")
 
 
-def stock_df_grab(x):
+def stock_df_grab(x, frequency='MONTHLY'):
     try:
-        stock_data = stock_grabber(x)
+        stock_data = stock_grabber(x, frequency=frequency)
         stock_data = stock_data.to_frame()
         stock_data['Date'] = stock_data.index
         stock_data['Date'] = pd.to_datetime(stock_data['Date']).dt.date

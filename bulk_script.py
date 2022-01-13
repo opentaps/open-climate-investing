@@ -65,6 +65,7 @@ use_default = input(
 use_default = use_default.upper()
 
 ff_data = None
+carbon_data = None
 if use_default == 'Y':
     carbon_data = pd.read_csv('data/bmg_carima.csv')
     ff_data = pd.read_csv('data/ff_factors.csv')
@@ -113,7 +114,7 @@ else:
     ff_data = ff_data/100
 
     i = 1
-# Create holder dataframe
+    # Create holder dataframe
     coef_all = pd.DataFrame()
 
     if ret_provided is False:

@@ -20,15 +20,15 @@ def load_stocks_csv(filename):
     return all_stock_data.values
 
 
-def import_stock(stock_name, always_update_details=False, verbose=False):
+def import_stock(stock_name, always_update_details=False, frequency='MONTHLY', verbose=False):
     try:
         if verbose:
             print("*** importing stock {}".format(stock_name))
-        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details)
+        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details, frequency=frequency)
         if verbose and (stock_data is None or stock_data.empty):
             print("*** no stock data could be loaded for {}".format(stock_name))
         try:
-            import_stocks_into_db(stock_name, stock_data)
+            import_stocks_into_db(stock_name, stock_data, frequency=frequency)
         except DataError as e:
             print(
                 '!! Cannot import {} due to DataError inserting the data:'.format(stock_name))
@@ -69,11 +69,11 @@ def check_stocks_info_exist(stock_name):
 
 
 
-def load_stocks_data(stock_name, always_update_details=False):
+def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY'):
     has_info = check_stocks_info_exist(stock_name)
     if always_update_details or not has_info:
         update_stocks_info_data(stock_name)
-    stock_data = spf.stock_df_grab(stock_name)
+    stock_data = spf.stock_df_grab(stock_name, frequency=frequency)
     stock_data = input_function.convert_to_form(stock_data)
     return stock_data
 
@@ -125,11 +125,11 @@ def import_carbon_risk_factor_into_db(data):
             cursor.execute(sql, (index, row['factor_name'], row['bmg']))
 
 
-def import_stocks_into_db(stock_name, stock_data):
+def import_stocks_into_db(stock_name, stock_data, frequency='MONTHLY'):
     sql = '''INSERT INTO
-        stock_data (ticker, date, close, return)
-        VALUES (%s, %s, %s, %s)
-        ON CONFLICT (ticker, date) DO
+        stock_data (ticker, frequency, date, close, return)
+        VALUES (%s, %s, %s, %s, %s)
+        ON CONFLICT (ticker, frequency, date) DO
         UPDATE SET close = EXCLUDED.close, return = EXCLUDED.return;'''
     with conn.cursor() as cursor:
         # we store both the values of Close and the Returns from pct_change
@@ -140,23 +140,23 @@ def import_stocks_into_db(stock_name, stock_data):
         stock_data = stock_data[stock_data['r'] <= 1]
         for index, row in stock_data.iterrows():
             #print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
-            cursor.execute(sql, (stock_name, index, row['Close'], row['r']))
+            cursor.execute(sql, (stock_name, frequency, index, row['Close'], row['r']))
 
 
-def import_stocks_returns_into_db(stock_name, stock_data):
+def import_stocks_returns_into_db(stock_name, stock_data, frequency='MONTHLY'):
     sql = '''INSERT INTO
-        stock_data (ticker, date, return)
-        VALUES (%s, %s, %s)
-        ON CONFLICT (ticker, date) DO
+        stock_data (ticker, frequency, date, return)
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT (ticker, frequency, date) DO
         UPDATE SET return = EXCLUDED.return;'''
     with conn.cursor() as cursor:
         for index, row in stock_data.iterrows():
-            cursor.execute(sql, (stock_name, index, row['return']))
+            cursor.execute(sql, (stock_name, frequency, index, row['return']))
 
 
-def load_stocks_returns_from_db(stock_name):
+def load_stocks_returns_from_db(stock_name, frequency='MONTHLY'):
     df = load_stocks_data_with_returns_from_db(
-        stock_name, with_components=True, import_when_missing=True)
+        stock_name, with_components=True, import_when_missing=True, frequency=frequency)
     is_composite = 'composite_return' in df.columns
     # remove columns we do not need here
     if is_composite:
@@ -165,25 +165,25 @@ def load_stocks_returns_from_db(stock_name):
     else:
         df = df[['return']]
     # if it was a composite, save the resulting return values in the DB as well
-    import_stocks_returns_into_db(stock_name, df)
+    import_stocks_returns_into_db(stock_name, df, frequency=frequency)
     return df
 
 
-def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False, verbose=False):
+def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False, frequency='MONTHLY', verbose=False):
     sql = '''SELECT date, close, return
         FROM stock_data
-        WHERE ticker = %s
+        WHERE ticker = %s and frequency = %s
         ORDER BY date
         '''
     df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                           index_col='date', params=(stock_name,))
+                           index_col='date', params=(stock_name,frequency,))
     if (df is None or df.empty) and import_when_missing:
         if verbose:
             print("*** no data in DB for {}, will import it".format(stock_name))
-        import_stock(stock_name, always_update_details=always_update_details)
+        import_stock(stock_name, always_update_details=always_update_details, frequency=frequency)
         # try again
         df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                               index_col='date', params=(stock_name,))
+                               index_col='date', params=(stock_name,frequency,))
 
     if with_components:
         components = get_components_from_db(stock_name)
@@ -199,7 +199,7 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
                 if verbose:
                     print("*** loading component {} as {} of {} ...".format(ticker, percentage, stock_name))
                 df2 = load_stocks_data_with_returns_from_db(
-                    ticker, import_when_missing=import_when_missing)
+                    ticker, import_when_missing=import_when_missing, frequency=frequency)
                 df = df.join(df2, how="outer",
                              rsuffix='_{}'.format(ticker))
                 df['percentage_{}'.format(ticker)] = percentage
@@ -215,23 +215,24 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
     return df
 
 
-def load_stocks_from_db(stock_name):
+def load_stocks_from_db(stock_name, frequency='MONTHLY'):
     sql = '''SELECT date, close
         FROM stock_data
-        WHERE ticker = %s
+        WHERE ticker = %s and frequency = %s
         ORDER BY date
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='date', params=(stock_name,))
+                             index_col='date', params=(stock_name,frequency,))
 
 
-def load_all_stocks_from_db():
+def load_all_stocks_from_db(frequency='MONTHLY'):
     sql = '''SELECT *
         FROM stock_data
+        WHERE frequency = %s
         ORDER BY ticker, date
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='date')
+                             index_col='date', params=(frequency,))
 
 
 def load_stocks_defined_in_db():
@@ -248,8 +249,8 @@ def get_stock_details(ticker):
     return df
 
 
-def import_stock_or_returns(stock_name, always_update_details=False, verbose=False):
-    df = import_stock(stock_name, always_update_details=always_update_details, verbose=verbose)
+def import_stock_or_returns(stock_name, always_update_details=False, frequency='MONTHLY', verbose=False):
+    df = import_stock(stock_name, always_update_details=always_update_details, frequency=frequency, verbose=verbose)
     if (df is None or df.empty) and get_components_from_db(stock_name):
         # for a composite, we can compute and import the returns only
         print("** Stock {} is a composite, will only compute and save the returns ...".format(stock_name))
@@ -274,21 +275,21 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* loading stocks for {} ... '.format(stock_name))
-            import_stock_or_returns(stock_name, always_update_details=args.update_stocks_details, verbose=args.verbose)
+            import_stock_or_returns(stock_name, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
 
     elif args.delete:
         delete_stock_from_db(args.delete)
     elif args.ticker:
-        import_stock_or_returns(args.ticker, always_update_details=args.update_stocks_details, verbose=args.verbose)
+        import_stock_or_returns(args.ticker, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
     elif args.show:
         sd = get_stock_details(args.show)
         print('-- Stock details for {}'.format(args.show))
         print(sd.T)
         if args.with_returns:
             df = load_stocks_data_with_returns_from_db(
-                args.show, with_components=args.with_components)
+                args.show, with_components=args.with_components, frequency=args.frequency)
         else:
-            df = load_stocks_from_db(args.show)
+            df = load_stocks_from_db(args.show, frequency=args.frequency)
         print('Loaded from DB: {} entries'.format(len(df)))
         print(' -- sample (truncated) -- ')
         print(df)
@@ -303,7 +304,7 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item()
             print("Trying to get: " + stock_name)
-            import_stock(stock_name, always_update_details=args.update_stocks_details)
+            import_stock(stock_name, always_update_details=args.update_stocks_details, frequency=args.frequency)
     else:
         return False
     return True
@@ -322,8 +323,10 @@ if __name__ == "__main__":
                         help="specify a single ticker to delete")
     parser.add_argument("-s", "--show",
                         help="Show the data for a given ticker, for testing")
+    parser.add_argument("--frequency", default='MONTHLY',
+                        help="Frequency to use for the various series, eg: MONTHLY, DAILY")
     parser.add_argument("--update_stocks_details", action='store_true',
-                        help="When importing stocks, always update the stock details from YF in the stocks entry even if a value already exist")
+                        help="When getting stocks data, always update the stock details from YF in the stocks entry even if a value already exist")
     parser.add_argument("--with_returns", action='store_true',
                         help="When showing, also show the return values")
     parser.add_argument("--clean_bad_returns", action='store_true',
