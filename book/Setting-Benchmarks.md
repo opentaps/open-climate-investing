@@ -118,7 +118,7 @@ The benchmark should reflect your long-term climate strategy into a neutral inde
 You could construct a benchmark yourself, or you could choose from one of many that's being pumped out to support the boom in ESG investing.  There are, for example:
 
 - The [S&P Paris-Aligned & Climate Transition, or PACT™, Indices](https://www.spglobal.com/spdji/en/education/article/faq-sp-paris-aligned-and-climate-transition-pact-indices/), which "are designed to measure the performance of eligible equity securities from an underlying benchmark index, selected and weighted to be collectively compatible with a 1.5ºC global warming climate scenario and to meet several other climate-themed objectives at the index level, as of each rebalance." 
-- The [MSCI World Climate Change ESG Select Index](https://www.msci.com/documents/10199/84e37acb-a91e-8ff3-a909-6f8c7c6306dd), which excludes companies engaged in Nuclear Weapons, Tobacco, Thermal Coal, Nuclear Power and Unconventional Oil & Gas, companies which are "not in compliance with the United Nations Global Compact principles", and companies which are not "rated B and above."  (A "B" means "laggard" according to the MSCI ESG ratings
+- The [MSCI World Climate Change ESG Select Index](https://www.msci.com/documents/10199/84e37acb-a91e-8ff3-a909-6f8c7c6306dd), which excludes companies engaged in Nuclear Weapons, Tobacco, Thermal Coal, Nuclear Power and Unconventional Oil & Gas, companies which are "not in compliance with the United Nations Global Compact principles", and companies which are not "rated B and above."  (A "B" means "laggard" and is probably a company in the lowest quartile compared to its peers.) 
 - Finally, for hard core divesters, there's the [S&P 500 Fossil Fuel Free Index
 ](https://www.spglobal.com/spdji/en/indices/esg/sp-500-fossil-fuel-free-index/#overview), which is simply "companies in the S&P 500 that do not own fossil fuel reserves.  Fossil fuel reserves are defined as economically and technically recoverable sources of crude oil, natural gas and thermal coal."
 
@@ -128,8 +128,9 @@ But how good are these benchmarks in real life?  Critics such as [The ESG Mirage
 - They incorporate a broad range of criteria, so improvements in employee diversity or governance policies could cause ESG ratings upgrades even for a company with high climate risks.
 - They try to measure the impact of climate and environmental risk on a company's business risk profile, rather than its total social risk profile.  In doing so, they could underestimate the long-term climate risk of the company. 
 - They are graded on a curve, relative to other companies its own sector.  So a company with high climate risks that is marginally better than others would still receive higher ESG ratings. 
+- As MSCI succinctly puts it, "ESG ratings are not climate ratings."  ([What MSCI’s ESG Ratings are and are not](https://www.msci.com/our-solutions/esg-investing/esg-ratings/what-esg-ratings-are-and-are-not))
 
-But there's a relative easy way to check on a benchmark, whether one you've constructed yourself or one constructed by an ESG provider.  See how it compares to the market's view of climate risk, using analysis similar to what we did in the chapter on [Analyzing Investments](Analyzing-Investments.md).  Unlike rating agencies, investors are not paid by corporate issuers.  
+But there's a relative easy way to check on how good a benchmark is for climate investing: See how it compares to the market's view of climate risk.  Unlike rating agencies, investors are not paid by corporate issuers.  You can perform an analysis similar to what we did in the chapter on [Analyzing Investments](Analyzing-Investments.md), and you can do it for a benchmark you constructed yourself or one constructed by an ESG ratings service.    
 
 
 Should portfolio managers vote proxies? 
