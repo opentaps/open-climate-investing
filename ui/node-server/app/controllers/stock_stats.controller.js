@@ -46,6 +46,15 @@ exports.findAll = (req, res) => {
       })
     );
   }
+  let freq = req.query["frequency"];
+  if (!freq) freq = 'MONTHLY';
+  if (freq) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("frequency"), {
+        [Op.eq]: `${freq}`,
+      })
+    );
+  }
   let factor_name = req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
   console.log(`stock_stats.controller::findAll -> factor_name = ${factor_name}`);
   conditions.push(

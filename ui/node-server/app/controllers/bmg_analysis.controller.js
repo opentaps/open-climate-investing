@@ -54,7 +54,9 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   if (req.query["s"]) {
     sigma = parseFloat(req.query["s"]);
   }
-  let params = { sigma };
+  let frequency = req.query["frequency"];
+  if (!frequency) frequency = 'MONTHLY';
+  let params = { sigma, frequency };
 
   // get the count of stock with significant regressions
   let sql = `select ss.ticker, ss.bmg_factor_name, s.sector,
@@ -63,7 +65,7 @@ exports.stocksWithSignificantRegressions = (req, res) => {
         count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) as significant
         from stock_stats ss
         left join stocks s on ss.ticker = s.ticker
-        where s.sector is not null and s.sector != '' `;
+        where s.sector is not null and s.sector != '' and ss.frequency = :frequency `;
   if (factors && factors.length) {
     sql += ' and bmg_factor_name IN (:factors) ';
     params.factors = factors;
@@ -105,7 +107,9 @@ exports.sectorsWithSignificantRegressions = (req, res) => {
   if (req.query["s"]) {
     sigma = parseFloat(req.query["s"]);
   }
-  let params = { sigma };
+  let frequency = req.query["frequency"];
+  if (!frequency) frequency = 'MONTHLY';
+  let params = { sigma, frequency };
 
   // get the count of sectors with significant regressions
   let sql = `select sector, bmg_factor_name, count(ticker)
@@ -115,7 +119,7 @@ exports.sectorsWithSignificantRegressions = (req, res) => {
         count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) as significant
         from stock_stats ss
         left join stocks s on s.ticker = ss.ticker
-        where s.sector is not null and s.sector != '' `;
+        where s.sector is not null and s.sector != '' and ss.frequency = :frequency `;
   if (factors && factors.length) {
     sql += ' and bmg_factor_name = :factors ';
     params.factors = factors;

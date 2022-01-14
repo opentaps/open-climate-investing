@@ -15,8 +15,9 @@ def execute_batch(conn, df, table):
     tuples = [tuple(x) for x in df.to_numpy()]
     # Comma-separated dataframe columns
     cols = ','.join(list(df.columns))
+    placeholders = ", ".join(["%s"] * len(df.columns))
     # SQL quert to execute
-    query = "INSERT INTO %s(%s) VALUES(%%s,%%s,%%s)" % (table, cols)
+    query = "INSERT INTO %s(%s) VALUES(%s)" % (table, cols, placeholders)
     cursor = conn.cursor()
     try:
         extras.execute_batch(cursor, query, tuples)
@@ -30,7 +31,7 @@ def execute_batch(conn, df, table):
     cursor.close()
 
 
-def process_factor(bmg_factor_name, significance=0.1, verbose=False):
+def process_factor(bmg_factor_name, significance=0.1, verbose=False, frequency='MONTHLY'):
 
     conn = db.get_db_connection()
     sql = '''SELECT
@@ -38,12 +39,12 @@ def process_factor(bmg_factor_name, significance=0.1, verbose=False):
             factor_name as "factor_name",
             factor_value as "factor_value"
         FROM additional_factors
-        /* WHERE factor_name = %s */
+        WHERE factor_name = %s and frequency = %s
         ORDER BY factor_name, date
         '''
 
     additional_factor_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                             index_col='date', params=(bmg_factor_name,))
+                                             index_col='date', params=(bmg_factor_name,frequency,))
 
     additional_factor_names = additional_factor_df['factor_name'].unique()
 
@@ -54,22 +55,23 @@ def process_factor(bmg_factor_name, significance=0.1, verbose=False):
             hml,
             wml
         FROM ff_factor
+        WHERE frequency = %s
         ORDER BY date
         '''
 
     ff_factors_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                      index_col='date')
+                                      index_col='date', params=(frequency,))
 
     sql = '''SELECT
             date,
             bmg
         FROM carbon_risk_factor
-        WHERE factor_name = %s
+        WHERE factor_name = %s and frequency = %s
         ORDER BY date
         '''
 
     bmg_factors_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                       index_col='date', params=(bmg_factor_name,))
+                                       index_col='date', params=(bmg_factor_name,frequency,))
 
     final_df = bmg_factors_df
     final_df = pd.merge(bmg_factors_df,
@@ -131,6 +133,7 @@ def process_factor(bmg_factor_name, significance=0.1, verbose=False):
 
     resid_table = pd.DataFrame()
     resid_table["date"] = model.resid.index
+    resid_table["frequency"] = frequency
     resid_table["factor_name"] = orthog_name
     resid_table["bmg"] = model.resid.values
     if verbose:
@@ -139,11 +142,11 @@ def process_factor(bmg_factor_name, significance=0.1, verbose=False):
     # Delete if previously orthogonalised
     del_sql = '''DELETE
               FROM carbon_risk_factor
-              WHERE factor_name = %s
+              WHERE factor_name = %s and frequency = %s
               '''
     with conn.cursor() as cursor:
         cursor.execute(
-            del_sql, (orthog_name, ))
+            del_sql, (orthog_name,frequency, ))
 
     # Insert into carbon risk factor table
     execute_batch(conn, resid_table, 'carbon_risk_factor')
@@ -158,9 +161,9 @@ def main(args):
             for (factor_name, frequency, _from, _to) in series:
                 if factor_name.endswith('-ORTHO'):
                     continue
-                process_factor(factor_name, args.significance, args.verbose)
+                process_factor(factor_name, args.significance, args.verbose, frequency)
     else:
-        process_factor(args.bmg_factor_name, args.significance, args.verbose)
+        process_factor(args.bmg_factor_name, args.significance, args.verbose, args.frequency)
 
 
 if __name__ == "__main__":
@@ -171,6 +174,8 @@ if __name__ == "__main__":
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("-s", "--significance", default=0.1,
                         help="Sets the p-value that is considered significant for orthogonalisation")
+    parser.add_argument("--frequency", default='MONTHLY',
+                        help="Frequency to use for the various series, eg: MONTHLY, DAILY")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="Provides much more output data")
     main(parser.parse_args())

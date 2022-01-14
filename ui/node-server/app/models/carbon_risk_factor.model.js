@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DATE,
         primaryKey: true,
       },
+      frequency: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+      },
       factor_name: {
         type: Sequelize.STRING,
         primaryKey: true,

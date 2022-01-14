@@ -80,7 +80,7 @@ class BmgAnalysis extends Component {
               <tr key={s}>
                 <th>{s}</th>
                 <td>{analysis.values[s]['_TOTAL_']}</td>
-                {analysis.factors.map(f=><td key={`${s}_${f}`}>{analysis.values[s][f]} ({(100.0*analysis.values[s][f]/analysis.values[s]['_TOTAL_']).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}%)</td>)}
+                {analysis.factors.map(f=><td key={`${s}_${f}`}>{analysis.values[s][f]||0} ({(100.0*(analysis.values[s][f]||0)/analysis.values[s]['_TOTAL_']).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}%)</td>)}
               </tr>
             ))}
             </tbody>
