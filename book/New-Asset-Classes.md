@@ -28,6 +28,8 @@ Counterparty risk: If you are investing in projects to provide energy or generat
 
 Liquidity risk: If these are long term projects, will you be able to sell them when you need money for something else?  If you are planning to finance them, how will your funding counterparty mark your positions for collateral?
 
+Early days - Lots of different standards.  Eventually market will converge either to the government compliance standards or large private sector ones.  Will your project make it?
+
 Some general recommendations:
 
 - Find a public equivalent to what you're planning to invest in.  For example, Hannon Armstrong (HASI) is a public company that owns solar and other renewable energy assets.
@@ -39,6 +41,7 @@ Then for the details: Is this investment debt (promising fixed payments) or equi
 - Offtaker counter party default risk
 - Value of assets supporting the debt
 - What is the recovery process in the event of default?
+- Rollover risk: What is the term of the debt, and how easily could it be refinanced so you can be repaid?  In the extreme are cryptocurrency stablecoins which promise the liquidity of cash.  Is the asset liquid enough to fund all of it?  Usually the answer is no.
 
 If it's equity, think about the usual:
 
