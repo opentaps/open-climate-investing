@@ -80,7 +80,7 @@ python factor_regression.py
 The inputs are:
 - Stock return data: Use the `stock_data.csv` or enter a ticker
 - Carbon data: The BMG return history.  By default use `carbon_risk_factor.csv`.
-- Fama-French factors: Use either `ff_factors.csv` from the original CARIMA project or `ff_factors_north_american.csv` which is the Fama/French North American 3 Factors series and the North American Momentum Factor (Mom) series from the [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
+- Fama-French factors: Use either `ff_factors.csv`, which are the `Fama/French Developed 3 Factors` and `Developed Momentum Factor (Mom)`, or `ff_factors_north_american.csv`,  which are the Fama/French `North American 3 Factors` and the `North American Momentum Factor (Mom)` series, from the [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)  The original CARIMA project used the data from `ff_factors.csv`
 
 The output will be a print output of the statsmodel object, the statsmodel coefficient summary, including the coefficient & p-Values (to replicate that of the CARIMA paper)
 
