@@ -155,7 +155,7 @@ def main(args):
         if not series:
             print("No BMG series found in the DB.")
         else:
-            for (factor_name, _from, _to) in series:
+            for (factor_name, frequency, _from, _to) in series:
                 if factor_name.endswith('-ORTHO'):
                     continue
                 process_factor(factor_name, args.significance, args.verbose)

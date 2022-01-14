@@ -8,7 +8,7 @@ import db
 
 conn = db.get_db_connection()
 
-def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end_date=None):
+def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end_date=None, frequency='MONTHLY'):
     if not factor_name:
         print(' factor name is required !')
         return False
@@ -24,10 +24,10 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
         return False
 
     print('*** adding factor {} from stocks {} and {} ...'.format(factor_name, green_ticker, brown_ticker))
-    green_data = get_stocks.load_stocks_returns_from_db(green_ticker)
+    green_data = get_stocks.load_stocks_returns_from_db(green_ticker, frequency=frequency)
     print('** green_data -> ')
     print(green_data)
-    brown_data = get_stocks.load_stocks_returns_from_db(brown_ticker)
+    brown_data = get_stocks.load_stocks_returns_from_db(brown_ticker, frequency=frequency)
     print('** brown_data -> ')
     print(brown_data)
 
@@ -50,7 +50,7 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
     print('** merged -> ')
     print(merged)
 
-    get_stocks.import_carbon_risk_factor_into_db(merged)
+    get_stocks.import_carbon_risk_factor_into_db(merged, frequency=frequency)
     return True
 
 
@@ -71,13 +71,13 @@ def delete_bmg_series(factor_name):
 
 def get_bmg_series():
     # show the current factors
-    sql = 'select factor_name, min(date), max(date) from carbon_risk_factor group by factor_name order by factor_name;'
+    sql = 'select factor_name, frequency, min(date), max(date) from carbon_risk_factor where group by factor_name order by factor_name;'
     with conn.cursor() as cursor:
         cursor.execute(sql)
         return cursor.fetchall()
 
 
-def show_bmg_series(factor_name, start_date=None, end_date=None):
+def show_bmg_series(factor_name, start_date=None, end_date=None, frequency='MONTHLY'):
     if not factor_name:
         # show the current factors
         series = get_bmg_series()
@@ -88,7 +88,7 @@ def show_bmg_series(factor_name, start_date=None, end_date=None):
             print('No BMG series found.')
         return True
     
-    data = get_stocks.load_carbon_risk_factor_from_db(factor_name)
+    data = get_stocks.load_carbon_risk_factor_from_db(factor_name, frequency=frequency)
 
     if start_date is not None:
         start_date = factor_regression.parse_date('Start', start_date)
@@ -105,7 +105,7 @@ def show_bmg_series(factor_name, start_date=None, end_date=None):
 
 def main(args):
     if args.show:
-        return show_bmg_series(args.factor_name, start_date=args.start_date, end_date=args.end_date)
+        return show_bmg_series(args.factor_name, start_date=args.start_date, end_date=args.end_date, frequency=args.frequency)
     else:
         if not args.factor_name:
             return False
@@ -113,7 +113,7 @@ def main(args):
             if not delete_bmg_series(args.factor_name):
                 return False
         if args.green_ticker or args.brown_ticker:
-            if not add_bmg_series(args.factor_name, args.green_ticker, args.brown_ticker, start_date=args.start_date, end_date=args.end_date):
+            if not add_bmg_series(args.factor_name, args.green_ticker, args.brown_ticker, start_date=args.start_date, end_date=args.end_date, frequency=args.frequency):
                 return False
         return args.delete or args.green_ticker or args.brown_ticker
 
@@ -157,6 +157,8 @@ if __name__ == "__main__":
                         help="Sets the start date for the series, must be in the YYYY-MM-DD format, defaults to the earliest date on record")
     parser.add_argument("-e", "--end_date",
                         help="Sets the end date for the series, must be in the YYYY-MM-DD format, defaults to the latest date on record")
+    parser.add_argument("--frequency", default='MONTHLY',
+                        help="Frequency to use for the various series, eg: MONTHLY, DAILY")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="more output")
     if not main(parser.parse_args()):
