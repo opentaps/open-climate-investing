@@ -122,16 +122,39 @@ You could construct a benchmark yourself, or you could choose from one of many t
 - Finally, for hard core divesters, there's the [S&P 500 Fossil Fuel Free Index
 ](https://www.spglobal.com/spdji/en/indices/esg/sp-500-fossil-fuel-free-index/#overview), which is simply "companies in the S&P 500 that do not own fossil fuel reserves.  Fossil fuel reserves are defined as economically and technically recoverable sources of crude oil, natural gas and thermal coal."
 
-But how good are these benchmarks in real life?  Critics such as [The ESG Mirage](https://www.bloomberg.com/graphics/2021-what-is-esg-investing-msci-ratings-focus-on-corporate-bottom-line/) and [The Trillion Dollar Fantasy](https://www.institutionalinvestor.com/article/b1tkr826880fy2/The-Trillion-Dollar-Fantasy) point out a few key issues, some of which we're already familiar with:
+But how good are these benchmarks in real life?  With colorful titles such as [The ESG Mirage](https://www.bloomberg.com/graphics/2021-what-is-esg-investing-msci-ratings-focus-on-corporate-bottom-line/) and [The Trillion Dollar Fantasy](https://www.institutionalinvestor.com/article/b1tkr826880fy2/The-Trillion-Dollar-Fantasy), critics have pointed out the key problems, some of which we've already discussed, with using ESG-based indices for climate investing:
 
 - The ESG ratings only incorporate direct Scope 1 (on site) and Scope 2 (purchased electricity) emissions, not the much larger and harder to measure Scope 3 (supply chain) emissions.
 - They incorporate a broad range of criteria, so improvements in employee diversity or governance policies could cause ESG ratings upgrades even for a company with high climate risks.
 - They try to measure the impact of climate and environmental risk on a company's business risk profile, rather than its total social risk profile.  In doing so, they could underestimate the long-term climate risk of the company. 
 - They are graded on a curve, relative to other companies its own sector.  So a company with high climate risks that is marginally better than others would still receive higher ESG ratings. 
-- As MSCI succinctly puts it, "ESG ratings are not climate ratings."  ([What MSCI’s ESG Ratings are and are not](https://www.msci.com/our-solutions/esg-investing/esg-ratings/what-esg-ratings-are-and-are-not))
 
-But there's a relative easy way to check on how good a benchmark is for climate investing: See how it compares to the market's view of climate risk.  Unlike rating agencies, investors are not paid by corporate issuers.  You can perform an analysis similar to what we did in the chapter on [Analyzing Investments](Analyzing-Investments.md), and you can do it for a benchmark you constructed yourself or one constructed by an ESG ratings service.    
+As MSCI succinctly puts it in [What MSCI’s ESG Ratings are and are not](https://www.msci.com/our-solutions/esg-investing/esg-ratings/what-esg-ratings-are-and-are-not), "ESG ratings are not climate ratings."  Yet many investors act like it is, or at least it's better than nothing.  But it may not be.  With an incorrect benchmark, you could be giving the wrong instructions to your portfolio managers.  You might think you've reduce your climate risk, when in fact the index is giving them marching orders to keep investing or even adding to high risk industries.
 
+There's a relative easy way to check on how good a benchmark is for climate investing: See how it compares to the market's view of climate risk.  Unlike rating agencies, the market relies on the collective wisdom of all the investors out there, and they're not paid by corporate issuers.  Even if a small number of them understand the true climate risks of a company, their trades could push the prices in a way that reflects them.  To see if your benchmark is "aligned" with the market's view of climate risk, you can perform an analysis similar to what we did in the chapter on [Analyzing Investments](Analyzing-Investments.md).   You can follow these steps based on [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613 for a benchmark you constructed yourself or one constructed by an ESG ratings service:
 
-Should portfolio managers vote proxies? 
+- Set up your climate-aligned benchmark as the Green portfolio and its matching index as the Brown portfolio
+- Calculate a Brown Minus Green (BMG) series
+- Regress the returns of the industries in a major market index such as the MSCI World against this BMG series to get its BMG factor loadings.  These are the market implied climate risks of the industry sectors.  
+- Run rolling regressions of the stocks in the index against this BMG series to get their BMG factor loadings.  These are the market implied climate risks of the stocks.
+- Now look at those market implied risks, and ask yourself: Do these make sense?
+- Is your BMG series, based on your climate-aligned benchmark, identifying statistically significant climate risk sensitivities in the industries and the stocks?
+- Are those sensitivities relatively stable over time, which makes sense since climate risks don't change much in the short term?  Or do they drift up and down?
+- Are those climate risk sensitivities _logical_?  Do they agree with the [fundamental research on climate risk](Climate-and-Investing.md)?
 
+These questions may be hard to answer if you're just looking at one benchmark index, but when you compare it with others that we've analyzed, you'll be able to see a pattern.  For example, we did identify that the market priced the climate risk of the oil and gas and renewable energy stocks correctly.  So if your climate-aligned benchmark does not identify statistically significant climate risks in the same stocks, then it's not in sync with even the market's analysis of climate risks.  Similarly, if your benchmark thinks that many high climate risk stocks have little or even negative climate risk sensitivities, then there's probably a problem with your benchmark.  
+
+And finally, one last question: Should portfolio managers vote proxies? 
+
+A strangely interesting and difficult question to answer.  Let's let the provocatively titled [Could Index Funds Be 'Worse Than Marxism'?](https://www.theatlantic.com/ideas/archive/2021/04/the-autopilot-economy/618497/) be the starting point.  It suggests that since so many stocks are owned by the major index funds (and the author didn't even count the closet indexers -- Yes, we know you're out there -- disguised as active managers), the true owners of public companies have little incentive to make companies, well, do anything.  As a result, academic papers have found that  industries including [pharmaceuticals](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3194394), [banking](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2710252), [airlines] (https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2427345), and even [commodities markets](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2663398) have become less competitive.  Of course, the asset managers disagree, with [BlackRock's white paper](https://ccl.yale.edu/sites/default/files/files/viewpoint-index-investing-and-common-ownership-theories-eng-march.pdf) and [The Brooking Institution's working paper](https://www.brookings.edu/research/the-common-ownership-hypothesis-theory-and-explanation/) challenging the methodologies of the research and therefore their conclusions.
+
+So, let's see: If the workers own a mutual fund managed by BlackRock based on an index published by Standard & Poor's, and the mutual funds shares in a public company regulated by the SEC -- Do the workers then own the means of production?  
+
+Meanwhile, how is this for a reasonable proposal:
+
+- Portfolio managers have shorter tenures compared to the long-term returns of the fund.
+- Therefore, many proxy decisions, especially climate-related ones, have impacts longer than the expected tenure of the portfolio manager.  These should be decided on by the ultimate asset owner.
+- Some proxy decisions, however, could affect the immediate prices of the companies.  Portfolio managers are therefore right to say that a proxy vote affects their results (and bonuses.)  
+- Therefore, portfolio managers should have input on how to vote on proxies.
+
+In the end, we come full circle.  Asset owners and portfolio managers are really part of the same time.  How about let's try to work together?
