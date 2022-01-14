@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DATE,
         primaryKey: true,
       },
+      frequency: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+      },
       mkt_rf: Sequelize.DECIMAL(8, 5),
       smb: Sequelize.DECIMAL(8, 5),
       hml: Sequelize.DECIMAL(8, 5),

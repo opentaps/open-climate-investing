@@ -94,14 +94,14 @@ def delete_carbon_risk_factor_from_db(factor_name):
         cursor.execute(sql, (factor_name,))
 
 
-def load_carbon_risk_factor_from_db(factor_name):
+def load_carbon_risk_factor_from_db(factor_name, frequency='MONTHLY'):
     sql = '''SELECT date, bmg
         FROM carbon_risk_factor
-        WHERE factor_name = %s
+        WHERE factor_name = %s and frequency = %s
         ORDER BY date
         '''
     return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                             index_col='date', params=(factor_name,))
+                             index_col='date', params=(factor_name,frequency,))
 
 
 def get_components_from_db(stock_name):
@@ -114,15 +114,15 @@ def get_components_from_db(stock_name):
         return cursor.fetchall()
 
 
-def import_carbon_risk_factor_into_db(data):
+def import_carbon_risk_factor_into_db(data, frequency='MONTHLY'):
     sql = '''INSERT INTO
-        carbon_risk_factor (date, factor_name, bmg)
-        VALUES (%s, %s, %s)
-        ON CONFLICT (date, factor_name) DO
+        carbon_risk_factor (date, frequency, factor_name, bmg)
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT (date, frequency, factor_name) DO
         UPDATE SET bmg = EXCLUDED.bmg;'''
     with conn.cursor() as cursor:
         for index, row in data.iterrows():
-            cursor.execute(sql, (index, row['factor_name'], row['bmg']))
+            cursor.execute(sql, (index, frequency, row['factor_name'], row['bmg']))
 
 
 def import_stocks_into_db(stock_name, stock_data, frequency='MONTHLY'):

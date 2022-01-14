@@ -177,9 +177,11 @@ def main(args):
 
     if args.add_data:
         ff_data = (data_dir + '/ff_factors.csv')
+        ff_data_daily = (data_dir + '/ff_factors_daily.csv')
         carbon_data = (data_dir + '/bmg_carima.csv')
         xop_carbon_data = (data_dir + '/bmg_xop_smog_orthogonalized_1.csv')
-        risk_free_data = (data_dir + '/risk_free.csv')
+        risk_free_data= (data_dir + '/risk_free.csv')
+        risk_free_data_daily = (data_dir + '/risk_free_daily.csv')
         additional_factor_data = (data_dir + '/additional_factor_data.csv')
         sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
@@ -191,6 +193,9 @@ def main(args):
             print('** importing ff_factor')
         import_data_into_sql("ff_factor", ff_data, cursor)
         if args.verbose:
+            print('** importing ff_factor_daily')
+        import_data_into_sql("ff_factor", ff_data_daily, cursor)
+        if args.verbose:
             print('** importing carbon_risk_factor CARIMA')
         import_data_into_sql("carbon_risk_factor",
                              carbon_data, cursor, bmg="CARIMA")
@@ -201,6 +206,9 @@ def main(args):
         if args.verbose:
             print('** importing risk_free')
         import_data_into_sql("risk_free", risk_free_data, cursor)
+        if args.verbose:
+            print('** importing risk_free_daily')
+        import_data_into_sql("risk_free", risk_free_data_daily, cursor)
         if args.verbose:
             print('** importing additional_factors')
         import_data_into_sql("additional_factors",

@@ -192,6 +192,7 @@ select
 s.*,
 sc.ticker as parent_ticker,
 sc.percentage,
+ss.frequency,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -232,13 +233,14 @@ left join stocks s on s.ticker = sc.component_stock
 left join (
 select
     ticker,
+    frequency,
     bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, bmg_factor_name
+    ticker, frequency, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 
 -- query this component_stock to get data of the parent stocks
@@ -248,6 +250,7 @@ select
 s.*,
 sc.component_stock,
 sc.percentage,
+ss.frequency,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -289,9 +292,10 @@ left join (
 select
     ticker,
     bmg_factor_name,
+    frequency,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, bmg_factor_name
+    ticker, frequency, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;

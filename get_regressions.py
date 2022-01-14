@@ -167,11 +167,13 @@ def run_regression_internal(stock_data,
         if interval == 0:
             interval = 730
         interval_dt = relativedelta(days=interval)
+        interval_freq = relativedelta(days=1)
     elif frequency == 'MONTHLY':
         freq = 'M'
         if interval == 0:
             interval = 60
         interval_dt = relativedelta(months=interval)
+        interval_freq = relativedelta(months=1)
     else:
         raise Exception("Unsupported frequency: {}".format(frequency))
 
@@ -253,7 +255,7 @@ def run_regression_internal(stock_data,
         store_regression_into_db(sql_params)
 
     # recurse the new interval
-    start_date += interval_dt
+    start_date += interval_freq
     if frequency == 'MONTHLY':
         start_date -= datetime.timedelta(days=1)
     run_regression_internal(stock_data, carbon_data, ff_data, rf_data,

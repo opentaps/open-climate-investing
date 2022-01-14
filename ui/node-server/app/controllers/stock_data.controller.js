@@ -19,6 +19,15 @@ exports.findAll = (req, res) => {
       message: "No ticker parameter given.",
     });
   }
+  let freq = req.query["frequency"];
+  if (!freq) freq = 'MONTHLY';
+  if (freq) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("frequency"), {
+        [Op.eq]: `${freq}`,
+      })
+    );
+  }
   if (req.query["from"]) {
     conditions.push(
       Sequelize.where(Sequelize.col("date"), {
