@@ -99,7 +99,7 @@ As investors, then, you must make a call here--it's your job.  Do these companie
 - Is there another use for their output, such as plastics, that will also be _acceptable_ to the general public?  
 - Failing all of the above, will they reduce capex and return capital to shareholders?
 
-If they do, then engage with them and help see these strategies through.  Perhaps it will happen in stages, and eliminating those methane flares would be a good first step.  But we also need to move quickly and cannot stay there.  As the investor, you need to act like a coach and not a buddy.  You need to do more than just say "Great job" and actively understand the companies' strategies and monitor their progress.  If you realize there is no viable strategy, or the companies are not following through with them, then you must think about whether it would be better to divest after all.  You can at least save your own investment if not the world.  But if the companies are pursuing a viable transition strategy, then be their champion as well.  Make them see that doing the right thing will reward them with higher valuations, stock prices, and bonuses, rather than fall prey to buyouts and layoffs.
+If they do, then engage with them and help see these strategies through.  Perhaps it will happen in stages, and eliminating those methane flares would be a good first step.  But we also need to move quickly and cannot stay there.  Nobody--not the general public, the companies, and least of all us investors--have decades to wait passively any more.  As the investor, you need to act like a coach and not a buddy.  You need to do more than just say "Great job" and actively understand the companies' strategies and monitor their progress.  If you realize there is no viable strategy, or the companies are not following through with them, then you must think about whether it would be better to divest after all.  You can at least save your own investment if not the world.  But if the companies are pursuing a viable transition strategy, then be their champion as well.  Make them see that doing the right thing will reward them with higher valuations, stock prices, and bonuses, rather than fall prey to buyouts and layoffs.
 
 This is what is really hard about engaging right now.  It's easy to jump on the divest bandwagon.  You've sold your shares, announced it to the public, and you're one of the good guys.  But if you're engaging, how does anyone know that you're really working through the carbon transition with your companies, instead of just greenwashing?  What do those of us who choose to engage rally around?  It requires many stakeholders to work together: investors, the companies, the general public.  Could we agree on what the goals of the engagement should be?  Could we agree on what the metrics of progress should be?
 
@@ -109,13 +109,28 @@ One possibility is to rally around the Science Based Targets Initiative (SBTi)'s
 
 But what have they committed to?  Unfortunately there's no more information available on the SBTi website.  
 
-In conclusion, divesting and engaging should not be opposites but rather two sides of the same coin.  Some companies you would engage with, and some you would just have to divest.  To divest alone would not have much impact in the real world.  To engage without the prospect (threat?) of divesting would probably achieve very little as well.
+In conclusion, divesting and engaging should not be opposites but rather two sides of the same coin.  Think of it as "selective engagement."  Some companies you would engage with, and some you would just have to divest.  To divest alone would not have much impact in the real world.  To engage without the prospect (threat?) of divesting would probably achieve very little as well.
 
 Now that you've made the important long-term decisions, the next step is to work out a set of benchmarks for your portfolio managers.
 
 The benchmark should reflect your long-term climate strategy into a neutral index so that your portfolio managers would manage (and hopefully outperform) against it.  It should include the amount of climate-aligned difference or "tilt" versus standard indices such as the S&P 500 or MSCI World.  If you choose to divest from oil companies, they should not be in the index.  If you choose to engage with them, it should include only the companies that qualify for your engagement strategy.
 
-Neutral index which reflects your climate strategy but still be as diversified and capture the overall market -- ESG models - Are they correct?  Have they been too watered down?  Must have "hard" ESG ratings like credit ratings, not grading on a curve.  How to evaluating ESG-based indices.  Do they make sense?
+You could construct a benchmark yourself, or you could choose from one of many that's being pumped out to support the boom in ESG investing.  There are, for example:
+
+- The [S&P Paris-Aligned & Climate Transition, or PACT™, Indices](https://www.spglobal.com/spdji/en/education/article/faq-sp-paris-aligned-and-climate-transition-pact-indices/), which "are designed to measure the performance of eligible equity securities from an underlying benchmark index, selected and weighted to be collectively compatible with a 1.5ºC global warming climate scenario and to meet several other climate-themed objectives at the index level, as of each rebalance." 
+- The [MSCI World Climate Change ESG Select Index](https://www.msci.com/documents/10199/84e37acb-a91e-8ff3-a909-6f8c7c6306dd), which excludes companies engaged in Nuclear Weapons, Tobacco, Thermal Coal, Nuclear Power and Unconventional Oil & Gas, companies which are "not in compliance with the United Nations Global Compact principles", and companies which are not "rated B and above."  (A "B" means "laggard" according to the MSCI ESG ratings
+- Finally, for hard core divesters, there's the [S&P 500 Fossil Fuel Free Index
+](https://www.spglobal.com/spdji/en/indices/esg/sp-500-fossil-fuel-free-index/#overview), which is simply "companies in the S&P 500 that do not own fossil fuel reserves.  Fossil fuel reserves are defined as economically and technically recoverable sources of crude oil, natural gas and thermal coal."
+
+But how good are these benchmarks in real life?  Critics such as [The ESG Mirage](https://www.bloomberg.com/graphics/2021-what-is-esg-investing-msci-ratings-focus-on-corporate-bottom-line/) and [The Trillion Dollar Fantasy](https://www.institutionalinvestor.com/article/b1tkr826880fy2/The-Trillion-Dollar-Fantasy) point out a few key issues, some of which we're already familiar with:
+
+- The ESG ratings only incorporate direct Scope 1 (on site) and Scope 2 (purchased electricity) emissions, not the much larger and harder to measure Scope 3 (supply chain) emissions.
+- They incorporate a broad range of criteria, so improvements in employee diversity or governance policies could cause ESG ratings upgrades even for a company with high climate risks.
+- They try to measure the impact of climate and environmental risk on a company's business risk profile, rather than its total social risk profile.  In doing so, they could underestimate the long-term climate risk of the company. 
+- They are graded on a curve, relative to other companies its own sector.  So a company with high climate risks that is marginally better than others would still receive higher ESG ratings. 
+
+But there's a relative easy way to check on a benchmark, whether one you've constructed yourself or one constructed by an ESG provider.  See how it compares to the market's view of climate risk, using analysis similar to what we did in the chapter on [Analyzing Investments](Analyzing-Investments.md).  Unlike rating agencies, investors are not paid by corporate issuers.  
+
 
 Should portfolio managers vote proxies? 
 
