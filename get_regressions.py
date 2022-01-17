@@ -76,8 +76,11 @@ def bulk_regression_transformer(final_data, ff_names, rf_names, factor_name, int
         # rf_data.insert(0, 'date', rf_data.index.values)
         carbon_data = temp_data['BMG'].to_frame()
         carbon_data.insert(0, 'date', carbon_data.index.values)
-        run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
-                                temp_ticker, factor_name, start_date, end_date, interval, frequency, verbose=False, silent=True, store=True)
+        running = True
+        while running:
+            (start_date, running) = run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
+                                                 temp_ticker, factor_name, start_date, end_date, interval,
+                                                 frequency, verbose=False, silent=True, store=True)
         print(temp_ticker)
     end_time = datetime.datetime.now()
     print(end_time - start_time)
@@ -134,7 +137,9 @@ def run_regression(ticker,
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
 
-    run_regression_internal(stock_data,
+    running = True
+    while running:
+        (start_date, running) = run_regression_internal(stock_data,
                             carbon_data,
                             ff_data,
                             rf_data,
@@ -198,7 +203,7 @@ def run_regression_internal(stock_data,
         if r_end_date > end_date:
             print('!! Done running regression on stock {} from {} to {} (next regression would end in {})'.format(
                 ticker, start_date, end_date, r_end_date))
-            return
+            return (None, False)
         start_date += datetime.timedelta(days=1)
         start_date, r_end_date, data_start_date, data_end_date, model_output, coef_df_simple = factor_regression.run_regression(
             stock_data, carbon_data, ff_data, rf_data, ticker, start_date, end_date=r_end_date, verbose=verbose, silent=silent)
@@ -208,22 +213,22 @@ def run_regression_internal(stock_data,
     except factor_regression.DateInRangeError as e:
         print('!! Error running regression on stock {} from {} to {}: {}'.format(
             ticker, start_date, end_date, e))
-        return
+        return (None, False)
     except ValueError as e:
         print('!! Error running regression on stock {} from {} to {}: {}'.format(
             ticker, start_date, end_date, e))
-        return
+        return (None, False)
 
     if model_output is False:
         print('!! Error running regression on stock {} from {} to {}'.format(
             ticker, start_date, end_date))
-        return
+        return (None, False)
 
     # stop running when the data_end_date is > end_date (we no longer have enough data)
     if data_end_date > end_date:
         print('!! Finished running regression on stock {} from {} to {} (data ends in {})'.format(
             ticker, start_date, end_date, data_end_date))
-        return
+        return (None, False)
 
     if store:
         print('Ran regression for {} from {} to {} ...'.format(
@@ -254,12 +259,12 @@ def run_regression_internal(stock_data,
                     sql_params[sql_field] = row[f]
         store_regression_into_db(sql_params)
 
-    # recurse the new interval
+    # setup the new interval, note we can't use recursion as
+    # there are too many steps
     start_date += interval_freq
     if frequency == 'MONTHLY':
         start_date -= datetime.timedelta(days=1)
-    run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
-                            ticker, factor_name, start_date, end_date, interval, frequency, verbose, silent, store)
+    return (start_date, True)
 
 
 def store_regression_into_db(sql_params):
