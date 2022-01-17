@@ -262,8 +262,7 @@ def run_regression_internal(stock_data,
     # setup the new interval, note we can't use recursion as
     # there are too many steps
     start_date += interval_freq
-    if frequency == 'MONTHLY':
-        start_date -= datetime.timedelta(days=1)
+    start_date -= datetime.timedelta(days=1)
     return (start_date, True)
 
 
