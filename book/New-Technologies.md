@@ -54,13 +54,15 @@ But isn't it more fun to speculate (ha ha) about what happens if this is the wav
 
 What happens when the victorious Revolutionaries of today become the Oligarchs of tomorrow?  
 
-Will they have the kind of COP26 horse trading on Discord, across all the DAO's that seem to be forming up daily on Discord to fund carbon offsets, carbon removals, regenerative agriculture.  
+Will they have the kind of COP26 horse trading on Discord, across all the DAO's that seem to be forming up daily on Discord to fund carbon offsets, carbon removals, regenerative agriculture?  
 
 How will they meet the needs of speculators and short-term traders while working on a very long-term problem like climate change?  Those interests are not naturally aligned.  For example, to stop climate change, we need to ramp up the amount of carbon offsets/reductions/removals, but the value of any currency, crypto or otherwise, increases when there is less supply of it.  
 
 Furthermore, the treasury behind any currency, crypto or otherwise, gains when it mints liabilities (tokens or currency) at a higher value than the reserve assets (in this case, offsets.)  Unfortunately, there are plenty of low price offsets that could be created, even now, under approved standards and methodologies.  They could boost the treasury and cryptocurrency values while having no positive or even negative climate impact. 
 
 Finally, offset prices must be high enough to encourage projects to develop but low enough to be acceptable to buyers as something other than an arbitrary tax.  Already in the European Union's Emissions Trading Scheme (ETS), [Poland, Spain, and Czechia are protesting](https://www.euractiv.com/section/emissions-trading-scheme/news/europes-energy-price-hike-fuelled-by-speculators-spain-and-poland-say/) that financial players are driving up the cost of electricity and must be barred from the market.  [Poland and Czechia have even called for suspension of the ETS.](https://www.euractiv.com/section/politics/short_news/czech-minister-would-support-polands-call-for-suspension-of-eu-ets/)  
+
+Time will tell.
 
 Meanwhile the world continues to move forward.  Web3 is a new set of technologies.  Its effects are right now less obvious because it does not itself do something differently, but rather organizes the doing differently, in some ways radically so.  If it could be linked to real world activities as Tim O'Reilly suggests, then it could unlock tremendous potentials for climate action.  Let's look at a few examples.
 
