@@ -13,7 +13,7 @@ def import_bond_factor_into_sql(file_name, cursor):
     cursor.execute(sql_query, (file_name,))
 
 
-def import_data_into_sql(table_name, file_name, cursor, bmg=False):
+def import_data_into_sql(table_name, file_name, cursor, bmg=False, wml=False, no_wml=False):
     print("-- import_data_into_sql file={} table={}".format(file_name, table_name))
     if bmg is not False:
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
@@ -21,6 +21,18 @@ def import_data_into_sql(table_name, file_name, cursor, bmg=False):
         sql_query = "CREATE TABLE _import_carbon_risk_factor (date date, frequency text, bmg decimal(12, 10), PRIMARY KEY (date));"
         cursor.execute(sql_query)
         sql_query = "COPY _import_carbon_risk_factor FROM %s WITH (FORMAT CSV, HEADER);"
+    elif wml:
+        sql_query = "DROP TABLE IF EXISTS _import_wml_ff_factor CASCADE;"
+        cursor.execute(sql_query)
+        sql_query = "CREATE TABLE _import_wml_ff_factor (date date, frequency text, wml decimal(8,5), PRIMARY KEY (date, frequency));"
+        cursor.execute(sql_query)
+        sql_query = "COPY _import_wml_ff_factor FROM %s WITH (FORMAT CSV, HEADER);"
+    elif no_wml:
+        sql_query = "DROP TABLE IF EXISTS _import_nowml_ff_factor CASCADE;"
+        cursor.execute(sql_query)
+        sql_query = "CREATE TABLE _import_nowml_ff_factor (date date, frequency text, mkt_rf decimal(8,5), smb decimal(8,5), hml decimal(8,5), rf decimal(8,5), PRIMARY KEY (date, frequency));"
+        cursor.execute(sql_query)
+        sql_query = "COPY _import_nowml_ff_factor FROM %s WITH (FORMAT CSV, HEADER);"
     else:
         sql_query = "COPY " + table_name + \
             " FROM %s WITH (FORMAT CSV, HEADER);"
@@ -30,6 +42,23 @@ def import_data_into_sql(table_name, file_name, cursor, bmg=False):
                                                      bmg + "', bmg FROM _import_carbon_risk_factor;"
         cursor.execute(sql_query)
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
+        cursor.execute(sql_query)
+    elif wml:
+        sql_query = '''INSERT INTO ff_factor (date, frequency, wml)
+            SELECT date, frequency, wml FROM _import_wml_ff_factor
+            ON CONFLICT (date, frequency) DO
+            UPDATE SET wml = EXCLUDED.wml;
+            '''
+        cursor.execute(sql_query)
+        sql_query = "DROP TABLE IF EXISTS _import_wml_ff_factor CASCADE;"
+        cursor.execute(sql_query)
+    elif no_wml:
+        sql_query = '''INSERT INTO ff_factor (date, frequency, mkt_rf, smb, hml)
+            SELECT date, frequency, mkt_rf, smb, hml FROM _import_nowml_ff_factor
+            ON CONFLICT (date, frequency) DO
+            UPDATE SET mkt_rf = EXCLUDED.mkt_rf, smb = EXCLUDED.smb, hml = EXCLUDED.hml;'''
+        cursor.execute(sql_query)
+        sql_query = "DROP TABLE _import_nowml_ff_factor CASCADE;"
         cursor.execute(sql_query)
 
 
@@ -178,6 +207,7 @@ def main(args):
     if args.add_data:
         ff_data = (data_dir + '/ff_factors.csv')
         ff_data_daily = (data_dir + '/ff_factors_daily.csv')
+        ff_data_daily_wml = (data_dir + '/ff_factors_daily_wml.csv')
         carbon_data = (data_dir + '/bmg_carima.csv')
         xop_carbon_data = (data_dir + '/bmg_xop_smog_orthogonalized_1.csv')
         risk_free_data= (data_dir + '/risk_free.csv')
@@ -194,7 +224,10 @@ def main(args):
         import_data_into_sql("ff_factor", ff_data, cursor)
         if args.verbose:
             print('** importing ff_factor_daily')
-        import_data_into_sql("ff_factor", ff_data_daily, cursor)
+        import_data_into_sql("ff_factor", ff_data_daily, cursor, no_wml=True)
+        if args.verbose:
+            print('** importing ff_factor_daily_wml (WML)')
+        import_data_into_sql("ff_factor", ff_data_daily_wml, cursor, wml=True)
         if args.verbose:
             print('** importing carbon_risk_factor CARIMA')
         import_data_into_sql("carbon_risk_factor",
