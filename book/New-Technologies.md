@@ -31,12 +31,14 @@ _Web3 will lead to unprecedented value creation because it provides exponentiall
 
 Meanwhile, those of us in the old fashioned world of carbon offsets might notice a few interesting things:
 
-- Most of the carbon offsets used to back BCT and KLIMA are renewable energy offsets from 2008 (Source: [S&P](https://www.spglobal.com/platts/en/market-insights/latest-news/energy-transition/112221-climate-activist-group-klima-dao-looks-to-expand-types-of-voluntary-carbon-credits)) 
+- Most of the carbon offsets used to back BCT and KLIMA are renewable energy offsets such as hydropower in China and Brazil (Source: [Toucan Monitoring Dashboard](https://colab.research.google.com/drive/1i1RM51WzPjccXnwgMjabwYHpRtQt39Ju?usp=sharing#scrollTo=aWYy5jxkRZlC)) 
 - These offsets were trading with an average price of $1.1 as recently as September 2021.  (Source: [Ecosystems Marketplace](https://www.ecosystemmarketplace.com/articles/press-release-voluntary-carbon-markets-rocket-in-2021-on-track-to-break-1b-for-first-time/))
 - When the offsets are "retired" from the Verra registry, it means that they are used to offset the emissions footprint of the retiring party (retiree?)  They should have no value and never be traded again.  Toucan Protocol, creators of the BCT token, acknowledges that it is a [one way bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge).
 - In other words, BCT tokens and anything based on it could only be considered assets by those who believe.  They could never be converted back to offsets and traded in the existing markets.
 
-We might look at all this and shake our heads, "We've seen this all before."  Or, as [Tim O'Reilly writes](https://www.oreilly.com/radar/why-its-too-early-to-get-excited-about-web3/):
+![Toucan Projects List](images/toucan-projects-list.png)
+
+You might look at all this and shake your head, "We've seen this all before."  Or, as [Tim O'Reilly writes](https://www.oreilly.com/radar/why-its-too-early-to-get-excited-about-web3/):
 
 _Repeat after me: neither venture capital investment nor easy access to risky, highly inflated assets predicts lasting success and impact for a particular company or technology._  
 
