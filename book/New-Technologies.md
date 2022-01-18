@@ -11,7 +11,7 @@ There's been a disturbance in climate finance.  The long obscure world of carbon
 - The existing economy, with its government and financial markets, will not be able to stop climate change.
 - To stop climate change, we need real financial incentives.
 - To create those financial incentives, let's start a cryptocurrency backed by carbon offsets.  This varies from buying existing carbon offsets to commitments to buy carbon offsets from carbon direct removal projects.
-- Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: deploy large sums of capital with minimal diligence_) and pump up the value of the cryptocurrency.
+- Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: deploy large sums of capital with minimal diligence_ - See [Keep Kool Klima DAO Deep Dive](https://keepcool.co/klimadao-deepdive/)) and pump up the value of the cryptocurrency.
 
 Perhaps the best example of this today is the combination of the [BCT](https://docs.toucan.earth/protocol/introduction/defi-refi) and [KLIMA](https://www.klimadao.finance/) tokens.  The BCT "bridges" the carbon offsets and the blockchain by retiring one tonne of offsets in the Verra voluntary carbon offsets registry and then creating a fungible ERC20 token on the Polygon Ethereum Layer 2 network representing one tonne of carbon.  KLIMA then created a new cryptocurrency based on BCT and used staking rewards, where holders of the KLIMA can deposit them in the treasury to earn additional KLIMA tokens, to draw in buyers.  With a discord channel of over 40,000 members, the KLIMA token traded as high as an $3,777.30.  
 
