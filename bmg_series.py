@@ -23,7 +23,7 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
         print(' brown ticker is required !')
         return False
 
-    print('*** adding factor {} from stocks {} and {} ...'.format(factor_name, green_ticker, brown_ticker))
+    print('*** adding factor {} from Brown stocks {} and Green stocks {} ...'.format(factor_name, brown_ticker, green_ticker))
     green_data = get_stocks.load_stocks_returns_from_db(green_ticker, frequency=frequency)
     print('** green_data -> ')
     print(green_data)
@@ -129,7 +129,7 @@ if __name__ == "__main__":
                 %(prog)s -n MY_FACTOR -d
             
             Create a series MY_FACTOR from stocks TICK1 and TICK2:
-                %(prog)s -n MY_FACTOR -g TICK1 -g TICK2
+                %(prog)s -n MY_FACTOR -b TICK1 -g TICK2
             
             Display all the series stored in the DB:
                 %(prog)s -o
@@ -139,7 +139,7 @@ if __name__ == "__main__":
             
             Create a series MY_FACTOR from stocks TICK1 and TICK2 for 
             a given time period, deleting the existing values first:
-                %(prog)s -n MY_FACTOR -g TICK1 -g TICK2 -d -s 2000-01-01 -e 2020-12-31
+                %(prog)s -n MY_FACTOR -b TICK1 -g TICK2 -d -s 2000-01-01 -e 2020-12-31
 
         ''')
     )
