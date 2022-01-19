@@ -113,8 +113,8 @@ def run_regression(stock_data, carbon_data, ff_data, rf_data, ticker, start_date
             ticker, start_date))
     # the statistical functions are not valid with less than 20 data points
     if len(all_factor_df) < 20:
-        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
-            ticker, start_date))
+        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {} (got {} data points)'.format(
+            ticker, start_date, len(all_factor_df)))
 
     if verbose or not silent:
         print('Running {} - {} regression using data from {} to {} -- data has {} entries'.format(start_date,
@@ -187,8 +187,8 @@ def run_regression_bulk(all_factor_df, ticker, start_date=None, end_date=None, v
             ticker, start_date))
     # the statistical functions are not valid with less than 20 data points
     if len(all_factor_df) < 20:
-        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {}'.format(
-            ticker, start_date))
+        raise ValueError('Not enough data for stock {} overlapping the ff_factor and carbon_data after date {} (got {} data points)'.format(
+            ticker, start_date, len(all_factor_df)))
 
     if verbose or not silent:
         print('Running {} - {} regression using data from {} to {} -- data has {} entries'.format(start_date,
