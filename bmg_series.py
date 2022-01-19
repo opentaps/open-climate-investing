@@ -31,7 +31,7 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
     print('** brown_data -> ')
     print(brown_data)
 
-    merged = pd.merge(green_data, brown_data, left_index=True, right_index=True)
+    merged = pd.merge(brown_data, green_data, left_index=True, right_index=True)
     merged['bmg'] = merged['return_x'] - merged['return_y']
     merged['factor_name'] = factor_name
     merged.drop(columns=['return_x', 'return_y'], inplace=True)
