@@ -295,7 +295,7 @@ def main(args):
         rf_data = load_rf_data_from_db(frequency=args.frequency)
         stocks = load_stocks_csv(args.file)
         for i in range(0, len(stocks)):
-            stock_name = stocks[i].item()
+            stock_name = stocks[i].item(0)
             print('* running regression for {} ... '.format(stock_name))
             run_regression(stock_name,
                            factor_name=args.factor_name,
