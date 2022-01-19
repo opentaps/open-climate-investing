@@ -302,7 +302,7 @@ def main(args):
             return False
 
         for i in range(0, len(stocks)):
-            stock_name = stocks[i].item()
+            stock_name = stocks[i].item(0)
             print("Trying to get: " + stock_name)
             import_stock(stock_name, always_update_details=args.update_stocks_details, frequency=args.frequency)
     else:
