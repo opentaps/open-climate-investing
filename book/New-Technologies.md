@@ -68,6 +68,20 @@ Meanwhile the world continues to move forward.  Web3 is a new set of technologie
 
 ### Supply Chain Emissions
 
+Imagine you're a major corporation.  You purchase products from all over the world, from suppliers who purchase parts from all over the world themselves.  You want to reduce your emissions footprint.  How do you know where to do it?  Do you encourage your suppliers to switch to renewable energy or low carbon alternatives?  Do you switch suppliers?  Reconfigure your logistics networks?
+
+Now imagine you're a high emissions manufacturer, for example a steelmaker.  Your products are sold all over the world, used to manufacture parts and products of all kinds, and then re-sold and re-shipped all over the world.  You also want to reduce your emissions footprint.  But is it worth it to make the massive capital investment needed?  Would any of your customers pay for, or even care about, a lower carbon product from you?
+
+Amazingly, neither company could answer these basic questions right now, because we simply don't know where the emissions are through the vast global supply chains.  Emissions footprints, when they are reported at all, are at the company level.  Emissions reductions programs, where they exist, are at the national level.  Since supply chains run multi-levels deep across the world, we quickly lose track of where the emissions are occurring.  The best we could do is rely on lifecycle analysis database such as EcoInvent to give us estimates of the emissions for different products.  As a result, companies don't know what their true emissions are.  There's no incentive for suppliers to reduce emissions below the database averages, and every incentive for them to cut costs and make products with higher emissions than the averages.  Where climate regulations exist, it's easy to hide them in the supply chain by moving production somewhere else.
+
+Solving this problem is not easy.  Since supply chains span across borders, we cannot rely on the traditional government authorities to require audits and enforce limits.  The blockchain, however, could solve this problem because it allows collaboration without a central authority.  Members of a supply chain could form a network to measure and reduce emissions:
+
+- A distributed ledger could hold immutable emissions records from members of the supply chain so that they could be available for audits.
+- Tokens for emissions footprints could be issued to supply chain partners for purchases and transportation as they happen, based on ERP data or invoices.
+- Smart contracts could set limits on total emissions for each member with penalties and rewards for higher or lower emissions, similar to a cap and trade scheme.  
+
+We currently have a [Supply Chain Emissions Ledger Project](https://wiki.hyperledger.org/display/CASIG/Supply+Chain+Emissions+Ledger+Project) at the Linux Foundation's Hyperledger open source project to implement some of these concepts.  [Sign up](https://opentaps.org/subscribe/) to get updates about our work there.
+
 ### Ratings
 
 Quiz: Which of the following companies has the highest market capitalization?
