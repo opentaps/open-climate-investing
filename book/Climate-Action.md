@@ -1,6 +1,6 @@
 ## Taking Climate Action
 
-_Ask not what your country can do for you – ask what you can do for your country. - John F. Kennedy_
+_If we could change ourselves, the tendencies in the world would also change. - Gandhi_
 
 With that inspirational thought, let's take a look at what we could each do to turn climate investing into climate action.
 

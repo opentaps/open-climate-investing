@@ -14,7 +14,7 @@ To make this happen, climate or green investing must go from being a niche inves
 - [Taking Climate Action](Climate-Action.md)
 - Legal and Regulatory Considerations
 - Emerging Asset Classes: Carbon offsets and negative carbon projects
-- New Technologies: DeFI, blockchains, and open source software
+- [New Technologies](New-Technologies.md): DeFI and blockchains
 - [Conclusion](Conclusion.md)
  
 ### How to Use this Book
