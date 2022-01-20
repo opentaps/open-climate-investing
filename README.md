@@ -23,21 +23,21 @@ All python scripts have a `--help` option to show you the latest parameters avai
 
 Init the Database using:
 ```
-python setup_db.py -d
+python scripts/setup_db.py -d
 ```
 
 Then use `get_stocks.py` to get stock information for `stocks` table and return history for the `stock_data` table:
 
-- `python get_stocks.py -f some_ticker_file.csv` for using a csv source file
-- `python get_stocks.py -t ALB` to load a single stock with ticker `ALB`
-- `python get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
+- `python scripts/get_stocks.py -f some_ticker_file.csv` for using a csv source file
+- `python scripts/get_stocks.py -t ALB` to load a single stock with ticker `ALB`
+- `python scripts/get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
 
 If your stock ticker is a composite stock, it will calculate the historical returns using the weights in the `stock_components` table.
 
 To run the regression, use `get_regressions.py` to save the output in the `stock_stats` table:
-- `python get_regressions.py` for running all the stocks in the database
-- `python get_regressions.py -f some_ticker_file.csv` for using a csv source file
-- `python get_regressions.py -t ALB` to run and store the regression for a given stock
+- `python scripts/get_regressions.py` for running all the stocks in the database
+- `python scripts/get_regressions.py -f some_ticker_file.csv` for using a csv source file
+- `python scripts/get_regressions.py -t ALB` to run and store the regression for a given stock
 
 It will use the stock returns in the database by default, or if none are found, get them first.  It has some optional parameters:
 - `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
@@ -48,7 +48,7 @@ It will use the stock returns in the database by default, or if none are found, 
 
 To calculate a BMG series and store it in the database:
 ```
-python bmg_series.py -n XOP-SMOG -g SMOG -b XOP
+python scripts/bmg_series.py -n XOP-SMOG -g SMOG -b XOP
 ```
 where
 - `-n <series name>` is the name of your bmg series
@@ -58,7 +58,7 @@ where
 ### Viewing the Results
 
 There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've
-run `get_regressions.py`, then you can use this UI to view the results.
+run `scripts/get_regressions.py`, then you can use this UI to view the results.
 
 To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
 ```
@@ -75,7 +75,7 @@ npm run start
 
 These have been deprecated but are still available and can be used to  run regressions in the command line without the database:
 ```
-python factor_regression.py
+python scripts/factor_regression.py
 ```
 The inputs are:
 - Stock return data: Use the `stock_data.csv` or enter a ticker

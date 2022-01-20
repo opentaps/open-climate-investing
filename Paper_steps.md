@@ -23,14 +23,14 @@ Run predictive power for data/msci_constituent_returns.csv 1-4 and 8 to get equa
 Initialize your database with the steps from [README.md](README.md)  Then load the stock prices of the MSCI World index using the command
 
 ```
-python get_stocks.py -f data/stock_tickers_msci_world.csv
+python scripts/get_stocks.py -f data/stock_tickers_msci_world.csv
 ```
 
 You only need to do this once to populate the stock history data.
 
 Clear out abnormal returns data:
 ```
-python get_stocks.py --cleanup_bad_returns
+python scripts/get_stocks.py --cleanup_bad_returns
 ```
 
 Then to run it for other BMG series:
@@ -49,12 +49,12 @@ select * from carbon_risk_factor
 - Run all regressions
 For CARIMA and CARIMA orthogonalized,
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -d
+python scripts/get_regressions.py -f data/stock_tickers_msci_world.csv -d
 ```
 
 For other BMG factors, we can run longer
 ```
-python get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -d -n FACTOR_NAME
+python scripts/get_regressions.py -f data/stock_tickers_msci_world.csv -e 2021-09-30 -d -n FACTOR_NAME
 ```
 
 If you want to see how your regressions are doing, you can run this query:
@@ -98,7 +98,7 @@ having count(CASE WHEN bmg_p_gt_abs_t < 0.05 THEN 1 END) > count(CASE WHEN bmg_p
 ```
 OR
 ```
-python bmg_analyze.py --list_stocks_with_significant_regressions
+python scripts/bmg_analyze.py --list_stocks_with_significant_regressions
 ```
 - Get the number of stocks in each sector with statistically significant BMG regression factor loading for at least half of the regressions
 ```
@@ -116,7 +116,7 @@ order by count(ticker) desc, sector;
 ```
 OR
 ```
-python bmg_analyze.py --list_sectors_with_significant_regressions
+python scripts/bmg_analyze.py --list_sectors_with_significant_regressions
 ```
 - Get a count of the stocks with significant BMG results by sector:
 ```
@@ -177,10 +177,10 @@ insert into stocks (ticker, name, industry) values ('0066.HK', 'MTR CORPORATION 
 
 It's easy and fun!  
 
-First use `get_stocks.py` to get the historical prices of your stocks, if you don't have them already:
+First use `scripts/get_stocks.py` to get the historical prices of your stocks, if you don't have them already:
 ```
-python get_stocks.py -t ACWI
-python get_stocks.py -t CRBN 
+python scripts/get_stocks.py -t ACWI
+python scripts/get_stocks.py -t CRBN 
 ```
 
 Finally use this SQL:
@@ -199,7 +199,7 @@ This is a series of the SSgA SPDR ETFs Europe II plc - SPDR MSCI World Materials
 
 Get the stock returns of the CRBN Materials sector
 ```
-python3 get_stocks.py -f data/stock_tickers_crbn_materials.csv 
+python scripts/get_stocks.py -f data/stock_tickers_crbn_materials.csv 
 ```
 
 Run the final part of `init_db.sh` under "CRBN Materials"
@@ -216,7 +216,7 @@ order by SS.date
 
 Get the stock returns of WMAT.L
 ```
-python3 get_stocks.py -t WMAT.L
+python scripts/get_stocks.py -t WMAT.L
 ```
 
 Again, clear out the abnormal returns:
