@@ -4,7 +4,8 @@ import Chart from "react-apexcharts";
 import Linkify from "react-linkify";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
-import { CircularProgress, Pagination, Tab, Tabs, ToggleButton, ToggleButtonGroup, FormControl, MenuItem, Select } from "@mui/material";
+import SeriesSettings, { SeriesContext } from "./series-settings.component";
+import { CircularProgress, Pagination, Tab, Tabs, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const componentDecorator = (href, text, key) => (
   <a href={href} key={key} target="_blank" rel="noreferrer">
@@ -31,7 +32,6 @@ const STAT_BOX_FIELDS = [
 const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
-const DEFAULT_FACTOR_NAME = "DEFAULT";
 const DEFAULT_GRAPH = "BMG";
 const STAT_GRAPHS_MIN = -3;
 const STAT_GRAPHS_MAX = 3;
@@ -119,7 +119,6 @@ class Stock extends Component {
     this.handleCurrentSeriesChange = this.handleCurrentSeriesChange.bind(this);
     this.onStockComponentClick = this.onStockComponentClick.bind(this);
     this.onStockParentClick = this.onStockParentClick.bind(this);
-    this.handleFactorNameChange = this.handleFactorNameChange.bind(this);
 
     this.pageSizes = [10, 25, 50, 100];
     let stock_graph_options = Object.assign({}, GRAPH_OPTIONS);
@@ -130,8 +129,6 @@ class Stock extends Component {
         name: "",
       },
       message: "",
-      factor_name: DEFAULT_FACTOR_NAME,
-      factor_names: [],
       data: [],
       data_page: 1,
       data_count: 0,
@@ -167,12 +164,19 @@ class Stock extends Component {
 
   componentDidMount() {
     this.getStock(this.props.match.params.id);
+    this.prevContext = this.context;
   }
 
   componentDidUpdate(prevProps) {
+    let changed = false;
     let o = prevProps && prevProps.match && prevProps.match.params.id;
     let n = this.props && this.props.match && this.props.match.params.id;
-    if (o !== n) {
+    changed = (o !== n);
+    if (this.prevContext.factorName != this.context.factorName || this.prevContext.frequency != this.context.frequency) {
+      changed = true;
+    }
+    if (changed) {
+      this.prevContext = this.context;
       this.getStock(this.props.match.params.id);
     }
   }
@@ -188,18 +192,16 @@ class Stock extends Component {
   }
 
   getStock(id) {
-    StockDataService.get(id)
+    const { frequency, factorName } = this.context;
+    StockDataService.get(id, { frequency, factorName })
       .then((response) => {
         this.setState({
-          current: response.data,
+          current: response.data || { ticker: id },
           current_tab: DEFAULT_TAB,
-          factor_name: DEFAULT_FACTOR_NAME,
-          factor_names: [],
           message: "",
         });
-        console.log(response.data);
+        console.log('getStock: ', response.data);
         window.scrollTo(0, 0);
-        this.retrieveFactorNames();
         this.retrieveAllStockData();
       })
       .catch((e) => {
@@ -215,7 +217,7 @@ class Stock extends Component {
     this.retrieveStockGraph();
   }
 
-  getRequestParams(stock, page, pageSize, factorName) {
+  getRequestParams(stock, page, pageSize, factorName, frequency) {
     if (!stock || !stock.ticker) {
       return null;
     }
@@ -230,6 +232,10 @@ class Stock extends Component {
       params["size"] = pageSize;
     }
 
+    if (frequency) {
+      params["frequency"] = frequency;
+    }
+
     if (factorName) {
       params["factor_name"] = factorName;
     }
@@ -238,33 +244,16 @@ class Stock extends Component {
     return params;
   }
 
-  async retrieveFactorNames() {
-    const { current } = this.state;
-    if (!current || !current.ticker) {
-      console.log("No current stock to fetch data for !");
-      return;
-    }
-    try {
-      const { data: factor_names } = await StockDataService.getFactorNames({
-        ticker: current.ticker,
-      });
-      this.setState({
-        factor_names: factor_names.map((e) => e.factor_name),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   async retrieveData() {
-    const { current, data_page, data_pageSize, factor_name } = this.state;
+    const { current, data_page, data_pageSize } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch data for !");
       return;
     }
     try {
       const data_response = await StockDataService.getData(
-        this.getRequestParams(current, data_page, data_pageSize, factor_name)
+        this.getRequestParams(current, data_page, data_pageSize, factorName, frequency)
       );
       const { items, totalPages, totalItems } = data_response.data;
       this.setState({
@@ -305,7 +294,8 @@ class Stock extends Component {
   }
 
   retrieveStockGraph(page, arr) {
-    const { current, factor_name } = this.state;
+    const { current } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch data for !");
       return;
@@ -316,7 +306,8 @@ class Stock extends Component {
       ticker: current.ticker,
       page,
       size: 100,
-      factor_name
+      factorName,
+      frequency
     })
       .then((stats_response) => {
         const { items, totalPages } = stats_response.data;
@@ -349,7 +340,8 @@ class Stock extends Component {
   }
 
   retrieveStatsGraph(page, arr) {
-    const { current, factor_name } = this.state;
+    const { current } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
@@ -360,7 +352,8 @@ class Stock extends Component {
       ticker: current.ticker,
       page,
       size: 100,
-      factor_name
+      factorName,
+      frequency
     })
       .then((stats_response) => {
         const { items, totalPages } = stats_response.data;
@@ -375,6 +368,8 @@ class Stock extends Component {
             this.setState({
               stock_graph_loadingIndicator: false,
               message: "No data on record for this Stock.",
+              latest_stock_stats: null,
+              stock_graph_series: [],
             });
             return;
           }
@@ -448,19 +443,20 @@ class Stock extends Component {
       })
       .catch((e) => {
         this.setState({ stock_graph_loadingIndicator: false });
-        console.log(e);
+        console.log('Could not load stock graph data', e);
       });
   }
 
   retrieveComponents() {
-    const { current, comp_page, comp_pageSize, factor_name } = this.state;
+    const { current, comp_page, comp_pageSize } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
     }
     StockDataService.getComponents(
       current.ticker,
-      this.getRequestParams(current, comp_page, comp_pageSize, factor_name)
+      this.getRequestParams(current, comp_page, comp_pageSize, factorName, frequency)
     )
       .then((comp_response) => {
         const { items, totalPages, totalItems } = comp_response.data;
@@ -513,7 +509,8 @@ class Stock extends Component {
   }
 
   retrieveParents() {
-    const { current, parents_page, parents_pageSize, factor_name } = this.state;
+    const { current, parents_page, parents_pageSize } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
@@ -524,7 +521,8 @@ class Stock extends Component {
         current,
         parents_page,
         parents_pageSize,
-        factor_name
+        factorName,
+        frequency
       )
     )
       .then((parents_response) => {
@@ -578,13 +576,14 @@ class Stock extends Component {
   }
 
   retrieveStats() {
-    const { current, stats_page, stats_pageSize, factor_name } = this.state;
+    const { current, stats_page, stats_pageSize } = this.state;
+    const { frequency, factorName } = this.context;
     if (!current || !current.ticker) {
       console.log("No current stock to fetch stats for !");
       return;
     }
     StockDataService.getStats(
-      this.getRequestParams(current, stats_page, stats_pageSize, factor_name)
+      this.getRequestParams(current, stats_page, stats_pageSize, factorName, frequency)
     )
       .then((stats_response) => {
         const { items, totalPages, totalItems } = stats_response.data;
@@ -624,16 +623,6 @@ class Stock extends Component {
         this.retrieveStats();
       }
     );
-  }
-
-  handleFactorNameChange(event) {
-    let value = event.target.value;
-    console.log("handleFactorNameChange:: ", event, value);
-    this.setState({
-      factor_name: value,
-    }, () => {
-      this.retrieveAllStockData();
-    });
   }
 
   handleCurrentSeriesChange(event, value) {
@@ -862,8 +851,6 @@ class Stock extends Component {
       parents_total,
       parents_pageSize,
       parents_loadingIndicator,
-      factor_name,
-      factor_names,
     } = this.state;
 
     return (
@@ -880,24 +867,8 @@ class Stock extends Component {
               </button>
             </h4>
 
-            {factor_names && factor_names.length > 1 && (
-              <div className="d-flex flex-row align-items-baseline">
-                <b className="me-2">BMG Factor</b>
-                <FormControl variant="standard">
-                  <Select
-                    value={factor_name}
-                    onChange={this.handleFactorNameChange}
-                  >
-                  {factor_names.map((fname) => (
-                    <MenuItem key={fname} value={fname}>
-                      {fname}
-                    </MenuItem>
-                  ))}
-                  </Select>
-                </FormControl>
-              </div>
-            )}
-
+            <SeriesSettings/>
+            
             <Tabs
               value={current_tab}
               indicatorColor="primary"
@@ -1097,6 +1068,7 @@ class Stock extends Component {
   }
 }
 
+Stock.contextType = SeriesContext;
 
 Stock.propTypes = {
   match: PropTypes.shape({

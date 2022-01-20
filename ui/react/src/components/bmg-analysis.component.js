@@ -2,20 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
-import { FormControl, MenuItem, Select } from "@mui/material";
+import SeriesSettings, { SeriesContext } from "./series-settings.component";
 
-
-const DEFAULT_FACTOR_NAME = "DEFAULT";
 
 class BmgAnalysis extends Component {
   constructor(props) {
     super(props);
-    this.handleFactorNameChange = this.handleFactorNameChange.bind(this);
     this.onStockClick = this.onStockClick.bind(this);
 
     this.state = {
-      factor_name: DEFAULT_FACTOR_NAME,
-      factor_names: [],
       sectors: [],
       stocks: [],
       analysis: {}
@@ -23,38 +18,29 @@ class BmgAnalysis extends Component {
   }
 
   componentDidMount() {
-    this.retrieveFactorNames();
+    this.prevContext = this.context;
     this.retrieveAnalysis();
   }
 
-  handleFactorNameChange(event) {
-    let value = event.target.value;
-    console.log("handleFactorNameChange:: ", event, value);
-    this.setState({
-      factor_name: value,
-    }, () => {
+  componentDidUpdate() {
+    let changed = false;
+    if (this.prevContext.factorName != this.context.factorName || this.prevContext.frequency != this.context.frequency) {
+      changed = true;
+    }
+    if (changed) {
+      this.prevContext = this.context;
       this.retrieveAnalysis();
-    });
-  }
-
-  async retrieveFactorNames() {
-    try {
-      const { data: factor_names } = await StockDataService.getFactorNames();
-      this.setState({
-        factor_names: factor_names.map((e) => e.factor_name),
-      });
-    } catch (err) {
-      console.log(err);
     }
   }
 
   async retrieveAnalysis() {
     try {
-      const { data: res1 } = await StockDataService.getBmgAnalysisBaseCount({t: 'XWD.TO'});
+      const { factorName, frequency } = this.context;
+      const { data: res1 } = await StockDataService.getBmgAnalysisBaseCount({t: 'XWD.TO', frequency});
       console.log('count analysis? ', res1);
-      const { data: res2 } = await StockDataService.getSectorsBmgAnalysis({f: this.state.factor_name});
+      const { data: res2 } = await StockDataService.getSectorsBmgAnalysis({f: factorName, frequency});
       console.log('sectors analysis? ', res2);
-      const { data: res3 } = await StockDataService.getStocksBmgAnalysis({f: this.state.factor_name});
+      const { data: res3 } = await StockDataService.getStocksBmgAnalysis({f: factorName, frequency});
       console.log('stocks analysis? ', res3);
       // process into a displayable data structure
       let analysis = res2.reduce((p,s) => {
@@ -92,29 +78,11 @@ class BmgAnalysis extends Component {
     const {
       analysis,
       stocks,
-      factor_name,
-      factor_names,
     } = this.state;
 
     return (
       <div>
-        {factor_names && factor_names.length > 1 && (
-          <div className="d-flex flex-row align-items-baseline mb-2">
-            <b className="me-2">BMG Factor</b>
-            <FormControl variant="standard">
-              <Select
-                value={factor_name}
-                onChange={this.handleFactorNameChange}
-              >
-                {factor_names.map((fname) => (
-                  <MenuItem key={fname} value={fname}>
-                    {fname}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-        )}
+        <SeriesSettings/>
         <h3>Number of Significant Stocks by Industry</h3>
         {analysis && analysis.sectors && analysis.sectors.length && (
           <table className='table table-bordered'>
@@ -162,6 +130,7 @@ class BmgAnalysis extends Component {
   }
 }
 
+BmgAnalysis.contextType = SeriesContext;
 
 BmgAnalysis .propTypes = {
   match: PropTypes.shape({
@@ -172,4 +141,4 @@ BmgAnalysis .propTypes = {
   history: PropTypes.any
 }
 
-export default withRouter(BmgAnalysis );
+export default withRouter(BmgAnalysis);

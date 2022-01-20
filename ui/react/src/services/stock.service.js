@@ -5,12 +5,16 @@ class StockDataService {
     return http.get("/stocks", { params });
   }
 
-  get(id) {
-    return http.get(`/stocks/${id}`);
+  get(id, params) {
+    return http.get(`/stocks/${id}`, { params });
   }
 
   getData(params) {
     return http.get("/data", { params });
+  }
+
+  getFrequencies(params) {
+    return http.get("/frequencies", { params });
   }
 
   getFactorNames(params) {

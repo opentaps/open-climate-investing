@@ -1,6 +1,7 @@
 const db = require("../models");
 const common = require("./common.js");
 const Stock = db.stock_and_stat;
+const StockOnly = db.stock;
 const StockComponent = db.stock_component_and_stat;
 const StockParent = db.stock_parent_and_stat;
 const Sequelize = db.Sequelize;
@@ -135,8 +136,8 @@ exports.findAll = (req, res) => {
   let modelsMap = {};
   let assocConditionsMap = {};
   for (let k in req.query) {
-    // ignore facto_name handled below
-    if ('factor_name' === k || 'bmg_factor_name' === k) continue;
+    // ignore factor_name and frequency handled below
+    if ('frequency' === k || 'factorName' === k || 'factor_name' === k || 'bmg_factor_name' === k) continue;
     let cond = _makeCondition(k, null, req.query[k]);
     if (cond) {
       if (cond.model) {
@@ -155,11 +156,17 @@ exports.findAll = (req, res) => {
     }
   }
   // always filter the factor_name
-  let factor_name = req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
-  console.log(`stock.controller::findAll -> factor_name = ${factor_name}`);
+  let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  let frequency = req.query["frequency"] || 'MONTHLY';
+  console.log(`stock.controller::findAll -> factor_name = ${factor_name}, frequency = ${frequency}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
+    })
+  );
+  conditions.push(
+    Sequelize.where(Sequelize.col("frequency"), {
+      [Op.eq]: `${frequency}`,
     })
   );
 
@@ -210,12 +217,42 @@ exports.findAll = (req, res) => {
 // Find a single with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
+  let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  let frequency = req.query["frequency"] || 'MONTHLY';
+  let conditions = [];
+  console.log(`stock.controller::findOne id [${id}] -> factor_name = ${factor_name}, frequency = ${frequency}`);
+  conditions.push(
+    Sequelize.where(Sequelize.col("ticker"), {
+      [Op.eq]: `${id}`,
+    })
+  );
+  conditions.push(
+    Sequelize.where(Sequelize.col("bmg_factor_name"), {
+      [Op.eq]: `${factor_name}`,
+    })
+  );
+  conditions.push(
+    Sequelize.where(Sequelize.col("frequency"), {
+      [Op.eq]: `${frequency}`,
+    })
+  );
 
-  Stock.findByPk(id)
+  Stock.findOne({where: conditions})
     .then((data) => {
-      res.send(data);
+      if (data) res.send(data);
+      else {
+        StockOnly.findByPk(id)
+          .then((data)=>res.send(data))
+          .catch((err) => {
+            console.error('stock.controller::findOne error: ', err);
+            res.status(500).send({
+              message: "Error retrieving Stock with id=" + id,
+            });
+          });
+      }
     })
     .catch((err) => {
+      console.error('stock.controller::findOne error: ', err);
       res.status(500).send({
         message: "Error retrieving Stock with id=" + id,
       });
@@ -235,12 +272,17 @@ exports.findComponents = (req, res) => {
 
   let conditions = [];
   conditions.push(Sequelize.where(Sequelize.col("parent_ticker"), { [Op.eq]: id }));
-  let factor_name =
-    req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
-  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}`);
+  let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  let frequency = req.query["frequency"] || 'MONTHLY';
+  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}, frequency = ${frequency}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
+    })
+  );
+  conditions.push(
+    Sequelize.where(Sequelize.col("frequency"), {
+      [Op.eq]: `${frequency}`,
     })
   );
 
@@ -277,12 +319,17 @@ exports.findParents = (req, res) => {
 
   let conditions = [];
   conditions.push(Sequelize.where(Sequelize.col("component_stock"), { [Op.eq]: id }));
-  let factor_name =
-    req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
-  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}`);
+  let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
+  let frequency = req.query["frequency"] || 'MONTHLY';
+  console.log(`stock.controller::findParents -> factor_name = ${factor_name}, frequency = ${frequency}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
+    })
+  );
+  conditions.push(
+    Sequelize.where(Sequelize.col("frequency"), {
+      [Op.eq]: `${frequency}`,
     })
   );
 
