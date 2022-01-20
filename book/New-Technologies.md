@@ -60,7 +60,7 @@ How will they meet the needs of speculators and short-term traders while working
 
 Furthermore, the treasury behind any currency, crypto or otherwise, gains when it mints liabilities (tokens or currency) at a higher value than the reserve assets (in this case, offsets.)  Unfortunately, there are plenty of low price offsets that could be created, even now, under approved standards and methodologies.  They could boost the treasury and cryptocurrency values while having no positive or even negative climate impact. 
 
-Finally, does the offset market ultimately want financial players and speculators?  Developers would welcome higher prices, of course, but not volatility, which will make it more difficult for them to get long-term financing.  Buyers, who obviously benefit from lower prices, will resist higher prices because of financial players, and speculators are the least welcome of all.  Already we see this dynamic in the European Union's Emissions Trading Scheme (ETS): [Poland, Spain, and Czechia are protesting](https://www.euractiv.com/section/emissions-trading-scheme/news/europes-energy-price-hike-fuelled-by-speculators-spain-and-poland-say/) that financial players are driving up the cost of electricity and must be barred from the market.  [Poland and Czechia have even called for suspension of the ETS.](https://www.euractiv.com/section/politics/short_news/czech-minister-would-support-polands-call-for-suspension-of-eu-ets/)  
+Finally, does the offset market really want financial players and speculators?  Developers would probably welcome higher prices but not volatility, which would make long-term projects more difficult for them.  Buyers benefit from lower prices and would call foul if outsiders push up prices.  Whatever happens, everybody will blame "financial players," especially the hated "speculators," who provide an easy excuse to discredit the whole system.  Already we see this in the European Union's Emissions Trading Scheme (ETS): [Poland, Spain, and Czechia are protesting](https://www.euractiv.com/section/emissions-trading-scheme/news/europes-energy-price-hike-fuelled-by-speculators-spain-and-poland-say/) that financial players are driving up the cost of electricity and must be barred from the market.  [Poland and Czechia have even called for suspension of the ETS.](https://www.euractiv.com/section/politics/short_news/czech-minister-would-support-polands-call-for-suspension-of-eu-ets/)  
 
 Time will tell.
 
@@ -84,6 +84,8 @@ We currently have a [Supply Chain Emissions Ledger Project](https://wiki.hyperle
 
 ### Ratings
 
+_Given enough eyeballs, all bugs are shallow. - Linus Torvalds_ 
+
 Quiz: Which of the following companies has the highest market capitalization?
 
 - Colgate-Palmolive
@@ -100,11 +102,24 @@ Answer: Standard & Poors.
 
 If you've ever worked in the industry or read [The Big Short](https://amzn.to/3yt2bSs) by Michael Lewis, you'd be excused for thinking that S&P and Moody's were the poor relations of Wall Street.  But you're wrong.  They are the Matrix of high finance.  They are everywhere.  They are all around you.  If money makes the world go around, then information makes money go around.
 
-ESG/climate information is not very good today.
+It's too easy to criticize the ratings agencies and their much smaller cousins, the standards organizations of the voluntary carbon offsets market.  When times are good, they're the bureaucratic gatekeepers who prevent access to capital.  Everybody cheers startups that are "democratizing access."  When times go bad, though, it's the rating agencies that are subject to [Congressional investigations](https://www.hsgac.senate.gov/imo/media/doc/PSI%20REPORT%20-%20Wall%20Street%20&%20the%20Financial%20Crisis-Anatomy%20of%20a%20Financial%20Collapse%20(FINAL%205-10-11).pdf).  We take for granted the fact that credit ratings, by and large, do work: Lower rated companies are more likely to default.  Overall, the ratings provide a way for investors to limit their risks and companies to raise capital.
 
-Blockchain
-- MRV - more data
-- Reputation capital - more inclusive rating scheme
+Yet when they fail, they fail spectacularly.  The collective mis-rating of subprime mortgage securities led to the near collapse of the global financial system.  A similar mistake with climate risks could lead to the collapse of a lot more.  Even today, there is doubt about whether the ESG ratings are helping us with climate change, or if they are a [mirage](https://www.bloomberg.com/graphics/2021-what-is-esg-investing-msci-ratings-focus-on-corporate-bottom-line/), a [bubble](https://www.bloomberg.com/news/articles/2021-10-28/trillion-dollar-esg-boom-rings-bubble-trouble-alarm-in-new-study), or a [fantasy](https://www.institutionalinvestor.com/article/b1tkr826880fy2/The-Trillion-Dollar-Fantasy)? 
+
+The problem with ratings lies in the design of the system:
+
+- Ratings agencies develop methodologies, which are modified periodically.  This works well in most cases, when the underlying default conditions are changing slowly, but it does not work when  feedback loops are at work, as happened during the subprime mortgage crisis.  Our knowledge of climate change may also be changing more quickly in the coming years than rating agencies could adapt.
+- All the methodologies are developed by people with similar backgrounds using similar data sets, creating a "groupthink" mentality.  
+- They rely primarily on information from corporate issuers, most of which is kept proprietary and not available for third party inspection.  This creates an information funnel through which very little information filters out except the ratings assigned.
+- They are paid by the issuers to rate new issuances of securities.  Not only does this create a conflict of interest, it also puts most resources when the issuer first needs to raise money.  Follow on monitoring of existing securities is underfunded.  Negative opinions are "controversial" and likely to elicit harsh blowback, so the analyst better be sure.  
+
+Is it any wonder, then, that [Moody's](https://www.politico.com/f/?id=00000176-6343-df7e-a37f-f7d32a810000) would say the following about climate risk?
+
+_our ability to forecast the impact of trends that will only unfold far into the future is necessarily limited. Nearer-term risks generally have a more direct impact on ratings because there is typically far greater certainty of their impact on credit profiles. As a general principle, as the time frame for a source of risk lengthens, the less certain we can be of its impact on an issuer’s cash-flow-generating ability and other credit metrics, and the less clarity we have regarding the importance of that risk in relation to other risks the issuer faces. For example, longer time frames give an issuer more time to adapt by lowering costs, adopting new technologies, or realigning its business model, budgetary spending or balance sheet to changed circumstances; however, some issuers may not be able to or may fail to take effective mitigating actions._
+
+This is where the Distributed Autonomous Organization (DAO), a relatively lesser known mechanism of the blockchain until recently, comes into play.  A DAO is a way to organize collective decision making amongst otherwise unaffiliated members (hence "distributed.")  Instead of a group of analysts working for a company, which bills companies for ratings services and produces reports, a DAO could allow anybody to play a role in setting a rating.  The DAO could be algorithmically set up to protect both sensitive data from issuers and objectivity of the analysts and use tokens to distribute rewards and assign reputations.  Think of it as a TripAdvisor model, but with more rigor.
+
+As an example of a DAO, see the [DAO proposal](https://github.com/opentaps/open-climate-investing/tree/main/dao) for governing the development of this book and the related project.  
 
 ### Better than Offsets
 
