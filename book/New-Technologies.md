@@ -11,7 +11,7 @@ There's been a disturbance in climate finance.  The long obscure world of carbon
 - The existing economy, with its government and financial markets, will not be able to stop climate change.
 - To stop climate change, we need real financial incentives.
 - To create those financial incentives, let's start a cryptocurrency backed by carbon offsets.  This varies from buying existing carbon offsets to commitments to buy carbon offsets from carbon direct removal projects.
-- Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: deploy large sums of capital with minimal diligence_ - See [Keep Kool Klima DAO Deep Dive](https://keepcool.co/klimadao-deepdive/)) and pump up the value of the cryptocurrency.
+- Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: [deploy large sums of capital with minimal diligence](https://keepcool.co/klimadao-deepdive/)_ and pump up the value of the cryptocurrency.
 
 Perhaps the best example of this today is the combination of the [BCT](https://docs.toucan.earth/protocol/introduction/defi-refi) and [KLIMA](https://www.klimadao.finance/) tokens.  The BCT "bridges" the carbon offsets and the blockchain by retiring one tonne of offsets in the Verra voluntary carbon offsets registry and then creating a fungible ERC20 token on the Polygon Ethereum Layer 2 network representing one tonne of carbon.  KLIMA then created a new cryptocurrency based on BCT and used staking rewards, where holders of the KLIMA can deposit them in the treasury to earn additional KLIMA tokens, to draw in buyers.  With a discord channel of over 40,000 members, the KLIMA token traded as high as an $3,777.30.  
 
@@ -108,19 +108,63 @@ Yet when they fail, they fail spectacularly.  The collective mis-rating of subpr
 
 The problem with ratings lies in the design of the system:
 
-- Ratings agencies develop methodologies, which are modified periodically.  This works well in most cases, when the underlying default conditions are changing slowly, but it does not work when  feedback loops are at work, as happened during the subprime mortgage crisis.  Our knowledge of climate change may also be changing more quickly in the coming years than rating agencies could adapt.
-- All the methodologies are developed by people with similar backgrounds using similar data sets, creating a "groupthink" mentality.  
-- They rely primarily on information from corporate issuers, most of which is kept proprietary and not available for third party inspection.  This creates an information funnel through which very little information filters out except the ratings assigned.
-- They are paid by the issuers to rate new issuances of securities.  Not only does this create a conflict of interest, it also puts most resources when the issuer first needs to raise money.  Follow on monitoring of existing securities is underfunded.  Negative opinions are "controversial" and likely to elicit harsh blowback, so the analyst better be sure.  
+- Ratings agencies develop methodologies, which are modified periodically.  
+- Both the methodologies and ratings are produced by people with similar backgrounds using similar data. 
+- They rely primarily on information from corporate issuers.  
+- They are paid by the issuers to rate new issuances of securities.  Most of the resources are therefore allocated to when the issuer first needs to raise money.  Follow-on monitoring of existing securities is underfunded.  Further, negative opinions are naturally "controversial" and likely to elicit harsh blowback, so the analyst better be sure.  
+
+The result is that all the major rating agencies usually assign about the same ratings and keep them relatively static over time.  Only when there is drastic news do they go back to reassess those ratings, and then, when they are sure, it's a race to downgrade before defaults roll in.  
 
 Is it any wonder, then, that [Moody's](https://www.politico.com/f/?id=00000176-6343-df7e-a37f-f7d32a810000) would say the following about climate risk?
 
 _our ability to forecast the impact of trends that will only unfold far into the future is necessarily limited. Nearer-term risks generally have a more direct impact on ratings because there is typically far greater certainty of their impact on credit profiles. As a general principle, as the time frame for a source of risk lengthens, the less certain we can be of its impact on an issuer’s cash-flow-generating ability and other credit metrics, and the less clarity we have regarding the importance of that risk in relation to other risks the issuer faces. For example, longer time frames give an issuer more time to adapt by lowering costs, adopting new technologies, or realigning its business model, budgetary spending or balance sheet to changed circumstances; however, some issuers may not be able to or may fail to take effective mitigating actions._
 
+Or that ESG ratings services grade on a curve relative to their peers and like to upgrade rather than downgrade companies' climate risk profile? 
+
 This is where the Distributed Autonomous Organization (DAO), a relatively lesser known mechanism of the blockchain until recently, comes into play.  A DAO is a way to organize collective decision making amongst otherwise unaffiliated members (hence "distributed.")  Instead of a group of analysts working for a company, which bills companies for ratings services and produces reports, a DAO could allow anybody to play a role in setting a rating.  The DAO could be algorithmically set up to protect both sensitive data from issuers and objectivity of the analysts and use tokens to distribute rewards and assign reputations.  Think of it as a TripAdvisor model, but with more rigor.
+
+Where such a DAO could really shine is introducing a broader, more diverse range of inputs.  We do not have to wait for information to filter up to the ivory towers of the rating agencies through third party research reports or the issuers themselves.  Instead, ground truths from observers close to the action could alert us to important changes sooner.
 
 As an example of a DAO, see the [DAO proposal](https://github.com/opentaps/open-climate-investing/tree/main/dao) for governing the development of this book and the related project.  
 
-### Better than Offsets
+### Better Offsets
 
+Finally, offsets again.  In a [recent paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914) sponsored by the Linux Foundation's Hyperledger project, we found that the top concerns of the offset market participants were actually Quality, Cost, and Transparency:
 
+![Top Concerns of Offset Market Participants - from Voluntary Carbon Offsets: An Empirical Market Study](images/offset-market-concerns.png)
+
+The blockchain could address each of those in turn.
+
+First, Cost:  Offsets are very expensive to issue.  After all the fees, only about 30% of the price of the offsets actually go to the projects:
+
+![Cost to Issue Offsets - Union Square Ventures Energy and Climate Market Map](images/cost_to_issue_offsets_USV_Energy_and_Climate_Market_Map.png) 
+
+A large part of these costs is the fees for auditors to validate and verify the project, including site visits, project documentation, and records of project activities.  While obviously a critical step, it is also often a labor-intensive, paper and spreadsheet process today.  The blockchain could significantly reduce these costs through "Digital Measurement, Reporting, and Verification (Digital MRV)" by automating the collection of data from all the participants in an offset project on a distributed ledger.  
+
+Second, Transparency:  At first blush this is not a strange concern.  After all, the offset registries keep detailed records, and the data available is available on their websites or from sources such as the Berkeley Carbon Trading Project and our Open Offsets Directory.   In [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914), we found that this was a greater concern for regulators and government agencies than for the project developers and offset buyers.  This is because the problem arises because there are so many carbon credits and offsets registries, both for government compliance programs and for voluntary offsets.  If a project developer registered the same project on two registries, such as a government registry and a voluntary offset registry, it would be difficult to detect.  This is the [double counting problem](https://keepcool.co/klimadao-deepdive/) that many crypto carbon projects have cited as a top concern for the offset market.
+
+This problem cannot be solved by just tokenizing the offsets from one registry, however, because that registry could not guarantee that the credits have not been issued elsewhere.  It could only be solved by creating a meta-registry of carbon credits and offsets from _all_ the registries, both government compliance and voluntary ones, so that the data is available for cross-checking.  The [World Bank Climate Warehouse](https://www.worldbank.org/en/programs/climate-warehouse) is a project aiming to do just that with a blockchain that connects multiple carbon registries.  It would help with the tokenization versus retirement problem like those of the BCT token, as well as provide data for a global view of the carbon credits market.
+
+Finally, Quality:  It must be disheartening to be an offset project developer.  You do all work, spend all this money to get it verified,, only to hear it disparaged.  Not disparaged by climate deniers, but by the very environmentalists that should be your strongest supporters.  Yet they do not hold back.  [Project Drawdown](https://drawdown.org/news/insights/opinion-the-world-needs-better-climate-pledges) calls offsets "problematic," "dubious," a "shell game", and "imaginary."  Greenpeace is more blunt: [Carbon Offsets are a Scam](https://www.greenpeace.org/international/story/50689/carbon-offsets-net-zero-greenwashing-scam/), "a bookkeeping trick" and "the next big thing in greenwashing" that "feigns compassion," "preys on fear," "takes advantage of uncertainty," and is driven by "Greed" - "Big Oil and corporate polluters want to keep putting profits over people and the planet."
+
+They are probably too harsh, but they point out a real problem in the carbon credit and offset markets.  There are many low quality, low cost projects which are available, and certainly some parties could buy them to make empty climate claims.  The problem is "Additionality," which is defined by the [Gold Standard](https://goldstandardhelp.freshdesk.com/support/solutions/articles/44001989691-what-does-additionality-mean-and-why-is-it-important-) as:
+
+_Additionality is a defining concept of carbon-offset projects. To qualify as a genuine carbon offset, the reductions achieved by a project need to be ‘additional’ to what would have happened if the project had not been carried out (e.g. continued as business-as-usual). For instance, if a project is viable in its own right, say through the sale of electricity, or because of government funding, regulation or other policies, then it cannot be used as an offset project as it would have been undertaken regardless of investment secured through carbon markets._
+
+For example, let's consider renewable energy projects.  At one point, renewable energy was more expensive than fossil fuel alternatives, and without carbon offsets or credits to support them, they could not have been successful commercially.  But now, with the dramatic fall in renewable energy prices, they are economically competitive against alternatives and do not need carbon offsets to support them:
+
+![Renewable Energy Prices - IRENA](images/costs2019_falling_LINES_renewables_IRENA.gif)
+
+So what happens if we _still_ issue carbon credits for renewable energy projects?  To a project developer, it is simply free money.  It doesn't matter how much those credits sell for.  They would be happy to issue as much as they could and pocket whatever is left over after issuance costs.  This, however, would also create exactly the type of low quality, low cost credits that the environmentalist groups are citing.
+
+In early 2021, both the Gold Standard and VERRA changed their methodologies for carbon credits to severely limit the carbon credits from renewable energy projects.  The markets were already ahead of them -- prices for those credits were below $1 per ton.  Yet other carbon standards continue to issue credits from the same renewable energy projects.  Nor is the problem restricted to renewable energy -- similar arguments could be made about monoculture commercial forestry and other types of projects.
+
+To reject carbon offsets altogether, however, is not realistic.  Cap and trade has been an established mechanism for pollution reduction since the 1990's sulfur dioxide regulations.  Carbon credits were affirmed by COP26 in 2021 and are used in climate programs all over the world to reduce GHG emissions.  If the voluntary offsets market went away, we'd be left with just government compliance programs.  Is that really better?
+
+Hopefully the decentralized paradigm of the blockchain could create something better.  One possibility is a decentralized alternative to CORSIA, the airline industry's carbon offset mechanism, which publishes its [CORSIA Emissions Unit Eligibility Criteria](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx)  Could we envision a DAO which incorporates a broad range of participants, from industry to project developers to environmentalists and the general public, to define the right mix of carbon offsets that could be used to achieve our climate goals?
+
+### Parting Thoughts
+
+Blockchain is nothing but a mechanism for collaboration, but what kind of collaboration will we have?  Will it be increasingly fractured islands, each espousing their versions of the truth and backed by their own economic interests, be it a cryptocurrency, an existing industry, or even a national government?  Or could it knit us together to work on a long-term global challenge?
+
+Time will tell.
