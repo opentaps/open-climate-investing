@@ -92,7 +92,8 @@ class BmgAnalysis extends Component {
       }, {
         factors: res2.map(s=>s.bmg_factor_name).filter((v,i,self)=>self.indexOf(v)===i),
         sectors: res1.map(s=>s.sector),
-        values: res1.reduce((p,s)=>{p[s.sector]={'_TOTAL_':s.count};return p},{})
+        values: res1.reduce((p,s)=>{p[s.sector]={'_TOTAL_':s.count};return p},{}),
+        periods: items.reduce((p,s)=>{let t = parseInt(s.total); return t>p?t:p},0)
       });
       console.log('results analysis? ', analysis);
       this.setState({
@@ -132,7 +133,7 @@ class BmgAnalysis extends Component {
   }
 
   fmtSectorCount(c,t) {
-    if (!c) return 'None';
+    if (!c) c = 0;
     return c + ' (' + (100.0*(c||0)/t).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '%)';
   }
 
@@ -188,7 +189,7 @@ class BmgAnalysis extends Component {
       <div>
         <SeriesSettings/>
         <h3>Number of Significant Stocks by Industry</h3>
-        {analysis && analysis.sectors && analysis.sectors.length && (
+        {analysis && analysis.sectors && analysis.sectors.length ?(
           <table className='table table-bordered selectable-items-table'>
             <thead>
               <tr>
@@ -209,10 +210,11 @@ class BmgAnalysis extends Component {
             ))}
             </tbody>
           </table>
-        )}
+        ) : ''}
 
         <h3>Significant Stocks</h3>
-        {stocks && stocks.length ? (
+        {stocks && stocks.length ? (<>
+          <p>Stocks with more than half of their periods of significant BMG factor are listed below.</p>
           <table className='table table-bordered selectable-items-table'>
             <thead>
               <tr>
@@ -232,7 +234,7 @@ class BmgAnalysis extends Component {
                 <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
                 <td data-index={index} onClick={this.onStockClick}>{s.sector}</td>
                 <td data-index={index} onClick={this.onStockClick}>{s.name}</td>
-                <td data-index={index} onClick={this.onStockClick}>{s.significant}</td>
+                <td data-index={index} onClick={this.onStockClick}>{s.significant} of {parseInt(s.significant)+parseInt(s.not_significant)}</td>
                 <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg)}</td>
                 <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.min_bmg_t_stat)}</td>
                 <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg_t_stat)}</td>
@@ -241,7 +243,7 @@ class BmgAnalysis extends Component {
             ))}
             </tbody>
           </table>
-        ) : 'None.'}
+        </>) : 'None.'}
         {this.renderPaginator(
           count,
           page,
