@@ -24,7 +24,15 @@
   padding-left: 1em;
 }
 
+.selectable-items-table tbody tr.selected,
+.selectable-items-list li.selected {
+  background-color: #bacbe6;
+  border-color: #bacbe6;
+}
+
+.selectable-items-table tbody tr.selected:hover,
 .selectable-items-table tbody tr:hover,
+.selectable-items-list li.selected:hover,
 .selectable-items-list li:hover {
   cursor: pointer;
   color: #fff;

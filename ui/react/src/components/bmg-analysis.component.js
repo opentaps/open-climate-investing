@@ -9,8 +9,10 @@ class BmgAnalysis extends Component {
   constructor(props) {
     super(props);
     this.onStockClick = this.onStockClick.bind(this);
+    this.onSectorClick = this.onSectorClick.bind(this);
 
     this.state = {
+      filter_sector: null,
       sectors: [],
       stocks: [],
       analysis: {}
@@ -38,9 +40,11 @@ class BmgAnalysis extends Component {
       const { factorName, frequency } = this.context;
       const { data: res1 } = await StockDataService.getBmgAnalysisBaseCount({t: 'XWD.TO', frequency});
       console.log('count analysis? ', res1);
-      const { data: res2 } = await StockDataService.getSectorsBmgAnalysis({f: factorName, frequency});
+      let params = {f: factorName, frequency};
+      const { data: res2 } = await StockDataService.getSectorsBmgAnalysis(params);
       console.log('sectors analysis? ', res2);
-      const { data: res3 } = await StockDataService.getStocksBmgAnalysis({f: factorName, frequency});
+      if (this.state.filter_sector) params.sector = this.state.filter_sector;
+      const { data: res3 } = await StockDataService.getStocksBmgAnalysis(params);
       console.log('stocks analysis? ', res3);
       // process into a displayable data structure
       let analysis = res2.reduce((p,s) => {
@@ -74,6 +78,15 @@ class BmgAnalysis extends Component {
     }
   }
 
+  onSectorClick(e) {
+    if (e && e.target && e.target.attributes["data-sector"]) {
+      let sector = e.target.getAttribute("data-sector");
+      console.log("onSectorClick --> ", sector);
+      if (this.state.filter_sector == sector) sector = null;
+      this.setState({ filter_sector: sector }, () => this.retrieveAnalysis());
+    }
+  }
+
   fmtNum(v) {
     if (v === undefined || v === null) return '';
     let n = parseFloat(v);
@@ -89,6 +102,7 @@ class BmgAnalysis extends Component {
     const {
       analysis,
       stocks,
+      filter_sector
     } = this.state;
 
     return (
@@ -96,7 +110,7 @@ class BmgAnalysis extends Component {
         <SeriesSettings/>
         <h3>Number of Significant Stocks by Industry</h3>
         {analysis && analysis.sectors && analysis.sectors.length && (
-          <table className='table table-bordered'>
+          <table className='table table-bordered selectable-items-table'>
             <thead>
               <tr>
                 <th/>
@@ -106,9 +120,9 @@ class BmgAnalysis extends Component {
             </thead>
             <tbody>
             {analysis.sectors.map((s)=>(
-              <tr key={s}>
-                <th>{s}</th>
-                <td>{analysis.values[s]['_TOTAL_']}</td>
+              <tr key={s} data-sector={s} onClick={this.onSectorClick} className={s==filter_sector?'selected':''}>
+                <th data-sector={s}>{s}</th>
+                <td data-sector={s}>{analysis.values[s]['_TOTAL_']}</td>
                 {analysis.factors.map(f=><td key={`${s}_${f}`}>
                     {this.fmtSectorCount(analysis.values[s][f], analysis.values[s]['_TOTAL_'])}
                 </td>)}

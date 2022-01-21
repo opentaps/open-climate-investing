@@ -44,6 +44,7 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   let sigma = 0.05;
   let factors = null;
   let tickers = null;
+  let sector = null;
 
   if (req.query["f"]) {
     factors = req.query["f"].split(',');
@@ -54,6 +55,10 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   if (req.query["s"]) {
     sigma = parseFloat(req.query["s"]);
   }
+  if (req.query["sector"]) {
+    sector = req.query["sector"];
+  }
+
   let frequency = req.query["frequency"];
   if (!frequency) frequency = 'MONTHLY';
   let params = { sigma, frequency };
@@ -77,6 +82,10 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   if (tickers && tickers.length) {
     sql += ' and ss.ticker IN (:tickers) ';
     params.tickers = tickers;
+  }
+  if (sector) {
+    sql += ' and s.sector = :sector ';
+    params.sector = sector;
   }
 
   sql += ` group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
