@@ -3,20 +3,28 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
 import SeriesSettings, { SeriesContext } from "./series-settings.component";
+import { Pagination } from "@mui/material";
 
+const DEFAULT_PAGE_SIZE = 25;
 
 class BmgAnalysis extends Component {
   constructor(props) {
     super(props);
     this.onStockClick = this.onStockClick.bind(this);
     this.onSectorClick = this.onSectorClick.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handlePageSizeChange = this.handlePageSizeChange.bind(this);
 
     this.state = {
       filter_sector: null,
       sectors: [],
       stocks: [],
-      analysis: {}
+      analysis: {},
+      page: 1,
+      count: 0,
+      pageSize: DEFAULT_PAGE_SIZE
     }
+    this.pageSizes = [10, 25, 50, 100];
   }
 
   componentDidMount() {
@@ -35,16 +43,45 @@ class BmgAnalysis extends Component {
     }
   }
 
+  handlePageChange(event, value) {
+    console.log("handlePageChange:: ", event, value);
+    this.setState(
+      {
+        page: value,
+      },
+      () => {
+        this.retrieveAnalysis();
+      }
+    );
+  }
+
+  handlePageSizeChange(event) {
+    console.log("handlePageSizeChange:: ", event);
+    this.setState(
+      {
+        pageSize: event.target.value,
+        page: 1,
+      },
+      () => {
+        this.retrieveAnalysis();
+      }
+    );
+  }
+
   async retrieveAnalysis() {
     try {
       const { factorName, frequency } = this.context;
+      const { page, pageSize, filter_sector } = this.state;
       const { data: res1 } = await StockDataService.getBmgAnalysisBaseCount({t: 'XWD.TO', frequency});
       console.log('count analysis? ', res1);
       let params = {f: factorName, frequency};
       const { data: res2 } = await StockDataService.getSectorsBmgAnalysis(params);
       console.log('sectors analysis? ', res2);
-      if (this.state.filter_sector) params.sector = this.state.filter_sector;
+      if (filter_sector) params.sector = filter_sector;
+      if (page) params["page"] = page - 1;
+      if (pageSize) params["size"] = pageSize;
       const { data: res3 } = await StockDataService.getStocksBmgAnalysis(params);
+      const { items, totalPages } = res3;
       console.log('stocks analysis? ', res3);
       // process into a displayable data structure
       let analysis = res2.reduce((p,s) => {
@@ -61,7 +98,8 @@ class BmgAnalysis extends Component {
       this.setState({
         sectors: res1,
         analysis,
-        stocks: res3
+        stocks: items,
+        count: totalPages
       });
     } catch (err) {
       console.log(err);
@@ -98,11 +136,52 @@ class BmgAnalysis extends Component {
     return c + ' (' + (100.0*(c||0)/t).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '%)';
   }
 
+  renderPaginator(count, page, pageSize, pageChangeHandler, pageSizeHandler) {
+    return (
+      <div className="row">
+        <div className="col-auto">
+          <Pagination
+            className="my-3"
+            count={count}
+            page={page}
+            siblingCount={1}
+            boundaryCount={1}
+            variant="outlined"
+            shape="rounded"
+            onChange={pageChangeHandler}
+          />
+        </div>
+        <div className="col-auto my-3 row">
+          <label className="col-auto col-form-label" htmlFor="pageSize">
+            Items per Page:
+          </label>
+          <div className="col-auto">
+            <select
+              id="pageSize"
+              className="form-select"
+              onChange={pageSizeHandler}
+              value={pageSize}
+            >
+              {this.pageSizes.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       analysis,
       stocks,
-      filter_sector
+      filter_sector,
+      page,
+      count,
+      pageSize
     } = this.state;
 
     return (
@@ -133,7 +212,7 @@ class BmgAnalysis extends Component {
         )}
 
         <h3>Significant Stocks</h3>
-        {stocks && stocks.length && (
+        {stocks && stocks.length ? (
           <table className='table table-bordered selectable-items-table'>
             <thead>
               <tr>
@@ -162,6 +241,13 @@ class BmgAnalysis extends Component {
             ))}
             </tbody>
           </table>
+        ) : 'None.'}
+        {this.renderPaginator(
+          count,
+          page,
+          pageSize,
+          this.handlePageChange,
+          this.handlePageSizeChange
         )}
 
       </div>

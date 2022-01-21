@@ -1,4 +1,5 @@
 const db = require("../models");
+const common = require("./common.js");
 const Sequelize = db.Sequelize;
 
 exports.countStocksPerSector = (req, res) => {
@@ -59,11 +60,14 @@ exports.stocksWithSignificantRegressions = (req, res) => {
     sector = req.query["sector"];
   }
 
+  const { page, size } = req.query;
+  const { limit, offset } = common.getPagination(page, size);
   let frequency = req.query["frequency"];
   if (!frequency) frequency = 'MONTHLY';
-  let params = { sigma, frequency };
+  let params = { sigma, frequency, limit, offset };
 
   // get the count of stock with significant regressions
+  let total_sql = 'select COUNT(*) as "count" from ('
   let sql = `select ss.ticker, ss.bmg_factor_name, s.sector, s.name,
         count(1) as total,
         count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END) as not_significant,
@@ -87,20 +91,39 @@ exports.stocksWithSignificantRegressions = (req, res) => {
     sql += ' and s.sector = :sector ';
     params.sector = sector;
   }
-
   sql += ` group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
-        having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END);`;
+        having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END)`;
+
+  let end_total_sql = `) x;`;
+  let end_query_sql = ` limit :limit offset :offset;`;
 
   db.sequelize.query(
-    sql,
+    total_sql + sql + end_total_sql,
     {
       replacements: params,
       type: Sequelize.QueryTypes.SELECT,
       raw: true
     })
-    .then((data) => {
-      console.log(`stocksWithSignificantRegressions = ${data}`);
-      res.send(data);
+    .then((count_data) => {
+      console.log('stocksWithSignificantRegressions COUNT = ', count_data);
+      db.sequelize.query(
+        sql + end_query_sql,
+        {
+          replacements: params,
+          type: Sequelize.QueryTypes.SELECT,
+          raw: true
+        })
+        .then((data) => {
+          console.log(`stocksWithSignificantRegressions RESULT = ${data}`);
+          res.send(common.getPagingData({rows: data, count: parseInt(count_data && count_data[0] ? count_data[0].count : 0)}, page, limit));
+        })
+        .catch((err) => {
+          console.error('stocksWithSignificantRegressions ERROR: ', err);
+          res.status(500).send({
+            message:
+            err.message || "Some error occurred while retrieving the data.",
+          });
+        });
     })
     .catch((err) => {
       console.error('stocksWithSignificantRegressions ERROR: ', err);
