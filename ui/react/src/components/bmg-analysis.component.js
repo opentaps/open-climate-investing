@@ -218,8 +218,8 @@ class BmgAnalysis extends Component {
           <table className='table table-bordered selectable-items-table'>
             <thead>
               <tr>
-                <th>Stock</th>
                 <th>Sector</th>
+                <th>Stock</th>
                 <th>Name</th>
                 <th>#Periods</th>
                 <th>Avg BMG</th>
@@ -231,8 +231,8 @@ class BmgAnalysis extends Component {
             <tbody>
             {stocks.map((s,index)=>(
               <tr key={s.ticker}>
-                <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
                 <td data-index={index} onClick={this.onStockClick}>{s.sector}</td>
+                <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
                 <td data-index={index} onClick={this.onStockClick}>{s.name}</td>
                 <td data-index={index} onClick={this.onStockClick}>{s.significant} of {parseInt(s.significant)+parseInt(s.not_significant)}</td>
                 <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg)}</td>

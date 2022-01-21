@@ -91,8 +91,11 @@ exports.stocksWithSignificantRegressions = (req, res) => {
     sql += ' and s.sector = :sector ';
     params.sector = sector;
   }
-  sql += ` group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
-        having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END)`;
+  sql += `
+        group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
+        having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END)
+        order by s.sector, ss.ticker
+        `;
 
   let end_total_sql = `) x;`;
   let end_query_sql = ` limit :limit offset :offset;`;
