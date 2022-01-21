@@ -2,7 +2,15 @@
 
 So, by now, you're probably thinking -- Why even bother?  It is so much work analyzing these big, old fashioned, Greenhouse Gas emitting companies or, even worse, getting them to cut their emissions.  How about we just invest in projects that reduce or remove those GHG's?  All the cool people are investing in those.  
 
-Carbon price projections here.
+[Putting carbon markets to work on the path to net zero](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) by McKinsey
+
+NGFS Carbon price projections here.
+
+## Renewable Energy
+
+No longer a climate bet but an energy bet.  More like project finance investing: counterpart risk, off taker agreements, net metering.  Shift to merchant power from long off taker agreements.  Key technological issue is storage. "I've lost more money on battery companies than anyone," - Bill Gates.  
+
+## Carbon Credits and Offsets
 
 These __may__ well turn out to be good investments, but they are not without risks of their own.  Here are a few to consider:
 
@@ -20,7 +28,7 @@ Market risk: During the pilot phase, there are philanthropic funders who will pa
 
 How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
 
-Obsolence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
+Obsolescence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
 
 Regulatory risk: Will compliance programs continue to accept your technology and project type?  Will net metering be repealed?  Will you be able to get permits for rolling out the projects?
 
@@ -29,6 +37,14 @@ Counterparty risk: If you are investing in projects to provide energy or generat
 Liquidity risk: If these are long term projects, will you be able to sell them when you need money for something else?  If you are planning to finance them, how will your funding counterparty mark your positions for collateral?
 
 Early days - Lots of different standards.  Eventually market will converge either to the government compliance standards or large private sector ones.  Will your project make it?
+
+Compliance carbon credits: Understanding the government regulations.  For example: Europe's overallocation of credits.  China's emissions intensity standard.  Expanding to new sectors.  Push back against financial investors and speculators.
+
+Voluntary carbon credits: Very heterogeneous market, over the counter, illiquid.  TSVCM recommends futures contract but look just at the Gold Standard marketplace, Ecosystems Marketplace survey -- there is such a big range a futures market won't cover much of it.  Also see the BCT -- exactly the cheapest offsets got tokenized.
+
+Voluntary carbon offsets market prizes novelty, pays up for unusual project types.  Once technology hits mainstream questions about additionality plus supply pushes down the values.  There is a period between when the technology is mature and market ready and when offset standards start to rein back issuance -- Renewable energy: [2016 paper](https://ec.europa.eu/clima/system/files/2017-04/clean_dev_mechanism_en.pdf) pointed out most CDM projects were not additional.  In 2021 Verra and Gold Standard modified their renewable energy methodology to exclude projects which are not in the lowest income countries.  During this period lots of potential supply ("free money") will push down prices.
+
+## Investment 
 
 Some general recommendations:
 
