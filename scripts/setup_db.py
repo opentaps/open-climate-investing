@@ -197,9 +197,10 @@ def main(args):
     cursor = conn.cursor()
 
     # Run the initial schema file to create tables, etc.
+    script_dir = os.getcwd() + '/scripts'
     if args.verbose:
         print('** init schema')
-    cursor.execute(open("init_schema.sql", "r").read())
+    cursor.execute(open(script_dir + "/init_schema.sql", "r").read())
 
     # Run the initial data load to create tables, etc.
     data_dir = os.getcwd() + '/data'
