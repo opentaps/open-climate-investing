@@ -43,7 +43,7 @@ class SeriesSettings extends Component {
 
     this.state = {
       frequencies: [],
-      factorNmes: [],
+      factorNames: [],
     }
   }
 
@@ -55,6 +55,9 @@ class SeriesSettings extends Component {
   async retrieveFrequencies() {
     try {
       const { data: frequencies } = await StockDataService.getFrequencies();
+      if (!frequencies.find(e=>e.frequency == this.context.frequency)) {
+        this.context.setFrequency(frequencies[0].frequency);
+      }
       this.setState({
         frequencies: frequencies.map((e) => e.frequency),
       });
@@ -66,6 +69,9 @@ class SeriesSettings extends Component {
   async retrieveFactorNames() {
     try {
       const { data: factor_names } = await StockDataService.getFactorNames();
+      if (!factor_names.find(e=>e.factor_name == this.context.factorName)) {
+        this.context.setFactorName(factor_names[0].factor_name);
+      }
       this.setState({
         factorNames: factor_names.map((e) => e.factor_name),
       });
@@ -90,9 +96,9 @@ class SeriesSettings extends Component {
     const { factorNames, frequencies } = this.state;
     const { factorName, frequency } = this.context;
 
-    return ((factorNames && factorNames.length > 1) || (frequencies && frequencies.length > 1)) && (
+    return ((factorNames && factorNames.length) || (frequencies && frequencies.length)) && (
       <div className="col-12 ms-1 mb-2 d-flex flex-row align-items-baseline">
-        {factorNames && factorNames.length > 1 && (
+        {factorNames && factorNames.length && (
           <div className="ms-1 mb-2 d-flex flex-row align-items-baseline">
             <b className="me-2">BMG Factor</b>
             <FormControl variant="standard">
@@ -109,7 +115,7 @@ class SeriesSettings extends Component {
             </FormControl>
           </div>
         )}
-        {frequencies && frequencies.length > 1 && (
+        {frequencies && frequencies.length && (
           <div className="ms-1 mb-2 d-flex flex-row align-items-baseline">
             <b className="me-2">Frequency</b>
             <FormControl variant="standard">
