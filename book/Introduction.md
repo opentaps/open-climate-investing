@@ -109,5 +109,5 @@ _"If you only do what you can do, you will never be more than you are now." ― 
 
 #### Disclaimer
 
-_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
 

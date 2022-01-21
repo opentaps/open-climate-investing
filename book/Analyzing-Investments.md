@@ -232,4 +232,4 @@ It could also help you make some money finding mispricings in the market, which 
 
 #### Disclaimer
 
-_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
