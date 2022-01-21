@@ -71,3 +71,7 @@ But as investors, our job is to judge, not to know.  As I will show you in the [
 ### References
  
 All references to "NGFS Case Studies book" is the [Case Studies of Environmental Risk Analysis Methodologies](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf) from the [Network for Greening the Financial System](https://www.ngfs.net/en). 
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_

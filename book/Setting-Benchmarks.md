@@ -158,3 +158,7 @@ Meanwhile, how is this for a reasonable proposal:
 - Therefore, portfolio managers should have input on how to vote on proxies.
 
 In the end, we come full circle.  Asset owners and portfolio managers are really part of the same time.  How about let's try to work together?
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_

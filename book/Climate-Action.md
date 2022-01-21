@@ -45,3 +45,8 @@ They're your companies.  Don't think of proxies as junk mail.
 ### Final Thought
 
 Be patient -- climate will be big, but we have to work together.
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
+

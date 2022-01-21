@@ -168,3 +168,7 @@ Hopefully the decentralized paradigm of the blockchain could create something be
 Blockchain is nothing but a mechanism for collaboration, but what kind of collaboration will we have?  Will it be increasingly fractured islands, each espousing their versions of the truth and backed by their own economic interests, be it a cryptocurrency, an existing industry, or even a national government?  Or could it knit us together to work on a long-term global challenge?
 
 Time will tell.
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_

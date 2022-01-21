@@ -106,3 +106,7 @@ If this is shocking to you, welcome to the markets.  Correlation shifts, volatil
 And finally, half the stocks in your zero climate risk portfolio are oil companies!  Imagine the uproar!  It'll probably sound like [this debate at MIT about divesting from fossil fuel companies](https://mitsloan.mit.edu/ideas-made-to-matter/mit-divest-all-ideas-welcome-pursuit-one-big-goal)
 
 Which brings us back to my original point in the [Introduction](Introduction.md): Climate investing is not the job of the portfolio manager.  Asset owners must specify their climate goals in the investment guidelines of their funds.  They must be willing to make those long term choices.  That is our topic for the next chapter. 
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_

@@ -106,3 +106,8 @@ Climate change is happening because we're all living and working in our own litt
 Ultimately we will live in the world that we worked to create, so let's get started and work to make it better.
 
 _"If you only do what you can do, you will never be more than you are now." ― Master Oogway_
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
+

@@ -55,3 +55,7 @@ It's also possible that you'll be wrong and lose money.
 
 Most annoyingly, it's possible that you'll be right and lose money anyway.
 
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
+

@@ -9,5 +9,6 @@
     * [Taking Action](book/Climate-Action.md)
     * [New Technologies](book/New-Technologies.md) 
     * [Conclusion](book/Conclusion.md)
+    * [Disclaimer](book/Disclaimer.md)
 
 

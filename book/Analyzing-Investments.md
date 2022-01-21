@@ -229,3 +229,7 @@ But fundamental analysis is hard, because it involves forecasting the future.  M
 So the market implied models could help us as a sanity check.  Are we sure what we're right?  Or does everybody else know something we don't?  It is the yin to the yang of fundamental research.
 
 It could also help you make some money finding mispricings in the market, which is always a nice thing.
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)_
