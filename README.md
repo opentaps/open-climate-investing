@@ -34,10 +34,18 @@ Then use `get_stocks.py` to get stock information for `stocks` table and return 
 
 If your stock ticker is a composite stock, it will calculate the historical returns using the weights in the `stock_components` table.
 
+By default the script will get the Monthly stock values, to get Daily values use `--frequency=DAILY`, eg:
+- `python scripts/get_stocks.py -f some_ticker_file.csv --frequency=DAILY` for using a csv source file
+- `python scripts/get_stocks.py -t ALB --frequency=DAILY` to load a single stock with ticker `ALB`
+- `python scripts/get_stocks.py -s ALB --frequency=DAILY` shows whether there is data stored for the ticker `ALB`
+
 To run the regression, use `get_regressions.py` to save the output in the `stock_stats` table:
 - `python scripts/get_regressions.py` for running all the stocks in the database
 - `python scripts/get_regressions.py -f some_ticker_file.csv` for using a csv source file
 - `python scripts/get_regressions.py -t ALB` to run and store the regression for a given stock
+
+Likewise for using Daily values, eg:
+- `python scripts/get_regressions.py -t ALB --frequency=DAILY` to run and store the regression for a given stock
 
 It will use the stock returns in the database by default, or if none are found, get them first.  It has some optional parameters:
 - `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
@@ -54,6 +62,11 @@ where
 - `-n <series name>` is the name of your bmg series
 - `-b` is the ticker of your Brown stock 
 - `-g` is the ticker of your Green stock
+
+Likewise for using Daily values, eg:
+```
+python scripts/bmg_series.py -n XOP-SMOG -g SMOG -b XOP --frequency=DAILY
+```
 
 ### Viewing the Results
 
