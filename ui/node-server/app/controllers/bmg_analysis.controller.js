@@ -59,10 +59,14 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   let params = { sigma, frequency };
 
   // get the count of stock with significant regressions
-  let sql = `select ss.ticker, ss.bmg_factor_name, s.sector,
+  let sql = `select ss.ticker, ss.bmg_factor_name, s.sector, s.name,
         count(1) as total,
         count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END) as not_significant,
-        count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) as significant
+        count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) as significant,
+        avg(bmg) as avg_bmg,
+        avg(bmg_t_stat) as avg_bmg_t_stat,
+        min(bmg_t_stat) as min_bmg_t_stat,
+        max(bmg_t_stat) as max_bmg_t_stat
         from stock_stats ss
         left join stocks s on ss.ticker = s.ticker
         where s.sector is not null and s.sector != '' and ss.frequency = :frequency `;
@@ -75,7 +79,7 @@ exports.stocksWithSignificantRegressions = (req, res) => {
     params.tickers = tickers;
   }
 
-  sql += ` group by ss.ticker, ss.bmg_factor_name, s.sector
+  sql += ` group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
         having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END);`;
 
   db.sequelize.query(
@@ -90,6 +94,7 @@ exports.stocksWithSignificantRegressions = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      console.error('stocksWithSignificantRegressions ERROR: ', err);
       res.status(500).send({
         message:
         err.message || "Some error occurred while retrieving the data.",
@@ -142,6 +147,7 @@ exports.sectorsWithSignificantRegressions = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      console.error('sectorsWithSignificantRegressions ERROR: ', err);
       res.status(500).send({
         message:
         err.message || "Some error occurred while retrieving the data.",

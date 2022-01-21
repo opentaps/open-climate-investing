@@ -74,6 +74,17 @@ class BmgAnalysis extends Component {
     }
   }
 
+  fmtNum(v) {
+    if (v === undefined || v === null) return '';
+    let n = parseFloat(v);
+    return n.toFixed(3);
+  }
+
+  fmtSectorCount(c,t) {
+    if (!c) return 'None';
+    return c + ' (' + (100.0*(c||0)/t).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '%)';
+  }
+
   render() {
     const {
       analysis,
@@ -98,7 +109,9 @@ class BmgAnalysis extends Component {
               <tr key={s}>
                 <th>{s}</th>
                 <td>{analysis.values[s]['_TOTAL_']}</td>
-                {analysis.factors.map(f=><td key={`${s}_${f}`}>{analysis.values[s][f]||0} ({(100.0*(analysis.values[s][f]||0)/analysis.values[s]['_TOTAL_']).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}%)</td>)}
+                {analysis.factors.map(f=><td key={`${s}_${f}`}>
+                    {this.fmtSectorCount(analysis.values[s][f], analysis.values[s]['_TOTAL_'])}
+                </td>)}
               </tr>
             ))}
             </tbody>
@@ -112,6 +125,12 @@ class BmgAnalysis extends Component {
               <tr>
                 <th>Stock</th>
                 <th>Sector</th>
+                <th>Name</th>
+                <th>#Periods</th>
+                <th>Avg BMG</th>
+                <th>Min BMG t-stat</th>
+                <th>Avg BMG t-stat</th>
+                <th>Max BMG t-stat</th>
               </tr>
             </thead>
             <tbody>
@@ -119,6 +138,12 @@ class BmgAnalysis extends Component {
               <tr key={s.ticker}>
                 <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
                 <td data-index={index} onClick={this.onStockClick}>{s.sector}</td>
+                <td data-index={index} onClick={this.onStockClick}>{s.name}</td>
+                <td data-index={index} onClick={this.onStockClick}>{s.significant}</td>
+                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg)}</td>
+                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.min_bmg_t_stat)}</td>
+                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg_t_stat)}</td>
+                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.max_bmg_t_stat)}</td>
               </tr>
             ))}
             </tbody>
