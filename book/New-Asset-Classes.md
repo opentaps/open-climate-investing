@@ -2,7 +2,7 @@
 
 So, by now, you're probably thinking -- Why even bother?  It is so much work analyzing these big, old fashioned, Greenhouse Gas emitting companies or, even worse, getting them to cut their emissions.  How about we just invest in projects that reduce or remove those GHG's?  All the cool people are investing in those.  
 
-[Putting carbon markets to work on the path to net zero](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) by McKinsey
+[Putting carbon markets to work on the path to net zero](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) by McKinsey.
 
 NGFS Carbon price projections here.
 
