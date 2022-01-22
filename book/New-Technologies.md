@@ -164,7 +164,7 @@ But does that mean we should reject voluntary offsets altogether?  They are a fo
 
 Hopefully the decentralized paradigm of the blockchain could create something better.  One possibility is a decentralized alternative to [CORSIA](https://www.icao.int/environmental-protection/CORSIA/Pages/default.aspx), the airline industry's carbon offset mechanism, which publishes its [CORSIA Emissions Unit Eligibility Criteria](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx).  
 
-Could we envision a DAO which incorporates a broad range of participants, from industry to project developers to environmentalists and the general public, to define the right mix of carbon offsets that could be used to achieve our climate goals?
+There must be _some_ offsets that are valid, and _some_ situations--airlines, heavy transportation, steel and cement--where direct decarbonization is not possible.  Could we envision a DAO which incorporates a broad range of participants, from industry to project developers to environmentalists and the general public, to select the right mix of carbon offsets that could be used to complement decarbonization?
 
 ### Parting Thoughts
 
