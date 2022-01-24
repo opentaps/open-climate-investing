@@ -183,7 +183,7 @@ Time will tell.
 
 ### Footnote 1 
 
-This involves several steps: The [Carbon Bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge) of Toucan brings carbon credits to the blockchain. First, they create a BatchNFT of the bridged carbon credits. Once approved, the BatchNFT can be converted into fungible TCO2 Toucan carbon credits. TCO2 token contracts still carry all the attributes and metadata of the NFT, making them specific to a given project and vintage.  [Carbon Pools](https://docs.toucan.earth/protocol/pool/pools) turn the TCO2 tokens into a more liquid index token like BCT with each pool having its own gating attributes. As for BCT reference pool, the attributes are "Verra VCUs" and vintage of 2008 or greater.  
+There are in fact several steps: The [Carbon Bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge) of Toucan brings carbon credits to the blockchain. First, they create a BatchNFT of the bridged carbon credits. Once approved, the BatchNFT can be converted into fungible TCO2 Toucan carbon credits. TCO2 token contracts still carry all the attributes and metadata of the NFT, making them specific to a given project and vintage.  [Carbon Pools](https://docs.toucan.earth/protocol/pool/pools) turn the TCO2 tokens into a more liquid index token like BCT with each pool having its own gating attributes. As for BCT reference pool, the attributes are "Verra VCUs" and vintage of 2008 or greater.  
 
 #### Disclaimer
 
