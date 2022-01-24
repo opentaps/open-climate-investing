@@ -4,7 +4,8 @@ _The ability to speculate on a cryptocurrency is insignificant next to the power
 
 ### Planet Crypto
 
-_You're going to find that many of the truths we cling to depend greatly on our own point of view. - Obi-wan Kenobi_
+_Luke: I feel the Force!_
+_Obi-Wan Kenobi: But you cannot control it!_
 
 There's been a disturbance in climate finance.  The long obscure world of carbon offsets has collided with the red hot crypto universe.  The new technorati are turning to offsets as no less than a way to overturn the existing economy and financial markets.  They want to usher in a new world order of "regenerative finance" to heal (or, as they prefer, "unf*ck") the planet.  Their manifesto could be summed up as the following:
 
@@ -36,7 +37,7 @@ Meanwhile, those of us in the old fashioned world of carbon offsets might notice
 - These offsets were trading with an average price of $1.1 as recently as September 2021.  (Source: [Ecosystems Marketplace](https://www.ecosystemmarketplace.com/articles/press-release-voluntary-carbon-markets-rocket-in-2021-on-track-to-break-1b-for-first-time/))
 - When the offsets are "retired" from the Verra registry, it means that they are used to offset the emissions footprint of the retiring party (retiree?)  They should never be traded again and therefore have no value any more.  Toucan Protocol, creators of the BCT token, acknowledges that it is a [one way bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge).
 - In other words, BCT tokens and anything based on it could only be considered assets by those who believe.  They could never be converted back to offsets and traded in the existing offset markets.  They're a one way ticket to Planet Crypto.
-- Is it ever really possible to [create a liquid asset from an illiquid one](https://www.oaktreecapital.com/docs/default-source/memos/2015-03-25-liquidity.pdf)
+- Is it ever really possible to [create a liquid asset from an illiquid one](https://www.oaktreecapital.com/docs/default-source/memos/2015-03-25-liquidity.pdf)?
 
 ![Toucan Projects List](images/toucan-projects-list.png)
 
@@ -133,6 +134,8 @@ As an example of a DAO, see the [DAO proposal](https://github.com/opentaps/open-
 
 ### Better Offsets
 
+_You're going to find that many of the truths we cling to depend greatly on our own point of view. - Obi-wan Kenobi_
+
 What does the offset market _really_ need?
 
 In a [recent paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914) sponsored by the Linux Foundation's Hyperledger project, we found that the top concerns of the offset market participants were actually Quality, Cost, and Transparency:
@@ -153,7 +156,7 @@ This problem cannot be solved by just tokenizing the offsets from one registry, 
 
 Finally, Quality:  It must be disheartening to be an offset project developer.  You do all the work, spend lots of money to get it verified, only to hear it disparaged.  Not disparaged by climate deniers, but by the very environmentalists that should be your strongest supporters.  Yet they do not hold back.  [Project Drawdown](https://drawdown.org/news/insights/opinion-the-world-needs-better-climate-pledges) calls offsets "problematic," "dubious," a "shell game", and "imaginary."  Greenpeace is more blunt: [Carbon Offsets are a Scam](https://www.greenpeace.org/international/story/50689/carbon-offsets-net-zero-greenwashing-scam/), "a bookkeeping trick" and "the next big thing in greenwashing" that "feigns compassion," "preys on fear," "takes advantage of uncertainty," and is driven by "Greed" - "Big Oil and corporate polluters want to keep putting profits over people and the planet."
 
-These critics raise a couple of valid points, even if they offer no viable solution.  First, there are many low quality, low cost projects which are available, and certainly some parties could buy them to make empty climate claims.  At the heart of the problem is "Additionality," the requirement that a project could not have taken place without funding from the offsets.  [Gold Standard explains why this is crucial](https://goldstandardhelp.freshdesk.com/support/solutions/articles/44001989691-what-does-additionality-mean-and-why-is-it-important-):
+These critics raise some valid points, even if they offer no viable solution.  First, there are many low quality, low cost projects which are available, and certainly some parties could buy them to make empty climate claims.  At the heart of the problem is "Additionality," the requirement that a project could not have taken place without funding from the offsets.  [Gold Standard explains why this is crucial](https://goldstandardhelp.freshdesk.com/support/solutions/articles/44001989691-what-does-additionality-mean-and-why-is-it-important-):
 
 _Additionality is a defining concept of carbon-offset projects. To qualify as a genuine carbon offset, the reductions achieved by a project need to be ‘additional’ to what would have happened if the project had not been carried out (e.g. continued as business-as-usual). For instance, if a project is viable in its own right, say through the sale of electricity, or because of government funding, regulation or other policies, then it cannot be used as an offset project as it would have been undertaken regardless of investment secured through carbon markets._
 
@@ -167,9 +170,11 @@ In early 2021, both the Gold Standard and VERRA changed their methodologies for 
 
 But does that mean we should reject voluntary offsets altogether?  They are a form of carbon credits, and carbon credits themselves are not going away.  Cap and trade has been an established mechanism for pollution reduction since the 1990's sulfur dioxide regulations.  Carbon credits were affirmed by COP26 in 2021 and are used in climate programs all over the world to reduce GHG emissions, including Europe, California, and now China.  If the voluntary offsets market went away, we'd be left with just government compliance programs, which support a much smaller scope of project types and are even less responsive to criticisms about their validity.  Is that really better?
 
-Second, trying to offset emissions without reducing them in the first place is a race that we could never win.  We must decarbonize first and use offsets as a complement, either as a way to fund decarbonization or as an interim measure when no viable decarbonization options are available.  Government compliance programs are set up with this in mind, with the permitted allowance of baseline emissions credits falling over time as industries decarbonize.  The voluntary offsets market needs a similar mechanism.  [CORSIA](https://www.icao.int/environmental-protection/CORSIA/Pages/default.aspx), for example, promotes both [eligible carbon offsets](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx) and [sustainable aviation fuels](https://www.icao.int/environmental-protection/pages/SAF.aspx).  Although critics argue that [the combination does not work well together](https://theicct.org/icaos-corsia-scheme-provides-a-weak-nudge-for-in-sector-carbon-reductions/), it is at least a step in the right direction and an example for other industries.  
+Second, trying to offset emissions without reducing them in the first place is a race that we could never win.  We must decarbonize first and use offsets only as a complement.  Some industries, such as commercial buildings and cloud computing, including blockchains, could already decarbonize economically by switching to renewable energy.  They should not use offsets.  Other industries, such as airlines, heavy transportation, steel, and cement, do not have large scale direct decarbonization options right now.  Carbon credits could be a way to fund decarbonization or an interim measure until viable decarbonization options are available.   
 
-There must be _some_ offsets that are valid, and _some_ industries--airlines, heavy transportation, steel and cement--where widespread direct decarbonization is not feasible.  Could we envision a DAO which incorporates a broad range of participants, from industry to project developers to environmentalists and the general public, to select the right mix of carbon offsets that could be used to complement decarbonization?
+Government compliance programs are set up with this in mind, with the permitted allowance of baseline emissions credits falling over time as industries decarbonize.  The voluntary offsets market needs a similar mechanism.  [CORSIA](https://www.icao.int/environmental-protection/CORSIA/Pages/default.aspx), for example, promotes both [eligible carbon offsets](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx) and [sustainable aviation fuels](https://www.icao.int/environmental-protection/pages/SAF.aspx).  Although critics argue that [the combination does not work well together](https://theicct.org/icaos-corsia-scheme-provides-a-weak-nudge-for-in-sector-carbon-reductions/), it is at least a step in the right direction and an example for other industries.  
+
+Could we envision a DAO which incorporates a broad range of participants, from industry to project developers to environmentalists and the general public, to select the right mix of carbon offsets that could be used to complement decarbonization?
 
 ### Parting Thoughts
 
