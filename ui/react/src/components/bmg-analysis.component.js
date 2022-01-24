@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
 import SeriesSettings, { SeriesContext } from "./series-settings.component";
-import { Pagination, IconButton } from "@mui/material";
+import { CircularProgress, Pagination, IconButton } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const DEFAULT_PAGE_SIZE = 25;
@@ -19,6 +19,8 @@ class BmgAnalysis extends Component {
 
     this.state = {
       sortField: 'sector',
+      loadingIndicator: true,
+      loadingIndicatorStocks: true,
       filter_sector: null,
       sectors: [],
       stocks: [],
@@ -53,7 +55,7 @@ class BmgAnalysis extends Component {
         page: value,
       },
       () => {
-        this.retrieveAnalysis();
+        this.retrieveStocks();
       }
     );
   }
@@ -66,27 +68,22 @@ class BmgAnalysis extends Component {
         page: 1,
       },
       () => {
-        this.retrieveAnalysis();
+        this.retrieveStocks();
       }
     );
   }
 
   async retrieveAnalysis() {
     try {
+      this.setState({ loadingIndicator: true });
       const { factorName, frequency } = this.context;
-      const { page, pageSize, filter_sector, sortField } = this.state;
       const { data: res1 } = await StockDataService.getBmgAnalysisBaseCount({t: 'XWD.TO', frequency});
       console.log('count analysis? ', res1);
       let params = {f: factorName, frequency};
       const { data: res2 } = await StockDataService.getSectorsBmgAnalysis(params);
       console.log('sectors analysis? ', res2);
-      if (filter_sector) params.sector = filter_sector;
-      if (page) params["page"] = page - 1;
-      if (pageSize) params["size"] = pageSize;
-      if (sortField) params["sort"] = sortField;
-      const { data: res3 } = await StockDataService.getStocksBmgAnalysis(params);
-      const { items, totalPages } = res3;
-      console.log('stocks analysis? ', res3);
+      await this.retrieveStocks();
+      const { stocks } = this.state;
       // process into a displayable data structure
       let analysis = res2.reduce((p,s) => {
         let k = p.values[s.sector] || {'_TOTAL_': 0};
@@ -97,17 +94,41 @@ class BmgAnalysis extends Component {
         factors: res2.map(s=>s.bmg_factor_name).filter((v,i,self)=>self.indexOf(v)===i),
         sectors: res1.map(s=>s.sector),
         values: res1.reduce((p,s)=>{p[s.sector]={'_TOTAL_':s.count};return p},{}),
-        periods: items.reduce((p,s)=>{let t = parseInt(s.total); return t>p?t:p},0)
+        periods: stocks.reduce((p,s)=>{let t = parseInt(s.total); return t>p?t:p},0)
       });
       console.log('results analysis? ', analysis);
       this.setState({
         sectors: res1,
         analysis,
-        stocks: items,
-        count: totalPages
+        loadingIndicator: false
       });
     } catch (err) {
       console.log(err);
+      this.setState({ loadingIndicator: false });
+    }
+  }
+
+  async retrieveStocks() {
+    try {
+      this.setState({ loadingIndicatorStocks: true });
+      const { factorName, frequency } = this.context;
+      const { page, pageSize, filter_sector, sortField } = this.state;
+      let params = {f: factorName, frequency};
+      if (filter_sector) params.sector = filter_sector;
+      if (page) params["page"] = page - 1;
+      if (pageSize) params["size"] = pageSize;
+      if (sortField) params["sort"] = sortField;
+      const { data: res3 } = await StockDataService.getStocksBmgAnalysis(params);
+      const { items, totalPages } = res3;
+      console.log('stocks analysis? ', res3);
+      this.setState({
+        stocks: items,
+        count: totalPages,
+        loadingIndicatorStocks: false
+      });
+    } catch (err) {
+      console.log(err);
+      this.setState({ loadingIndicatorStocks: false });
     }
   }
 
@@ -126,7 +147,7 @@ class BmgAnalysis extends Component {
       let sector = e.target.getAttribute("data-sector");
       console.log("onSectorClick --> ", sector);
       if (this.state.filter_sector == sector) sector = null;
-      this.setState({ filter_sector: sector }, () => this.retrieveAnalysis());
+      this.setState({ filter_sector: sector }, () => this.retrieveStocks());
     }
   }
 
@@ -139,6 +160,14 @@ class BmgAnalysis extends Component {
   fmtSectorCount(c,t) {
     if (!c) c = 0;
     return c + ' (' + (100.0*(c||0)/t).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '%)';
+  }
+
+  renderSpinner(loading) {
+    return loading ? (
+        <CircularProgress />
+    ) : (
+      ""
+    );
   }
 
   renderPaginator(count, page, pageSize, pageChangeHandler, pageSizeHandler) {
@@ -186,7 +215,7 @@ class BmgAnalysis extends Component {
     } else {
       sortField = field;
     }
-    this.setState({ sortField }, () => { this.retrieveAnalysis() })
+    this.setState({ sortField }, () => { this.retrieveStocks() })
   }
 
   renderSortHeader(label, field) {
@@ -198,7 +227,7 @@ class BmgAnalysis extends Component {
       sortClass = 'sortDesc';
     }
     if (field) {
-      return (<th scope="col" className={'sortableHeader ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
+      return (<th scope="col" className={'sortableHeader nws ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
     } else {
       return (<th>{label}</th>)
     }
@@ -211,75 +240,79 @@ class BmgAnalysis extends Component {
       filter_sector,
       page,
       count,
-      pageSize
+      pageSize,
+      loadingIndicator,
+      loadingIndicatorStocks
     } = this.state;
 
     return (
       <div>
         <SeriesSettings/>
-        <h3>Number of Significant Stocks by Industry</h3>
-        {analysis && analysis.sectors && analysis.sectors.length ?(
-          <table className='table table-bordered selectable-items-table'>
-            <thead>
-              <tr>
-                <th/>
-                <th>Total</th>
-                {analysis.factors.map(f=><th key={f}>{f}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-            {analysis.sectors.map((s)=>(
-              <tr key={s} data-sector={s} onClick={this.onSectorClick} className={s==filter_sector?'selected':''}>
-                <th data-sector={s}>{s}</th>
-                <td data-sector={s}>{analysis.values[s]['_TOTAL_']}</td>
-                {analysis.factors.map(f=><td key={`${s}_${f}`}>
-                    {this.fmtSectorCount(analysis.values[s][f], analysis.values[s]['_TOTAL_'])}
-                </td>)}
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        ) : ''}
+        {loadingIndicator ? this.renderSpinner(true) : (<>
+          <h3>Number of Significant Stocks by Industry</h3>
+          {analysis && analysis.sectors && analysis.sectors.length ?(
+            <table className='table table-bordered selectable-items-table'>
+              <thead>
+                <tr>
+                  <th/>
+                  <th>Total</th>
+                  {analysis.factors.map(f=><th key={f}>{f}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+              {analysis.sectors.map((s)=>(
+                <tr key={s} data-sector={s} onClick={this.onSectorClick} className={s==filter_sector?'selected':''}>
+                  <th data-sector={s}>{s}</th>
+                  <td data-sector={s}>{analysis.values[s]['_TOTAL_']}</td>
+                  {analysis.factors.map(f=><td key={`${s}_${f}`}>
+                      {this.fmtSectorCount(analysis.values[s][f], analysis.values[s]['_TOTAL_'])}
+                  </td>)}
+                </tr>
+              ))}
+              </tbody>
+            </table>
+          ) : ''}
 
-        <h3>Significant Stocks</h3>
-        {stocks && stocks.length ? (<>
-          <p>Stocks with more than half of their periods of significant BMG factor are listed below.</p>
-          <table className='table table-bordered selectable-items-table'>
-            <thead>
-              <tr>
-                {this.renderSortHeader('Sector', 'sector')}
-                {this.renderSortHeader('Stock', 'ticker')}
-                {this.renderSortHeader('Name', 'name')}
-                {this.renderSortHeader('#Periods', 'total')}
-                {this.renderSortHeader('Avg BMG', 'avg_bmg')}
-                {this.renderSortHeader('Min BMG t-stat', 'min_bmg_t_stat')}
-                {this.renderSortHeader('Avg BMG t-stat', 'avg_bmg_t_stat')}
-                {this.renderSortHeader('Max BMG t-stat', 'max_bmg_t_stat')}
-              </tr>
-            </thead>
-            <tbody>
-            {stocks.map((s,index)=>(
-              <tr key={s.ticker}>
-                <td data-index={index} onClick={this.onStockClick}>{s.sector}</td>
-                <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
-                <td data-index={index} onClick={this.onStockClick}>{s.name}</td>
-                <td data-index={index} onClick={this.onStockClick}>{s.significant} of {parseInt(s.significant)+parseInt(s.not_significant)}</td>
-                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg)}</td>
-                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.min_bmg_t_stat)}</td>
-                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg_t_stat)}</td>
-                <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.max_bmg_t_stat)}</td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        </>) : 'None.'}
-        {this.renderPaginator(
-          count,
-          page,
-          pageSize,
-          this.handlePageChange,
-          this.handlePageSizeChange
-        )}
+          <h3>Significant Stocks</h3>
+          {stocks && stocks.length ? (<>
+            <p>Stocks with more than half of their periods of significant BMG factor are listed below.</p>
+            <table className='table table-bordered selectable-items-table'>
+              <thead>
+                <tr>
+                  {this.renderSortHeader('Sector', 'sector')}
+                  {this.renderSortHeader('Stock', 'ticker')}
+                  {this.renderSortHeader('Name', 'name')}
+                  {this.renderSortHeader('#Periods', 'total')}
+                  {this.renderSortHeader('Avg BMG', 'avg_bmg')}
+                  {this.renderSortHeader('Min BMG t-stat', 'min_bmg_t_stat')}
+                  {this.renderSortHeader('Avg BMG t-stat', 'avg_bmg_t_stat')}
+                  {this.renderSortHeader('Max BMG t-stat', 'max_bmg_t_stat')}
+                </tr>
+              </thead>
+              <tbody>
+              {loadingIndicatorStocks ? <tr><td colSpan="8">{this.renderSpinner(true)}</td></tr> : stocks.map((s,index)=>(
+                <tr key={s.ticker}>
+                  <td data-index={index} onClick={this.onStockClick}>{s.sector}</td>
+                  <th data-index={index} onClick={this.onStockClick}>{s.ticker}</th>
+                  <td data-index={index} onClick={this.onStockClick}>{s.name}</td>
+                  <td data-index={index} onClick={this.onStockClick}>{s.significant} of {parseInt(s.significant)+parseInt(s.not_significant)}</td>
+                  <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg)}</td>
+                  <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.min_bmg_t_stat)}</td>
+                  <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.avg_bmg_t_stat)}</td>
+                  <td data-index={index} onClick={this.onStockClick}>{this.fmtNum(s.max_bmg_t_stat)}</td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+          </>) : 'None.'}
+          {this.renderPaginator(
+            count,
+            page,
+            pageSize,
+            this.handlePageChange,
+            this.handlePageSizeChange
+          )}
+        </>)}
 
       </div>
     )

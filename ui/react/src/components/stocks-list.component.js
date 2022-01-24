@@ -152,7 +152,7 @@ class StocksList extends Component {
       sortClass = 'sortDesc';
     }
     if (field) {
-      return (<th scope="col" className={'sortableHeader ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
+      return (<th scope="col" className={'sortableHeader nws ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
     } else {
       return (<th>{label}</th>)
     }

@@ -53,7 +53,9 @@
 .stat_other {
   color: #aaa;
 }
-
+th.sortableHeader.nws {
+  white-space:nowrap;
+}
 th.sortableHeader button {
   opacity:0;
   transform:rotate(0deg);
