@@ -1,10 +1,21 @@
 # New Asset Classes
 
-So, by now, you're probably thinking -- Why even bother?  It is so much work analyzing these big, old fashioned, Greenhouse Gas emitting companies or, even worse, getting them to cut their emissions.  How about we just invest in projects that reduce or remove those GHG's?  All the cool people are investing in those.  
+_It's easy to do the math but hard to do the work. - Anonymous Real Estate Developer_
+
+
 
 [Putting carbon markets to work on the path to net zero](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) by McKinsey.
 
 NGFS Carbon price projections here.
+
+Carbon asset investing cycle - renewable energy example
+Early days - high cost, high technology risk - long off taker arrangements, public support, carbon credits
+Now - proven technology, commercially viable - merchant power arrangement, no carbon credits, direct sales of electricity, declining need for net metering due to duck curve.  Storage is the next frontier.
+
+Voluntary market - large variety, story specific
+Compliance market - ton of carbon is ton of carbon.  Commodity.  Compete with other options at best price.  Much larger
+
+Tech must transition from voluntary to compliance markets.
 
 ## Renewable Energy
 
@@ -33,6 +44,8 @@ Obsolescence risk: This is the counterpart to market risk.  Certain types of car
 Regulatory risk: Will compliance programs continue to accept your technology and project type?  Will net metering be repealed?  Will you be able to get permits for rolling out the projects?
 
 Counterparty risk: If you are investing in projects to provide energy or generate carbon credits, who are you selling to, and what is the risk of their defaulting?
+
+Currency risk: In case it's in another country, especially less developed one.
 
 Liquidity risk: If these are long term projects, will you be able to sell them when you need money for something else?  If you are planning to finance them, how will your funding counterparty mark your positions for collateral?
 
@@ -70,6 +83,12 @@ It's possible you'll be right and make money.
 It's also possible that you'll be wrong and lose money.
 
 Most annoyingly, it's possible that you'll be right and lose money anyway.
+
+## Are they a Hedge?
+
+It's hard to know how the world of 2100 will look.  Who, in 1942, could've foreseen the world we live in today?
+
+If we fail to stop climate change, how will the world change?  Carbon credits are a market-based mechanism for reducing human activities that cause climate change.  How much of our free trade and free financial flows survive?  Or will governments hoard their resources?  Will carbon credits still even exist or have any value?   
 
 #### Disclaimer
 
