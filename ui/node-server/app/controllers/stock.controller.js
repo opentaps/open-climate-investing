@@ -198,7 +198,11 @@ exports.findAll = (req, res) => {
     query.include = includes;
     query.subQuery = false;
   }
-  query.order = ["ticker"];
+  let sort = req.query['sort'] || 'ticker';
+  if (sort && sort[0] == '-') {
+    sort = [sort.substring(1), 'DESC'];
+  }
+  query.order = [sort];
   console.log("stock.controller::findAll -> query", query);
 
   Stock.findAndCountAll(query)

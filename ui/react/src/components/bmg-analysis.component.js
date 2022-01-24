@@ -198,7 +198,7 @@ class BmgAnalysis extends Component {
       sortClass = 'sortDesc';
     }
     if (field) {
-      return (<th className={'sortableHeader ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
+      return (<th scope="col" className={'sortableHeader ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
     } else {
       return (<th>{label}</th>)
     }
@@ -245,7 +245,7 @@ class BmgAnalysis extends Component {
         {stocks && stocks.length ? (<>
           <p>Stocks with more than half of their periods of significant BMG factor are listed below.</p>
           <table className='table table-bordered selectable-items-table'>
-            <thead className='datatable-header'>
+            <thead>
               <tr>
                 {this.renderSortHeader('Sector', 'sector')}
                 {this.renderSortHeader('Stock', 'ticker')}

@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StockDataService from "../services/stock.service";
 import SeriesSettings, { SeriesContext } from "./series-settings.component";
-import { CircularProgress, Pagination } from "@mui/material";
+import { CircularProgress, Pagination, IconButton } from "@mui/material";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const FIELD_OPS = [
   { label: "=", value: "eq" },
@@ -33,8 +34,10 @@ class StocksList extends Component {
     this.addSearchField = this.addSearchField.bind(this);
     this.removeSearchField = this.removeSearchField.bind(this);
     this.syncCurrentUrl = this.syncCurrentUrl.bind(this);
+    this.setSort = this.setSort.bind(this);
 
     this.state = {
+      sortField: 'ticker',
       errorMessage: null,
       stocks: [],
       // default to ticker search only
@@ -130,7 +133,32 @@ class StocksList extends Component {
     }
   }
 
-  getRequestParams(searchFields, page, pageSize, factorName, frequency) {
+  setSort(field) {
+    let { sortField } = this.state;
+    if (sortField === field) {
+      sortField = '-' + field;
+    } else {
+      sortField = field;
+    }
+    this.setState({ sortField }, () => { this.retrieveStocks() })
+  }
+
+  renderSortHeader(label, field) {
+    const { sortField } = this.state;
+    let sortClass = '';
+    if (sortField === field) {
+      sortClass = 'sortAsc';
+    } else if (sortField === '-'+field) {
+      sortClass = 'sortDesc';
+    }
+    if (field) {
+      return (<th scope="col" className={'sortableHeader ' + sortClass} onClick={()=>this.setSort(field)}>{label}<IconButton aria-label={label}><ArrowUpwardIcon/></IconButton></th>)
+    } else {
+      return (<th>{label}</th>)
+    }
+  }
+
+  getRequestParams(searchFields, page, pageSize, factorName, frequency, sortField) {
     let params = {};
 
     if (searchFields && searchFields.length) {
@@ -155,6 +183,10 @@ class StocksList extends Component {
       params["factor_name"] = factorName;
     }
 
+    if (sortField) {
+      params["sort"] = sortField;
+    }
+
     console.log("getRequestParams:: params", params);
     return params;
   }
@@ -162,13 +194,13 @@ class StocksList extends Component {
   retrieveStocks() {
     console.log("retrieveStocks:: state", this.state);
     console.log("retrieveStocks:: context", this.context);
-    const { searchFields, page, pageSize } = this.state;
+    const { searchFields, page, pageSize, sortField } = this.state;
     const { frequency, factorName } = this.context;
 
     // reset error
     this.setState({ errorMessage: null });
 
-    const params = this.getRequestParams(searchFields, page, pageSize, factorName, frequency);
+    const params = this.getRequestParams(searchFields, page, pageSize, factorName, frequency, sortField);
 
     this.setState({ loadingIndicator: true });
 
@@ -438,13 +470,13 @@ class StocksList extends Component {
           <table className="table table-bordered selectable-items-table">
             <thead>
               <tr>
-                <th scope="col">Stock</th>
-                <th scope="col">BMG</th>
-                <th scope="col">Market</th>
-                <th scope="col">SMB</th>
-                <th scope="col">HML</th>
-                <th scope="col">WML</th>
-                <th scope="col">R-sq</th>
+                {this.renderSortHeader('Stock', 'ticker')}
+                {this.renderSortHeader('BMG', 'bmg')}
+                {this.renderSortHeader('Market', 'mkt_rf')}
+                {this.renderSortHeader('SMB', 'smb')}
+                {this.renderSortHeader('HML', 'hml')}
+                {this.renderSortHeader('WML', 'wml')}
+                {this.renderSortHeader('R-sq', 'r_squared')}
               </tr>
             </thead>
             <tbody>
