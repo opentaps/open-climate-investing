@@ -282,7 +282,7 @@ class BmgAnalysis extends Component {
                   {this.renderSortHeader('Sector', 'sector')}
                   {this.renderSortHeader('Stock', 'ticker')}
                   {this.renderSortHeader('Name', 'name')}
-                  {this.renderSortHeader('#Periods', 'total')}
+                  {this.renderSortHeader('#Periods', 'significant')}
                   {this.renderSortHeader('Avg BMG', 'avg_bmg')}
                   {this.renderSortHeader('Min BMG t-stat', 'min_bmg_t_stat')}
                   {this.renderSortHeader('Avg BMG t-stat', 'avg_bmg_t_stat')}

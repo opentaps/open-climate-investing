@@ -108,6 +108,8 @@ exports.stocksWithSignificantRegressions = (req, res) => {
     sql += ` order by ss.ticker ${sortDir}`;
   } else if (sort === 'name') {
     sql += ` order by s.name ${sortDir}`;
+  } else if (sort === 'significant') {
+    sql += ` order by significant ${sortDir}`;
   } else if (sort === 'total') {
     sql += ` order by total ${sortDir}`;
   } else if (sort === 'avg_bmg') {
