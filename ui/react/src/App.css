@@ -53,3 +53,19 @@
 .stat_other {
   color: #aaa;
 }
+
+th.sortableHeader button {
+  opacity:0;
+  transform:rotate(0deg);
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+th.sortableHeader.sortAsc button ,
+th.sortableHeader.sortDesc button ,
+th.sortableHeader:hover button {
+  opacity:1;
+}
+th.sortableHeader.sortDesc button {
+  transform:rotate(180deg);
+}

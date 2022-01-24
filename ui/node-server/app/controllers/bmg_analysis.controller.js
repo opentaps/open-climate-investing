@@ -46,6 +46,12 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   let factors = null;
   let tickers = null;
   let sector = null;
+  let sortDir = 'ASC';
+  let sort = req.query['sort'] || 'sector';
+  if (sort && sort[0] == '-') {
+    sort = sort.substring(1);
+    sortDir = 'DESC';
+  }
 
   if (req.query["f"]) {
     factors = req.query["f"].split(',');
@@ -94,8 +100,27 @@ exports.stocksWithSignificantRegressions = (req, res) => {
   sql += `
         group by ss.ticker, ss.bmg_factor_name, s.sector, s.name
         having count(CASE WHEN bmg_p_gt_abs_t < :sigma THEN 1 END) > count(CASE WHEN bmg_p_gt_abs_t >= :sigma THEN 1 END)
-        order by s.sector, ss.ticker
         `;
+  // add sort, validate the given field
+  if (sort === 'sector') {
+    sql += ` order by s.sector ${sortDir}, ss.ticker`;
+  } else if (sort === 'ticker') {
+    sql += ` order by ss.ticker ${sortDir}`;
+  } else if (sort === 'name') {
+    sql += ` order by s.name ${sortDir}`;
+  } else if (sort === 'total') {
+    sql += ` order by total ${sortDir}`;
+  } else if (sort === 'avg_bmg') {
+    sql += ` order by avg_bmg ${sortDir}`;
+  } else if (sort === 'avg_bmg_t_stat') {
+    sql += ` order by avg_bmg_t_stat ${sortDir}`;
+  } else if (sort === 'min_bmg_t_stat') {
+    sql += ` order by min_bmg_t_stat ${sortDir}`;
+  } else if (sort === 'max_bmg_t_stat') {
+    sql += ` order by max_bmg_t_stat ${sortDir}`;
+  } else {
+    sql += ' order by s.sector, ss.ticker';
+  }
 
   let end_total_sql = `) x;`;
   let end_query_sql = ` limit :limit offset :offset;`;
