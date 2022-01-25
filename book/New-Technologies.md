@@ -15,7 +15,7 @@ There's been a disturbance in climate finance.  The long obscure world of carbon
 - Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: [deploy large sums of capital with minimal diligence](https://keepcool.co/klimadao-deepdive/)_) and pump up  the cryptocurrency.
 - Higher price for the cryptocurrency will lead to higher prices for offsets, which will finance more projects to unf*ck the planet.
 
-Perhaps the best example of this today is the combination of the [BCT](https://docs.toucan.earth/protocol/introduction/defi-refi) and [KLIMA](https://www.klimadao.finance/) tokens.  The BCT "bridges" the carbon offsets and the blockchain by retiring one ton of offsets in the Verra voluntary carbon offsets registry and then creating a fungible ERC20 token on the Polygon Ethereum Layer 2 network representing one ton of carbon.[[1]](#footnote-1)  KLIMA then created a new cryptocurrency based on BCT and used staking rewards, where holders of the KLIMA could deposit them in the treasury to earn additional KLIMA tokens, to draw in buyers.  With a discord channel of over 40,000 members, the KLIMA token traded as high as an $3,777.30.  
+Perhaps the best example of this today is the combination of the [BCT](https://docs.toucan.earth/protocol/introduction/defi-refi) and [KLIMA](https://www.klimadao.finance/) tokens.  The BCT "bridges" the carbon offsets and the blockchain by retiring one ton of offsets in the Verra voluntary carbon offsets registry and then creating a fungible ERC20 token on the Polygon Ethereum Layer 2 network representing one ton of carbon.[[1]](#footnote-1)[[2]](#footnote-2)  KLIMA then created a new cryptocurrency based on BCT and used staking rewards, where holders of the KLIMA could deposit them in the treasury to earn additional KLIMA tokens, to draw in buyers.  With a discord channel of over 40,000 members, the KLIMA token traded as high as an $3,777.30.  
 
 To true believers, this must be exactly the [Promise of Web3](https://mirror.xyz/0x26163318B9972E41A734602Fe00A5683D233613f):
 
@@ -189,6 +189,10 @@ Time will tell.
 ### Footnote 1 
 
 There are in fact several steps: The [Carbon Bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge) of Toucan brings carbon credits to the blockchain. First, they create a BatchNFT of the bridged carbon credits. Once approved, the BatchNFT can be converted into fungible TCO2 Toucan carbon credits. TCO2 token contracts still carry all the attributes and metadata of the NFT, making them specific to a given project and vintage.  [Carbon Pools](https://docs.toucan.earth/protocol/pool/pools) turn the TCO2 tokens into a more liquid index token like BCT with each pool having its own gating attributes. As for BCT reference pool, the attributes are "Verra VCUs" and vintage of 2008 or greater.  
+
+### Footnote 2
+
+By using a Layer 2 Ethereum network, they're at least avoiding the high energy usage and related carbon emissions that cryptocurrencies have become infamous for.  In reality, only a few cryptocurrencies such as Bitcoin and the Ethereum Mainnet still use the proof of work consensus algorithms that are slow, energy intensive, and release high carbon emissions.  As a whole, web3 and DeFi are moving away from them because they could not scale. 
 
 #### Disclaimer
 
