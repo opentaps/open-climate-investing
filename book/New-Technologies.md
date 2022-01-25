@@ -4,7 +4,7 @@ _The ability to speculate on a cryptocurrency is insignificant next to the power
 
 ### Planet Crypto
 
-_Luke Skyewalker: I feel the Force!_
+_Luke Skywalker: I feel the Force!_
 _Obi-Wan Kenobi: But you cannot control it!_
 
 There's been a disturbance in climate finance.  The long obscure world of carbon offsets has collided with the red hot crypto universe.  The new technorati are turning to offsets as no less than a way to overturn the existing economy and financial markets.  They want to usher in a new world order of "regenerative finance" to heal (or, as they prefer, "unf*ck") the planet.  Their manifesto could be summed up as the following:
