@@ -9,7 +9,7 @@ _Obi-Wan Kenobi: But you cannot control it!_
 
 There's been a disturbance in climate finance.  The long obscure world of carbon offsets has collided with the red hot crypto universe.  The new technorati are turning to offsets as no less than a way to overturn the existing economy and financial markets.  They want to usher in a new world order of "regenerative finance" to heal (or, as they prefer, "unf*ck") the planet.  Their manifesto could be summed up as the following:
 
-- The existing economy, with its government and financial markets, will not be able to stop climate change.
+- The existing economy, with its governments, financial markets, and Paris Agreement, will not be able to stop climate change.
 - To stop climate change, we need real financial incentives.
 - To create those financial incentives, let's start a cryptocurrency backed by carbon offsets.  This varies from buying existing carbon offsets to commitments to buy carbon offsets from carbon direct removal projects.
 - Let's use all the tools of Decentralized Finance (DeFI) to draw in speculators, who'll ape (_v: [deploy large sums of capital with minimal diligence](https://keepcool.co/klimadao-deepdive/)_) and pump up  the cryptocurrency.
