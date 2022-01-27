@@ -54,7 +54,7 @@ def update_stocks_info_data(stock_name):
         ;
     '''
     with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name, info.get('shortName'), info.get('sector'), info.get('industry')))
+        cursor.execute(sql, (stock_name, info.get('longName'), info.get('sector'), info.get('industry')))
 
 
 def check_stocks_info_exist(stock_name):
