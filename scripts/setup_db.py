@@ -62,21 +62,6 @@ def import_msci_constituents_into_sql(file_name, cursor, constituent_ticker):
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
-def import_carbon_constituents_into_sql(file_name, cursor, constituent_ticker):
-    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
-    cursor.execute(
-            "CREATE TABLE _stock_comps (ticker text, name text, market_value text, weight decimal(8, 5), sector text, PRIMARY KEY (ticker));")
-    cursor.execute(
-        "DELETE FROM stock_components WHERE ticker = '" + constituent_ticker + "';")
-    sql_query = "COPY _stock_comps FROM %s WITH (FORMAT CSV, HEADER);"
-    cursor.execute(sql_query, (file_name, ))
-    cursor.execute(
-        "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;")
-    cursor.execute(
-        "INSERT INTO stock_components (ticker, component_stock, percentage, sector) SELECT '" + constituent_ticker + "', ticker, weight, sector FROM _stock_comps;")
-    cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
-
-
 def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
@@ -326,7 +311,6 @@ def main(args):
         sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
         msci_constituent_data = data_dir + '/msci_constituent_details.csv'
-        carbon_constituent_data = data_dir + '/crbn_materials_constituent_details.csv'
         bond_factor_data = data_dir + '/interest_rates.csv'
 
         if args.verbose:
@@ -384,19 +368,9 @@ def main(args):
 
         # import components and weights of msci
         if args.verbose:
-            print('** importing carbon_constituent_data XWD.TO')
+            print('** importing stock_components XWD.TO')
         import_msci_constituents_into_sql(msci_constituent_data, cursor, "XWD.TO")
 
-        if args.verbose:
-            print('** importing carbon_constituent_data CRBN-MAT')
-        import_carbon_constituents_into_sql(carbon_constituent_data, cursor, "CRBN-MAT")
-
-        if args.add_stock_data:
-            msci_constituent_return_data = data_dir + '/msci_comparison_returns.csv'
-            if args.verbose:
-                print('** importing stock_data: msci_comparison_returns')
-            import_data_into_sql("stock_data",
-                                 msci_constituent_return_data, cursor)
     if args.verbose:
         print('All DONE')
 
@@ -405,8 +379,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
-                        help="Import default data")
-    parser.add_argument("-s", "--add_stock_data", action='store_true')
+                        help="Import default Fama French factors, monthly carbno risk factors, and index composition data")
     parser.add_argument("-R", "--reuse", action='store_true', help='Reuse the current db.ini config instead of asking for the settings')
     parser.add_argument("-v", "--verbose", action='store_true')
     main(parser.parse_args())
