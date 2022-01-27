@@ -80,7 +80,7 @@ def import_carbon_constituents_into_sql(file_name, cursor, constituent_ticker):
 def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
-    src = "grep '^[0-9]' {}".format(file_name,)
+    src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _monthly_mom CASCADE;")
     cursor.execute("CREATE TABLE _monthly_mom (date_str text, mom decimal(8,5), PRIMARY KEY (date_str));")
     cursor.execute("COPY _monthly_mom FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
@@ -104,7 +104,7 @@ def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
 def import_daily_ff_mom_factor_into_sql(file_name, cursor):
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
-    src = "grep '^[0-9]' {}".format(file_name,)
+    src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _daily_mom CASCADE;")
     cursor.execute("CREATE TABLE _daily_mom (date_str text, mom decimal(8,5), PRIMARY KEY (date_str));")
     cursor.execute("COPY _daily_mom FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
@@ -128,7 +128,7 @@ def import_daily_ff_mom_factor_into_sql(file_name, cursor):
 def import_monthly_ff_data_factors_into_sql(file_name, cursor):
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
-    src = "grep '^[0-9]' {}".format(file_name,)
+    src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _monthly_ff CASCADE;")
     cursor.execute("CREATE TABLE _monthly_ff (date_str text, mkt_rf decimal(8,5), smb decimal(8,5), hml decimal(8,5), rf decimal(8,5), PRIMARY KEY (date_str));")
     cursor.execute("COPY _monthly_ff FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
@@ -170,7 +170,7 @@ def import_monthly_ff_data_factors_into_sql(file_name, cursor):
 def import_daily_ff_data_factors_into_sql(file_name, cursor):
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
-    src = "grep '^[0-9]' {}".format(file_name,)
+    src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _daily_ff CASCADE;")
     cursor.execute("CREATE TABLE _daily_ff (date_str text, mkt_rf decimal(8,5), smb decimal(8,5), hml decimal(8,5), rf decimal(8,5), PRIMARY KEY (date_str));")
     cursor.execute("COPY _daily_ff FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
@@ -315,10 +315,10 @@ def main(args):
     data_dir = os.getcwd() + '/data'
 
     if args.add_data:
-        ff_data_factors = (data_dir + '/F-F_Research_Data_Factors.csv')
-        ff_data_factors_daily = (data_dir + '/F-F_Research_Data_Factors_daily.csv')
-        ff_mom_factor = (data_dir + '/F-F_Momentum_Factor.csv')
-        ff_mom_factor_daily = (data_dir + '/F-F_Momentum_Factor_daily.csv')
+        ff_data_factors = (data_dir + '/Developed_3_Factors.csv')
+        ff_data_factors_daily = (data_dir + '/Developed_3_Factors_Daily.csv')
+        ff_mom_factor = (data_dir + '/Developed_MOM_Factor.csv')
+        ff_mom_factor_daily = (data_dir + '/Developed_MOM_Factor_Daily.csv')
 
         carbon_data = (data_dir + '/bmg_carima.csv')
         xop_carbon_data = (data_dir + '/bmg_xop_smog_orthogonalized_1.csv')
@@ -330,17 +330,17 @@ def main(args):
         bond_factor_data = data_dir + '/interest_rates.csv'
 
         if args.verbose:
-            print('** importing F-F_Research_Data_Factors')
+            print('** importing Developed_3_Factors')
         import_monthly_ff_data_factors_into_sql(ff_data_factors, cursor)
         if args.verbose:
-            print('** importing F-F_Momentum_Factor')
+            print('** importing Developed_MOM_Factor')
         import_monthly_ff_mom_factor_into_sql(ff_mom_factor, cursor)
 
         if args.verbose:
-            print('** importing F-F_Research_Data_Factors_daily')
+            print('** importing Developed_3_Factors_Daily')
         import_daily_ff_data_factors_into_sql(ff_data_factors_daily, cursor)
         if args.verbose:
-            print('** importing F-F_Momentum_Factor_daily')
+            print('** importing Developed_MOM_Factor_Daily')
         import_daily_ff_mom_factor_into_sql(ff_mom_factor_daily, cursor)
 
         if args.verbose:
