@@ -6,6 +6,7 @@ import get_stocks
 import factor_regression
 import input_function
 import datetime
+import traceback
 
 
 conn = db.get_db_connection()
@@ -120,7 +121,7 @@ def run_regression(ticker,
             print('Loaded rf_data ...')
             print(rf_data)
     elif verbose:
-        print('Got risk-fre rate')
+        print('Got risk-free rate')
         print(rf_data)
 
     stock_data = get_stocks.load_stocks_from_db(ticker, frequency=frequency)
@@ -134,6 +135,19 @@ def run_regression(ticker,
     if stock_data is None or stock_data.empty:
         print('No stock data for {} !'.format(ticker))
         return
+
+    if carbon_data is None or carbon_data.empty:
+        print('No carbon_data !')
+        return
+
+    if ff_data is None or ff_data.empty:
+        print('No ff_data !')
+        return
+
+    if rf_data is None or rf_data.empty:
+        print('No rf_data !')
+        return
+
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
 
@@ -182,6 +196,24 @@ def run_regression_internal(stock_data,
     else:
         raise Exception("Unsupported frequency: {}".format(frequency))
 
+    # check we have data or some of the code below will throw an exception
+    if stock_data is None or stock_data.empty:
+        print('No stock data for {} !'.format(ticker))
+        return (None, False)
+
+    if carbon_data is None or carbon_data.empty:
+        print('No carbon_data !')
+        return (None, False)
+
+    if ff_data is None or ff_data.empty:
+        print('No ff_data !')
+        return (None, False)
+
+    if rf_data is None or rf_data.empty:
+        print('No rf_data !')
+        return (None, False)
+
+
     try:
         if start_date:
             start_date = pd.Period(start_date, freq=freq).end_time.date()
@@ -213,10 +245,12 @@ def run_regression_internal(stock_data,
     except factor_regression.DateInRangeError as e:
         print('!! Error running regression on stock {} from {} to {}: {}'.format(
             ticker, start_date, end_date, e))
+        traceback.print_tb(e.__traceback__)
         return (None, False)
     except ValueError as e:
         print('!! Error running regression on stock {} from {} to {}: {}'.format(
             ticker, start_date, end_date, e))
+        traceback.print_tb(e.__traceback__)
         return (None, False)
 
     if model_output is False:
@@ -291,6 +325,9 @@ def main(args):
                        silent=(not args.dryrun))
     elif args.file:
         carbon_data = load_carbon_data_from_db(args.factor_name, frequency=args.frequency)
+        if carbon_data is None or carbon_data.empty:
+            print("No carbon data found for factor {} and frequency {}".format(args.factor_name, args.frequency))
+            return
         ff_data = load_ff_data_from_db(frequency=args.frequency)
         rf_data = load_rf_data_from_db(frequency=args.frequency)
         stocks = load_stocks_csv(args.file)
