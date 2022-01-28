@@ -11,6 +11,7 @@ def import_bond_factor_into_sql(file_name, cursor):
     print("-- import_bond_factor_into_sql file={}".format(file_name,))
     sql_query = 'COPY bond_factor FROM %s WITH (FORMAT CSV, HEADER);'
     cursor.execute(sql_query, (file_name,))
+    print('---> inserted {} bond_factor rows.'.format(cursor.rowcount))
 
 
 def import_data_into_sql(table_name, file_name, cursor, bmg=False):
@@ -25,15 +26,19 @@ def import_data_into_sql(table_name, file_name, cursor, bmg=False):
         sql_query = "COPY " + table_name + \
             " FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
+    if not bmg:
+        print('---> inserted {} {} rows.'.format(cursor.rowcount, table_name))
     if bmg is not False:
         sql_query = "INSERT INTO carbon_risk_factor (date, frequency, factor_name, bmg) SELECT date, frequency, '" + \
                                                      bmg + "', bmg FROM _import_carbon_risk_factor;"
         cursor.execute(sql_query)
+        print('---> inserted {} carbon_risk_factor rows.'.format(cursor.rowcount))
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
         cursor.execute(sql_query)
 
 
 def import_spx_constituents_into_sql(file_name, cursor, constituent_ticker):
+    print("-- import_spx_constituents_into_sql file={} constituent_ticker={}".format(file_name, constituent_ticker))
     cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
     cursor.execute(
             "CREATE TABLE _stock_weights (ticker text, weight DECIMAL(5,2), PRIMARY KEY (ticker));")
@@ -44,10 +49,12 @@ def import_spx_constituents_into_sql(file_name, cursor, constituent_ticker):
     sql_query = "INSERT INTO stock_components(ticker, component_stock, percentage) SELECT '" + \
         constituent_ticker + "', ticker, weight FROM _stock_weights;"
     cursor.execute(sql_query)
+    print('---> inserted {} stock_components rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
 
 
 def import_msci_constituents_into_sql(file_name, cursor, constituent_ticker):
+    print("-- import_msci_constituents_into_sql file={} constituent_ticker={}".format(file_name, constituent_ticker))
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
     cursor.execute(
             "CREATE TABLE _stock_comps (ticker text, name text, weight decimal(8, 5), market_value text, sector text, country text, PRIMARY KEY (ticker));")
@@ -57,12 +64,15 @@ def import_msci_constituents_into_sql(file_name, cursor, constituent_ticker):
     cursor.execute(sql_query, (file_name, ))
     cursor.execute(
         "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _stock_comps ON CONFLICT (ticker) DO NOTHING;")
+    print('---> inserted {} stocks rows.'.format(cursor.rowcount))
     cursor.execute("INSERT INTO stock_components (ticker, component_stock, percentage, sector, country) SELECT '"
                    + constituent_ticker + "', ticker, weight, sector, country FROM _stock_comps;")
+    print('---> inserted {} stock_components rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
 def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
+    print("-- import_monthly_ff_mom_factor_into_sql file={}".format(file_name,))
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
@@ -74,7 +84,7 @@ def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
                     FROM _monthly_mom
                     WHERE NOT EXISTS (select 1 from ff_factor f where f.date = (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date and f.frequency = 'MONTHLY')
                     ;""")
-    print('**** inserted {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> inserted {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE ff_factor SET wml = x.mom
                     FROM _monthly_mom x
                     WHERE
@@ -82,11 +92,12 @@ def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
                         AND ff_factor.frequency = 'MONTHLY'
                         AND (ff_factor.wml is null or ff_factor.wml != x.mom)
                     ;""")
-    print('**** updated {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> updated {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _monthly_mom CASCADE;")
 
 
 def import_daily_ff_mom_factor_into_sql(file_name, cursor):
+    print("-- import_daily_ff_mom_factor_into_sql file={}".format(file_name,))
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
@@ -98,7 +109,7 @@ def import_daily_ff_mom_factor_into_sql(file_name, cursor):
                     FROM _daily_mom
                     WHERE NOT EXISTS (select 1 from ff_factor f where f.date = TO_DATE(date_str, 'YYYYMMDD') and f.frequency = 'DAILY')
                     ;""")
-    print('**** inserted {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> inserted {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE ff_factor SET wml = x.mom
                     FROM _daily_mom x
                     WHERE
@@ -106,11 +117,12 @@ def import_daily_ff_mom_factor_into_sql(file_name, cursor):
                         AND ff_factor.frequency = 'DAILY'
                         AND (ff_factor.wml is null or ff_factor.wml != x.mom)
                     ;""")
-    print('**** updated {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> updated {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _daily_mom CASCADE;")
 
 
 def import_monthly_ff_data_factors_into_sql(file_name, cursor):
+    print("-- import_daily_ff_mom_factor_into_sql file={}".format(file_name,))
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
@@ -122,7 +134,7 @@ def import_monthly_ff_data_factors_into_sql(file_name, cursor):
                     FROM _monthly_ff
                     WHERE NOT EXISTS (select 1 from ff_factor f where f.date = (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date and f.frequency = 'MONTHLY')
                     ;""")
-    print('**** inserted {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> inserted {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE ff_factor SET mkt_rf = x.mkt_rf, smb = x.smb, hml = x.hml
                     FROM _monthly_ff x
                     WHERE
@@ -134,13 +146,13 @@ def import_monthly_ff_data_factors_into_sql(file_name, cursor):
                             OR (ff_factor.hml is null or ff_factor.hml != x.hml)
                         )
                     ;""")
-    print('**** updated {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> updated {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""INSERT INTO risk_free (date, frequency, rf)
                     SELECT (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date, 'MONTHLY', rf
                     FROM _monthly_ff
                     WHERE NOT EXISTS (select 1 from risk_free f where f.date = (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date and f.frequency = 'MONTHLY')
                     ;""")
-    print('**** inserted {} risk_free rows.'.format(cursor.rowcount))
+    print('---> inserted {} risk_free rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE risk_free SET rf = x.rf
                     FROM _monthly_ff x
                     WHERE
@@ -148,11 +160,12 @@ def import_monthly_ff_data_factors_into_sql(file_name, cursor):
                         AND risk_free.frequency = 'MONTHLY'
                         AND (risk_free.rf is null or risk_free.rf != x.rf)
                     ;""")
-    print('**** updated {} risk_free rows.'.format(cursor.rowcount))
+    print('---> updated {} risk_free rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _monthly_ff CASCADE;")
 
 
 def import_daily_ff_data_factors_into_sql(file_name, cursor):
+    print("-- import_daily_ff_data_factors file={}".format(file_name,))
     # note: the file may be raw as downloaded which is not a directly importable format
     # so pass it through grep to only get valid rows.
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
@@ -164,7 +177,7 @@ def import_daily_ff_data_factors_into_sql(file_name, cursor):
                     FROM _daily_ff
                     WHERE NOT EXISTS (select 1 from ff_factor f where f.date = TO_DATE(date_str, 'YYYYMMDD') and f.frequency = 'DAILY')
                     ;""")
-    print('**** inserted {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> inserted {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE ff_factor SET mkt_rf = x.mkt_rf, smb = x.smb, hml = x.hml
                     FROM _daily_ff x
                     WHERE
@@ -176,13 +189,13 @@ def import_daily_ff_data_factors_into_sql(file_name, cursor):
                             OR (ff_factor.hml is null or ff_factor.hml != x.hml)
                         )
                     ;""")
-    print('**** updated {} ff_factor rows.'.format(cursor.rowcount))
+    print('---> updated {} ff_factor rows.'.format(cursor.rowcount))
     cursor.execute("""INSERT INTO risk_free (date, frequency, rf)
                     SELECT TO_DATE(date_str, 'YYYYMMDD'), 'DAILY', rf
                     FROM _daily_ff
                     WHERE NOT EXISTS (select 1 from risk_free f where f.date = TO_DATE(date_str, 'YYYYMMDD') and f.frequency = 'DAILY')
                     ;""")
-    print('**** inserted {} risk_free rows.'.format(cursor.rowcount))
+    print('---> inserted {} risk_free rows.'.format(cursor.rowcount))
     cursor.execute("""UPDATE risk_free SET rf = x.rf
                     FROM _daily_ff x
                     WHERE
@@ -190,21 +203,25 @@ def import_daily_ff_data_factors_into_sql(file_name, cursor):
                         AND risk_free.frequency = 'DAILY'
                         AND (risk_free.rf is null or risk_free.rf != x.rf)
                     ;""")
-    print('**** updated {} risk_free rows.'.format(cursor.rowcount))
+    print('---> updated {} risk_free rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _daily_ff CASCADE;")
 
 
 def cleanup_incomplete_factors(cursor):
+    print("-- cleanup_incomplete_factors")
     # because those fields come from different files with different date coverage
     cursor.execute("DELETE FROM ff_factor WHERE mkt_rf is null or smb is null or hml is null or wml is null;")
-    print('**** removed {} incomplete ff_factor rows.'.format(cursor.rowcount))
+    print('---> removed {} incomplete ff_factor rows.'.format(cursor.rowcount))
 
 
 def cleanup_abnormal_returns(cursor, ticker=None):
     if ticker:
+        print("-- cleanup_abnormal_returns ticker={}".format(ticker,))
         cursor.execute("delete from stock_data where ticker = ? and (return > 1 or return = 'NaN');", (ticker,))
     else:
+        print("-- cleanup_abnormal_returns")
         cursor.execute("delete from stock_data where return > 1 or return = 'NaN';")
+    print('---> removed {} abnormal stock_data rows.'.format(cursor.rowcount))
 
 
 CONFIG_FILE = 'db.ini'
@@ -213,8 +230,7 @@ CONFIG_FILE = 'db.ini'
 def main(args):
     if args.reuse:
         # read the existing config 
-        if args.verbose:
-            print('** reusing current DB config')
+        print('** reusing current DB config')
         config = configparser.ConfigParser()
         config.read(CONFIG_FILE)
 
@@ -258,15 +274,13 @@ def main(args):
         }
 
         # Write the config
-        if args.verbose:
-            print('** write config:')
-            print(config.write(sys.stdout))
+        print('** write config:')
+        print(config.write(sys.stdout))
         with open(CONFIG_FILE, 'w') as configfile:
             config.write(configfile)
 
     # Connect to maintenance database
-    if args.verbose:
-        print('** connect to maintenance DB: {} at {} with user {}'.format(DB_MAINTENANCE_DB, DB_HOST, DB_USER))
+    print('** connect to maintenance DB: {} at {} with user {}'.format(DB_MAINTENANCE_DB, DB_HOST, DB_USER))
     conn = psycopg2.connect(host=DB_HOST, database=DB_MAINTENANCE_DB,
                             user=DB_USER, password=DB_PASS)
     conn.autocommit = True
@@ -282,8 +296,7 @@ def main(args):
     # Disconnect and connect to created database
     conn.close()
 
-    if args.verbose:
-        print('** connect to created DB: {} at {} with user {}'.format(DB_NAME, DB_HOST, DB_USER))
+    print('** connect to created DB: {} at {} with user {}'.format(DB_NAME, DB_HOST, DB_USER))
     conn = psycopg2.connect(host=DB_HOST, database=DB_NAME,
                             user=DB_USER, password=DB_PASS)
 
@@ -292,8 +305,7 @@ def main(args):
 
     # Run the initial schema file to create tables, etc.
     script_dir = os.getcwd() + '/scripts'
-    if args.verbose:
-        print('** init schema')
+    print('** init schema')
     cursor.execute(open(script_dir + "/init_schema.sql", "r").read())
 
     # Run the initial data load to create tables, etc.
@@ -313,66 +325,58 @@ def main(args):
         msci_constituent_data = data_dir + '/msci_constituent_details.csv'
         bond_factor_data = data_dir + '/interest_rates.csv'
 
-        if args.verbose:
-            print('** importing Developed_3_Factors')
+        print('** importing Developed_3_Factors')
         import_monthly_ff_data_factors_into_sql(ff_data_factors, cursor)
-        if args.verbose:
-            print('** importing Developed_MOM_Factor')
+        print('** importing Developed_MOM_Factor')
         import_monthly_ff_mom_factor_into_sql(ff_mom_factor, cursor)
 
-        if args.verbose:
-            print('** importing Developed_3_Factors_Daily')
+        print('** importing Developed_3_Factors_Daily')
         import_daily_ff_data_factors_into_sql(ff_data_factors_daily, cursor)
-        if args.verbose:
-            print('** importing Developed_MOM_Factor_Daily')
+        print('** importing Developed_MOM_Factor_Daily')
         import_daily_ff_mom_factor_into_sql(ff_mom_factor_daily, cursor)
 
-        if args.verbose:
-            print('** cleanup incomplete factors')
+        print('** cleanup imported factors')
         cleanup_incomplete_factors(cursor)
 
-        if args.verbose:
-            print('** importing carbon_risk_factor CARIMA')
+        print('** importing carbon_risk_factor CARIMA')
         import_data_into_sql("carbon_risk_factor",
                              carbon_data, cursor, bmg="CARIMA")
-        if args.verbose:
-            print('** importing carbon_risk_factor DEFAULT')
+        print('** importing carbon_risk_factor DEFAULT')
         import_data_into_sql("carbon_risk_factor",
                              xop_carbon_data, cursor, bmg="DEFAULT")
-        if args.verbose:
-            print('** importing additional_factors')
+        print('** importing additional_factors')
         import_data_into_sql("additional_factors",
                              additional_factor_data, cursor)
 
         # import the bond_factor
-        if args.verbose:
-            print('** importing bond factor')
+        print('** importing bond factor')
         import_bond_factor_into_sql(bond_factor_data, cursor)
 
-        if args.verbose:
-            print('** adding stocks IVV and XWD.TO')
+        print('** adding stocks IVV and XWD.TO')
         cursor.execute(
             "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&P 500');")
         cursor.execute(
             "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');")
 
-        if args.verbose:
-            print('** importing stocks')
-        import_data_into_sql("stocks",
-                             sector_breakdown_data, cursor)
+        print('** importing stocks')
+        import_data_into_sql("stocks", sector_breakdown_data, cursor)
 
         # import components and weights of spx
-        if args.verbose:
-            print('** importing stock_components IVV')
+        print('** importing stock_components IVV')
         import_spx_constituents_into_sql(spx_constituent_data, cursor, "IVV")
 
         # import components and weights of msci
-        if args.verbose:
-            print('** importing stock_components XWD.TO')
+        print('** importing stock_components XWD.TO')
         import_msci_constituents_into_sql(msci_constituent_data, cursor, "XWD.TO")
 
-    if args.verbose:
-        print('All DONE')
+        # set the component sector info
+        cursor.execute("""UPDATE stock_components
+            SET sector = x.sector, sub_sector = x.sub_sector 
+            FROM stocks x
+            WHERE x.ticker = stock_components.component_stock
+            ;""")
+
+    print('All DONE')
 
 
 # run
@@ -381,5 +385,4 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
                         help="Import default Fama French factors, monthly carbno risk factors, and index composition data")
     parser.add_argument("-R", "--reuse", action='store_true', help='Reuse the current db.ini config instead of asking for the settings')
-    parser.add_argument("-v", "--verbose", action='store_true')
     main(parser.parse_args())
