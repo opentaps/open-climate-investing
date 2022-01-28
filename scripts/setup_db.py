@@ -68,7 +68,7 @@ def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _monthly_mom CASCADE;")
     cursor.execute("CREATE TABLE _monthly_mom (date_str text, mom decimal(8,5), PRIMARY KEY (date_str));")
-    cursor.execute("COPY _monthly_mom FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
+    cursor.execute("COPY _monthly_mom FROM PROGRAM %s WITH (FORMAT CSV);", (src,))
     cursor.execute("""INSERT INTO ff_factor (date, frequency, wml)
                     SELECT (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date, 'MONTHLY', mom
                     FROM _monthly_mom
@@ -92,7 +92,7 @@ def import_daily_ff_mom_factor_into_sql(file_name, cursor):
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _daily_mom CASCADE;")
     cursor.execute("CREATE TABLE _daily_mom (date_str text, mom decimal(8,5), PRIMARY KEY (date_str));")
-    cursor.execute("COPY _daily_mom FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
+    cursor.execute("COPY _daily_mom FROM PROGRAM %s WITH (FORMAT CSV);", (src,))
     cursor.execute("""INSERT INTO ff_factor (date, frequency, wml) 
                     SELECT TO_DATE(date_str, 'YYYYMMDD'), 'DAILY', mom
                     FROM _daily_mom
@@ -116,7 +116,7 @@ def import_monthly_ff_data_factors_into_sql(file_name, cursor):
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _monthly_ff CASCADE;")
     cursor.execute("CREATE TABLE _monthly_ff (date_str text, mkt_rf decimal(8,5), smb decimal(8,5), hml decimal(8,5), rf decimal(8,5), PRIMARY KEY (date_str));")
-    cursor.execute("COPY _monthly_ff FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
+    cursor.execute("COPY _monthly_ff FROM PROGRAM %s WITH (FORMAT CSV);", (src,))
     cursor.execute("""INSERT INTO ff_factor (date, frequency, mkt_rf, smb, hml)
                     SELECT (TO_DATE(date_str, 'YYYYMM') + interval '1 month - 1 day')::date, 'MONTHLY', mkt_rf, smb, hml
                     FROM _monthly_ff
@@ -158,7 +158,7 @@ def import_daily_ff_data_factors_into_sql(file_name, cursor):
     src = "grep '^[0-9]\\{{6\\}}' {}".format(file_name,)
     cursor.execute("DROP TABLE IF EXISTS _daily_ff CASCADE;")
     cursor.execute("CREATE TABLE _daily_ff (date_str text, mkt_rf decimal(8,5), smb decimal(8,5), hml decimal(8,5), rf decimal(8,5), PRIMARY KEY (date_str));")
-    cursor.execute("COPY _daily_ff FROM PROGRAM %s WITH (FORMAT CSV, HEADER);", (src,))
+    cursor.execute("COPY _daily_ff FROM PROGRAM %s WITH (FORMAT CSV);", (src,))
     cursor.execute("""INSERT INTO ff_factor (date, frequency, mkt_rf, smb, hml)
                     SELECT TO_DATE(date_str, 'YYYYMMDD'), 'DAILY', mkt_rf, smb, hml
                     FROM _daily_ff
