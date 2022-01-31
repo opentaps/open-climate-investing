@@ -90,6 +90,11 @@ It's hard to know how the world of 2100 will look.  Who, in 1942, could've fores
 
 If we fail to stop climate change, how will the world change?  Carbon credits are a market-based mechanism for reducing human activities that cause climate change.  How much of our free trade and free financial flows survive?  Or will governments hoard their resources?  Will carbon credits still even exist or have any value?   
 
+Scenarios to think about:
+1.  No government collaboration—voluntary market only.  Will it do much?  Tiny, disorganized market probably will not be enough to transition the economy to 1.5 - 2 degree targets.  If the transition fails and the world switches to adaptation, will these credits have any value?
+2.  Carbon becomes sovereign asset.  Government scoops them up for NDCs.  Prevent private sector speculation.  Debt funding only via green bonds.
+3.  Hybrid model—government tender for carbon.  Trading and arbitrage between countries and transfers.
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
