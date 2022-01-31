@@ -2,6 +2,10 @@
 
 _The ability to speculate on a cryptocurrency is insignificant next to the power of the Blockchain. - Darth Vader_
 
+Given all the bad press about the energy use and environmental consequences of cryptocurrencies and blockchains, you might be surprised to see a chapter on web3 and climate change.  In reality, only a few cryptocurrencies such as Bitcoin and the Ethereum Mainnet still use the proof of work consensus algorithms that are slow, energy intensive, and release high Greenhouse Gas (GHG) emissions.  As a whole, web3 and DeFi are moving away from proof of work for performance reasons: They are too slow. 
+
+Meanwhile web3 is a lot more than just cryptocurrencies.  Some see it as the solution to some of the hardest problems in climate change.  Let’s start with one of those world changing, disrupt everything idea.
+
 ### Planet Crypto
 
 _Luke Skywalker: I feel the Force!_
@@ -37,6 +41,7 @@ Meanwhile, those of us in the old fashioned world of carbon offsets might notice
 - These offsets were trading with an average price of $1.1 as recently as September 2021.  (Source: [Ecosystems Marketplace](https://www.ecosystemmarketplace.com/articles/press-release-voluntary-carbon-markets-rocket-in-2021-on-track-to-break-1b-for-first-time/))
 - When the offsets are "retired" from the Verra registry, it means that they are used to offset the emissions footprint of the retiring party (retiree?)  They should never be traded again and therefore have no value any more.  Toucan Protocol, creators of the BCT token, acknowledges that it is a [one way bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge).
 - In other words, BCT tokens and anything based on it could only be considered assets by those who believe.  They could never be converted back to offsets and traded in the existing offset markets.  They're a one way ticket to Planet Crypto.
+- This isn't the first time (and won't be the last) we see a developing economy try to tap into short-term speculative capital with high interest rates.
 - Is it ever really possible to [create a liquid asset from an illiquid one](https://www.oaktreecapital.com/docs/default-source/memos/2015-03-25-liquidity.pdf)?
 
 ![Toucan Projects List](images/toucan-projects-list.png)
@@ -192,7 +197,7 @@ There are in fact several steps: The [Carbon Bridge](https://docs.toucan.earth/p
 
 ### Footnote 2
 
-By using a Layer 2 Ethereum network, they're at least avoiding the high energy usage and related carbon emissions that cryptocurrencies have become infamous for.  In reality, only a few cryptocurrencies such as Bitcoin and the Ethereum Mainnet still use the proof of work consensus algorithms that are slow, energy intensive, and release high carbon emissions.  As a whole, web3 and DeFi are moving away from them because they could not scale. 
+By using a Layer 2 Ethereum network, they're at least avoiding the high energy usage and related carbon emissions that cryptocurrencies have become infamous for.  
 
 #### Disclaimer
 

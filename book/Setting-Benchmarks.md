@@ -60,7 +60,7 @@ But perversely, then, the opposite happens: The companies look more attractive o
 
 The market is already pricing in a hefty premium for the renewables companies.  Even in the course of a long transition to a low carbon world, if the oil companies just have a few "dead cat bounces," it would cause the kind of short-term underperformance discussed earlier.  And what if a few of them really did change their act and became viable in that low carbon world?  Removing them completely could be a costly, not to mention unnecessary, mistake.
 
-Meanwhile, falling prices could attract the shadowy world of private equity buyers and the shadowier world of sovereign wealth funds.  They are less responsive to the general public, have a shorter term focus (five years is the norm) vs long-term pension funds, and will be focused on cash flows than long-term climate change.
+Meanwhile, falling stock prices would make these companies attractive candidates for Leveraged Buyouts (LBO's) by private equity and sovereign wealth funds.  A reshuffling of the players, but all the same questions remain.  You're just paying someone else to guide them through the energy transition. 
 
 Finally, where does the divesting stop?  Airlines?  Utilities?  Car manufacturers?  Companies who use plastic packaging like Coca Cola and Pepsi?  Freight carriers like UPS and Fedex?  Their customers like Amazon?  Amazon's customers like you and me?
 

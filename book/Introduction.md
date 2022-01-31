@@ -37,7 +37,7 @@ Let's take a look at some good objections to climate investing.
 
 Please read [Tariq Fancy's Secret Diary of a Sustainable Investor](https://www.dropbox.com/s/bvskswxwkro41rh/The%20Secret%20Diary%20of%20a%20Sustainable%20Investor%20-%20Tariq%20Fancy.pdf?dl=0) if you have not already. 
 
-It's very well written.  Having been a portfolio manager myself, I could completely picture the people and the dialogs.  In summary, his key points are:
+It's very well written and sounds totally real.  Having been a portfolio manager myself, I could completely picture the people and their dialogs.  In summary, his key points are:
 
  * Fund management companies are happy to sell ESG, or at least a simplified version of them.
  * But portfolio managers day to day do not incorporate ESG into their decisions, unless they see how it could generate higher returns.
@@ -50,14 +50,14 @@ While the events he describes certainly sound true, I also see another interpret
  * This means, though, that we need to talk to those same pension funds and foundations.  They're the ones who are supposed to invest long-term for their beneficiaries.  If they've already signed to one of many climate investment pledges, then they need to use climate-aligned investment indices so that the fund managers could act accordingly.
  * Similarly, when marketing ESG to mutual fund and hedge fund investors, we must sign them up for the long-term with climate-aligned indices as our benchmarks.  This may mean fewer investors initially, but the greatest investors like Warren Buffett all know that the key is cultivating relationships with long-term investors.
  * Yes, it's not clear how useful a lot that ESG data really is.  We have a few suggestions.  Stay tuned...
- * Government action is necessary but not sufficient.  After about fifteen years, the European Union's Emissions Trading Scheme is the world's largest government program on climate change.  It's also a good example of what governments can and cannot do.  It has imposed emissions caps on the industries with the highest emissions, but with significant "holes" (See [this article](https://www.eca.europa.eu/en/Pages/DocItem.aspx?did=54392) about what it misses.)  It is limited to the big companies in those industries located in the EU.  Without the private sector's and investors' involvement, it might never solve its own design problems nor reduce emissions in the rest of the economy and in other countries. 
+ * Government action is necessary but not sufficient.  After about fifteen years, the European Union's Emissions Trading Scheme is the world's largest government program on climate change.  It's also a good example of what governments can and cannot do.  It has imposed emissions caps on the industries with the highest emissions, but with significant "holes" (See [this article](https://www.eca.europa.eu/en/Pages/DocItem.aspx?did=54392) about what it misses.)  It is limited to the big companies in those industries located in the EU.  Faced with carbon taxes, every business will have to decide on what to do: Evade them?  Comply to letter?  Or get ahead of curve?  These decisions will depend on time horizons and risk appetites -- exactly the sort of questions investors must answer.
 
 Another interesting objection which I heard yesterday: "Public markets are just trading existing assets and don't affect the real economy."  Sadly true for many of the people who spend their days shuffling paper.  Long term, though,
  public markets play an enormously important role.  As investors shift from one asset class to another, the relative valuations change.  Higher valued public companies fund more investments, buy more innovative startups, 
 which in turn create the eye-popping unicorn
 valuations and exits that pull in venture capitalists to invest in startups.  They also lead to higher management bonuses and option payouts.  Lower valued public companies, in turn, attract mergers, buyouts, and vulture investors, 
 who like to consolidate operations, cut costs, and trim management along the way.  As a result, management of
-public corporations are highly sensitive to stock prices and will work hard to boost them.
+public corporations are highly sensitive to stock prices and will work hard to boost them.  What do they have to do to boost their stock prices?  Another question for investors.
 
 A similar objection: "One fund shifting from some stocks to another make no difference at all in the world."  Also true, but true of anything climate related.  What is the impact of one flight not taken or one person changing their diet?
 It is only when we all act together that we can stop climate change.  This is true for investors as well.
