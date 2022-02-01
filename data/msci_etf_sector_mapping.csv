@@ -1,13 +1,13 @@
-ETF,Sector
-XWD.TO,MSCI World
-WTEL.L,Communications
-WCOD.L,Consumer Discretionary
-WCOS.L,Consumer Staples
-WNRG.L,Energy
-WFIN.L,Financials
-WHEA.L,Health
-WNDU.L,Industrials
-WTEC.L,Technology
-WMAT.L,Materials
-REET,Real Estate
-WUTI.L,Utilities
+Ticker,Name
+XWD.TO,iShares MSCI World Index ETF
+WTEL.L,SPDR MSCI World Communication Services UCITS ETF
+WCOD.L,SPDR MSCI World Consumer Discretionary UCITS ETF
+WCOS.L,SPDR MSCI World Consumer Staples UCITS ETF
+WNRG.L,SPDR MSCI World Energy UCITS ETF
+WFIN.L,SPDR MSCI World Financials UCITS ETF
+WHEA.L,SPDR MSCI World Health Care UCITS ETF
+WNDU.L,SPDR MSCI World Industrials UCITS ETF
+WTEC.L,SPDR MSCI World Technology UCITS ETF
+WMAT.L,SPDR MSCI World Materials UCITS ETF
+REET,iShares Global REIT ETF
+WUTI.L,SPDR MSCI World Utilities UCITS ETF
