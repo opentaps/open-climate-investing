@@ -71,6 +71,23 @@ def import_msci_constituents_into_sql(file_name, cursor, constituent_ticker):
     cursor.execute("DROP TABLE IF EXISTS _stock_comps CASCADE;")
 
 
+def import_msci_etf_sector_into_sql(file_name, cursor, ticker_name):
+    print("-- import_msci_etf_sector_into_sql file={} ticker_name={}".format(file_name, ticker_name))
+    cursor.execute("DROP TABLE IF EXISTS _msci_etf_sector CASCADE;")
+    cursor.execute(
+            "CREATE TABLE _msci_etf_sector (etf text, sector text, PRIMARY KEY (etf));")
+    cursor.execute(
+        "DELETE FROM stock_components WHERE ticker = '" + ticker_name + "';")
+    sql_query = "COPY _msci_etf_sector FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    cursor.execute(
+        "INSERT INTO stocks (ticker, sector) SELECT etf, sector FROM _msci_etf_sector ON CONFLICT (ticker) DO NOTHING;")
+    cursor.execute("INSERT INTO stock_components (ticker, component_stock, sector) SELECT '"
+                   + ticker_name + "', etf, sector FROM _msci_etf_sector;")
+    print('---> inserted {} stock_components rows.'.format(cursor.rowcount))
+    cursor.execute("DROP TABLE IF EXISTS _msci_etf_sector CASCADE;")
+
+
 def import_monthly_ff_mom_factor_into_sql(file_name, cursor):
     print("-- import_monthly_ff_mom_factor_into_sql file={}".format(file_name,))
     # note: the file may be raw as downloaded which is not a directly importable format
@@ -323,6 +340,7 @@ def main(args):
         sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
         msci_constituent_data = data_dir + '/msci_constituent_details.csv'
+        msci_etf_sector_data = data_dir + '/msci_etf_sector_mapping.csv'
         bond_factor_data = data_dir + '/interest_rates.csv'
 
         print('** importing Developed_3_Factors')
@@ -358,6 +376,10 @@ def main(args):
         cursor.execute(
             "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');")
 
+        print('** adding stocks MSCI_SECTOR_ETFS')
+        cursor.execute(
+            "INSERT INTO stocks (ticker, name) VALUES ('MSCI_SECTOR_ETFS', 'MSCI Sector ETF''s');")
+
         print('** importing stocks')
         import_data_into_sql("stocks", sector_breakdown_data, cursor)
 
@@ -368,6 +390,9 @@ def main(args):
         # import components and weights of msci
         print('** importing stock_components XWD.TO')
         import_msci_constituents_into_sql(msci_constituent_data, cursor, "XWD.TO")
+
+        # import components of msci etf
+        import_msci_etf_sector_into_sql(msci_etf_sector_data, cursor, "MSCI_SECTOR_ETFS")
 
         # set the component sector info
         cursor.execute("""UPDATE stock_components
