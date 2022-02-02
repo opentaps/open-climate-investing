@@ -75,15 +75,15 @@ def import_msci_etf_sector_into_sql(file_name, cursor, ticker_name):
     print("-- import_msci_etf_sector_into_sql file={} ticker_name={}".format(file_name, ticker_name))
     cursor.execute("DROP TABLE IF EXISTS _msci_etf_sector CASCADE;")
     cursor.execute(
-            "CREATE TABLE _msci_etf_sector (ticker text, name text, PRIMARY KEY (ticker));")
+            "CREATE TABLE _msci_etf_sector (ticker text, name text, sector text, PRIMARY KEY (ticker));")
     cursor.execute(
         "DELETE FROM stock_components WHERE ticker = '" + ticker_name + "';")
     sql_query = "COPY _msci_etf_sector FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
     cursor.execute(
-        "INSERT INTO stocks (ticker, name) SELECT ticker, name FROM _msci_etf_sector ON CONFLICT (ticker) DO NOTHING;")
-    cursor.execute("INSERT INTO stock_components (ticker, component_stock) SELECT '"
-                   + ticker_name + "', ticker FROM _msci_etf_sector;")
+        "INSERT INTO stocks (ticker, name, sector) SELECT ticker, name, sector FROM _msci_etf_sector ON CONFLICT (ticker) DO NOTHING;")
+    cursor.execute("INSERT INTO stock_components (ticker, component_stock, sector) SELECT '"
+                   + ticker_name + "', ticker, sector FROM _msci_etf_sector;")
     print('---> inserted {} stock_components rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _msci_etf_sector CASCADE;")
 
