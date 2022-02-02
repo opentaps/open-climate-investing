@@ -82,7 +82,7 @@ But
 - Only 5 have targeted reducing Scope 3 emissions from the use of their products.
 - Meanwhile, they all keep on drilling: "approximately 30%-40% of the engaged companies’ capex is unviable in a below 2˚C pathway."   
 
-Reducing Scope 1 and 2 emissions from oil and gas production is no small potatoes.  [Methane flaring](https://www.iea.org/reports/flaring-emissions) causes 265 million tCO2e of GHG emissions each year, more than Florida or the Philippines and five to ten times that of Bitcoin.   
+Reducing Scope 1 and 2 emissions from oil and gas production is no small potatoes.  [Methane flaring](https://www.iea.org/reports/flaring-emissions) causes between 265 million tCO2e of GHG emissions, more than Florida or the Philippines and five to ten times that of Bitcoin, to perhaps as much as [1 billion tCO2e](https://business.edf.org/files/ESG-by-EDF-Flaring-Report-Book-V2-Reduced.pdf), more than Germany.   
 
 But is it realistic to think that's all there is for the industry to do?  I could just picture it now: A group of environmentalists go to a conference and ask an oil company to reduce their Scope 3 emissions from the use of oil and gas.  The company executives respond, "You caused those emissions by flying and driving here, staying at a hotel, and using the internet to organize.  So those emissions are on you."  Perhaps true technically, but then what?   
 
