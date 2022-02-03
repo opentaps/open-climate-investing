@@ -335,7 +335,7 @@ def main(args):
         ff_mom_factor_daily = (data_dir + '/Developed_MOM_Factor_Daily.csv')
 
         carbon_data = (data_dir + '/bmg_carima.csv')
-        xop_carbon_data = (data_dir + '/bmg_xop_smog_orthogonalized_1.csv')
+        xop_carbon_data = (data_dir + '/bmg_xop_smog.csv')
         additional_factor_data = (data_dir + '/additional_factor_data.csv')
         sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
         spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
