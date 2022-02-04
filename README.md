@@ -1,160 +1,67 @@
 # open-climate-investing
 
-If you've ever heard that ESG investing is hard, that there's not enough climate disclosures, that we don't know enough...
+This project's mission is to make climate investing actionable.  It includes both open source software and a free book to help you identify relative value trades, optimize portfolios, and structure benchmarks for climate aligned investing.
 
-__STOP__
+## The Software
 
-This project is here to make climate investing actionable.  We are building both open source software and openly available data sets so that you can identify relative value trades, optimize portfolios, and structure benchmarks for climate aligned investing.
-
-Our first project is a multi-factor equity returns model which adds a climate factor, or Brown Minus Green, to the popular Fama French and Carhart models.  This additional Brown Minus Green (BMG) return factor could be used for a variety of climate investing applications, including:
+The software is a multi-factor equity returns model which adds a climate factor, or Brown Minus Green, to the popular Fama French and Carhart models.  This additional Brown Minus Green (BMG) return factor could be used for a variety of climate investing applications, including:
 - Calculate the market-implied carbon risk of a stock, investment portfolio, mutual fund, or bond based on historical returns
 - Determine the market reaction to the climate policies of a company
 - Optimize a portfolio to minimize carbon risk subject to other parameters, such as index tracking or growth-value-sector investment strategies.
 
-## Running the Code
+### Setting It Up
+
 Install the required python modules (use `pip3` instead of `pip` according to your python installation):
 ```
 pip install -r requirements.txt
 ```
 
-### Using a Database
-
-All python scripts have a `--help` option to show you the latest parameters available. 
-
-Init the Database using:
+Initialize the Database using:
 ```
-python scripts/setup_db.py -d
+python3 scripts/setup_db.py -R -d
 ```
 
-Then use `get_stocks.py` to get stock information for `stocks` table and return history for the `stock_data` table:
+### Trying It Out
 
-- `python scripts/get_stocks.py -f some_ticker_file.csv` for using a csv source file
-- `python scripts/get_stocks.py -t ALB` to load a single stock with ticker `ALB`
-- `python scripts/get_stocks.py -s ALB` shows whether there is data stored for the ticker `ALB`
-
-If your stock ticker is a composite stock, it will calculate the historical returns using the weights in the `stock_components` table.
-
-By default the script will get the Monthly stock values, to get Daily values use `--frequency=DAILY`, eg:
-- `python scripts/get_stocks.py -f some_ticker_file.csv --frequency=DAILY` for using a csv source file
-- `python scripts/get_stocks.py -t ALB --frequency=DAILY` to load a single stock with ticker `ALB`
-- `python scripts/get_stocks.py -s ALB --frequency=DAILY` shows whether there is data stored for the ticker `ALB`
-
-To run the regression, use `get_regressions.py` to save the output in the `stock_stats` table:
-- `python scripts/get_regressions.py` for running all the stocks in the database
-- `python scripts/get_regressions.py -f some_ticker_file.csv` for using a csv source file
-- `python scripts/get_regressions.py -t ALB` to run and store the regression for a given stock
-
-Likewise for using Daily values, eg:
-- `python scripts/get_regressions.py -t ALB --frequency=DAILY` to run and store the regression for a given stock
-
-It will use the stock returns in the database by default, or if none are found, get them first.  It has some optional parameters:
-- `-s YYYY-MM-DD` to specify an optional start date, by default it will start at the earliest common date from the stocks and risk factors
-- `-e YYYY-MM-DD` to specify an optional end date, by default it will end at the latest common date from the stocks and risk factors
-- `-i N` for the regression interval in months (defaults to 60 months).
-- `-n FACTOR_NAME` to specify the BMG factor to use.  If not specified, `DEFAULT` will be used.
-- `-h` to see all parameters available
-
-To calculate a BMG series and store it in the database:
+Let's get the historical stock prices and returns of the MSCI World Index and its constituent sectors:
 ```
-python scripts/bmg_series.py -n XOP-SMOG -g SMOG -b XOP
+python scripts/get_stocks.py -f data/msci_etf_sector_mapping.csv 
+python scripts/get_stocks.py -f data/msci_constituent_details.csv
 ```
-where
-- `-n <series name>` is the name of your bmg series
-- `-b` is the ticker of your Brown stock 
-- `-g` is the ticker of your Green stock
 
-Likewise for using Daily values, eg:
+Now let's calculate the risk factor loadings for these stocks using 60 months of monthly data at a time:
 ```
-python scripts/bmg_series.py -n XOP-SMOG -g SMOG -b XOP --frequency=DAILY
+python scripts/get_regressions.py -d -f data/msci_etf_sector_mapping.csv -s 2010-01-01 -e 2021-01-31 --frequency MONTHLY -n DEFAULT -i 60 -b
+python scripts/get_regressions.py -d -f data/msci_constituent_details.csv -s 2010-01-01 -e 2021-01-31 --frequency MONTHLY -n DEFAULT -i 60 -b
+``` 
+
+Next, let's create a daily version of the BMG climate risk series based on the difference between the stocks XOP (brown) and SMOG (green):
+
+```
+python scripts/bmg_series.py -n XOP-SMOG -b XOP -g SMOG -s 2018-01-01 -e 2022-02-01 --frequency DAILY
+```
+
+Finally, let's calculate the risk factor loadings for stocks using 2 years of daily data.  This will take a long time:
+```
+python3 scripts/get_regressions.py -d -f data/msci_etf_sector_mapping.csv -s 2018-01-01 -e 2021-01-31 --frequency DAILY -i 730 -n XOP-SMOG -b
+python3 scripts/get_regressions.py -d -f data/msci_constituent_details.csv -s 2018-01-01 -e 2021-01-31 --frequency DAILY -i 703 -n XOP-SMOG -b
 ```
 
 ### Viewing the Results
 
-There is a react UI in the `ui/` directory.  It will need data including stocks and their regression results (see above) in the database.  Once you've
-run `scripts/get_regressions.py`, then you can use this UI to view the results.
-
-To run it, start both the node server and the react app (simultaneously in two terminal sessions) :
-```
-cd ui/node-server
-npm run start
-```
-and
-```
-cd ui/react
-npm run start
-```
-
-### Running Command Line Scripts
-
-These have been deprecated but are still available and can be used to  run regressions in the command line without the database:
-```
-python scripts/factor_regression.py
-```
-The inputs are:
-- Stock return data: Use the `stock_data.csv` or enter a ticker
-- Carbon data: The BMG return history.  By default use `carbon_risk_factor.csv`.
-- Fama-French factors: Use either `ff_factors.csv`, which are the `Fama/French Developed 3 Factors` and `Developed Momentum Factor (Mom)`, or `ff_factors_north_american.csv`,  which are the Fama/French `North American 3 Factors` and the `North American Momentum Factor (Mom)` series, from the [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)  The original CARIMA project used the data from `ff_factors.csv`
-
-The output will be a print output of the statsmodel object, the statsmodel coefficient summary, including the coefficient & p-Values (to replicate that of the CARIMA paper)
-
-stock_price_function.py adjusts this so it returns an object (which is used later)
-
-factor_regression.py loads in the stock prices, the carbon risk factor and the Fama-French factors. The names of these CSVs are asked for. If stock data would be liked to be downloaded, then it will use stock_price_function.py to do so
-
-- Ensure that you have the relevant modules installed
-- Have stock_price_script.py in the same folder as factor_regression.py
-- Have your factor CSVs saved
-- Run factor_regression.py and follow the prompts and enter the names of the CSVs as asked
-
-## Understanding the Output
-
-The model uses the coefficients on each factor to calculate the stocks loadings on to it. If it is positive, it indicates that the stock returns are positively linked to that factor (i.e. if that factor increases, the returns increase), and the inverse if it is negative.
-
-To determine if it is statistically significant, the t-statistic is calculated and the p-value provided. The null hypothesis is that the coefficient is not statistically significant. Thus, if the probability is below a cutoff, the null hypothesis is rejected and the loading can be considered statistically significant. A cutoff commonly used is the 5% level. In this case, if the p-value is below 0.05, then the loading is considered to be statistically significant.
-
-Ordinary least square regression is based on certain assumptions. There are a variety of statistics that are used to test these assumptions, some of which are presented in the output.
-
-The Jarque-Bera statistic tests the assumption that the data is Gaussian distributed (also known as normally distributed). The null hypothesis in this case is that the distribution is not different to what is expected if it follows a Gaussian distributed. If the p-value is above the cutoff, then one can assume that it is Gaussian distributed and the assumption of Gaussian distribution is not violated.
-
-The Breusch-Pagan tests for heteroskedasticity. Hetereskedasticity is the phenomenon where the the variability of the random disturbance is different across elements of the factors used, ie the variability of the stock returns changes as the values of the factors change.  The null hypothesis is that there is no heteroskedasticity, so if the p-value is below the cutoff, then there is not evidence to suggest that the assumption of homogeneity is violated.
-
-The Durbin-Watson test calculated whether there is autocorrelation. Autocorrelation occurs when the errors are correlated with time (i.e. the unsystematic/stock-specific risk of the stock changes through time). A value between 1.5 and 2.5 is traditionally used to conclude that there is no autocorrelation.
-
-The R Squared is what percentage of the stock returns (dependent variable) are explained by the factors (independent variables). The higher the percentage, the more of a stock returns can be considered to be based on the factor model.
-
-An overview of ordinary least-squares regression can be found [here on Wikipedia](https://en.wikipedia.org/wiki/Ordinary_least_squares)
-
-## R Scripts
-
-To use the R scripts and apps, please download the latest version of [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/).
-Open the script `/R/requirements_r.R` and run it.
-This will install all the packages
-
-- bulk_stock_return_downloader.R is a method to download multiple stocks. Using line 8, replace "stock_tickers.csv" with the list of tickers you wish to use, saved as a CSV in the data/ folder
+Follow directions from the [ui README page](ui/README.md) to look at your results.
 
 ## The Book
 
-A [free book](book/README.md) which explains climate investing and how to use this project.  You can also [read it online at gitbook](https://app.gitbook.com/@opentaps/s/open-climate-investing/v/main/book).
+The included [free book on climate investing](book/README.md) explains both climate investing concepts and how to use this project.  You can also [read it online at gitbook](https://app.gitbook.com/@opentaps/s/open-climate-investing/v/main/book).
 
-## Data Sources
+## Project Files
 
-Data included in this project come from the following sources:
-
-* The Fama French factors, risk free rate, and momentum come from the Developed 3 Factors and Developed MOM Factors from [Dartmouth Ken French Data Library](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html) via the CARIMA project.  There are small differences between their factors and the ones directly from the Dartmouth.
-* Index returns and constituents are based on traded ETF's:
-    * MSCI World is from the [iShares MSCI World Index ETF (ticker XWD)](https://www.blackrock.com/ca/investors/en/products/239697/ishares-msci-world-index-etf)
-    * MSCI All Country World Index (ACWI) is from [iShares MSCI ACWI ETF (ticker ACWI)](https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf#/)
-    * MSCI ACWI Low Carbon Index is from [iShares MSCI ACWI Low Carbon Target ETF (ticker CRBN)](https://www.ishares.com/us/products/271054/ishares-msci-acwi-low-carbon-target-etf)
-    * S&P 500 is from the [iShares Core S&P 500 ETF (ticker IVV)](https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf)
-    * S&P 500 Paris Aligned is from the [iShares S&P 500 Paris-Aligned Climate UCITS ETF (ticker UPAB)](https://www.ishares.com/uk/individual/en/products/318387/ishares-s-p-500-paris-aligned-climate-ucits-etf)
-    * S&P® Oil & Gas Exploration & Production Select Industry® Index is from the [SPDR® S&P® Oil & Gas Exploration & Production ETF (ticker XOP)](https://www.ssga.com/us/en/intermediary/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop)
-    * MVIS Global Low Carbon Energy Index is from the [VanEck Low Carbon Energy ETF (ticker SMOG)](https://www.vaneck.com/us/en/investments/low-carbon-energy-etf-smog/)
-    * List of [ETFs corresponding to S&P 500 sectors](https://www.sectorspdr.com/sectorspdr/)
-    * List of [ETFs corresponding to MSCI sectors](https://www.msci.com/documents/1296102/1360895/MSCI-Exchange-Traded-Products-ETFs-Based-on-MSCI-Indexes-Q4-2018.pdf/4a82c677-0fe4-12f0-1be2-26076423f862) 
-* Fixed income market data come are from these sources:
-    * Interest rate data is from [Federal Reserve H15](https://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15) using Monthly Averages. 
-    * BBB OAS is from [St Louis Fed BAMLC0A4CBBB](https://fred.stlouisfed.org/series/BAMLC0A4CBBB/downloaddata) using Frequenty=Monthly, Aggregation=End of Period 
-    * High Yield OAS is from [St Louis Fed BAMLH0A0HYM2](https://fred.stlouisfed.org/series/BAMLH0A0HYM2/downloaddata) using Frequenty=Monthly, Aggregation=End of Period																		
+- [scripts/](scripts/README.md) contains the python scripts used to run the models.
+- [ui/](ui/README.md) contains the user interface.
+- [data/](data/README.md) contains the data files for the models and a list of their sources.
+- [R/](R/README.md) contains R scripts which were used to develop the models. 
+- [book/](book/README.md) is the included book on climate investing.
 
 ## References
 - [Constructing and Validating Climate Risk Factors from ESG Data: an Empirical Comparison](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613)
