@@ -142,7 +142,21 @@ There's a relative easy way to check on how good a benchmark is for climate inve
 - Are those sensitivities relatively stable over time, which makes sense since climate risks don't change much in the short term?  Or do they drift up and down?
 - Are those climate risk sensitivities _logical_?  Do they agree with the [fundamental research on climate risk](Climate-and-Investing.md)?
 
-These questions may be hard to answer if you're just looking at one benchmark index, but when you compare it with others that we've analyzed, you'll be able to see a pattern.  For example, we did identify that the market priced the climate risk of the oil and gas and renewable energy stocks correctly.  So if your climate-aligned benchmark does not identify statistically significant climate risks in the same stocks, then it's not in sync with even the market's analysis of climate risks.  Similarly, if your benchmark thinks that many high climate risk stocks have little or even negative climate risk sensitivities, then there's probably a problem with your benchmark.  
+These questions may be hard to answer if you're just looking at one benchmark index, but when you compare it with others that we've analyzed, you'll be able to see a pattern.  For example, we did identify that the market priced the climate risk of the oil and gas and renewable energy stocks correctly.  Using the [open climate investing project](https://github.com/opentaps/open-climate-investing)'s default BMG factor, you can see that only the energy sector has a significant number of stocks with market-based climate risk:
+
+[Open Climate Investing Market-Based Climate Risk by Sector](images/benchmarks-bmg-sector-number-of-significant-stocks.png)
+
+These are the energy stocks that have significant market-based climate risks:
+
+[Open Climate Investing Energy Stocks with Significant Market-Based Climate Risk](images/benchmarks-bmg-significant-stocks.png)
+
+When you look at a particular stock, it should have a market-based climate risk that is relatively stable and trending over time:
+
+[Open Climate Investing Market-Based Climate Risk for BP stock](images/benchmarks-bmg-stock-risk-over-time.png) 
+
+So if your climate-aligned benchmark does not identify statistically significant climate risks in the same stocks, then it's not in sync with even the market's analysis of climate risks.  Similarly, if your benchmark thinks that many high climate risk stocks have little or even negative climate risk sensitivities, then there's probably a problem with your benchmark.  
+
+
 
 And finally, one last question: Should portfolio managers vote proxies? 
 
