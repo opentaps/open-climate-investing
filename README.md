@@ -49,7 +49,7 @@ python3 scripts/get_regressions.py -d -f data/msci_constituent_details.csv -s 20
 
 ### Viewing the Results
 
-Follow directions from the [ui README page](ui/README.md) to look at your results.
+Follow directions from the [dashboard README page](ui/README.md) to look at your results.
 
 ## The Book
 
@@ -58,7 +58,7 @@ The included [free book on climate investing](book/README.md) explains both clim
 ## Project Files
 
 - [scripts/](scripts/README.md) contains the python scripts used to run the models.
-- [ui/](ui/README.md) contains the user interface.
+- [ui/](ui/README.md) contains the dashboard.
 - [data/](data/README.md) contains the data files for the models and a list of their sources.
 - [R/](R/README.md) contains R scripts which were used to develop the models. 
 - [book/](book/README.md) is the included book on climate investing.

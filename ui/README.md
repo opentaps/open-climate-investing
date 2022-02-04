@@ -1,6 +1,6 @@
-# User Interface
+# Dashboard
 
-To start the user interface, start both the node server and the react app (simultaneously in two terminal sessions) :
+To start the dashboard, start both the node server and the react app (simultaneously in two terminal sessions) :
 ```
 cd ui/node-server
 npm run start
@@ -33,4 +33,4 @@ An overview of ordinary least-squares regression can be found [here on Wikipedia
 
 ## Configuration
 
-The UI uses the same db.ini configuration file, so you do not have to configure the database for it separately.
+The dashboard uses the same db.ini configuration file, so you do not have to configure the database for it separately.
