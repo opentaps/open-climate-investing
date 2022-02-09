@@ -115,7 +115,8 @@ class App extends Component {
         </div>
         <footer className="bg-light">
           <div className="py-5 container text-left">
-            See our <Link to={"/terms"}>Terms of Use</Link>
+             <p>This is part of the open source <a href='https://github.com/opentaps/open-climate-investing' target='_blank' rel="noreferrer">Open Climate Investing</a> project.  See the <a href='https://climate-investing-book.opensourcestrategies.com/v/main/book' target='_blank' rel="noreferrer">free e-book</a> for more information.</p>
+             <p>This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security. See our <Link to={"/terms"}>Terms of Use</Link> and <a href='https://climate-investing-book.opensourcestrategies.com/v/main/book/disclaimer' target='_blank' rel="noreferrer">complete disclaimer.</a></p>
           </div>
         </footer>
       </Router>
