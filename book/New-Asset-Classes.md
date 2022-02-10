@@ -95,6 +95,10 @@ Scenarios to think about:
 2.  Carbon becomes sovereign asset.  Government scoops them up for NDCs.  Prevent private sector speculation.  Debt funding only via green bonds.
 3.  Hybrid model—government tender for carbon.  Trading and arbitrage between countries and transfers.
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._

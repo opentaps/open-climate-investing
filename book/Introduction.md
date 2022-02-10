@@ -107,6 +107,10 @@ Ultimately we will live in the world that we worked to create, so let's get star
 
 _"If you only do what you can do, you will never be more than you are now." ― Master Oogway_
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._

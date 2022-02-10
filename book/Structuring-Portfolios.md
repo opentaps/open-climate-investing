@@ -107,6 +107,10 @@ And finally, half the stocks in your zero climate risk portfolio are oil compani
 
 Which brings us back to my original point in the [Introduction](Introduction.md): Climate investing is not the job of the portfolio manager.  Asset owners must specify their climate goals in the investment guidelines of their funds.  They must be willing to make those long term choices.  That is our topic for the next chapter. 
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._

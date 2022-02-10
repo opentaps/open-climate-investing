@@ -230,6 +230,10 @@ So the market implied models could help us as a sanity check.  Are we sure what 
 
 It could also help you make some money finding mispricings in the market, which is always a nice thing.
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._

@@ -171,6 +171,10 @@ Meanwhile, how is this for a reasonable proposal:
 
 In the end, we come full circle.  Asset owners and portfolio managers are really part of the same time.  How about let's try to work together?
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
