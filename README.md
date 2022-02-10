@@ -4,7 +4,9 @@ This project's mission is to make climate investing actionable.  It includes bot
 
 ## The Software
 
-The software is a multi-factor equity returns model which adds a climate factor, or Brown Minus Green, to the popular Fama French and Carhart models.  This additional Brown Minus Green (BMG) return factor could be used for a variety of climate investing applications, including:
+The software is a multi-factor equity returns model which adds a climate factor, or Brown Minus Green, to the popular Fama French and Carhart models.  See the [short video](https://youtu.be/0sdhTd0E9s0)
+
+This additional Brown Minus Green (BMG) return factor could be used for a variety of climate investing applications, including:
 - Calculate the market-implied carbon risk of a stock, investment portfolio, mutual fund, or bond based on historical returns
 - Determine the market reaction to the climate policies of a company
 - Optimize a portfolio to minimize carbon risk subject to other parameters, such as index tracking or growth-value-sector investment strategies.
@@ -69,3 +71,11 @@ The included [free book on climate investing](book/README.md) explains both clim
 - [A Practitioner's Guide to Factor Models](https://www.cfainstitute.org/en/research/foundation/1994/a-practitioners-guide-to-factor-models)
 - [The Barra US Equity Model (USE4)](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/4/47/MSCI-USE4-201109.pdf)
 - [Network for Greening the Financial System, Case Studies of Environmental Risk Analysis Methodologies](https://www.ngfs.net/sites/default/files/medias/documents/case_studies_of_environmental_risk_analysis_methodologies.pdf)
+
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](book/Disclaimer.md) and [license](LICENSE)._
