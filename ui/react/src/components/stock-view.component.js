@@ -33,8 +33,8 @@ const LIMIT_GRAPHS_DATES = true;
 const DEFAULT_PAGE_SIZE = 25;
 const DEFAULT_TAB = 0;
 const DEFAULT_GRAPH = "BMG";
-const STAT_GRAPHS_MIN = -3;
-const STAT_GRAPHS_MAX = 3;
+const STAT_GRAPHS_MIN = -2;
+const STAT_GRAPHS_MAX = 2;
 const GRAPH_OPTIONS = {
   chart: {
     type: "area",
@@ -413,13 +413,35 @@ class Stock extends Component {
           stat_series.forEach((s) => {
             // extract the values
             let data = s.data.map((a) => a[1]);
-            // gte min / max
+            // get min / max
             let min = Math.min(...data);
-            min = min < STAT_GRAPHS_MIN ? Math.floor(min) : STAT_GRAPHS_MIN;
+            let minp = 0;
+            let minv = Math.abs(min);
+            while (minv < 1) {
+              minp++;
+              minv*=10;
+            }
             let max = Math.max(...data);
+            let maxp = 0;
+            let maxv = Math.abs(max);
+            while (maxv < 1) {
+              maxp++;
+              maxv*=10;
+            }
+            let scale = Math.min(minp, maxp);
+
+            if (scale > 0) {
+              min *= 10**scale;
+              max *= 10**scale;
+            }
+            min = min < STAT_GRAPHS_MIN ? Math.floor(min) : STAT_GRAPHS_MIN;
             max = max > STAT_GRAPHS_MAX ? Math.ceil(max) : STAT_GRAPHS_MAX;
             // get the range as the number of ticks
             let r = max - min;
+            if (scale > 0) {
+              min /= 10**scale;
+              max /= 10**scale;
+            }
             stock_graph_stats_options[s.name] = Object.assign(
               {},
               GRAPH_OPTIONS,
