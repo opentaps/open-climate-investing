@@ -704,10 +704,10 @@ class Stock extends Component {
   renderFieldsTableBody(fields, items, opts) {
     return (
       <tbody>
-        {items &&
+        {items ?
           items.map((item, index) =>
             this.renderFieldsTableRow(fields, item, index, opts)
-          )}
+          ) : ''}
       </tbody>
     );
   }

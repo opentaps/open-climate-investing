@@ -96,9 +96,9 @@ class SeriesSettings extends Component {
     const { factorNames, frequencies } = this.state;
     const { factorName, frequency } = this.context;
 
-    return ((factorNames && factorNames.length) || (frequencies && frequencies.length)) && (
+    return ((factorNames && factorNames.length) || (frequencies && frequencies.length)) ? (
       <div className="col-12 ms-1 mb-2 d-flex flex-row align-items-baseline">
-        {factorNames && factorNames.length && (
+        {(factorNames && factorNames.length) ? (
           <div className="ms-1 mb-2 d-flex flex-row align-items-baseline">
             <b className="me-2">BMG Factor</b>
             <FormControl variant="standard">
@@ -114,8 +114,8 @@ class SeriesSettings extends Component {
               </Select>
             </FormControl>
           </div>
-        )}
-        {frequencies && frequencies.length && (
+        ):''}
+        {(frequencies && frequencies.length) ? (
           <div className="ms-1 mb-2 d-flex flex-row align-items-baseline">
             <b className="me-2">Frequency</b>
             <FormControl variant="standard">
@@ -131,9 +131,9 @@ class SeriesSettings extends Component {
               </Select>
             </FormControl>
           </div>
-        )}
+        ):''}
       </div>
-    )
+    ):''
   }
 }
 
