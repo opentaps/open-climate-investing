@@ -139,7 +139,7 @@ class Stock extends Component {
       stock_graph_stats_options: {},
       stock_graph_current_series_name: DEFAULT_GRAPH,
       stock_graph_series: [],
-      stock_graph_loadingIndicator: false,
+      stock_graph_loadingIndicator: true,
       latest_stock_stats: null,
       stats: [],
       stats_page: 1,
@@ -192,6 +192,7 @@ class Stock extends Component {
   }
 
   getStock(id) {
+    this.setState({ stock_graph_loadingIndicator: true });
     const { frequency, factorName } = this.context;
     StockDataService.get(id, { frequency, factorName })
       .then((response) => {
@@ -206,6 +207,7 @@ class Stock extends Component {
       })
       .catch((e) => {
         console.log(e);
+        this.setState({ stock_graph_loadingIndicator: false });
       });
   }
 
