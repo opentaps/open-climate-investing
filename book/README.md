@@ -9,7 +9,7 @@ To make this happen, climate or green investing must go from being a niche inves
 - [Introduction](Introduction.md)
 - [Climate and Investing](Climate-and-Investing.md)
 - [Analyzing Investments](Analyzing-Investments.md)
-    - [Interview - CDP and Climate Disclosures: a Corporate Perspective](book/Interview-Climate-Disclosure-Corporate-Perspective.md) 
+    - [Interview - CDP and Climate Disclosures: a Corporate Perspective](Interview-Climate-Disclosure-Corporate-Perspective.md) 
 - [Structuring Portfolios](Structuring-Portfolios.md)
 - [Setting Benchmarks](Setting-Benchmarks.md)
 - [Taking Climate Action](Climate-Action.md)
