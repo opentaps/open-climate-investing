@@ -152,6 +152,8 @@ So where do you get this information?  There are a lot of reporting standards ou
 
 Also note that some companies (Adobe) supply a third party audit letter, some companies (UPS) have their auditors review some of their disclosures, and others provide disclosures without any auditor backing.
 
+Want to learn more about climate disclosures?  How about hear what it was like from somebody who actually made the disclosures?  See [Interview - CDP and Climate Disclosures: a Corporate Perspective](Interview-Climate-Disclosure-Corporate-Perspective.md5).
+
 #### Do Goals Matter?
 
 Related to disclosures are organizations that help companies set climate goals.  They also provide helpful information about companies' climate exposures.  A few well known ones are:
