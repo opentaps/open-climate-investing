@@ -4,7 +4,7 @@
     * [Introduction](book/Introduction.md)
     * [Climate and Investing](book/Climate-and-Investing.md)
     * [Analyzing Investments](book/Analyzing-Investments.md)
-         * [Interview - CDP and Climate Disclosures: a Corporate Perspective](book/Interview-Climate-Disclosure-Corporate-Perspective) 
+         * [Interview - CDP and Climate Disclosures: a Corporate Perspective](book/Interview-Climate-Disclosure-Corporate-Perspective.md) 
     * [Structuring Portfolios](book/Structuring-Portfolios.md)
     * [Setting Benchmarks](book/Setting-Benchmarks.md)
     * [Taking Action](book/Climate-Action.md)
