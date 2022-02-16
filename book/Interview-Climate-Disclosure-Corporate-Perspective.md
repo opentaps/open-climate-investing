@@ -1,6 +1,6 @@
 # Interview - CDP and Climate Disclosures: a Corporate Perspective
 
-_What are climate disclosures such as the CDP (Climate Disclosure Project) really like?  In this interview, we spoke with Ermanno Camerinelli, Sustainability Specialist for an Italian SME who completed their first climate disclosures.  Hear firsthand what parts of the CDP did were really important, where the data came from, how you should use it, and how participating in the CDP benefited his company.  You can also [watch the video of the interview on Youtube](https://youtu.be/aTuabVaoECg)._
+_What are climate disclosures such as the CDP (Climate Disclosure Project) really like?  In this interview, we spoke with Ermanno Camerinelli, Sustainability Specialist for an Italian SME who completed their first climate disclosures.  Hear firsthand what parts of the CDP were really important, where the data came from, how you should use it, and how participating in the CDP benefited his company.  You can also [watch the video of the interview on Youtube](https://youtu.be/aTuabVaoECg)._
 
 SC: Thanks for joining me today.
 
