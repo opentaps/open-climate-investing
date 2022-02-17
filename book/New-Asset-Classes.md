@@ -2,9 +2,21 @@
 
 _It's easy to do the math but hard to do the work. - Anonymous Real Estate Developer_
 
+Ever wonder who would play you in a movie?
 
+Unfortunately, the ambitious financial whiz is a definite short in Hollywood these days.  Just look at Mr. Big.  If finance is what you do, then you'll probably lose at love and life to an organic farmer, chef, or animal rescuer.  
 
-[Putting carbon markets to work on the path to net zero](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) by McKinsey.
+But what if you were actually using finance to save the world.  What if, instead of financing shopping malls, you financed forests?  Instead of bidding on futures, you bid on wildlife habitats?  Instead of structuring buyouts, you structured deals to stop climate change?
+
+A [recent report from McKinsey](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) says that this might even be possible.  This chart alone is already enough for some venture capitalists to open their wallets:
+
+![Projected Growth of Voluntary Carbon Markets, McKinsey & Co.](images/McKinsey-voluntary-carbon-markets-size.png)
+
+But is it real?  
+
+I asked McKinsey what "Commitments" mean.  Are they commitments to buy voluntary carbon offsets?  Net zero commitments from companies which could be fulfilled by voluntary carbon offsets?  Which must be fulfilled by voluntary carbon offsets because alternative decarbonization options are not available?  Hopefully they'll write back and let me know.
+
+Meanwhile let's what kind of an asset carbon _might_ be, and what it _might not_ be.
 
 NGFS Carbon price projections here.
 
