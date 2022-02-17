@@ -307,7 +307,7 @@ class Stock extends Component {
     StockDataService.getData({
       ticker: current.ticker,
       page,
-      size: 100,
+      size: 1000,
       factorName,
       frequency
     })
