@@ -30,23 +30,23 @@ For our purposes, let's define a __Carbon Asset__ as a quantified, exclusive, an
 
 __Investing in a carbon asset__ is then the exchange of money for a stream of carbon assets.  It could be the purchase of equipment to reduce or remove emissions from the atmosphere, to plant new trees or restore a forest, and, as you'll see, lots of other activities.
 
-With that out of the way, get ready.  This is an asset like none other you've ever invested in.
- 
+And now for something very basic, but maybe still worth repeating given how climate investments are marketed these days.
+
 ## What Do You Get for Investing?
 
-This is pretty basic, but maybe still worth repeating given how climate investments are marketed these days.
-
-The first thing you should think about is whether the investment is debt or equity.  Debt investments have promised regular payments, but limited upside.  The other party just has to make those payments to you.  Equity investments have no promised regular payments, but all the upside.  You own it!  As long as it keeps producing income, it should be all yours.  The flip side is that debt investments must be paid back before equity investments, and if things don't go well, their claims take precedence before the equity investors.  
+The first thing you should think about is whether the investment is debt or equity.  Debt is a loan.  Equity is ownership.  Debt investments have promised regular payments, but limited upside.  The other party just has to make those payments to you.  Equity investments have no promised regular payments, but all the upside.  You own it!  As long as it keeps producing income, it should be all yours.  The flip side is that debt investments must be paid back before equity investments, and if things don't go well, their claims take precedence before the equity investors.  
 
 Or so in theory.
 
-When investments are structured, the lenders or bond buyers are promised all sorts of bells and whistles to protect them.  If the deal ever sours, though, you'll find out how they play out in real life.  
+When investments are structured, lenders or bond buyers are promised all sorts of bells and whistles to protect them.  It's only when investments sour that you find out how they play out in real life.  (Trust me -- I was a mortgage portfolio manager.)
 
-For example, let's say your investment is a loan backed by solar panels.  In theory, then, if you don't get paid, you could get the solar panels back and put them at another customer's site or sell them.  In practice, though, could you really turn off customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety, threaten basic livelihoods, or be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (those solar panels), in reality it's an unsecured loan.
+For example, let's say your investment is a loan backed by solar panels.  In theory, then, if you don't get paid, you could get the solar panels back, put them at another customer's site, or sell them.  In practice, though, could you really turn off a customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety, threaten basic livelihoods, or be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (solar panels), in reality it's an unsecured loan.
 
-Another problem with debt is that they often involve the kindness of strangers, who will hopefully extend a new loan to the project at a later date to pay you back.  We call this "rollover" risk.  It happens because the project themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  A most extreme is example is a cryptocurrency stablecoin backed by a carbon project.  The asset is very long-term and illiquid, the borrowing is very short-term, promising cash-like liquidity, and very novel and unproven.
+Another problem with debt is that they often involve the kindness of strangers, who will hopefully extend a new loan at a later date to pay you back.  We call this "rollover" risk.  It happens because the project themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  A most extreme is example is a cryptocurrency stablecoin backed by a carbon project.  The asset is very long-term and illiquid, the borrowing is very short-term, promising cash-like liquidity, and very novel.
 
 Moral of the story: Don't let promises lull you into a false sense of safety.
+
+With that out of the way, get ready.  This is an asset like none other you've ever invested in.
 
 ----
 
