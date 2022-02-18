@@ -4,9 +4,9 @@ _It's easy to do the math but hard to do the work. - Anonymous Real Estate Devel
 
 Ever wonder who would play you in a movie?
 
-Unfortunately, the ambitious financial whiz is a definite short in Hollywood these days.  Just look at Mr. Big.  If finance is what you do, then you'll probably lose at love and life to an organic farmer, chef, or animal rescuer.  
+Unfortunately, the ambitious financial whiz is a big short in Hollywood these days.  Just look at Mr. Big.  If finance is what you do, then you'll probably lose at love and life to an organic farmer, chef, or animal rescuer.  
 
-But what if you were actually using finance to save the world.  What if, instead of financing shopping malls, you financed forests?  Instead of bidding on futures, you bid on wildlife habitats?  Instead of structuring buyouts, you structured deals to stop climate change?
+But what if you were actually using finance to save the world?  What if, instead of financing shopping malls, you financed forests?  Instead of bidding on futures, you bid on wildlife habitats?  Instead of structuring buyouts, you structured deals to stop climate change?
 
 A [recent report from McKinsey](https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/putting%20carbon%20markets%20to%20work%20on%20the%20path%20to%20net%20zero/putting-carbon-markets-to-work-on-the-path-to-net-zero.pdf) says that this might even be possible.  This chart alone is already enough for some venture capitalists to open their wallets:
 
@@ -14,9 +14,20 @@ A [recent report from McKinsey](https://www.mckinsey.com/~/media/mckinsey/busine
 
 But is it real?  
 
-I asked McKinsey what "Commitments" mean.  Are they commitments to buy voluntary carbon offsets?  Net zero commitments from companies which could be fulfilled by voluntary carbon offsets?  Which must be fulfilled by voluntary carbon offsets because alternative decarbonization options are not available?  Hopefully they'll write back and let me know.
+Part of it depends on what "Commitments" means.  Are they commitments to buy voluntary carbon offsets?  Net zero commitments from companies which could be fulfilled by voluntary carbon offsets?  Which must be fulfilled by voluntary carbon offsets because alternative decarbonization options are not available?  [I've asked McKinsey](https://twitter.com/opentaps/status/1494439046327668737)--hopefully they'll write back and let us know.
 
 Meanwhile let's what kind of an asset carbon _might_ be, and what it _might not_ be.
+
+## What are Carbon Assets?
+
+With sustainability and green being slapped on every old thing these days, let's first narrow down what a carbon asset is.
+
+For our purposes, a __Carbon Asset__ is a quantified claims of climate benefit, such as a reduction or removal of Greenhouse Gas (GHG) emissions, which has not already been claimed by another party.  It must be quantified in units such as tons of CO2 equivalents.  This removes all sorts of products and services which are marketed as better for the environment without a specific measurement of climate benefit.  Furthermore, this claim must not have already been used by someone else to reduce their emissions footprint.  So while a climate positive activity benefits all of us, it could only be considered an asset if it only one party should be able to ultimately claim it against their account of climate altering emissions.
+
+__Investing in a carbon asset__ is then the exchange of money for a stream of carbon assets.  It could be the purchase of equipment to reduce or remove emissions from the atmosphere, to plant new trees or restore a forest, and, as you'll see, lots of other activities.
+
+With that out of the way, get ready.  This is an asset like none other you've ever invested in.
+ 
 
 NGFS Carbon price projections here.
 
