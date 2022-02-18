@@ -4,7 +4,7 @@ _It's easy to do the math but hard to do the work. - Anonymous Real Estate Devel
 
 Ever wonder who would play you in a movie?
 
-Unfortunately, the ambitious financial whiz is a big short in Hollywood these days.  Just look at Mr. Big.  If finance is what you do, then you'll probably lose at love and life to an organic farmer, chef, or animal rescuer.  
+Unfortunately, Hollywood has been unkind to the financial whiz these days.  Just look at Mr. Big.  If finance is what you do, then you're a big short.
 
 But what if you were actually using finance to save the world?  What if, instead of financing shopping malls, you financed forests?  Instead of bidding on futures, you bid on wildlife habitats?  Instead of structuring buyouts, you structured deals to stop climate change?
 
@@ -22,12 +22,33 @@ Meanwhile let's what kind of an asset carbon _might_ be, and what it _might not_
 
 With sustainability and green being slapped on every old thing these days, let's first narrow down what a carbon asset is.
 
-For our purposes, a __Carbon Asset__ is a quantified claims of climate benefit, such as a reduction or removal of Greenhouse Gas (GHG) emissions, which has not already been claimed by another party.  It must be quantified in units such as tons of CO2 equivalents.  This removes all sorts of products and services which are marketed as better for the environment without a specific measurement of climate benefit.  Furthermore, this claim must not have already been used by someone else to reduce their emissions footprint.  So while a climate positive activity benefits all of us, it could only be considered an asset if it only one party should be able to ultimately claim it against their account of climate altering emissions.
+For our purposes, let's define a __Carbon Asset__ as a quantified, exclusive, and unused claims of climate benefit, such as a reduction or removal of Greenhouse Gas (GHG) emissions.  This definition helps narrow down what could be considered carbon assets:
+- Climate Benefit: While Social Development Goals (SDG's) and biodiversity are important, there are a lot of compliance carbon markets that don't require any other attributes.  To be consistent, then, we should restrict ourselves to just the climate aspect of these.
+- Quantified: It must be quantified in units such as tons of CO2 equivalents.  This would exclude all sorts of activities, products, and services which may be  better for the environment but which do not have a specific measurement of climate benefit and therefore cannot be valued or traded.  
+- Exclusive: This is a requirement for being an asset.  While a climate positive activity benefits all of us, it could only be considered an asset if only one party could  claim it against their account of Greenhouse Gas (GHG) emissions.  You can own it collectively as a shareholder, or the government can claim it as state property, but being an asset means somebody owns it while others do not, so that it can be valued and traded.
+- Unused: Finally, this claim must not have already been used in anyone's emissions account.  If a carbon credit has already been retired, than it has been consumed and is no longer an asset.
 
 __Investing in a carbon asset__ is then the exchange of money for a stream of carbon assets.  It could be the purchase of equipment to reduce or remove emissions from the atmosphere, to plant new trees or restore a forest, and, as you'll see, lots of other activities.
 
 With that out of the way, get ready.  This is an asset like none other you've ever invested in.
  
+## What Do You Get for Investing?
+
+This is pretty basic, but maybe still worth repeating given how climate investments are marketed these days.
+
+The first thing you should think about is whether the investment is debt or equity.  Debt investments have promised regular payments, but limited upside.  The other party just has to make those payments to you.  Equity investments have no promised regular payments, but all the upside.  You own it!  As long as it keeps producing income, it should be all yours.  The flip side is that debt investments must be paid back before equity investments, and if things don't go well, their claims take precedence before the equity investors.  
+
+Or so in theory.
+
+When investments are structured, the lenders or bond buyers are promised all sorts of bells and whistles to protect them.  If the deal ever sours, though, you'll find out how they play out in real life.  
+
+For example, let's say your investment is a loan backed by solar panels.  In theory, then, if you don't get paid, you could get the solar panels back and put them at another customer's site or sell them.  In practice, though, could you really turn off customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety, threaten basic livelihoods, or be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (those solar panels), in reality it's an unsecured loan.
+
+Another problem with debt is that they often involve the kindness of strangers, who will hopefully extend a new loan to the project at a later date to pay you back.  We call this "rollover" risk.  It happens because the project themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  A most extreme is example is a cryptocurrency stablecoin backed by a carbon project.  The asset is very long-term and illiquid, the borrowing is very short-term, promising cash-like liquidity, and very novel and unproven.
+
+Moral of the story: Don't let promises lull you into a false sense of safety.
+
+----
 
 NGFS Carbon price projections here.
 
@@ -80,6 +101,7 @@ Voluntary carbon credits: Very heterogeneous market, over the counter, illiquid.
 
 Voluntary carbon offsets market prizes novelty, pays up for unusual project types.  Once technology hits mainstream questions about additionality plus supply pushes down the values.  There is a period between when the technology is mature and market ready and when offset standards start to rein back issuance -- Renewable energy: [2016 paper](https://ec.europa.eu/clima/system/files/2017-04/clean_dev_mechanism_en.pdf) pointed out most CDM projects were not additional.  In 2021 Verra and Gold Standard modified their renewable energy methodology to exclude projects which are not in the lowest income countries.  During this period lots of potential supply ("free money") will push down prices.
 
+
 ## Investment 
 
 Some general recommendations:
@@ -87,19 +109,6 @@ Some general recommendations:
 - Find a public equivalent to what you're planning to invest in.  For example, Hannon Armstrong (HASI) is a public company that owns solar and other renewable energy assets.
 - Get a liquidity premium of at least an additional 1% in return or 20% in valuation for a private investment versus a publicly traded alternative.  In real estate terms, that's a 5% cap rate for a private investment versus a 4% cap rate for a publicly traded one.  This is __fair value__.  If you can get more, it's even better.
 - Diversify
-
-Then for the details: Is this investment debt (promising fixed payments) or equity?  If it's debt, think about the usual:
-
-- Offtaker counter party default risk
-- Value of assets supporting the debt
-- What is the recovery process in the event of default?
-- Rollover risk: What is the term of the debt, and how easily could it be refinanced so you can be repaid?  In the extreme are cryptocurrency stablecoins which promise the liquidity of cash.  Is the asset liquid enough to fund all of it?  Usually the answer is no.
-
-If it's equity, think about the usual:
-
-- Projected revenues
-- Probability they'll be realized
-- Debt that's senior to you
 
 It's possible you'll be right and make money.
 
