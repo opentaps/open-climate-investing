@@ -16,7 +16,7 @@ But is it real?
 
 Part of it depends on what "Commitments" means.  Are they commitments to buy voluntary carbon offsets?  Net zero commitments from companies which could be fulfilled by voluntary carbon offsets?  Which must be fulfilled by voluntary carbon offsets because alternative decarbonization options are not available?  [I've asked McKinsey](https://twitter.com/opentaps/status/1494439046327668737)--hopefully they'll write back and let us know.
 
-Meanwhile let's what kind of an asset carbon _might_ be, and what it _might not_ be.
+Meanwhile let's look at what kind of an asset carbon _might_ be, and what it _might not_ be.  Note this chapter is about project investing, not venture capital investing: We're not going to talk about how to evaluate novel technologies, but rather investing in the results of those technologies.  Carbon.  
 
 ## What are Carbon Assets?
 
@@ -30,25 +30,70 @@ For our purposes, let's define a __Carbon Asset__ as a quantified, exclusive, an
 
 __Investing in a carbon asset__ is then the exchange of money for a stream of carbon assets.  It could be the purchase of equipment to reduce or remove emissions from the atmosphere, to plant new trees or restore a forest, and, as you'll see, lots of other activities.
 
-And now for something very basic, but maybe still worth repeating given how climate investments are marketed these days.
+And now for some very basic concepts, but maybe still worth repeating given how climate investments are marketed these days.
 
-## What Do You Get for Investing?
+## Promises, Promises, Promises
 
 The first thing you should think about is whether the investment is debt or equity.  Debt is a loan.  Equity is ownership.  Debt investments have promised regular payments, but limited upside.  The other party just has to make those payments to you.  Equity investments have no promised regular payments, but all the upside.  You own it!  As long as it keeps producing income, it should be all yours.  The flip side is that debt investments must be paid back before equity investments, and if things don't go well, their claims take precedence before the equity investors.  
 
 Or so in theory.
 
-When investments are structured, lenders or bond buyers are promised all sorts of bells and whistles to protect them.  It's only when investments sour that you find out how they play out in real life.  (Trust me -- I was a mortgage portfolio manager.)
+The reality is, when you're ready to write the check, everybody promises you all sorts of protection.  But when the borrowers don't pay, the lenders are always the bad guy.  (Trust me -- I was a mortgage portfolio manager.)
 
-For example, let's say your investment is a loan backed by solar panels.  In theory, then, if you don't get paid, you could get the solar panels back, put them at another customer's site, or sell them.  In practice, though, could you really turn off a customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety, threaten basic livelihoods, or be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (solar panels), in reality it's an unsecured loan.
+For example, let's say your investment is a loan backed by solar panels.  In theory, if you don't get paid, you could get the solar panels back, put them at another customer's site, or sell them.  In reality, could you really turn off a customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety and threaten basic livelihoods?  Or simply be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (solar panels), in reality it's an unsecured loan.
 
-Another problem with debt is that they often involve the kindness of strangers, who will hopefully extend a new loan at a later date to pay you back.  We call this "rollover" risk.  It happens because the project themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  A most extreme is example is a cryptocurrency stablecoin backed by a carbon project.  The asset is very long-term and illiquid, the borrowing is very short-term, promising cash-like liquidity, and very novel.
+Or, let's say your investment is a solar or wind farm where a local utility which buys the energy from you.  Then the utility goes bankrupt and stops paying.  Will the local regulators make you pay for the operations and maintenance expenses to keep the power on, while the courts figure out how much you'll get paid, and when you'll get it?  
+
+Finally, remember that debt always relies on the kindness of strangers.  You need them to make a new loan at a later date to pay you back.  We call this "rollover" risk.  It happens because the projects themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  Consider a fully-amortizing 30-year mortgage backed by utility assets versus a cryptocurrency stablecoin backed by a carbon project.  The former is a well-known, tried and true financing mechanism that pays itself off over time.  The latter is a novel bit of financial engineering that requires you to constantly provide cash-like liquidity to short-term holders from a long-term, illiquid asset.  
 
 Moral of the story: Don't let promises lull you into a false sense of safety.
 
-With that out of the way, get ready.  This is an asset like none other you've ever invested in.
+With that out of the way, get ready.  This is an asset like none other you've ever invested in. 
+
+## What Could Possibly Go Wrong?
+
+You're handing out cash for a promised stream of future claims denominated in units of CO2e, then looking to sell those claims for cash again.  Every step of the way involves uncertainty, except the part with you handing out the cash.
+
+### Technology Risk
+
+OK, I lied.  Even though this chapter is not about venture capital investing, you're still going to have to evaluate some novel technologies.
+
+The fact is, our understanding of large scale systems like climate and nature are relatively immature and changing.  We've been burning coal in large scale for the Industrial Revolution since the 1700's, but it wasn't until the 1960's that scientists started to realize the climate might be changing.  Meanwhile, our understanding of how nature and ecosystems work is changing as well.  
+
+Taken together, it means that our attempts to capture or manage GHG emissions is just today's best estimate.  How well each of the following would actually work as the climate itself is changing remains to be seen: 
+
+- Solar: Could a warming planet cause more cloudy days, reducing the output from solar panels? ([Princeton](https://www.princeton.edu/news/2020/10/07/climate-change-could-mean-fewer-sunny-days-hot-regions-banking-solar-power))
+- Wind: How would climate change affect the amount of wind for wind power? ([Harvard](https://www.seas.harvard.edu/news/2021/03/less-wind-due-climate-change-wont-impact-wind-power-generation-india-and-china), [Nature](https://www.nature.com/articles/s43017-020-0101-7))
+- Hydropower: Do hydropower projects actually contribute to climate change by releasing methane from the decay of buried?  ([Science.org](https://www.science.org/content/article/hundreds-new-dams-could-mean-trouble-our-climate), [TheGuardian](https://www.theguardian.com/global-development/2016/nov/14/hydroelectric-dams-emit-billion-tonnes-greenhouse-gas-methane-study-climate-change))
+- Mangrove forests: Are mangrove forests dying as a result of climate change and the related storms? (See [TheConversation](https://theconversation.com/extreme-weather-likely-behind-worst-recorded-mangrove-dieback-in-northern-australia-71880), [NPR](https://www.npr.org/2020/09/11/912045029/climate-change-may-wipe-out-large-mangrove-forests-new-research-suggests), [NASA](https://svs.gsfc.nasa.gov/13885))
+- Forestry: How much do forests really help cool the climate ([Nature](https://www.nature.com/articles/d41586-019-00122-z)]  Furthermore, as the planet warms, some scientists believe that terrestrial forests will release more carbon than they absorb.  ([InsideClimateNews](https://insideclimatenews.org/news/13012021/forests-heat-climate-change/))  This may already be happening in the Amazonia. ([Nature](https://www.nature.com/articles/s41586-021-03629-6), [LiveScience](https://www.livescience.com/amazon-rainforest-accelerate-climate-change.html))
+- Soil carbon: Could we actually be wrong about whether the soil really sequesters carbon, or how much or how permanent the sequestration is?  ([Quanta](https://www.quantamagazine.org/a-soil-science-revolution-upends-plans-to-fight-climate-change-20210727/), [TheGuardian](https://www.theguardian.com/environment/2021/mar/24/soils-ability-to-absorb-carbon-emissions-may-be-overestimated-study), [Nature](https://www.nature.com/articles/s41586-021-03306-8.epdf?sharing_token=AGbHLXt_20mbdUVLaFH7zNRgN0jAjWel9jnR3ZoTv0N2nuYqS5Si1oM85m9uPVbHtSoElmnSOceF_iSQhP1hfFAkwk2zkiuCDFYLMQUcWZ449oya-b_b0UwO-hnx_pjFJ9gmuFo7O9lrCLLifZ20c-ZUT3DZBSpOHb0b5Fqvp24p_KRkyABFbdQ1hqI_6thGftvWq4mOuSbtzwO5bbFqfwUKqJGWN8vrTjBiiyPdetYtiWWVN-8L521MmwBg1eZXB1F1oO9dbULOJm_v6RHa_mHW0Dy9Ace4IWWVVTMYb8kuX_vJ0IGvz0SucA1FUyCbYNZOtw4vqgJ_sbJefyGqSUJLCt5DfT1-hgvwcdK7bZg%3D&tracking_referrer=www.theguardian.com))
+
+Unfortunately this is as far as I can take you.  But if you're planning to invest, do your homework.  Climate is a lot more complicated than, say, commercial real estate.
 
 ----
+
+
+
+Term matching: Are the prices for the carbon assets locked in for the life of your project, or will you get the market price over time?
+
+Counterparty risk: How likely are the project developers to develop the promised carbon assets?  How likely are the buyers to purchase the carbon assets they've promised to buy?  What happens if either side fails to do as promised?
+
+Currency risk: In case the project is in another country, will you get be able to .
+
+Liquidity risk: If these are long term projects, will you be able to sell your interest in the project if you need the money for something else?  If you are planning to finance them, how will your lender appraise your project?  Could there be additional capital requirements from your lender?
+
+Basis risk: The lack of correlation between negative carbon assets and other assets.  For example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
+
+Market risk: During the pilot phase, there are philanthropic funders who will pay to help these new technologies get off the ground.  But to scale up for mass adoption, they will need to be economically viable.  When will they achieve economic viability?  Will they depend on government policies until they do so?  Renewable energy saw a lot of help from government policy until they became cost competitive.  Other carbon removal projects may permanently need carbon credits to pay for them.  If you rely on government policies such as compliance carbon credit schemes, remember that they are both complex and slow.  If you are planning to tap into the voluntary carbon credits markets, know that market is very, very small.
+
+How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
+
+Obsolescence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
+
+Regulatory risk: Will compliance programs continue to accept your technology and project type?  Will net metering be repealed?  Will you be able to get permits for rolling out the projects?
+
+
 
 NGFS Carbon price projections here.
 
@@ -69,29 +114,7 @@ No longer a climate bet but an energy bet.  More like project finance investing:
 
 These __may__ well turn out to be good investments, but they are not without risks of their own.  Here are a few to consider:
 
-Basis risk: The lack of correlation between negative carbon assets and other assets.  For example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
 
-Technology risk: These projects have their own specific risks, depending on what they do:
-
-- Solar: Could a warming planet cause more cloudy days, reducing the output from solar panels?
-- Wind: Similarly, could climate change reduce the amount of wind for wind power?
-- Mangrove forests: Are mangrove forests dying as a result of climate change?
-- Forestry: As the planet warms, some scientists believe that terrestrial forests will release more carbon than they absorb as a result of fires and changes to savannah and grasslands.  This may already be happening in the Amazonia.
-- Soil carbon: Could we actually be wrong about whether the soil really sequesters carbon, or how much or how permanent the sequestration is?
-
-Market risk: During the pilot phase, there are philanthropic funders who will pay to help these new technologies get off the ground.  But to scale up for mass adoption, they will need to be economically viable.  When will they achieve economic viability?  Will they depend on government policies until they do so?  Renewable energy saw a lot of help from government policy until they became cost competitive.  Other carbon removal projects may permanently need carbon credits to pay for them.  If you rely on government policies such as compliance carbon credit schemes, remember that they are both complex and slow.  If you are planning to tap into the voluntary carbon credits markets, know that market is very, very small.
-
-How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
-
-Obsolescence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
-
-Regulatory risk: Will compliance programs continue to accept your technology and project type?  Will net metering be repealed?  Will you be able to get permits for rolling out the projects?
-
-Counterparty risk: If you are investing in projects to provide energy or generate carbon credits, who are you selling to, and what is the risk of their defaulting?
-
-Currency risk: In case it's in another country, especially less developed one.
-
-Liquidity risk: If these are long term projects, will you be able to sell them when you need money for something else?  If you are planning to finance them, how will your funding counterparty mark your positions for collateral?
 
 Early days - Lots of different standards.  Eventually market will converge either to the government compliance standards or large private sector ones.  Will your project make it?
 
