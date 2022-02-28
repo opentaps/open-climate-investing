@@ -43,18 +43,33 @@ def import_stock(stock_name, always_update_details=False, frequency='MONTHLY', v
 
 def update_stocks_info_data(stock_name):
     info = spf.stock_details_grabber(stock_name)
+    if info is None:
+        print('!! Did not get any stock data for %s'.format(stock_name))
+        return
     sql = '''
-        INSERT INTO stocks (ticker, name, sector, sub_sector)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO stocks (ticker, name, sector, sub_sector, 
+            ebitda, enterprise_value, enterprise_to_ebitda, price_to_book,
+            total_cash, total_debt, shares_outstanding)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (ticker) DO
         UPDATE SET
             name = EXCLUDED.name,
             sector = EXCLUDED.sector,
-            sub_sector = EXCLUDED.sub_sector
+            sub_sector = EXCLUDED.sub_sector,
+            ebitda = EXCLUDED.ebitda,
+            enterprise_value = EXCLUDED.enterprise_value,
+            enterprise_to_ebitda = EXCLUDED.enterprise_to_ebitda,
+            price_to_book = EXCLUDED.price_to_book,
+            total_cash = EXCLUDED.total_cash,
+            total_debt = EXCLUDED.total_debt,
+            shares_outstanding = EXCLUDED.shares_outstanding
         ;
     '''
     with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name, info.get('longName'), info.get('sector'), info.get('industry')))
+        cursor.execute(sql, (stock_name, info.get('longName'), info.get('sector'), info.get('industry'),
+                             info.get('ebitda'), info.get('enterpriseValue'), info.get('enterpriseToEbitda'),
+                             info.get('priceToBook'), info.get('totalCash'), info.get('totalDebt'),
+                             info.get('sharesOutstanding')))
 
 
 def check_stocks_info_exist(stock_name):

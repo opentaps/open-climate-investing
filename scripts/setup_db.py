@@ -37,6 +37,21 @@ def import_data_into_sql(table_name, file_name, cursor, bmg=False):
         cursor.execute(sql_query)
 
 
+def import_stocks_into_sql(table_name, file_name, cursor):
+    print("-- import_data_into_sql file={} table={}".format(file_name, table_name))
+    sql_query = "DROP TABLE IF EXISTS _import_stocks CASCADE;"
+    cursor.execute(sql_query)
+    sql_query = "CREATE TABLE _import_stocks (ticker text, name text, sector text, sub_sector text, PRIMARY KEY (ticker));"
+    cursor.execute(sql_query)
+    sql_query = "COPY _import_stocks FROM %s WITH (FORMAT CSV, HEADER);"
+    cursor.execute(sql_query, (file_name, ))
+    sql_query = "INSERT INTO stocks (ticker, name, sector, sub_sector) SELECT ticker, name, sector, sub_sector FROM _import_stocks;"
+    cursor.execute(sql_query)
+    print('---> inserted {} stocks rows.'.format(cursor.rowcount))
+    sql_query = "DROP TABLE IF EXISTS _import_stocks CASCADE;"
+    cursor.execute(sql_query)
+
+
 def import_spx_constituents_into_sql(file_name, cursor, constituent_ticker):
     print("-- import_spx_constituents_into_sql file={} constituent_ticker={}".format(file_name, constituent_ticker))
     cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
@@ -297,21 +312,24 @@ def main(args):
             config.write(configfile)
 
     # Connect to maintenance database
-    print('** connect to maintenance DB: {} at {} with user {}'.format(DB_MAINTENANCE_DB, DB_HOST, DB_USER))
-    conn = psycopg2.connect(host=DB_HOST, database=DB_MAINTENANCE_DB,
-                            user=DB_USER, password=DB_PASS)
-    conn.autocommit = True
-    cursor = conn.cursor()
+    try:
+        print('** connect to maintenance DB: {} at {} with user {}'.format(DB_MAINTENANCE_DB, DB_HOST, DB_USER))
+        conn = psycopg2.connect(host=DB_HOST, database=DB_MAINTENANCE_DB,
+                                user=DB_USER, password=DB_PASS)
+        conn.autocommit = True
+        cursor = conn.cursor()
 
-    # Create new database
-    sql_drop_db = 'DROP DATABASE IF EXISTS ' + DB_NAME + ';'
-    cursor.execute(sql_drop_db)
+        # Create new database
+        sql_drop_db = 'DROP DATABASE IF EXISTS ' + DB_NAME + ';'
+        cursor.execute(sql_drop_db)
 
-    sql_create_db = 'CREATE DATABASE ' + DB_NAME + ';'
-    cursor.execute(sql_create_db)
+        sql_create_db = 'CREATE DATABASE ' + DB_NAME + ';'
+        cursor.execute(sql_create_db)
 
-    # Disconnect and connect to created database
-    conn.close()
+        # Disconnect and connect to created database
+        conn.close()
+    except Exception as e:
+        print('?? error creating the DB?', e)
 
     print('** connect to created DB: {} at {} with user {}'.format(DB_NAME, DB_HOST, DB_USER))
     conn = psycopg2.connect(host=DB_HOST, database=DB_NAME,
@@ -381,7 +399,7 @@ def main(args):
             "INSERT INTO stocks (ticker, name) VALUES ('MSCI_SECTOR_ETFS', 'MSCI Sector ETF''s');")
 
         print('** importing stocks')
-        import_data_into_sql("stocks", sector_breakdown_data, cursor)
+        import_stocks_into_sql("stocks", sector_breakdown_data, cursor)
 
         # import components and weights of spx
         print('** importing stock_components IVV')
@@ -408,6 +426,6 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
-                        help="Import default Fama French factors, monthly carbno risk factors, and index composition data")
+                        help="Import default Fama French factors, monthly carbon risk factors, and index composition data")
     parser.add_argument("-R", "--reuse", action='store_true', help='Reuse the current db.ini config instead of asking for the settings')
     main(parser.parse_args())

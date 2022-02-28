@@ -63,6 +63,13 @@ CREATE TABLE stocks (
     name text,
     sector text,
     sub_sector text,
+    ebitda bigint,
+    enterprise_value bigint,
+    enterprise_to_ebitda decimal(14, 3),
+    price_to_book decimal(16, 6),
+    total_cash bigint,
+    total_debt bigint,
+    shares_outstanding bigint,
     PRIMARY KEY (ticker)
 );
 
