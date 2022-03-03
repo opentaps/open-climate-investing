@@ -12,6 +12,7 @@ To make this happen, climate or green investing must go from being a niche inves
     - [Interview - CDP and Climate Disclosures: a Corporate Perspective](Interview-Climate-Disclosure-Corporate-Perspective.md) 
 - [Structuring Portfolios](Structuring-Portfolios.md)
 - [Setting Benchmarks](Setting-Benchmarks.md)
+    - [Interview - Engaging with Banks and Fund Managers for Climate](Interview-Engaging-Banks-Fund-Managers.md)
 - [Taking Climate Action](Climate-Action.md)
 - Legal and Regulatory Considerations
 - Emerging Asset Classes: Carbon offsets and negative carbon projects
