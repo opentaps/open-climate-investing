@@ -1,6 +1,6 @@
 # Interview - Engaging with Banks and Fund Managers for Climate
 
-_What are banks and institutional fund managers really doing about climate change?  What are their priorities?  What are their limitations and challenges?  Could they do more?  In this view, hear from Gabe Malek from the Environmental Defense Fund about their experiences working with major banks and fund managers on climate change._
+_What are banks and institutional fund managers really doing about climate change?  What are their priorities?  What are their limitations and challenges?  Could they do more?  In this interview, hear from Gabe Malek from the Environmental Defense Fund about their experiences working with major banks and fund managers on climate change._
 
 SC: Please tell me generally what you your work at the EDF involves as a starting point.
 
