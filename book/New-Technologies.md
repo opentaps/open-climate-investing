@@ -42,7 +42,7 @@ Meanwhile, those of us in the old fashioned world of carbon offsets might notice
 - When the offsets are "retired" from the Verra registry, it means that they are used to offset the emissions footprint of the retiring party (retiree?)  They should never be traded again and therefore have no value any more.  Toucan Protocol, creators of the BCT token, acknowledges that it is a [one way bridge](https://docs.toucan.earth/protocol/bridge/carbon-bridge).
 - In other words, BCT tokens and anything based on it could only be considered assets by those who believe.  They could never be converted back to offsets and traded in the existing offset markets.  They're a one way ticket to Planet Crypto.
 - This isn't the first time (and won't be the last) we see a developing economy try to tap into short-term speculative capital with high interest rates.
-- Is it ever really possible to [create a liquid asset from an illiquid one](https://www.oaktreecapital.com/docs/default-source/memos/2015-03-25-liquidity.pdf)?
+- Not is it the first time somebody has tried to [create a liquid asset from an illiquid one](https://www.oaktreecapital.com/docs/default-source/memos/2015-03-25-liquidity.pdf).
 
 ![Toucan Projects List](images/toucan-projects-list.png)
 
