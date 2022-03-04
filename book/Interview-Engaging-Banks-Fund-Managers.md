@@ -152,4 +152,11 @@ SC: Great. Well this has been great. You're giving me a lot. I think I might wan
 
 GM: Thanks so much.
 
+#### Get Updates
+
+[Sign up](https://opentaps.org/subscribe) for our email newsletter to get updates on this book and the [Open Climate Investing project](https://github.com/opentaps/open-climate-investing).
+
+#### Disclaimer
+
+_This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
 
