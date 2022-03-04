@@ -1,6 +1,6 @@
 # New Asset Classes
 
-_It's easy to do the math but hard to do the work. - Anonymous Real Estate Developer_
+_It's easy to do the math but hard to do the work. - Anonymous_
 
 Ever wonder who would play you in a movie?
 
@@ -52,7 +52,7 @@ With that out of the way, get ready.  This is an asset like none other you've ev
 
 ## What Could Possibly Go Wrong?
 
-You're handing out cash for a promised stream of future claims denominated in units of CO2e, then looking to sell those claims for cash again.  Every step of the way involves uncertainty, except the part with you handing out the cash.
+You're handing out cash for a promised stream of future claims denominated in units of CO2e of Greenhouse Gas emissions, then looking to sell those claims for cash again.  Every step of the way involves uncertainty, except the part with you handing out the cash.
 
 ### Technology Risk
 
@@ -69,7 +69,25 @@ Taken together, it means that our attempts to capture or manage GHG emissions is
 - Forestry: How much do forests really help cool the climate? ([Nature](https://www.nature.com/articles/d41586-019-00122-z)  Furthermore, as the planet warms, some scientists believe that terrestrial forests will release more carbon than they absorb.  ([InsideClimateNews](https://insideclimatenews.org/news/13012021/forests-heat-climate-change/))  This may already be happening in the Amazonia. ([Nature](https://www.nature.com/articles/s41586-021-03629-6), [LiveScience](https://www.livescience.com/amazon-rainforest-accelerate-climate-change.html))
 - Soil carbon: Could we actually be wrong about whether soil really sequesters carbon, or how much or how permanent the sequestration is?  ([Quanta](https://www.quantamagazine.org/a-soil-science-revolution-upends-plans-to-fight-climate-change-20210727/), [Nature](https://www.nature.com/articles/s41586-021-03306-8.epdf?sharing_token=AGbHLXt_20mbdUVLaFH7zNRgN0jAjWel9jnR3ZoTv0N2nuYqS5Si1oM85m9uPVbHtSoElmnSOceF_iSQhP1hfFAkwk2zkiuCDFYLMQUcWZ449oya-b_b0UwO-hnx_pjFJ9gmuFo7O9lrCLLifZ20c-ZUT3DZBSpOHb0b5Fqvp24p_KRkyABFbdQ1hqI_6thGftvWq4mOuSbtzwO5bbFqfwUKqJGWN8vrTjBiiyPdetYtiWWVN-8L521MmwBg1eZXB1F1oO9dbULOJm_v6RHa_mHW0Dy9Ace4IWWVVTMYb8kuX_vJ0IGvz0SucA1FUyCbYNZOtw4vqgJ_sbJefyGqSUJLCt5DfT1-hgvwcdK7bZg%3D&tracking_referrer=www.theguardian.com))
 
-Unfortunately this is as far as I can take you.  But if you're planning to invest, do your homework.  Climate is a lot more complicated than, say, commercial real estate.
+### Regulatory Risk
+
+Or does it really matter?
+
+Because for a climate benefit to become a Carbon Asset, somebody has to certify that it is legitimate.  So in the end, what matters is whether the certifier will accept your climate benefit, and whether anybody would care what the certifier says.
+
+There are three kinds of certifiers, each of which creates its own type of carbon markets: voluntary, compliance, and industry.  Voluntary certifiers are entities such as The Gold Standard, VERRA, Carbon Plan, Climate Action Reserve, and Global Carbon Council, among others.  They establish methodologies and certification processes, review projects, and issue voluntary carbon offsets.  The keyword here is "voluntary": The offsets are not required by any regulatory entity, and so they are for use as you'd like.  Concerned about the climate impact of your wedding or honeymoon trip?  Buy some offsets and retire them in your name.  Want to tell your customers you're a sustainable brand?  Buy some offsets and put it on your website.  As a result, voluntary offsets support a large set of potential project types, developers, and users all over the world (see [our paper]((https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914) for a breakdown of the market.)  The downside is that the market is very small and the prices low.  
+
+The compliance market is the opposite.  They are run by government agencies, usually as part of cap and trade emissions reductions programs, and companies are required to buy credits when their emissions are over the allowed amounts.  As government programs usually go, they are politically negotiated, target only the largest companies in key sectors, allow only certain types of emissions reduction or removal projects, and have rules and enforcements that may seem arbitrary to anybody outside the bureaucracy.  The best example is the European Union's Emissions Trading Scheme (ETS), which is a GHG emissions cap and trade program in all 27 EU countries plus Liechtenstein and Norway.   It covers major GHG emissions sectors including electricity and heat generation, heavy industrial manufacturing, and commercial aviation, for a total of about 40% of total emissions in the EU.  At $200 billion per year, it is the largest carbon market in the world.  But it is not the only one.  China launched its emissions program in 2021, focusing initially only the power generation sector and using emissions intensity rather than absolute emissions as its metric.  Finally, a bevy of other national, state, and regional compliance carbon markets such as California Air Resource Board's cap and trade program exist all over the world.  As a result, the price of carbon varies widely from country to country:
+
+![Carbon Prices around the World - citizensclimatelobby.org](images/carbon-prices-around-world-CitizensClimateLobby.com.png)
+
+Finally, some industries are organizing carbon markets of their own.  The best example is CORSIA, the Carbon Offsetting and Reduction Scheme for International Aviation, a consortium organized by the UN's International Civil Aviation Organization (ICAO).  CORSIA's covers international flights of most major international airlines (except India and China) and mandates measurement of total emissions, reducing emissions through efficiency improvements, and offsetting emissions.  CORSIA publishes a [list of eligible voluntary carbon credits](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx) that could be used.  A key motivation for CORSIA was that international flights did not fall into any particular country's emissions account and therefore their Paris Agreement obligations.   Since many supply chains also span multiple countries, other industries may follow suit with carbon markets as multinationals try to manage their emissions and climate risk profiles.   
+
+Depending on your investing style, this fragmented landscape could either be a dream come true or a nightmare of confusion.  Given the differences in prices between voluntary markets and the different compliance markets, there is a real game to choose the right market for your carbon assets, if not downright arbitrage them.  The landscape is also changing over time: For example, the voluntary carbon offsets certifiers have been working with government regulators to have their projects be accepted into compliance schemes.  [Sweden's acceptance of carbon offsets from the Gold Standard](https://www.goldstandard.org/blog-item/gold-standard-and-swedish-energy-agency-partner-ensure-integrity-international-cooperation) may well be a harbinger of what's to come.
+
+Meanwhile, concerns about the quality of the credits also eventually drive the prices, but in different ways.  In the voluntary offsets market, participants react like in most markets -- If bad news pile up, prices fall (remembering that it is a very small and fractured market.)  For example, renewable energy projects have traded to less than $1 per ton CO2e because participants no longer believe they are additional.  The problem with voluntary carbon offsets is that the market is traded over the counter and fairly illiquid, so you may not have a chance to adjust your position in time.  In compliance markets, the regulators may change the rules after criticism, such as [concerns about too many free credits under the EU ETS](https://www.eca.europa.eu/en/Pages/DocItem.aspx?did=54392) leading to [potential rule changes](https://www.euractiv.com/section/emissions-trading-scheme/news/leaked-the-eus-carbon-market-reform-proposal/).  This is a slow, political process similar to rezoning.  If the market is driven by end user compliance demand rather than trading, then there would be time to react.  
+
+We'll have to see how fluidly industry carbon markets such as CORSIA behave.
 
 ----
 
