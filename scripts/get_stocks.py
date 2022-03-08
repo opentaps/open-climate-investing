@@ -169,9 +169,9 @@ def import_stocks_returns_into_db(stock_name, stock_data, frequency='MONTHLY'):
             cursor.execute(sql, (stock_name, frequency, index, row['return']))
 
 
-def load_stocks_returns_from_db(stock_name, frequency='MONTHLY'):
+def load_stocks_returns_from_db(stock_name, frequency='MONTHLY', verbose=False):
     df = load_stocks_data_with_returns_from_db(
-        stock_name, with_components=True, import_when_missing=True, frequency=frequency)
+        stock_name, with_components=True, import_when_missing=True, frequency=frequency, verbose=verbose)
     is_composite = 'composite_return' in df.columns
     # remove columns we do not need here
     if is_composite:
@@ -213,8 +213,11 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
             for (ticker, percentage) in components:
                 if verbose:
                     print("*** loading component {} as {} of {} ...".format(ticker, percentage, stock_name))
+                if not percentage:
+                    print("!!! Missing percentage of {} as component of {}".format(ticker, stock_name))
+                    continue
                 df2 = load_stocks_data_with_returns_from_db(
-                    ticker, import_when_missing=import_when_missing, frequency=frequency)
+                    ticker, import_when_missing=import_when_missing, frequency=frequency, verbose=verbose)
                 df = df.join(df2, how="outer",
                              rsuffix='_{}'.format(ticker))
                 df['percentage_{}'.format(ticker)] = percentage
@@ -269,7 +272,7 @@ def import_stock_or_returns(stock_name, always_update_details=False, frequency='
     if (df is None or df.empty) and get_components_from_db(stock_name):
         # for a composite, we can compute and import the returns only
         print("** Stock {} is a composite, will only compute and save the returns ...".format(stock_name))
-        df = load_stocks_returns_from_db(stock_name)
+        df = load_stocks_returns_from_db(stock_name, verbose=verbose)
 
     if verbose:
         print("results -> ")
@@ -302,7 +305,7 @@ def main(args):
         print(sd.T)
         if args.with_returns:
             df = load_stocks_data_with_returns_from_db(
-                args.show, with_components=args.with_components, frequency=args.frequency)
+                args.show, with_components=args.with_components, frequency=args.frequency, verbose=args.verbose)
         else:
             df = load_stocks_from_db(args.show, frequency=args.frequency)
         print('Loaded from DB: {} entries'.format(len(df)))
