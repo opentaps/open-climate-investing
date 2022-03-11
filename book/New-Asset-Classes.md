@@ -47,7 +47,7 @@ The reality is, when you're ready to write the check, everybody promises you all
 
 For example, let's say your investment is a loan backed by solar panels.  In theory, if you don't get paid, you could get the solar panels back, put them at another customer's site, or sell them.  In reality, could you really turn off a customer's electricity, then go and physically remove the panels?  Or would doing so violate public safety and threaten basic livelihoods?  Or simply be so expensive legally as not to be worthwhile?  If so, then even though your loan is theoretically secured by a hard asset (solar panels), in reality it's an unsecured loan.
 
-Or, let's say your investment is a solar or wind farm where a local utility which buys the energy from you.  Then the utility goes bankrupt and stops paying.  Will the local regulators make you pay for the operations and maintenance expenses to keep the power on, while the courts figure out how much you'll get paid, and when you'll get it?  
+Or, let's say your investment is a solar or wind farm where a local utility buys the energy from you.  Then the utility goes bankrupt and stops paying.  Will the local regulators make you pay for the operations and maintenance expenses to keep the power on, while the courts figure out how much you'll get paid, and when you'll get it?  
 
 Finally, remember that debt always relies on the kindness of strangers.  You need them to make a new loan at a later date to pay you back.  We call this "rollover" risk.  It happens because the projects themselves are very long-term, but term-matched funding is either not available, or borrowing for shorter terms is just less expensive.  Will those kind strangers always be there?  If it's an established asset class with a long history of financings, most likely.  If not, who knows?  Consider a fully-amortizing 30-year mortgage backed by utility assets versus a cryptocurrency stablecoin backed by a carbon project.  The former is a well-known, tried and true financing mechanism that pays itself off over time.  The latter is a novel bit of financial engineering that requires you to constantly provide cash-like liquidity to short-term holders from a long-term, illiquid asset.  
 
@@ -90,34 +90,42 @@ Finally, some industries are organizing carbon markets of their own.  The best e
 
 A subtle but important difference between voluntary offsets and compliance carbon credits: Voluntary offsets are based on the concept of additional emissions reductions or removals.  To be a valid offset, the project must've not been possible without funding from the offsets, and the amount of offsets issued must be additional to a business-as-usual baseline.  Compliance credits are based on actual quantities of emissions versus a legally allowed cap.  You pay if you're above your limit.  It's that simple (well, no, nothing with a government regulator is ever simple, but ...)   As a result, for example, renewable energy projects may not qualify as valid voluntary carbon offsets because the low cost of wind and solar have made them the standard business choice, but they would definitely qualify for compliance credits if they lower your regulatory emissions account.
 
-Depending on your investing style, this fragmented landscape could either be a dream come true or a nightmare of confusion.  Given the differences in prices between voluntary markets and the different compliance markets, there is a real game to choose the right market for your carbon assets, if not downright arbitrage them.  The landscape is also changing over time: For example, the voluntary carbon offsets certifiers have been working with government regulators to have their projects be accepted into compliance schemes.  Government regulators may also see voluntary offsets and industry consortia as a way to meet climate goals.  [Sweden's acceptance of carbon offsets from the Gold Standard](https://www.goldstandard.org/blog-item/gold-standard-and-swedish-energy-agency-partner-ensure-integrity-international-cooperation) and [potential EU legislation](https://ec.europa.eu/info/sites/default/files/notification-carbon-offsetting-and-reduction-scheme-international-aviation-corsia_en.pdf) requiring member airlines to comply with CORSIA may well be harbingers of what's to come.
+Markets like these are made for arbitrage.  Given the differences in prices between voluntary markets and the different compliance markets, who could resist trying to choose the right market for your carbon assets, or even transferring credits from one to another?  The landscape is also changing over time: For example, the voluntary carbon offsets certifiers have been working with government regulators to have their projects be accepted into compliance schemes.  Government regulators may also see voluntary offsets and industry consortia as a way to meet climate goals.  [Sweden's acceptance of carbon offsets from the Gold Standard](https://www.goldstandard.org/blog-item/gold-standard-and-swedish-energy-agency-partner-ensure-integrity-international-cooperation) and [potential EU legislation](https://ec.europa.eu/info/sites/default/files/notification-carbon-offsetting-and-reduction-scheme-international-aviation-corsia_en.pdf) requiring member airlines to comply with CORSIA may well be harbingers of what's to come.  Finally, there is at least one nice arbitrage between Renewable Energy Certificates (REC's) and carbon markets (shhhh...)  The [California Low Carbon Fuel Standard](https://ww2.arb.ca.gov/our-work/programs/low-carbon-fuel-standard) allows using REC's to claim that your electric vehicles were charged with renewable energy, so that you could earn a carbon credit versus standard transportation fuels.  With prices as high as $200 per ton, this might be the most expensive carbon market in the world.  All you need is a transportation fleet, and some EV chargers. 
 
 Meanwhile, concerns about the quality of the credits also eventually drive the prices, but in different ways.  In the voluntary offsets market, participants react like in most markets -- If bad news pile up, prices fall (remembering that it is a very small and fractured market.)  For example, renewable energy projects have traded to less than $1 per ton CO2e because participants no longer believe they are additional.  The problem with voluntary carbon offsets is that the market is traded over the counter and fairly illiquid, so you may not have a chance to adjust your position in time.  In compliance markets, the regulators may change the rules after criticism, such as [concerns about too many free credits under the EU ETS](https://www.eca.europa.eu/en/Pages/DocItem.aspx?did=54392) leading to [potential rule changes](https://www.euractiv.com/section/emissions-trading-scheme/news/leaked-the-eus-carbon-market-reform-proposal/).  This is a slow, political process similar to rezoning.  If the market is driven by end user compliance demand rather than trading, then there would be time to react.  
 
 We'll have to see how fluidly industry carbon markets such as CORSIA behave.
 
+### The Other Usual Risks
+
+At the risk of becoming a prospectus filled with pages of warnings nobody seems to read, here are the usual risks of any project finance deals you _should_ be aware of:
+
+Term matching: Are the prices for the carbon assets locked in for the life of your project, or will you get the market price over time?  If the latter, how will it change?
+
+Market risk: During the pilot phase, there are philanthropic funders who will pay to help new technologies get off the ground.  But to scale up for mass adoption, the technology will have to tap into the next tier of buyers, who may not be so generous.  For example, today people are willing to $200 or more per ton for pilot pilots of direct air capture.  People are also willing to pay up for nature-based solutions with a lot of co-benefits to the development of local communities.  But both are small.  If these projects are going to scale up, they'll have to tap into compliance markets, where carbon is just carbon.  They'll have to be priced competitively versus the cheapest credits available in those markets.
+
+Obsolescence risk: This is the opposite to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  Technically, no -- the contracts are valid for the term of the credits.  But that's small consolation to the project developers, whose credits are worth less and less.
+
+Currency risk: In case the project is in another country.
+
+Liquidity risk: If these are long term projects, will you be able to sell your interest in the project if you need the money for something else?  If you are planning to finance them, how will your lender appraise your project?  Could there be additional capital requirements from your lender?
+
+Counterparty risk: How likely are the project developers to develop the promised carbon assets?  How likely are the buyers to purchase the carbon assets they've promised to buy?  What happens if either side fails to do as promised?
+
+Basis risk: If you're thinking about using carbon assets to hedge your stocks' climate risk, don't.  There is no correlation -- for example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
+
 ----
 
 
 
-Term matching: Are the prices for the carbon assets locked in for the life of your project, or will you get the market price over time?
+### Trade Risk
 
-Counterparty risk: How likely are the project developers to develop the promised carbon assets?  How likely are the buyers to purchase the carbon assets they've promised to buy?  What happens if either side fails to do as promised?
 
-Currency risk: In case the project is in another country, will you get be able to .
 
-Liquidity risk: If these are long term projects, will you be able to sell your interest in the project if you need the money for something else?  If you are planning to finance them, how will your lender appraise your project?  Could there be additional capital requirements from your lender?
 
-Basis risk: The lack of correlation between negative carbon assets and other assets.  For example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
 
-Market risk: During the pilot phase, there are philanthropic funders who will pay to help these new technologies get off the ground.  But to scale up for mass adoption, they will need to be economically viable.  When will they achieve economic viability?  Will they depend on government policies until they do so?  Renewable energy saw a lot of help from government policy until they became cost competitive.  Other carbon removal projects may permanently need carbon credits to pay for them.  If you rely on government policies such as compliance carbon credit schemes, remember that they are both complex and slow.  If you are planning to tap into the voluntary carbon credits markets, know that market is very, very small.
 
 How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
-
-Obsolescence risk: This is the counterpart to market risk.  Certain types of carbon credits have fallen out of favor and lost value over time.  For example, renewable energy was a dominant part of the market, but the falling prices of renewables have made carbon credits unnecessary for supporting them.  As a result, existing carbon credits from projects issued years ago have fallen in value.  Are they any less valid now that new renewable energy projects are no longer eligible for carbon credits?  That's an interesting debate, but unlikely to help the holders of the credits.
-
-Regulatory risk: Will compliance programs continue to accept your technology and project type?  Will net metering be repealed?  Will you be able to get permits for rolling out the projects?
-
 
 
 NGFS Carbon price projections here.
@@ -137,9 +145,6 @@ No longer a climate bet but an energy bet.  More like project finance investing:
 
 ## Carbon Credits and Offsets
 
-These __may__ well turn out to be good investments, but they are not without risks of their own.  Here are a few to consider:
-
-
 
 Early days - Lots of different standards.  Eventually market will converge either to the government compliance standards or large private sector ones.  Will your project make it?
 
@@ -149,6 +154,9 @@ Voluntary carbon credits: Very heterogeneous market, over the counter, illiquid.
 
 Voluntary carbon offsets market prizes novelty, pays up for unusual project types.  Once technology hits mainstream questions about additionality plus supply pushes down the values.  There is a period between when the technology is mature and market ready and when offset standards start to rein back issuance -- Renewable energy: [2016 paper](https://ec.europa.eu/clima/system/files/2017-04/clean_dev_mechanism_en.pdf) pointed out most CDM projects were not additional.  In 2021 Verra and Gold Standard modified their renewable energy methodology to exclude projects which are not in the lowest income countries.  During this period lots of potential supply ("free money") will push down prices.
 
+## Policy
+
+Failure of California's deregulated electricity market.  Challenges to high prices from "speculators" in EUA market.  Prices must fall for the market to scale.  
 
 ## Whose Credit Is It?
 
@@ -189,4 +197,3 @@ Scenarios to think about:
 #### Disclaimer
 
 _This content is published for informational purposes only and not investment advice or inducement or advertising to purchase or sell any security.  See [full disclaimer](Disclaimer.md)._
-
