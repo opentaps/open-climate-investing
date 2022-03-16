@@ -12,6 +12,8 @@ A [recent report from McKinsey](https://www.mckinsey.com/~/media/mckinsey/busine
 
 ![Projected Growth of Voluntary Carbon Markets, McKinsey & Co.](images/McKinsey-voluntary-carbon-markets-size.png)
 
+We might one day call this "the chart that launched a thousand startups."
+
 But is it real?  
 
 Part of it depends on what "Commitments" means.  Are they commitments to buy voluntary carbon offsets?  Net zero commitments from companies which could be fulfilled by voluntary carbon offsets?  Which must be fulfilled by voluntary carbon offsets because alternative decarbonization options are not available?  [I've asked McKinsey](https://twitter.com/opentaps/status/1494439046327668737)--hopefully they'll write back and let us know.
@@ -113,6 +115,33 @@ Liquidity risk: If these are long term projects, will you be able to sell your i
 Counterparty risk: How likely are the project developers to develop the promised carbon assets?  How likely are the buyers to purchase the carbon assets they've promised to buy?  What happens if either side fails to do as promised?
 
 Basis risk: If you're thinking about using carbon assets to hedge your stocks' climate risk, don't.  There is no correlation -- for example, [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3967613) found no correlation between the European Union Allowances (EUA) futures for GHG emissions rights and the stock market.  
+
+## Lessons from Renewable Energy 
+
+Before speculating on how investments in carbon assets would turn out, let's take a look at a real, successful example: Renewable Energy.  
+
+Renewable energy, such as wind and solar, have been around for a long time.  Medieval windmills dot the scenic Low Countries of Europe, while NASA's Skylab featured prominent solar panels back in the 1970's.  Neither was a significant source of energy, though, until the oil crisis of the 1970's plus the environmental concerns about burning coal and then climate change.  Then, government investment in R&D improved the technologies, while policies such as the Renewable Portfolio Standards (RPS) for utilities created a boom in demand which led to manufacturing efficiencies and falling costs.  From 2009 to 2019, the cost of solar energy declined an astonishing 89%:
+
+![Cost of Renewable Energy vs Other Sources - Kottke.org, OurWorldInData.org](images/solar-power-cost-kottke.org-ourworldindata.jpeg)
+
+This now makes solar and wind the least expensive sources of energy available (when the sun shines and the wind blows, that is.  Storage for the rest of the time remains a big technological hurdle.)  
+
+So what happened to carbon assets based on renewable energy?
+
+In the 2000's, when renewable energy was expensive, they were purchased as part of government mandated programs such as the RPS.  Buyers supported the market by entering into long-term offtaker agreements at premium prices.  Meanwhile, two types of virtual certificates were available to help funnel investment in renewable energy.  One was the Energy Attribute Certificate (EAC's), also known as Renewable Energy Certificates (REC's) in the US.  EAC/REC's simply attested that energy was generated from renewable sources, and they transferred the renewable or green attribute of a commodity, electricity, to buyers who needed that attribute.  They were mostly bought by utilities to meet their RPS mandates.  Through EAC/REC's, buyers who were willing to pay the green premium for renewable energy were essentially pooling their purchases to reach the amounts required for actual plants and facilities.
+
+The other virtual mechanism was carbon offsets, which is a more direct carbon asset based on the emissions reduction of renewable energy versus standard grid electricity.  The [Clean Development Mechanism's methodology (ACM0002)](https://cdm.unfccc.int/methodologies/DB/XP2LKUSA61DKUQC0PIWPGWDN8ED5PG) was also adopted by the voluntary carbon offsets standards organizations such as Verra and Gold Standard to issue carbon offsets based on renewable energy.  A key requirement was that renewable energy projects would not be economically viable on their own, so carbon offsets were "additional" in their emissions reduction.
+
+By mid decade of 2010's, the prices of renewable energy had fallen so much that they were in fact economically viable, but carbon offsets could still be issued based on the rules of the time.  As a result, they were basically free money for project developers, and there was a boom in renewable energy-based offsets.  They became the dominant sector of carbon offsets.  Prices fell as a result of supply and as buyers began to recognize that the projects were not truly additional any more, falling to as low as $1 per ton CO2e by 2021.
+
+Finally in 2021 the Verra and Gold Standard both revised their rules to exclude grid-connected renewable energy projects from their carbon offsets standards.  They now require projects to be either non-grid connected or to be in very low income countries.  However, other standards will still certify these types of projects, and therefore they are still issued and accepted into programs such as CORSIA's carbon offsets regimes.  This has held down the general price of voluntary carbon offsets, since cheap large scale renewable energy projects are a plentiful source of "cheapest to deliver" offsets.
+
+There was a similar fall in the prices of EAC/REC's, as plentiful renewable generation during peak hours led to a flood of certificates being issued.  While some RPS programs still accept them, others are tightening up to require that the certificates be matched to the time and grid location of generation, so that they actually account for energy at a time that was needed.  Initiatives such as [Google's 24/7 Carbon Free Energy](https://sustainability.google/progress/energy/) and [EnergyTag](https://www.energytag.org/) are examples of how the industry is becoming more sophisticated in its use of EAC/REC's.    
+
+![The Duck Curve - Overgeneration of Solar Energy - CAISO/DOE](images/CAISO_DuckCurve_720_469_80_DOE.gov.jpeg)
+
+Finally, the renewable energy as a sector continues to grow, but because they are now an economically competitive asset, the market is also changing.  Long-term offtaker agreements are increasingly being replaced by merchant power agreements, where project owners are selling energy on shorter contracts or even at spot prices. 
+
 
 ----
 
