@@ -140,14 +140,14 @@ There was a similar fall in the prices of EAC/REC's, as plentiful renewable gene
 
 ![The Duck Curve - Overgeneration of Solar Energy - CAISO/DOE](images/CAISO_DuckCurve_720_469_80_DOE.gov.jpeg)
 
-Finally, the renewable energy as a sector continues to grow, but because they are now an economically competitive asset, the market is also changing.  Long-term offtaker agreements are increasingly being replaced by merchant power agreements, where project owners are selling energy on shorter contracts or even at spot prices. 
+Finally, the renewable energy as a sector continues to grow, but because they are now an economically competitive asset, the market is also changing.  As renewable energy goes from being the most expensive to the least expensive source of energy, project owners could now afford to take the risks of owning the assets and supplying energy at whatever prices the market will bear, knowing that they have a cost advantage versus the alternatives.  The industry is starting to shift to "merchant power agreements," where project owners are selling energy on shorter contracts or even at spot prices.  
 
 So what can we learn from this little history lesson?
 
 - Offsets were a "bridge" measure for projects while they are not economically viable on their own.  If the technology scales successfully, then offsets will need to go away.  if technology does not scale successfully, then well...
-- Attribute certificates will always be around to different green commodities, but the market for them may become more sophisticated over time, leading to more complex attributes.
+- Attribute certificates will always be around to different green commodities.  As green commodities saturate some sub-sectors of the market, the market will become more sophisticated over time as it tries to find the sub-sectors where the green attributes are still scarce and valuable.  This will lead to ever more complex attributes certificates to help find those green sub-sectors.
 - While new technologies or project types could find support in the voluntary markets, which offer a greater variety and more flexibility, compliance markets are much, much bigger and will provide the scale.
-- Both voluntary and compliance programs may be slow to move, creating long windows of opportunities.
+- Both voluntary and compliance programs are slow to move, creating long windows of opportunities.
 - In the early days, there will be advantageous terms and high prices paid for new projects, thanks to government policies and general goodwill.  To scale, though, prices for carbon assets must come down significantly to be competitive.  
 - Because of this, new and novel technologies will try to get premium prices based on differentiation, but large scale technologies will trade as commodities where "a ton of carbon is a ton of carbon."
 
