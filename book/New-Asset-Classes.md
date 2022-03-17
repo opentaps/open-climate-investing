@@ -151,6 +151,20 @@ So what can we learn from this little history lesson?
 - In the early days, there will be advantageous terms and high prices paid for new projects, thanks to government policies and general goodwill.  To scale, though, prices for carbon assets must come down significantly to be competitive.  
 - Because of this, new and novel technologies will try to get premium prices based on differentiation, but large scale technologies will trade as commodities where "a ton of carbon is a ton of carbon."
 
+## A Public Private Partnership
+
+Finally, remember that carbon assets directly affect critical parts of the economy, such as food, water, and energy.  Therefore, carbon markets will always be highly controlled by governments, and your investments will always live under the shadow of that control.  So while you might think climate is the most important challenge of our lifetime or free enterprise is the pillar of our society, jobs and livelihoods will usually take precedence.  
+
+For example, climate activists and investors may both want higher carbon prices.  But most industries view carbon cap and trade, and therefore the need to buy carbon credits, as a tax.  Therefore, even if they're willing to participate and pay that tax for the long-term good of the society and their business, they will not accept outsiders driving up the prices of carbon credits for financial gain.  Everybody hates speculators whose greed cause unemployment, higher heating bills for the elderly, or losses for small businesses.  The runup in EU ETS carbon credit prices has already provoked a backlash: [Poland, Spain, and Czechia are protesting](https://www.euractiv.com/section/emissions-trading-scheme/news/europes-energy-price-hike-fuelled-by-speculators-spain-and-poland-say/) that financial players are driving up the cost of electricity and must be barred from the market.  [Poland and Czechia have even called for suspension of the ETS.](https://www.euractiv.com/section/politics/short_news/czech-minister-would-support-polands-call-for-suspension-of-eu-ets/)  
+
+Or consider changes in land use that could resolve from production of sustainable biofuels or forestry carbon offsets.  Good for climate, but if it happens at the expense of land for food production, expect backlash like this:
+
+![Food or SUV? from vanhsieh71442.wixsite.com/fuel-the-world/socialimpact](images/food_or_suv_vanhsieh71442.wixsite.com_fuel-the-world_social_impact.gif)
+
+It probably wouldn't help much to say that the land was in fact being used for a forestry project, which then offset the emissions of your SUV.
+
+
+
 ----
 
 
