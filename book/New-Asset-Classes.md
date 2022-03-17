@@ -157,7 +157,7 @@ Finally, remember that carbon assets directly affect critical parts of the econo
 
 For example, climate activists and investors may both want higher carbon prices.  But most industries view carbon cap and trade, and therefore the need to buy carbon credits, as a tax.  Therefore, even if they're willing to participate and pay that tax for the long-term good of the society and their business, they will not accept outsiders driving up the prices of carbon credits for financial gain.  Everybody hates speculators whose greed cause unemployment, higher heating bills for the elderly, or losses for small businesses.  The runup in EU ETS carbon credit prices has already provoked a backlash: [Poland, Spain, and Czechia are protesting](https://www.euractiv.com/section/emissions-trading-scheme/news/europes-energy-price-hike-fuelled-by-speculators-spain-and-poland-say/) that financial players are driving up the cost of electricity and must be barred from the market.  [Poland and Czechia have even called for suspension of the ETS.](https://www.euractiv.com/section/politics/short_news/czech-minister-would-support-polands-call-for-suspension-of-eu-ets/)  
 
-Or consider changes in land use that could resolve from production of sustainable biofuels or forestry carbon offsets.  Good for climate, but if it happens at the expense of land for food production, expect backlash like this:
+Or consider changes in land use due to production of sustainable biofuels or forestry carbon offsets.  Good for climate, but if it happens at the expense of land for food production, expect backlash like this:
 
 ![Food or SUV? from vanhsieh71442.wixsite.com/fuel-the-world/socialimpact](images/food_or_suv_vanhsieh71442.wixsite.com_fuel-the-world_social_impact.gif)
 
