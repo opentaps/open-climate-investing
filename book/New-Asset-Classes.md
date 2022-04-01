@@ -163,32 +163,70 @@ Or consider changes in land use due to production of sustainable biofuels or for
 
 It probably wouldn't help much to say that the land was in fact being used for a forestry project, which then offset the emissions of your SUV.
 
+So far, government policies have tried to support the prices of the carbon credits as the carbon markets are just starting up.  But as they grow over time, expect governments to regulate the upside of carbon asset prices to prevent shocks to the economy, just as they already do with food and energy prices. 
 
+## An Asset to Your Country
+
+Let's say you've funded a project.  They go to file for a permit or tax credit.  They're routed to the environment ministry or agency.  The helpful official reads through the project description and says "This is great!  This is exactly what our country and the world needs.  You're approved!"  They enter your project into their carbon registry, which is the connected to all the other carbon registries in the world through a system like the [World Bank Climate Warehouse](https://www.theclimatewarehouse.org/about).  
+
+Guess what?  Your carbon credits have just been nationalized.  They really became an asset to their country.
+
+How is this possible?  In just about every country, you need a permit for land use change or energy projects, which also requires environmental review.  Many countries also offer conservation tax credits, which could help pay for carbon projects but also require official review and registration.  Meanwhile, the Paris Agreement has specified that each national government will make National Defined Contributions (NDC's) on climate change.  Countries which exceed their NDC goals could trade the excess to another country under Internationally Transferred Mitigation Outcomes (ITMO's.)  These are country-to-country transfers under bilateral trade agreements.([Source](https://www.ndcs.undp.org/content/dam/LECB/docs/pubs-tools-facts/undp-ndcsp-faqs-itmo-article6.pdf?download))
+
+This means that countries will need to claim every bit of climate action to meet their NDC's.  Already, some countries are asking their municipal and local governments to set regional and local NDC's.  For countries which could beat their NDC's, the ITMO's are a source of ready money.   Brazil surprised the world by supporting international carbon markets under Article 6 at COP26 in Glasgow.  Is it really so surprising, though, when you see that Brazil is planning to become a [major exporter in carbon credits](https://www.iccbrasil.org/cop26-icc-brasil-launches-the-english-version-of-report-opportunities-for-brazil-in-carbon-markets/) of up to $100 billion by 2030.  Especially considering the performance of the Brazilian real? 
+
+## Whither Voluntary Carbon Offsets?
+
+Does this mean the voluntary carbon credit markets would disappear over time, literally swallowed up by the much larger government compliance markets and by national governments looking to trade ITMO's for hard currency?
+
+There is some precedence for it: An astute reader of [our paper on carbon offsets](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914) asked me: "Why are there so few carbon offset projects in Europe?  Is it because they have a compliance carbon market?"
+
+Yet maybe not.  Compliance and voluntary markets may find different niches.  Compliance markets can reach a scale that voluntary markets may never get to, but voluntary markets already support a much wider variety of project types and activities.  Furthermore, compliance markets may not reach into all the sectors which span multiple countries and jurisdictions.  CORSIA is an excellent example but will probably not be the only one.  Therefore, if there are more industry-driven emissions reduction schemes, voluntary carbon credits could find a ready outlet, especially if they could support project types that are meaningful to those industries but not covered by compliance markets. 
+
+## Why We Need Carbon Credits
+
+Recently, the NGFS published an analysis of [NGFS climate scenarios for central banks and supervisors](https://www.ngfs.net/sites/default/files/media/2021/08/27/ngfs_climate_scenarios_phase2_june2021.pdf), which showed carbon prices going to potentially $600 to $800 per ton CO2e under scenarios of delayed transition or divergent policies:
+
+![NGFS Scenarios Carbon Prices](images/ngfs-carbon-scenarios.png)
+
+Don't believe it.
+
+In Europe and the U.S., we see climate change as "reducing emissions."  Our climate goals are always stated as reducing the GHG emissions to net zero over time.
+
+In the emerging economies of Asia, Africa, and Latin America, though, the world looks different.  They point out--correctly--that it's not the emissions this year that matters.  It's the total amount of GHG that's already been emitted into the atmosphere.  By the European countries and the U.S., with our cars, planes, air conditioned skyscrapers, plastics, and supermarkets full of meat and fresh produce flown in from all over the world.
+
+So then, is it fair that they be asked to cut back on their lifestyles or pay more to bring up their standards of living, just because we got here first?
+
+They don't think so.     
+
+Carbon credits were invented to solve this problem.  By paying for carbon credits in developing economies, we should be supporting their transition at a lower price than we could do it ourselves.  Its a win-win.  It's also the glue that holds international climate cooperation together.
+
+But if the policies around international climate cooperation collapse, don't expect countries to scramble for carbon credits.  What's the point?  Who would you sell them to?  We'll be scrambling for local adaptations--against floods, fires, droughts, heatwaves, and failing agriculture.
+
+## Pushing the Trade
+
+This is a real email exchange I had:
+
+![Would you believe these offsets?](images/carbon-offset-do-you-believe-it.png)
+
+I'm still waiting for an answer on what the offsets are that could make Liquified Natural Gas carbon neutral.
+
+More importantly, the offsets market is caught in a negative feedback loop.  Because people think they're not credible, they're kept secret.  When we working on [our paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3981914), I expected brokers to be secretive.  After all, they're not the first brokers I've met who do that.  I wasn't too surprised to see that sellers were secretive about their offsets, because the low prices were so low.  But I was _shocked_ to find that most buyers were also secretive about what offsets they bought and in what quantities.  The reason?  They didn't want to get criticized for buying offsets.
+
+Well, can you see how this makes offsets seem dodgy?
+
+If you believe in carbon offsets, then stand and support the market.  Be public about what offsets you've bought, like [Microsoft did](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4MDlc).  Otherwise, why buy them in the first place?  Nobody will believe they helped if you don't. 
+
+## 
 
 ----
 
 
 
-### Trade Risk
 
 
 
 
-
-
-How will this change over time?  Renewable energy is so big and mainstream now, there is too much of it at peak hours (duck curve.)  Will incentives such as net metering still be around?  Will utilities change their tariff rates to time of use so that peak renewable generation is worth less?  
-
-
-NGFS Carbon price projections here.
-
-Carbon asset investing cycle - renewable energy example
-Early days - high cost, high technology risk - long off taker arrangements, public support, carbon credits
-Now - proven technology, commercially viable - merchant power arrangement, no carbon credits, direct sales of electricity, declining need for net metering due to duck curve.  Storage is the next frontier.
-
-Voluntary market - large variety, story specific
-Compliance market - ton of carbon is ton of carbon.  Commodity.  Compete with other options at best price.  Much larger
-
-Tech must transition from voluntary to compliance markets.
 
 ## Renewable Energy
 
@@ -208,11 +246,6 @@ Voluntary carbon offsets market prizes novelty, pays up for unusual project type
 ## Policy
 
 Failure of California's deregulated electricity market.  Challenges to high prices from "speculators" in EUA market.  Prices must fall for the market to scale.  
-
-## Whose Credit Is It?
-
-Why not many European voluntary offsets?
-Compliance market altakes over
 
 ## Investment 
 
