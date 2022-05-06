@@ -250,9 +250,9 @@ From an investor's perspective, this means an optimisticallly high price in the 
 
 Markets like these are made for arbitrage.  With all these markets big and small, who could resist trying to choose the right market for your carbon assets, or even transferring credits from one to another?  There is at least one nice arbitrage between Renewable Energy Certificates (REC's) and carbon markets (shhhh...)  The [California Low Carbon Fuel Standard](https://ww2.arb.ca.gov/our-work/programs/low-carbon-fuel-standard) allows using REC's to claim that your electric vehicles were charged with renewable energy, so that you could earn a carbon credit versus standard transportation fuels.  With prices as high as $200 per ton, this might be the most expensive carbon market in the world.  All you need is a transportation fleet, and some EV chargers.  More opportunities may be coming as carbon markets get more linked: For example, the voluntary carbon offsets certifiers have been working with government regulators to have their projects be accepted into compliance schemes.  Government regulators may also see voluntary offsets and industry consortia as a way to meet climate goals.  [Sweden's acceptance of carbon offsets from the Gold Standard](https://www.goldstandard.org/blog-item/gold-standard-and-swedish-energy-agency-partner-ensure-integrity-international-cooperation) and [potential EU legislation](https://ec.europa.eu/info/sites/default/files/notification-carbon-offsetting-and-reduction-scheme-international-aviation-corsia_en.pdf) requiring member airlines to comply with CORSIA may well be harbingers of what's to come.   
 
-But there is a lot more we can and must do, for our portfolios and for climate.
+Considering how small these markets are, though, this is just small potatoes.  We need to think bigger.  We need to move the prices of carbon credits up to where they would have a real impact on climate--and meaningful returns.   
 
-For carbon credits to be real assets, they must behave like real assets.  There must be a difference between performing and non-performing carbon assets, just like there is a difference between performing and non-performing loans and real estate.  There must be objective criteria of what constitutes a performing carbon credit, and there must be a financial loss when a carbon credit becomes non-performing.
+That means carbon credits must become true assets.  Which means they must behave like assets.  There must be a difference between performing and non-performing carbon assets, just like there is a difference between performing and non-performing loans and real estate.  There must be objective criteria of what constitutes a performing carbon credit, and there must be a financial loss when a carbon credit becomes non-performing.
 
 This is simply not the case today.  Companies buy carbon credits to meet compliance goals or put on their websites.  They pat themselves for being environmentally responsible.  If the projects turn out to be bad, well, it's not their problem.  In fact, as much as possible, everybody tries to keep their offsets a secret so they couldn't be blamed for buying bad offsets.  As a result, there's virtually _no_ transparency in the carbon markets.  This is a real email exchange I had:
 
@@ -262,15 +262,15 @@ I'm still waiting for the answer.
 
 Could we then blame [Project Drawdown](https://drawdown.org/news/insights/opinion-the-world-needs-better-climate-pledges) for calling offsets a "shell game", or [Greenpeace](https://www.greenpeace.org/international/story/50689/carbon-offsets-net-zero-greenwashing-scam/) for calling them "a bookkeeping trick"?
 
-It's time we as investors made a difference.  
+This is where we as investors could lead.  
 
-It's not enough just to talk about how our carbon credits are better.  Developers and owners of high quality carbon credits need to join the environmentalists in weeding out the bad  credits.  Only when those credits are written off at a loss like any other non-performing asset would there be value in owning high quality carbon credits.
+It's not enough just to talk about how our carbon credits are better.  Developers and owners of high quality carbon credits need to join the environmentalists in weeding out the bad  credits.  Those credits are written off at a loss like any other non-performing asset.  Only then would we clean up the oversupply of dubious credits that have plagued every carbon market.  Only then would there be value in owning and developing high quality carbon credits.
 
-To do that we must put our money where our mouths are.  We must do more than just buy some offsets for marketing (that really does sound like greenwashing, doesn't it?) or credits for compliance.  We must truly believe that our carbon credits helped fix climate change.  If neutral and objective evaluation ultimately disagrees, we must stand behind our climate commitments, void the purchased offsets or credits, and replace them.  
+To do that we must put our money where our mouths are.  We must truly believe that our carbon credits helped fix climate change.  We must require the companies and project developers we invest in to do the same.  They must realize that if the buy or create carbon credits that are later invalidated by neutral and objective evaluation, their loss of reputation is a risk to us.   So if that happens, they must stand behind their climate commitments, void the purchased offsets or credits, and replace them.  
 
 This is what every carbon market has failed to do.
 
-Yet this is what would truly make carbon an asset with real value, for you as the investor and for the climate as well.
+Yet this is what would truly make carbon an asset with real value, for you as the investor and for climate as well.
 
 ## Epilogue
 
@@ -300,9 +300,9 @@ So when I see analysis like the [NGFS climate scenarios for central banks and su
 
 ![NGFS Scenarios Carbon Prices](images/ngfs-carbon-scenarios.png)
 
-I don't believe it.
+Don't believe it.
 
-So if we fail to work together on climate, don't expect a scramble for carbon credits.  What's the point?  Who would you sell them to?  We'll all be scrambling for local adaptations--against floods, fires, droughts, heatwaves, and failing food production.  We'd be building flood barriers and levies with concrete and steel.  The developing countries would be burning more coal to make them for us.
+If we fail to work together on climate, don't expect a scramble for carbon credits.  What's the point?  Who would you sell them to?  We'll all be scrambling for local adaptations--against floods, fires, droughts, heatwaves, and failing food production.  We'd be building flood barriers and levies with concrete and steel.  The developing countries would be burning more coal to make them for us, so they could pay for their own survival.
 
 #### Get Updates
 
