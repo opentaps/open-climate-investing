@@ -258,13 +258,15 @@ This is simply not the case today.  Companies buy carbon credits to meet complia
 
 ![Would you believe these offsets?](images/carbon-offset-do-you-believe-it.png)
 
-Could we then blame [Project Drawdown](https://drawdown.org/news/insights/opinion-the-world-needs-better-climate-pledges) for callling offsets a "shell game", or [Greenpeace](https://www.greenpeace.org/international/story/50689/carbon-offsets-net-zero-greenwashing-scam/) for calling them "a bookkeeping trick"?
+I'm still waiting for the answer.
+
+Could we then blame [Project Drawdown](https://drawdown.org/news/insights/opinion-the-world-needs-better-climate-pledges) for calling offsets a "shell game", or [Greenpeace](https://www.greenpeace.org/international/story/50689/carbon-offsets-net-zero-greenwashing-scam/) for calling them "a bookkeeping trick"?
 
 It's time we as investors made a difference.  
 
 It's not enough just to talk about how our carbon credits are better.  Developers and owners of high quality carbon credits need to join the environmentalists in weeding out the bad  credits.  Only when those credits are written off at a loss like any other non-performing asset would there be value in owning high quality carbon credits.
 
-To do that we must put our money where our mouths are.  We must do more than just buy some offsets for marketing (that really does sound like greenwashing, doesn't it?) or credits for compliance.  We must truly believe that our carbon credits helped fix climate change.  If neutral and objective evaluation ultimately disagrees, we must stand behind our purchases, void the purchased offsets or credits, and replace them.  
+To do that we must put our money where our mouths are.  We must do more than just buy some offsets for marketing (that really does sound like greenwashing, doesn't it?) or credits for compliance.  We must truly believe that our carbon credits helped fix climate change.  If neutral and objective evaluation ultimately disagrees, we must stand behind our climate commitments, void the purchased offsets or credits, and replace them.  
 
 This is what every carbon market has failed to do.
 
