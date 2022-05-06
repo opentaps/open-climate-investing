@@ -264,7 +264,7 @@ In Europe and the U.S., we see climate change as "reducing emissions."  Our clim
 
 In the emerging economies of Asia, Africa, and Latin America, though, the world looks different.  They believe it's the total volume of emissions over history that causes climate change, not the emissions today.  Looked at [this way](https://twitter.com/CarbonBrief/status/1120715988532629506), it's pretty clear who's responsible:
 
-![Cumulative Emissions - twitter.com/CarbonBrief](cumulative-emissions-carbonbrief-twitter.png)
+![Cumulative Emissions - twitter.com/CarbonBrief](images/cumulative-emissions-carbonbrief-twitter.png)
 
 So, as [India's Environment minister put it](https://indianexpress.com/article/india/india-didnt-cause-climate-change-prakash-javadekar-7101545/), "Historically it’s the developed countries that have been major contributors to carbon emissions."  India's former EU ambassador, Mr. Chandrashekhar Dasgupta, states it eloquently in his [Climate Change – An Indian Perspective](https://www.eesc.europa.eu/sites/default/files/resources/docs/dasgupta-climate-change.doc): 
 
