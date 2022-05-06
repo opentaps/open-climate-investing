@@ -274,7 +274,7 @@ _Though the responsibility for causing climate change lies with the affluent cou
  
 _How should a low-income country like India respond to climate change? It is obvious that we must build up our capacity to cope with climate change and adapt to its impacts. This will be possible only if we can overcome the currently severe constraints of financial, technological and human resources. The only hope lies in rapid economic and social development. Without rapid economic development, we cannot overcome the grievous lack of financial resources required for adaptation. Without rapid social development in fields such as education and public health, our workforce will be unable to adapt successfully to climate change. For a low-income country, accelerated development is the key to successful adaptation. If development slows down, future generations in our country will be grievously incapable of coping with climate change. For a low-income country rapid development is synonymous with sustainable development._
 
-Carbon credits were invented to solve this problem.  By paying for carbon credits in developing economies, we could be supporting their economies and their net zero transition at a lower price than we could do it ourselves.  Its a win-win.  
+At Kyoto carbon credits were invented to solve this problem.  By paying for carbon credits in developing economies, we could be supporting their economies and their net zero transition at a lower price than we could do it ourselves.  It was supposed to be a win-win.  
 
 It's also the glue that holds international climate cooperation together.
 
