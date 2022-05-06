@@ -278,7 +278,7 @@ At Kyoto carbon credits were invented to solve this problem.  By paying for carb
 
 It's also the glue that holds international climate cooperation together.
 
-So if we fail to work together on climate, don't expect countries to scramble for carbon credits.  What's the point?  Who would you sell them to?  We'll all be scrambling for local adaptations--against floods, fires, droughts, heatwaves, and failing food production.  If the developing countries see burning more coal as their only way for paying for it, then that's what they'll resort to.
+So if we fail to work together on climate, don't expect a scramble for carbon credits.  What's the point?  Who would you sell them to?  We'll all be scrambling for local adaptations--against floods, fires, droughts, heatwaves, and failing food production.  If the developing countries see burning more coal as their only way for paying for it, then that's what they'll resort to.
 
 ### Can We Fix Carbon Markets?
 
