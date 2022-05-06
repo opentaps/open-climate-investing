@@ -1,7 +1,5 @@
 # New Asset Classes
 
-_It's easy to do the math but hard to do the work. - Anonymous_
-
 Ever wonder who would play you in a movie?
 
 Unfortunately, Hollywood has been unkind to the financial whiz these days.  Just look at Mr. Big.  If finance is what you do, then you're a big short.
@@ -50,6 +48,8 @@ Finally, some industries are organizing carbon markets of their own.  The best e
 A subtle but important difference between voluntary offsets and compliance carbon credits: Voluntary offsets are based on the concept of additional emissions reductions or removals.  To be a valid offset, the project must've not been possible without funding from the offsets, and the amount of offsets issued must be additional to a business-as-usual baseline.  Compliance credits are based on actual emissions versus either an absolute amount cap or an amount calculated from output multiplied by the carbon intensity of production.  You pay if you're above your cap.  It's that simple (well, no, nothing with a government regulator is ever simple, but ...)   As a result, for example, renewable energy projects may not qualify as valid voluntary carbon offsets because the low cost of wind and solar have made them the most economical choice, but they would qualify for compliance credits if they lower your regulatory emissions account.
 
 ## Investing in Carbon Assets
+
+_It's easy to do the math but hard to do the work. - Anonymous_
 
 With the basics out of the way, let's look at investing in a carbon asset project.  Remember when you invest, you're handing out cash for a promised stream of future claims denominated in units of CO2e emissions, then looking to sell those claims for cash again.  Every step of the way involves uncertainty.  Except the part with you handing out the cash.
 
@@ -173,7 +173,7 @@ So what can we learn from this little history lesson?
 
 Now the most famous failure of carbon markets.
 
-In 1997, negotiations for the Kyoto Protocol at COP3 were not [going well](https://www.brookings.edu/research/salvaging-the-kyoto-climate-change-negotiations/)).  The EU wanted aggressive emissions reductions targets.  The US was tentative on even moderate emissions reductions targets.  The developing countries wanted no restrictions on their economic development.  
+In 1997, negotiations for the Kyoto Protocol at COP3 were not [going well](https://www.brookings.edu/research/salvaging-the-kyoto-climate-change-negotiations/).  The EU wanted aggressive emissions reductions targets.  The US was tentative on even moderate emissions reductions targets.  The developing countries wanted no restrictions on their economic development.  
 
 So the Clean Development Mechanism (CDM) was created to at least start taking steps to reduce emissions.  The EU and Japan committed to reducing emissions (the US never did sign on) but would allow companies to purchase credits from developing countries to meet their targets.  It was supposed to be a win-win that provided development capital for green projects in developing countries while lowering the cost for companies in developed economies.
 
@@ -226,7 +226,9 @@ Now with the third phase of the ETS coming to an end, the EU is in the process o
 
 Will history repeat itself?
 
-Time will tell.  Meanwhile, the EU ETS gives us a good idea of compliance carbon markets look like:
+Time will tell.  
+
+Meanwhile, the EU ETS gives us a good idea of compliance carbon markets look like:
 
 - Compliance markets rely on simple measures, such as total emissions or carbon intensity.  Both of these could lead to oversupply of credits, either due to falling output from other causes (if using total emissions) or rising output with small gains in efficiency (if using carbon intensity.) 
 - While initial optimism buoyed prices, there was again an oversupply of credits, which made the market ineffective from a climate perspective and caused prices to crash. 
