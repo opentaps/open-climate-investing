@@ -1,4 +1,4 @@
-# Open Climate Investing
+# The Open Climate Investing Book
 
 Investors have a central role to play in stopping climate change.  As the group used to analyzing risks over long term horizons, they must allocate the capital necessary to bring about the transition to a zero carbon economy.   They must also capture the opportunities and avoid the losses that climate change will bring.
 

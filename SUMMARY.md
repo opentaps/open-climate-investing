@@ -1,6 +1,6 @@
 # Summary
 
-* [Open Climate Investing - The Book](book/README.md)
+* [The Open Climate Investing Book](book/README.md)
     * [Introduction](book/Introduction.md)
     * [Climate and Investing](book/Climate-and-Investing.md)
     * [Analyzing Investments](book/Analyzing-Investments.md)
