@@ -252,7 +252,7 @@ Markets like these are made for arbitrage.  With all these markets big and small
 
 Considering how small these markets are, though, this is just small potatoes.  We need to think bigger.  We need to move the prices of carbon credits up to where they would have a real impact on climate--and meaningful returns.   
 
-That means carbon credits must become true assets.  Which means they must behave like assets.  There must be a difference between performing and non-performing carbon assets, just like there is a difference between performing and non-performing loans and real estate.  There must be objective criteria of what constitutes a performing carbon credit, and there must be a financial loss when a carbon credit becomes non-performing.
+That means carbon credits must become serious assets.  Which means they must behave like assets.  There must be a difference between performing and non-performing carbon assets, just like there is a difference between performing and non-performing loans and real estate.  There must be objective criteria of what constitutes a performing carbon credit, and there must be a financial loss when a carbon credit becomes non-performing.
 
 This is simply not the case today.  Companies buy carbon credits to meet compliance goals or put on their websites.  They pat themselves for being environmentally responsible.  If the projects turn out to be bad, well, it's not their problem.  In fact, as much as possible, everybody tries to keep their offsets a secret so they couldn't be blamed for buying bad offsets.  As a result, there's virtually _no_ transparency in the carbon markets.  This is a real email exchange I had:
 

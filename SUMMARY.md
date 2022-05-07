@@ -10,6 +10,7 @@
          * [Interview - Engaging with Banks and Fund Managers for Climate](book/Interview-Engaging-Banks-Fund-Managers.md)
     * [Taking Action](book/Climate-Action.md)
     * [New Technologies](book/New-Technologies.md) 
+    * [New Assets](book/New-Assets.md)
     * [Conclusion](book/Conclusion.md)
     * [Disclaimer](book/Disclaimer.md)
 
