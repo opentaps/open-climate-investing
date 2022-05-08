@@ -2,6 +2,26 @@
 
 _“In the beginner's mind there are many possibilities, but in the expert's there are few." - Shunryo Suzuki, Zen master_
 
+### Where We are Today
+
+Climate investing has come a long way.  Investors now finally recognize the dangers of climate change and would like to fix it.  It's given the impetus for companies to do something, and some companies have taken the lead.  Meanwhile, standards for climate accounting and disclosures have been developed and starting to be utilized.  Pathways for industries to be decarbonize have been researched and published.  New technologies on the horizon offer at least the hope that we could reverse the damage before it's too late.
+
+At the same time, there's much more that needs to be done.  The ESG metrics used to guide climate investing have generally proven to be of limited value.  The stampede into ESG funds happened before clear definitions of what an ESG fund really is.  While companies are starting disclose their climate risk and strategies, the disclosures are often incomplete and inconsistent.  Many companies are talking about climate, but they routinely reject calls to take action.  Activist shareholders have even succeeded in electing directors on climate ballots, but we don't know how much influence they could ultimately exert.
+
+2021 may turn out to be the peak of expectations for ESG investing.  With a decade of outperformance, it seemed like a "have your cake and eat it too" time where climate investing was the same as profitable investing.  Yet much of ESG investing was a shifting of assets from carbon intensive industries such as oil and gas to low carbon industries such as technology and healthcare.  The resulting underpformance of oil and gas companies led to their having the lowest relative valuations of any major industry, prompting them to sell assets to private equity and other buyers.  They also set the stage for a comeback rally that we're seeing now.  This may cause a thinning out of the ESG space, both for fund managers and investors.  Perhaps it would be a necessary step for us to move forward.
+
+I hope in the next phase of climate investing some of these things will happen:
+
+- Companies improve their climate disclosures.  More companies disclose.  They disclose all their Scope 1, 2, and 3 emissions.  The disclosures become consistent and understandable.
+- With these disclosures, investors could understand companies' climate risks and strategies much better than with today's ESG scores.
+- Investors would monitor companies' progress to on climate.
+- Companies which are taking real action get favorable valuations from long-term, supportive investors.
+- Carbon markets are fixed so that they could finally fund climate action at scale.
+
+Each of these is big.  We may decide to take on different challenges, but we must all  act now to make them happen.  
+
+### Now It's Up to You
+
 So that's all I have to tell you for now.
 
 The book is unfinished, but as I said at the beginning, it never will be.  This is a quest we're going on together, and now it's your turn.  Use what I've given you as a starting point, but go out and find new and better ways to make the world and the financial markets better.
