@@ -40,6 +40,6 @@ We're just getting started.  Right now we have some basic planning questions:
 - What offsets or credits are applicable here?  Here I think we can eliminate whole categories.  CORSIA is way too permissive.  Can we buy tokens or credits of sustainable fuels?  Should we do it -- or are we just piling on to a scarce sector already?
 -  Transparency of offsets - Should we publish our offset purchases on chain?
 -  Output - Should we collectively vote and then publish our own analysis of airlines, offsets, and standards?
--  Governance - How exactly do we do all this?  Should we break each of these out into separate threads and then vote on them?  Should we do that here or on github?
+-  Governance - How exactly do we do all this?  Should we break each of these out into separate threads and then vote on them?  Should we do that on Discord or on github?
 
 If you'd like to get invovled, join the #decarbonization-dao channel on [Discord](https://discord.gg/7jmwnTyyQ8)
