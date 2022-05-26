@@ -1,18 +1,10 @@
-# Open Climate Investing DAO
-
-## TLDR
- 
-A DAO to govern an open source alternative to traditional ESG ratings services which are expensive and inaccurate for climate investing. 
-
-## Why this DAO?
-
-### ESG and Climate Risk
-
-Analyzing companies' climate risk exposure and climate actions is complex -- see [the chapter on Analyzing Investments](../book/Analyzing-Investments.md).  Today, most of this analysis is performed by ESG vendors using proprietary data sets and models.  Only the largest institutional investors could afford detailed ESG analysis from these vendors, yet the results are often difficult to use for making investment decisions.  Furthermore, as the experience of the 2008 Credit Crisis shows, the vendors' incentives may be often aligned with those of the companies being rated rather than investors or the general public.  As a result, ESG metrics suffer from a lack of trust, and this in turn limits the incentives for companies to make climate disclosures.  
+# DAOs
 
 ### Open Source
 
-An open source approach to climate risk analysis based on openly available tools and community development creates a free data set of climate analysis which is available to anyone to use, study, and improve upon.  It could help individuals and NGO's along with institutional investors and government agencies understand what companies are doing or not doing about climate change.  By creating the largest base of potential users, we create an incentive for them to want and work for a better that is more useful for them.  As more users use it and improve upon it, it becomes more useful and draws in more users, creating a "flywheel effect."  If successful, such a community could produce the highest quality, least cost, and most inclusive source of information.
+Everybody loves open source.  
+
+And why not?  Open source is inclusive, giving everyone a voice.  At the same time, the output is free for everybody to use.  By creating the largest base of potential users, we create an incentive for them to want and work for a better that is more useful for them.  As more users use it and improve upon it, it becomes more useful and draws in more users, creating a "flywheel effect."  If successful, such a community could produce the highest quality, least cost, and most inclusive source of information.
 
 This is difficult to achieve, though, because open source projects usually under-funded and stay small.  __This is because they are too informal.__  There is an ecosystem of users and developers who symbiotically support each other, but without any formal reputation or funding schemes, there is a lot of information asymmetry which means that economically sound transactions do not happen.  For example, you might like the ideals of a project and want to contribute, but could you make at least a reasonable living do it?  Alternatively, you might be the loyal user of an open source project and would be willing to pay to support or improve it.  But whom do you pay?  It's not easy to know the skill levels of the various contributors in a project, or even if they're interested in working for pay.  And how do you know what other users will do if they paid to support the project?  Would some big corporate user pay for all the improvements anyway, so there was no need for you to pay?  Or are you the only one who would pay, so even if you paid, it wouldn't be enough?  Finally, if a group of you paid a few of the developers to do the work, who would judge if the work was satisfactory or not?
 
@@ -22,23 +14,6 @@ The DAO solves these problems with a formal implementation of the informal gover
 - The Activity tokens allow users to pool their resources to pay for improvements.
 - A blockchain removes the need for the project to maintain a registry of these tokens.  Open source projects are small and don't need more overhead.
 - The tokens are permanently owned by the members.  They don't depend on the continued existence of one contributor or company in the project.  
-
-## Goals
-
-A DAO for creating open source climate investing analysis, including learning materials such as [the book](../book/README.md), industry specific climate analytical models (for example, energy, freight, airlines), and up to date analyses of individual companies' climate risk exposure.  
-
-- Provide open, inclusive approach to rating companies' climate risk exposure.  "With enough eyeballs all bugs are shallow."
-- Free for everybody: investors, government agencies, NGO's, and private individuals.
-- Empower people everywhere with the knowledge and tools to understand what companies are doing (or not doing) about climate change.
-- Create the broadest coverage of climate analysis for companies, following the Wikipedia, TripAdvisor, and Yelp models. 
-
-This DAO will only provide climate investing analysis.  It is not a general investment analysis DAO.  It does not make investments.  It does not cover areas of Environmental, Social, Governance (ESG) or Corporate Social Responsibility (CSR) beyond climate.  It provides analysis of the climate risk exposure for investing in companies, which could be used as a gauge of the companies' climate actions.
-
-## Business Model
-
-In today's financial markets, both companies looking to raise capital ("issuers") and investors pay fees to third parties such as Standard & Poor's and Moody's to rate investments.  Third-party ratings of companies' financial condition help objectively define what investments are appropriate for different group of investors.  This in turn allows companies sell securities to investors based on such ratings.  
-
-The DAO's work similarly has value because it provides an objective, third-party rating for investors about the climate risks in companies.  The DAO provides a way for investors and companies to pay for these ratings through the purchase of tokens, which are then allocated to the community as payment for its work.  
 
 ## Mechanism
 
