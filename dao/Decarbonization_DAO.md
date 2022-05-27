@@ -12,7 +12,9 @@ This DAO is an experiment in using open source to answer some big questions abou
 - What role do offsets have, if any?
 - Are the companies we buy from really doing some about climate?
 
-We will focus on air travel because it is something many of us experience, yet a complicated industry that is difficult to decarbonize.  As a result, it's a chance for us to use our personal experiences to understand climate action at a deep level.
+We will start with air travel because it is something many of us experience, and aviation is a complicated and difficult to decarbonize.  As a result, it's a chance for us to use our personal experiences to understand climate action at a deep level.
+
+This is more than just another discussion forum.  The Oxford Offsetting Principles sound great, but how does it really apply, and where should one draw the line?  Working on a specific use case like this will put offsets into perspective.  Buying offsets with our own money and standing behind them if they turn out to be invalid makes us take them more seriously. 
 
 The goal of this DAO is to leverage those experiences to develop analysis, software, and ultimately expertise about analyzing companies' emissions and climate strategies and the carbon offsets markets.  We will follow open source practices to be an inclusive, community-driven, and open group.  A DAO will help formalize the reputations earned and work done.  
 
