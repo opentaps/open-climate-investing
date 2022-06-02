@@ -42,7 +42,7 @@ This DAO will answer that from a real personal experiences air travel.  It is so
 
 ![IATA Airlines Reliance on Offsets over Time](images/iata-offsets-use-timeline.png)
 
-But CORSIA's list of allowed offset is too broad.  It lets airlines "meet" their climate obligations for as little as $1 per ton of CO2 for a decade.  
+But CORSIA's [list of eligible offset](https://www.icao.int/environmental-protection/CORSIA/Pages/CORSIA-Emissions-Units.aspx) is too broad.  (See [CORSIA TAB comments](https://www.icao.int/environmental-protection/CORSIA/Documents/TAB/TAB_Public%20comments_Consolidated.pdf), [Carbon Direct/Carbon Plan/Berkeley Carbon Trading Project TSVCM Comments](https://carbon-direct.com/wp-content/uploads/2021/02/Carbon-Direct_Carbon-Plan_Berkeley-Carbon-Trading-Project_TSVCM-Comments-1.pdf).)   This range of eligible offsets lets airlines "meet" their climate obligations for as little as $1 per ton of CO2 for a decade.  
 
 So now is our chance to use our personal experiences to understand climate action at a deep level.  We'll voice our opinions, but very importantly, we'll buy offsets with our own money and stand behind them if they turn out to be invalid.  That makes us take them more seriously.  "Proof of stake." :)
 
@@ -61,17 +61,15 @@ This DAO is for serious climate thinkers only.  It's not for you if you're looki
 
 The DAO is not here to make money selling offsets or credits.  Nor is it here to create a cryptocurrency for speculators.
 
-Its long-term business model create business opportunities for its members based on their reputation and expertise.  Think of us as a decentralized TripAdvisor or Yelp for climate, and our members as climate influencers, but more legitimate and credible.   
-
-Ultimately we want to build enough expertise and momentum to design and implement offset and decarbonization programs for companies big and small.
+We're the open source expertise that could be paired with [open source carbon accounting software](https://github.com/opentaps/blockchain-carbon-accounting)  Our long-term business model create business opportunities for its members based on their reputation and expertise.  Ultimately we want to build enough expertise and momentum to design and implement offset and decarbonization programs for companies big and small.  Think of us as a decentralized TripAdvisor, Yelp, Instagram, or TikTok for climate, but with more credibility.  Our members are climate influencers.   
 
 ## Where We are Now
 
-We're just getting started.  Right now we have some basic planning questions:
-- Exactly what are we doing?  I really like the Oxford Offsetting Principles but think it's very general, so I thought it'd be good to apply it to a real use case -- offsetting our own travel emissions such as flights.  For example, what does "reduce emissions as much as possible" mean for an airline?  Should we try to calculate the emissions footprint of our airlines from their report?  Should we be rating the airlines based on their climate strategies and actual performance?
-- What offsets or credits are applicable here?  Here I think we can eliminate whole categories.  CORSIA is way too permissive.  Can we buy tokens or credits of sustainable fuels?  Should we do it -- or are we just piling on to a scarce sector already?
--  Transparency of offsets - Should we publish our offset purchases on chain?
--  Output - Should we collectively vote and then publish our own analysis of airlines, offsets, and standards?
--  Governance - How exactly do we do all this?  Should we break each of these out into separate threads and then vote on them?  Should we do that on Discord or on github?
+We're just getting started.  Right now:
+- Please test calculating your own travel emissions at https://emissions-test.opentaps.org  This is on a testnet.  We'll soon set it up on the live net.
+- We'll soon be proposing a set of "canons" based on the research out there.  These will govern the thought process of this DAO.  Please get involved to discuss them.
+- Discussions can happen on discord 
+- Vote can start on discord and be moved to a DAO
+- We can source offsets from [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects) to get started.
 
 If you'd like to get invovled, join the #decarbonization-dao channel on [Discord](https://discord.gg/7jmwnTyyQ8)
