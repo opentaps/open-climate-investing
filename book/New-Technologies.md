@@ -46,6 +46,13 @@ Meanwhile, those of us in the old fashioned world of carbon offsets might notice
 
 ![Toucan Projects List](images/toucan-projects-list.png)
 
+UPDATE: On May 25, 2022 VERRA issued an [updated statement]
+(https://verra.org/verra-addresses-crypto-instruments-and-tokens/):
+
+_Verra will, effective immediately, prohibit the practice of creating instruments or tokens based on retired credits, on the basis that the act of retirement is widely understood to refer to the consumption of the credit’s environmental benefit. This announcement follows Verra’s statement on 25 November 2021 emphasizing that entities engaging in this activity do so entirely at their own risk._
+
+This is the correct thing to do.  Otherwise, anybody could retire some offsets on their registry, "bridge" them to a blockchain token, and claim their benefits at the same time.  Verra could not possibly police all the blockchains and registries out there, especially since blockchains are psuedononymous.  Some have asked if this is the death of web3 for climate.  Far from it -- there are much bigger applications for web3.  See below.
+
 You might look at all this and shake your head, "We've seen this all before."  Or, as [Tim O'Reilly puts it](https://www.oreilly.com/radar/why-its-too-early-to-get-excited-about-web3/):
 
 _Repeat after me: neither venture capital investment nor easy access to risky, highly inflated assets predicts lasting success and impact for a particular company or technology._  
