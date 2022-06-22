@@ -70,7 +70,7 @@ Once you have a high enough reputation, you will get NFT badges for your skill l
 
 Your reputation will decline over time.  You will also lose reputation tokens for making the wrong votes.  So if you do not continue to contribute, you will no longer have badges or be able to participate.   
 
-For more details, see the [master DAO document](../README.md).
+For more details, see the [general DAO document](../README.md).
 
 ## The DAO's Business Model
 
@@ -80,7 +80,7 @@ We're the open source expertise that could be paired with [open source carbon ac
 
 DAO votes may be funded, so the participants will get direct compensation based on their vote.
 
-For more details, see the [master DAO document](../README.md).
+For more details, see the [general DAO document](../README.md).
 
 ## Where We are Now
 
