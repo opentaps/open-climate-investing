@@ -70,7 +70,7 @@ Once you have a high enough reputation, you will get NFT badges for your skill l
 
 Your reputation will decline over time.  You will also lose reputation tokens for making the wrong votes.  So if you do not continue to contribute, you will no longer have badges or be able to participate.   
 
-For more details, see the [master DAO document](../README.md)
+For more details, see the [master DAO document](../README.md).
 
 ## The DAO's Business Model
 
@@ -80,15 +80,15 @@ We're the open source expertise that could be paired with [open source carbon ac
 
 DAO votes may be funded, so the participants will get direct compensation based on their vote.
 
-For more details, see the [master DAO document](../README.md)
+For more details, see the [master DAO document](../README.md).
 
 ## Where We are Now
 
 We're just getting started.  Right now:
 - Please test calculating your own travel emissions at https://emissions-test.opentaps.org  This is on a testnet.  We'll soon set it up on the live net.
-- We've published our first canons for decarbonization and offsets, the [Tao of Decarbonization](Decarbonization_Tao.md)  Please give us your feedback on discord.
+- We've published our first canons for decarbonization and offsets, the [Tao of Decarbonization](Decarbonization_Tao.md).  Please give us your feedback on discord.
 - Discussions can happen on discord 
 - Vote can start on discord and be moved to a DAO
-- We're looking for sites like the [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects) to buy offsets from.  See [issue #28](https://github.com/opentaps/open-climate-investing/issues/28)
+- We're looking for sites like the [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects) to buy offsets from.  See [issue #28](https://github.com/opentaps/open-climate-investing/issues/28).
 
-If you'd like to get invovled, join the #decarbonization-dao channel on [Discord](https://discord.gg/7jmwnTyyQ8)
+If you'd like to get invovled, join the #decarbonization-dao channel on [Discord](https://discord.gg/7jmwnTyyQ8).
