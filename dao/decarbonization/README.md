@@ -57,11 +57,30 @@ Each member of the DAO commits to:
 
 This DAO is for serious climate thinkers only.  It's not for you if you're looking to ape a cryptocurrency or think climate is easy.  It's not for you if you're not willing to think seriously and objectively and change your mind when the facts require.  It's not for you if you're more interested in winning than getting closer to the Truth.
 
+## How It Will Work
+
+Everyone is welcome to participate.
+
+You will get reputation points for activities such as:
+- participating in discussions
+- taking courses, for example on analyzing companies' climate disclosures or carbon offsets
+- producing content, such as articles and courses, on these topics
+
+Once you have a high enough reputation, you will get NFT badges for your skill level.  Some badges will allow you to participate in DAO votes, such as valid carbon offsets or ratings of companies' climate performance.  Other badges will qualify you to be an emissions auditor on the network.   
+
+Your reputation will decline over time.  You will also lose reputation tokens for making the wrong votes.  So if you do not continue to contribute, you will no longer have badges or be able to participate.   
+
+For more details, see the [master DAO document](../README.md)
+
 ## The DAO's Business Model
 
 The DAO is not here to make money selling offsets or credits.  Nor is it here to create a cryptocurrency for speculators.
 
 We're the open source expertise that could be paired with [open source carbon accounting software](https://github.com/opentaps/blockchain-carbon-accounting)  Our long-term business model create business opportunities for its members based on their reputation and expertise.  Ultimately we want to build enough expertise and momentum to design and implement offset and decarbonization programs for companies big and small.  Think of us as a decentralized TripAdvisor, Yelp, Instagram, or TikTok for climate, but with more credibility.  Our members are climate influencers.   
+
+DAO votes may be funded, so the participants will get direct compensation based on their vote.
+
+For more details, see the [master DAO document](../README.md)
 
 ## Where We are Now
 
