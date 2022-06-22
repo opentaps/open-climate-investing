@@ -86,9 +86,9 @@ For more details, see the [master DAO document](../README.md)
 
 We're just getting started.  Right now:
 - Please test calculating your own travel emissions at https://emissions-test.opentaps.org  This is on a testnet.  We'll soon set it up on the live net.
-- We'll soon be proposing a set of "canons" based on the research out there.  These will govern the thought process of this DAO.  Please get involved to discuss them.
+- We've published our first canons for decarbonization and offsets, the [Tao of Decarbonization](Decarbonization_Tao.md)  Please give us your feedback on discord.
 - Discussions can happen on discord 
 - Vote can start on discord and be moved to a DAO
-- We can source offsets from [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects) to get started.
+- We're looking for sites like the [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects) to buy offsets from.  See [issue #28](https://github.com/opentaps/open-climate-investing/issues/28)
 
 If you'd like to get invovled, join the #decarbonization-dao channel on [Discord](https://discord.gg/7jmwnTyyQ8)
