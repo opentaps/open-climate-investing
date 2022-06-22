@@ -16,4 +16,4 @@
 
 * [Decarbonization DAO](dao/decarbonization/README.md)
     * [Tao of Decarbonization](dao/decarbonization/Decarbonization_Tao.md)
-    * [Main DAO Document](dao/README.md)
+    * [General DAO Document](dao/README.md)
