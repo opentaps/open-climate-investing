@@ -19,3 +19,8 @@ Offset must not be issued or retired in another registry, or it is double counti
 Offset must be purchased for a specific project and retired in your name or in your account name at a broker.  If the latter, you must be able to prove that you're the account holder at the broker.
 
 If invalidated after purchase, replacement offsets must be purchased.
+
+### Outstanding Issues
+
+* [What are the minimum requirements for an offset?](https://github.com/opentaps/open-climate-investing/issues/29)
+* [Where can we buy offsets?](https://github.com/opentaps/open-climate-investing/issues/28)
