@@ -85,7 +85,7 @@ For more details, see the [general DAO document](../README.md).
 ## Where We are Now
 
 We're just getting started.  Right now:
-- Please test calculating your own travel emissions at https://emissions-test.opentaps.org  This is on a testnet.  We'll soon set it up on the live net.
+- Please test calculating your own travel emissions at [emissions-test.opentaps.org](https://emissions-test.opentaps.org).  This is on a testnet.  We'll soon set it up on the live net.
 - We've published our first canons for decarbonization and offsets, the [Tao of Decarbonization](Decarbonization_Tao.md).  Please give us your feedback on discord.
 - Discussions can happen on discord 
 - Vote can start on discord and be moved to a DAO
