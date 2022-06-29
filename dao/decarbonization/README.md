@@ -40,7 +40,7 @@ You'll probably be gathering data and making sales pitches.  Don't get disappoin
 
 This DAO will help train you for getting that first job.  You'll have a chance to work on getting data, from yourself, your friends, and  companies.  You'll learn to analyze the data and make recommendations.  You'll do this in the context of other research we've identified and work by other DAO members.  You'll get reputation tokens and badges for your work.
 
-So when you sit down for your interview, you won't be talking about some school project paper (interviewers roll their eyes at those) or your views on the latest election (NEVER!).  You'll be able to point to a real project, where you used real world data and convinced people to do something.  That works. 
+So when you sit down for your interview, you won't be talking about some school project paper (interviewers roll their eyes at those) or your views on the election (NEVER do this!).  You'll be able to point to a real project, where you used real world data and convinced people to do something.  That works. 
 
 ## Why Offsets Happen in the Dark
 
