@@ -2,15 +2,34 @@
 
 ## Why this DAO?
 
+A common problem with climate solutions is that people want somebody else to do something about the climate.  Let's get the oil companies to stop drilling more oil.  Let's get farmers to use less fertilizers and less water.  Let's get building owners to improve the efficiency of their buildings.  Let's get people to fly less, drive less, take more public transportation, etc. etc.
+
+Then we see it's not working, and we're frustrated and upset.  We end up shouting at each other on social media instead of solving problems.  But calling other people names won't get them to do something for the climate.
+
+The truth is, you need to understand what it's like for them before you can ask somebody else to do something.
+
+It's called empathy.
+
+This DAO is an experiment in using the open source principle of "scratching your own itch."  Build something that works for you, based on your real experience, first.  Then based on what you've learned, get others to use it.
+
+## Some Examples
+
 When you get on a flight, there's probably a checkbox to offset your emissions.  
 
 But where does your money go?  What are these "offsets" the airline is offering to buy for you?  Does paying to "plant trees" really help the climate?  
 
 Or is it just the airline's way of making you feel better?  
 
-This DAO is an experiment in using open source to answer some big questions about climate, such as:
-- What role do offsets have, if any?
-- Are the companies we buy from really doing some about climate?
+At home, you probably use electricity.  You could get solar panels.  Have you?  If not, why not?  If so, how much good does it really do?  
+
+You probably also use natural gas.  What could you do there for the climate?  Is "sustainably sourced" or "renewable" natural gas real? 
+
+This seemingly simple questions have big implications:
+- Are carbon offsets real?
+- What is the right path for airlines and utilities to decarbonize?
+- What is the role of oil and gas companies?  
+
+We're here to answer those questions, __based on direct personal experience__.
 
 ## Why Offsets Happen in the Dark
 
