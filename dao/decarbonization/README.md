@@ -2,34 +2,45 @@
 
 ## Why this DAO?
 
-A common problem with climate solutions is that people want somebody else to do something about the climate.  Let's get the oil companies to stop drilling more oil.  Let's get farmers to use less fertilizers and less water.  Let's get building owners to improve the efficiency of their buildings.  Let's get people to fly less, drive less, take more public transportation, etc. etc.
+A common problem with climate solutions is that we want somebody else to do something about the climate.  Let's get the oil companies to stop drilling.  Let's get farmers to use less fertilizers and less water.  Let's get building owners to improve energy efficiency.  Let's get people to fly less, drive less, take more public transportation, etc. etc.
 
-Then we see it's not working, and we're frustrated and upset.  We end up shouting at each other on social media instead of solving problems.  But calling other people names won't get them to do something for the climate.
+Then we see it's not working, and we're frustrated and upset.  We end up shouting at each other on social media instead of solving problems.  
 
-The truth is, you need to understand what it's like for them before you can ask somebody else to do something.
+The truth is, when other people don't do what you want them to do, it's probably because you didn't understand them well enough in the first place.  
 
-It's called empathy.
+That's empathy.
 
-This DAO is an experiment in using the open source principle of "scratching your own itch."  Build something that works for you, based on your real experience, first.  Then based on what you've learned, get others to use it.
+Meanwhile, when we can't do something that we're afraid of, like climate change, we get angry.  But as Master Yoda teaches us, "Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
+
+But we don't have to go down the path to the Dark Side.  This DAO is an experiment in using the open source principle of "scratching your own itch" to come up with climate solutions.  If you want to do something about climate change,
+then do something.  Right where you are.  Build something that works for you, based on your real needs and experiences, first.  If it works, then you get others to use it.
 
 ## Some Examples
 
 When you get on a flight, there's probably a checkbox to offset your emissions.  
 
-But where does your money go?  What are these "offsets" the airline is offering to buy for you?  Does paying to "plant trees" really help the climate?  
-
-Or is it just the airline's way of making you feel better?  
+But where does your money go?  What are these "offsets" the airline is offering to buy for you?  Does paying to "plant trees" really help the climate?  Or is it just the airline's way of making you feel better?  
 
 At home, you probably use electricity.  You could get solar panels.  Have you?  If not, why not?  If so, how much good does it really do?  
 
-You probably also use natural gas.  What could you do there for the climate?  Is "sustainably sourced" or "renewable" natural gas real? 
+You probably also use natural gas.  What could you do there for the climate?  Is "sustainably sourced," "renewable," or even "carbon neutral" natural gas real? 
 
 This seemingly simple questions have big implications:
 - Are carbon offsets real?
-- What is the right path for airlines and utilities to decarbonize?
+- What is the right pathway for airlines and utilities to decarbonize?
 - What is the role of oil and gas companies?  
 
 We're here to answer those questions, __based on direct personal experience__.
+
+## If You Want a Job in Climate
+
+Fact of life: Your first job in climate isn't going to be setting climate policy for your country, much less the world.  
+
+You'll probably be gathering data and making sales pitches.  Don't get disappointed.  These are the first steps to implementing real climate solutions.  Real climate solutions involve data collection, analysis, and convincing people.  You're on your way to doing just that.
+
+This DAO will help train you for getting that first job.  You'll have a chance to work on getting data, from yourself, your friends, and  companies.  You'll learn to analyze the data and make recommendations.  You'll do this in the context of other research we've identified and work by other DAO members.  You'll get reputation tokens and badges for your work.
+
+So when you sit down for your interview, you won't be talking about some school project paper (interviewers roll their eyes at those) or your views on the latest election (NEVER!).  You'll be able to point to a real project, where you used real world data and convinced people to do something.  That works. 
 
 ## Why Offsets Happen in the Dark
 
