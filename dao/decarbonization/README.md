@@ -13,7 +13,7 @@ That's empathy.
 Meanwhile, when we can't do something that we're afraid of, like climate change, we get angry.  But as Master Yoda teaches us, "Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
 
 But we don't have to go down the path to the Dark Side.  This DAO is an experiment in using the open source principle of "scratching your own itch" to come up with climate solutions.  If you want to do something about climate change,
-then do something.  Right where you are.  Build something that works for you, based on your real needs and experiences, first.  If it works, then you get others to use it.
+then do something.  Right where you are.  Build something that works for you, based on your real needs and experiences, first.  If it works, then get others to use it.
 
 ## Some Examples
 
@@ -68,7 +68,7 @@ The Oxford Offsetting Principles sound great, but how does it really apply?  For
 
 Where should we draw the line?  
 
-This DAO will answer that from a real personal experiences air travel.  It is something many of us experience, yet it's also complicated and difficult to decarbonize.  IATA, for example, shows that offsets will play an important role for aviation for at least a decade ([source](https://www.iata.org/contentassets/b3783d24c5834634af59148c718472bb/factsheet_offsettingandcarboncapture.pdfv)):
+This DAO will answer that from a real personal experiences air travel.  It is something many of us experience, yet it's also complicated and difficult to decarbonize.  IATA, for example, shows that offsets will play an important role for aviation for at least a decade ([source](https://www.iata.org/contentassets/b3783d24c5834634af59148c718472bb/factsheet_offsettingandcarboncapture.pdf)):
 
 ![IATA Airlines Reliance on Offsets over Time](images/iata-offsets-use-timeline.png)
 
