@@ -1,6 +1,8 @@
-# Interview - Carbon Markets Today with Pedro Carvalho
+# Interview - Inside the Carbon Markets Today with Pedro Carvalho
 
-SC: Hello Pedro, so I thought we could start by you introducing yourself and telling us more about your business at Ecosecurities.
+_Carbon markets are notoriously opaque.  Much of what happens goes on directly between big trading desks at banks and major corporate buyers.  This interview lets you take a peek behind those closed doors, thanks to Pedro Carvalho of Ecosecurities Ltd.  Find out what's really driving the carbon markets today.  How do the voluntary and compliance carbon markets work together?  How are the players using carbon offsets to support Carbon Neutral LNG, Renewable Biomethane, and CORSIA aviation targets?  How could the blockchain benefit carbon markets?_ 
+
+SC: Hello Pedro. I thought we could start by you introducing yourself and telling us more about your business at Ecosecurities.
 
 PC: I'm the carbon portfolio manager of Ecosecurities. Ecosecurities is a carbon project developer with 25 years experience in the market. We registered the first CDM project. We were very active on all energy related projects that were developed in the past and currently we're still very close to the supply side of the market but with the focus now on conservation and reforestation projects, blue carbon and what they call community-based projects. So cook stoves, water purification and things of the like.
 
@@ -80,7 +82,11 @@ PC: There’s a fundamental distinction between carbon offsets and allowances. F
 
 The good example that I like to give here is the electrification of a fleet. So let's say that the cost per ton of carbon to electrify my fleet is at 100 dollars, and the price of my ETS is at 80. So far I'm better off buying the ETS allowance. Let's say that the price jumps to 150, then this actor will be like "Okay, I'm better off implementing the decarbonization strategy than by buying the allowances." So there's this fundamental distinction on the price of carbon.
 
-Sticking with the compliance markets, it's very important, there's a very interesting graph by ICAP demonstrating exactly that. Because the breadth and the coverage of different compliance carbon schemes across the world are not the same, the pricing of carbon is not the same. If you're looking in Switzerland, for instance, where I'm speaking from, the price of carbon is one of the highest in the world. But the coverage of their system is very narrow. It's not encompassing a lot of sectors in the economy. So do you prefer to have a $150 allowance with a very narrow application, or do you prefer to have a national wide application with a higher breadth? Take this information with a grain of salt, because I'm not sure if they're comparable per se. Coming to matching the price of the carbon credit and the compliance markets, of course there is a big opportunity for arbitrage there. But if I was developing my projects Ii know where they are most valued at, and I'll be sure to negotiate a very good agreement with my off-takers so that I'm not trying to sell let's say a reforestation project with a price of voluntary market, knowing that this credit is good at three times that price under other standard.
+Sticking with the compliance markets, it's very important, there's a very interesting graph by ICAP demonstrating exactly that:
+
+![Scope and Coverage of Emissions Trading Systems, ICAPCarbonAction.com](images/Sector_Coverage_of_Carbon_Markets_ICAPCarbonAction.com.png)
+
+Because the breadth and the coverage of different compliance carbon schemes across the world are not the same, the pricing of carbon is not the same. If you're looking in Switzerland, for instance, where I'm speaking from, the price of carbon is one of the highest in the world. But the coverage of their system is very narrow. It's not encompassing a lot of sectors in the economy. So do you prefer to have a $150 allowance with a very narrow application, or do you prefer to have a national wide application with a higher breadth? Take this information with a grain of salt, because I'm not sure if they're comparable per se. Coming to matching the price of the carbon credit and the compliance markets, of course there is a big opportunity for arbitrage there. But if I was developing my projects Ii know where they are most valued at, and I'll be sure to negotiate a very good agreement with my off-takers so that I'm not trying to sell let's say a reforestation project with a price of voluntary market, knowing that this credit is good at three times that price under other standard.
 
 SC: In the next five years, what do you think will be the biggest developments for the carbon markets?
 
