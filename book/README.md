@@ -18,6 +18,7 @@ To make this happen, climate or green investing must go from being a niche inves
 - Emerging Asset Classes: Carbon offsets and negative carbon projects
 - [New Technologies](New-Technologies.md): DeFI and blockchains
 - [New Assets](New-Asset-Classes.md): Carbon as an Assets 
+    - [Interview - Inside Carbon Markets Today](Interview-Inside-Carbon-Markets-Today.md)
 - [Conclusion](Conclusion.md)
  
 ### How to Use this Book
