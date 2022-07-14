@@ -9,8 +9,9 @@
     * [Setting Benchmarks](book/Setting-Benchmarks.md)
          * [Interview - Engaging with Banks and Fund Managers for Climate](book/Interview-Engaging-Banks-Fund-Managers.md)
     * [Taking Action](book/Climate-Action.md)
-    * [New Technologies](book/New-Technologies.md) 
-    * [New Assets](book/New-Asset-Classes.md)
+    * [DeFI, Blockchains, and Climate](book/New-Technologies.md) 
+    * [Carbon as an Asset](book/New-Asset-Classes.md)
+         * [Interview - Inside Carbon Markets Today](book/Interview-Inside-Carbon-Markets-Today.md)
     * [Conclusion](book/Conclusion.md)
     * [Disclaimer](book/Disclaimer.md)
 
