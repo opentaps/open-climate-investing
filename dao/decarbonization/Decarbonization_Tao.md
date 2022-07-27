@@ -4,6 +4,8 @@ This is a set of hypotheses about how to use offsets.  We use the term __hypothe
 
 These hypotheses are meant as an implementation of the [Oxford Offsetting Principles](https://www.ox.ac.uk/news/2020-09-29-oxford-launches-new-principles-credible-carbon-offsetting).  The Oxford Principles are a good starting point but general and subject to interpretation.  We're here test and implement it in the real world.  By offsetting our own emissions, from travel to home heating, we'll study the emissions and offsets in detail.
 
+## The Hypotheses
+
 The first step is to analyze the companies' general climate performance.  Companies which are not doing enough to reduce emissions should require more offsets.  This will make it naturally more preferable to buy from the better companies.
 
 While sustainable fuels are coming, offsets will be the only way to reduce our travel emissions and natural gas use for at least another decade to mid 2030s.
@@ -28,7 +30,7 @@ Auditors can be involved in developing the standards, but the standards should n
 
 If invalidated after purchase, replacement offsets must be purchased.  All members of the DAO must commit to this.
 
-### Where to Buy Offsets
+## Where to Buy Offsets
 
 So far we have identified the following sources where we could buy offsets from specific projects, rather than generics:
 
@@ -36,5 +38,5 @@ So far we have identified the following sources where we could buy offsets from 
 - [Puro.earth Marketplace](https://puro.earth/CORC-co2-removal-certificate/?sort_field=available_now)
 - [Patch.io](https://www.patch.io/)
 
-### Outstanding Issues
+## Outstanding Issues
 
