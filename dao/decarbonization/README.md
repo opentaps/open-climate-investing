@@ -32,6 +32,20 @@ This seemingly simple questions have big implications:
 
 We're here to answer those questions, __based on direct personal experience__.
 
+## Why You Should Buy Offsets with Your Own Money
+
+Me: Would you like a free copy of my book on climate investing?
+
+You: Sure.
+
+Me: Great.  Could you just send me $10 to cover my shipping cost?
+
+You: Uhh...
+
+This is a basic lesson from marketing: People will take things more seriously if they have to pay for them.
+
+That's why you should buy some offsets with your own money.  It doesn't have to be a lot -- just one flight or one month worth of home heating will do.  But it will focus you on whether your real money is leading to real climate benefits.
+
 ## If You Want a Job in Climate
 
 Fact of life: Your first job in climate isn't going to be setting national or international climate policy.  

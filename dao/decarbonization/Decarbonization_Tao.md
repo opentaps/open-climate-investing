@@ -30,6 +30,10 @@ Auditors can be involved in developing the standards, but the standards should n
 
 If invalidated after purchase, replacement offsets must be purchased.  All members of the DAO must commit to this.
 
+## What We're Working On
+
+We're reviewing some actual offsets on the [Offsets discussions channel](https://github.com/opentaps/open-climate-investing/discussions/categories/offsets) to gain a deeper understanding of them.  Everyone is welcome to join.
+
 ## Where to Buy Offsets
 
 So far we have identified the following sources where we could buy offsets from specific projects, rather than generics:
@@ -37,6 +41,3 @@ So far we have identified the following sources where we could buy offsets from 
 - [Gold Standard Marketplace](https://marketplace.goldstandard.org/collections/projects)
 - [Puro.earth Marketplace](https://puro.earth/CORC-co2-removal-certificate/?sort_field=available_now)
 - [Patch.io](https://www.patch.io/)
-
-## Outstanding Issues
-
