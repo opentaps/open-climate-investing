@@ -20,11 +20,11 @@ def load_stocks_csv(filename):
     return all_stock_data.values
 
 
-def import_stock(stock_name, always_update_details=False, frequency='MONTHLY', verbose=False):
+def import_stock(stock_name, update=False, always_update_details=False, frequency='MONTHLY', verbose=False):
     try:
         if verbose:
             print("*** importing stock {}".format(stock_name))
-        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details, frequency=frequency)
+        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details, frequency=frequency, update=update, verbose=verbose)
         if verbose and (stock_data is None or stock_data.empty):
             print("*** no stock data could be loaded for {}".format(stock_name))
         try:
@@ -84,11 +84,25 @@ def check_stocks_info_exist(stock_name):
 
 
 
-def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY'):
+def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY', update=False, verbose=False):
     has_info = check_stocks_info_exist(stock_name)
     if always_update_details or not has_info:
         update_stocks_info_data(stock_name)
-    stock_data = spf.stock_df_grab(stock_name, frequency=frequency)
+    start = None
+    if update:
+        # get the last date entry for this ticker and frequency
+        sql = '''SELECT date FROM stock_data
+        WHERE ticker = %s AND frequency = %s
+        ORDER BY date DESC
+        LIMIT 1'''
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (stock_name, frequency))
+            result = cursor.fetchone()
+            if result:
+                start = result[0]
+        if verbose:
+            print('*** updating stock {} from {}'.format(stock_name, start))
+    stock_data = spf.stock_df_grab(stock_name, frequency=frequency, start=start)
     stock_data = input_function.convert_to_form(stock_data)
     return stock_data
 
@@ -184,7 +198,7 @@ def load_stocks_returns_from_db(stock_name, frequency='MONTHLY', verbose=False):
     return df
 
 
-def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, always_update_details=False, frequency='MONTHLY', verbose=False):
+def load_stocks_data_with_returns_from_db(stock_name, with_components=False, import_when_missing=False, update=False, always_update_details=False, frequency='MONTHLY', verbose=False):
     sql = '''SELECT date, close, return
         FROM stock_data
         WHERE ticker = %s and frequency = %s
@@ -195,7 +209,7 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
     if (df is None or df.empty) and import_when_missing:
         if verbose:
             print("*** no data in DB for {}, will import it".format(stock_name))
-        import_stock(stock_name, always_update_details=always_update_details, frequency=frequency)
+        import_stock(stock_name, update=update, always_update_details=always_update_details, frequency=frequency)
         # try again
         df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
                                index_col='date', params=(stock_name,frequency,))
@@ -267,8 +281,8 @@ def get_stock_details(ticker):
     return df
 
 
-def import_stock_or_returns(stock_name, always_update_details=False, frequency='MONTHLY', verbose=False):
-    df = import_stock(stock_name, always_update_details=always_update_details, frequency=frequency, verbose=verbose)
+def import_stock_or_returns(stock_name, update=False, always_update_details=False, frequency='MONTHLY', verbose=False):
+    df = import_stock(stock_name, update=update, always_update_details=always_update_details, frequency=frequency, verbose=verbose)
     if (df is None or df.empty) and get_components_from_db(stock_name):
         # for a composite, we can compute and import the returns only
         print("** Stock {} is a composite, will only compute and save the returns ...".format(stock_name))
@@ -293,12 +307,12 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i]
             print('* loading stocks for {} ... '.format(stock_name))
-            import_stock_or_returns(stock_name, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
+            import_stock_or_returns(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
 
     elif args.delete:
         delete_stock_from_db(args.delete)
     elif args.ticker:
-        import_stock_or_returns(args.ticker, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
+        import_stock_or_returns(args.ticker, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
     elif args.show:
         sd = get_stock_details(args.show)
         print('-- Stock details for {}'.format(args.show))
@@ -322,7 +336,7 @@ def main(args):
         for i in range(0, len(stocks)):
             stock_name = stocks[i].item(0)
             print("Trying to get: " + stock_name)
-            import_stock(stock_name, always_update_details=args.update_stocks_details, frequency=args.frequency)
+            import_stock(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
     else:
         return False
     return True
@@ -353,6 +367,8 @@ if __name__ == "__main__":
                         help="When showing, JOIN the values of the component stocks")
     parser.add_argument("-o", "--output",
                         help="When showing, save all the data into this CSV file")
+    parser.add_argument("-u", "--update", action='store_true',
+                        help="Only update the data by fetching from the last DB entry date.")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output.")
     if not main(parser.parse_args()):

@@ -96,6 +96,7 @@ def run_regression(ticker,
                    carbon_data=None,
                    ff_data=None,
                    rf_data=None,
+                   update=False,
                    verbose=False,
                    silent=False,
                    store=False):
@@ -150,6 +151,26 @@ def run_regression(ticker,
 
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
+
+    # if no start_date and we update, get the latest date we had data for
+    if update:
+        # get the last date entry for this ticker and frequency
+        sql = '''SELECT
+        from_date,
+        thru_date
+        FROM stock_stats
+        WHERE ticker = %s
+        AND frequency = %s
+        AND bmg_factor_name = %s
+        ORDER BY from_date DESC
+        LIMIT 1'''
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (ticker, frequency, factor_name))
+            result = cursor.fetchone()
+            if result:
+                start_date = result[0]
+        if verbose:
+            print('*** updating stock {} regression {} from {}'.format(ticker, factor_name, start_date))
 
     running = True
     while running:
@@ -301,7 +322,12 @@ def run_regression_internal(stock_data,
 
 
 def store_regression_into_db(sql_params):
-    del_sql = '''DELETE FROM stock_stats WHERE ticker = %s and frequency = %s and bmg_factor_name = %s and from_date = %s and thru_date = %s;'''
+    del_sql = '''DELETE FROM stock_stats
+    WHERE ticker = %s
+    and frequency = %s
+    and bmg_factor_name = %s
+    and from_date = %s
+    and thru_date = %s;'''
     placeholder = ", ".join(["%s"] * len(sql_params))
     stmt = "INSERT INTO stock_stats ({columns}) values ({values});".format(
         columns=",".join(sql_params.keys()), values=placeholder)
@@ -320,6 +346,7 @@ def main(args):
                        end_date=args.end_date,
                        interval=args.interval,
                        frequency=args.frequency,
+                       update=args.update,
                        verbose=args.verbose,
                        store=(not args.dryrun),
                        silent=(not args.dryrun))
@@ -343,6 +370,7 @@ def main(args):
                            carbon_data=carbon_data,
                            ff_data=ff_data,
                            rf_data=rf_data,
+                           update=args.update,
                            verbose=args.verbose,
                            silent=(not args.dryrun),
                            store=(not args.dryrun))
@@ -376,6 +404,7 @@ def main(args):
                            carbon_data=carbon_data,
                            ff_data=ff_data,
                            rf_data=rf_data,
+                           update=args.update,
                            verbose=args.verbose,
                            silent=(not args.dryrun),
                            store=(not args.dryrun))
@@ -404,6 +433,8 @@ if __name__ == "__main__":
                         help="Sets the factor name of the carbon_risk_factor used")
     parser.add_argument("--frequency", default='MONTHLY',
                         help="Frequency to use for the various series, eg: MONTHLY, DAILY")
+    parser.add_argument("-u", "--update", action='store_true',
+                        help="Only update the data from the last DB entry date.")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output")
     parser.add_argument("-b", "--bulk_regression", action='store_true',
