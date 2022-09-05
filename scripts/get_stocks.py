@@ -22,9 +22,22 @@ def load_stocks_csv(filename):
 
 def import_stock(stock_name, update=False, always_update_details=False, frequency='MONTHLY', verbose=False):
     try:
+        start=None
         if verbose:
             print("*** importing stock {}".format(stock_name))
-        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details, frequency=frequency, update=update, verbose=verbose)
+        if update:
+            start = get_last_stock_data_date(stock_name, frequency=frequency)
+            # if start is today's date, skip
+            today = pd.Timestamp.today().date()
+            if start == today:
+                print('*** stock {} is already up to date'.format(stock_name))
+            elif start is not None and start > today:
+                start = today
+                print('*** updating stock {} from {}'.format(stock_name, start))
+            else:
+                print('*** updating stock {} from {}'.format(stock_name, start))
+
+        stock_data = load_stocks_data(stock_name, always_update_details=always_update_details, frequency=frequency, start=start)
         if verbose and (stock_data is None or stock_data.empty):
             print("*** no stock data could be loaded for {}".format(stock_name))
         try:
@@ -83,25 +96,23 @@ def check_stocks_info_exist(stock_name):
         return True
 
 
-
-def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY', update=False, verbose=False):
-    has_info = check_stocks_info_exist(stock_name)
-    if always_update_details or not has_info:
-        update_stocks_info_data(stock_name)
-    start = None
-    if update:
-        # get the last date entry for this ticker and frequency
-        sql = '''SELECT date FROM stock_data
+def get_last_stock_data_date(ticker, frequency='MONTHLY'):
+    sql = '''SELECT date FROM stock_data
         WHERE ticker = %s AND frequency = %s
         ORDER BY date DESC
         LIMIT 1'''
-        with conn.cursor() as cursor:
-            cursor.execute(sql, (stock_name, frequency))
-            result = cursor.fetchone()
-            if result:
-                start = result[0]
-        if verbose:
-            print('*** updating stock {} from {}'.format(stock_name, start))
+    with conn.cursor() as cursor:
+        cursor.execute(sql, (ticker, frequency))
+        result = cursor.fetchone()
+        if result:
+            return result[0]
+    return None
+
+
+def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY', start=None):
+    has_info = check_stocks_info_exist(stock_name)
+    if always_update_details or not has_info:
+        update_stocks_info_data(stock_name)
     stock_data = spf.stock_df_grab(stock_name, frequency=frequency, start=start)
     stock_data = input_function.convert_to_form(stock_data)
     return stock_data
@@ -303,10 +314,10 @@ def main(args):
         return True
     if args.from_db:
         stocks = load_stocks_defined_in_db()
-
-        for i in range(0, len(stocks)):
+        t = len(stocks)
+        for i in range(0, t):
             stock_name = stocks[i]
-            print('* loading stocks for {} ... '.format(stock_name))
+            print('[{} / {}] loading stocks for {} ... '.format(i+1, t, stock_name))
             import_stock_or_returns(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
 
     elif args.delete:
@@ -333,9 +344,10 @@ def main(args):
             print('Error reading CSV file {}'.format(args.file))
             return False
 
-        for i in range(0, len(stocks)):
+        t = len(stocks)
+        for i in range(0, t):
             stock_name = stocks[i].item(0)
-            print("Trying to get: " + stock_name)
+            print("[{} / {}] Trying to get: {}".format(i+1, t, stock_name))
             import_stock(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
     else:
         return False

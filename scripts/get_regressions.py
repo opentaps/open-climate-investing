@@ -62,6 +62,8 @@ def bulk_regression_transformer(final_data, ff_names, rf_names, factor_name, int
     ticker_names = final_data['ticker'].unique().tolist()
     start_date = min(final_data.index.values)
     end_date = max(final_data.index.values)
+    t = len(ticker_names)
+    i = 0
     for temp_ticker in ticker_names:
         temp_data = final_data.loc[final_data.ticker == temp_ticker, :]
         stock_data = temp_data[['ticker', 'return']]
@@ -81,8 +83,9 @@ def bulk_regression_transformer(final_data, ff_names, rf_names, factor_name, int
         while running:
             (start_date, running) = run_regression_internal(stock_data, carbon_data, ff_data, rf_data,
                                                  temp_ticker, factor_name, start_date, end_date, interval,
-                                                 frequency, verbose=False, silent=True, store=True)
+                                                 frequency, verbose=False, silent=True, store=True, index=i, total=t)
         print(temp_ticker)
+        i = i+1
     end_time = datetime.datetime.now()
     print(end_time - start_time)
 
@@ -99,7 +102,9 @@ def run_regression(ticker,
                    update=False,
                    verbose=False,
                    silent=False,
-                   store=False):
+                   store=False,
+                   index=None,
+                   total=None):
     if carbon_data is None:
         carbon_data = load_carbon_data_from_db(factor_name, frequency=frequency)
         if verbose:
@@ -152,7 +157,8 @@ def run_regression(ticker,
     # convert to pct change
     stock_data = stock_data.pct_change(periods=1)
 
-    # if no start_date and we update, get the latest date we had data for
+    # if we update, get the latest date we had data for
+    # if we had no data just use the given start_date
     if update:
         # get the last date entry for this ticker and frequency
         sql = '''SELECT
@@ -186,7 +192,9 @@ def run_regression(ticker,
                             frequency,
                             verbose,
                             silent,
-                            store)
+                            store,
+                            index,
+                            total)
 
 
 def run_regression_internal(stock_data,
@@ -201,7 +209,9 @@ def run_regression_internal(stock_data,
                             frequency,
                             verbose,
                             silent,
-                            store):
+                            store,
+                            index,
+                            total):
     if frequency == 'DAILY':
         freq = 'D'
         if interval == 0:
@@ -286,7 +296,7 @@ def run_regression_internal(stock_data,
         return (None, False)
 
     if store:
-        print('Ran regression for {} from {} to {} ...'.format(
+        print('[{} / {}] Ran regression for {} from {} to {} ...'.format(index, total,
             ticker, start_date, r_end_date))
         # store results in the DB
         fields = ['Constant', 'BMG', 'Mkt-RF', 'SMB', 'HML', 'WML',
@@ -358,9 +368,10 @@ def main(args):
         ff_data = load_ff_data_from_db(frequency=args.frequency)
         rf_data = load_rf_data_from_db(frequency=args.frequency)
         stocks = load_stocks_csv(args.file)
-        for i in range(0, len(stocks)):
+        t = len(stocks)
+        for i in range(0, t):
             stock_name = stocks[i].item(0)
-            print('* running regression for {} ... '.format(stock_name))
+            print('[{} / {}] running regression for {} ... '.format(i+1, t, stock_name))
             run_regression(stock_name,
                            factor_name=args.factor_name,
                            start_date=args.start_date,
@@ -370,6 +381,8 @@ def main(args):
                            carbon_data=carbon_data,
                            ff_data=ff_data,
                            rf_data=rf_data,
+                           index=i,
+                           total=t,
                            update=args.update,
                            verbose=args.verbose,
                            silent=(not args.dryrun),
@@ -392,10 +405,13 @@ def main(args):
         ff_data = load_ff_data_from_db(frequency=args.frequency)
         rf_data = load_rf_data_from_db(frequency=args.frequency)
         stocks = get_stocks.load_stocks_defined_in_db()
-        for i in range(0, len(stocks)):
+        t = len(stocks)
+        for i in range(0, t):
             stock_name = stocks[i]
-            print('* running regression for {} ... '.format(stock_name))
+            print('[{} / {}] running regression for {} ... '.format(i+1, t, stock_name))
             run_regression(stock_name,
+                           index=i,
+                           total=t,
                            factor_name=args.factor_name,
                            start_date=args.start_date,
                            end_date=args.end_date,
