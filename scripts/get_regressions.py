@@ -296,7 +296,7 @@ def run_regression_internal(stock_data,
         return (None, False)
 
     if store:
-        print('[{} / {}] Ran regression for {} from {} to {} ...'.format(index, total,
+        print('[{} / {}] Ran regression for {} from {} to {} ...'.format(index+1, total,
             ticker, start_date, r_end_date))
         # store results in the DB
         fields = ['Constant', 'BMG', 'Mkt-RF', 'SMB', 'HML', 'WML',
