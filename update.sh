@@ -10,5 +10,5 @@ python scripts/bmg_series.py -n XOP-SMOG -b XOP -g SMOG -s 2010-01-01 --frequenc
 python scripts/bmg_series.py -n XOP-SMOG -b XOP -g SMOG -s 2018-01-01 --frequency DAILY
 
 python scripts/get_regressions.py -u -d -f data/msci_etf_sector_mapping.csv -s 2018-01-01 --frequency DAILY -i 730 -n XOP-SMOG -b
-python scripts/get_regressions.py -u -d -f data/msci_constituent_details.csv -s 2018-01-01 --frequency DAILY -i 703 -n XOP-SMOG -b
+python scripts/get_regressions.py -u -d -f data/msci_constituent_details.csv -s 2018-01-01 --frequency DAILY -i 730 -n XOP-SMOG -b
 
