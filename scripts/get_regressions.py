@@ -296,7 +296,7 @@ def run_regression_internal(stock_data,
         return (None, False)
 
     if store:
-        print('[{} / {}] Ran regression for {} from {} to {} ...'.format(index+1, total,
+        print('[{} / {}] Ran {} - {} regression for {} from {} to {} ...'.format(index+1, total, frequency, interval,
             ticker, start_date, r_end_date))
         # store results in the DB
         fields = ['Constant', 'BMG', 'Mkt-RF', 'SMB', 'HML', 'WML',
@@ -371,7 +371,7 @@ def main(args):
         t = len(stocks)
         for i in range(0, t):
             stock_name = stocks[i].item(0)
-            print('[{} / {}] running regression for {} ... '.format(i+1, t, stock_name))
+            print('[{} / {}] running {} - {} regression for {} ... '.format(i+1, t, args.frequency, args.interval, stock_name))
             run_regression(stock_name,
                            factor_name=args.factor_name,
                            start_date=args.start_date,
