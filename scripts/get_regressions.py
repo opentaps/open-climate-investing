@@ -7,9 +7,10 @@ import factor_regression
 import input_function
 import datetime
 import traceback
+import multiprocessing
+import itertools
 
-
-conn = db.get_db_connection()
+connPool = db.get_db_connection_pool()
 
 
 def load_stocks_csv(filename):
@@ -170,11 +171,13 @@ def run_regression(ticker,
         AND bmg_factor_name = %s
         ORDER BY from_date DESC
         LIMIT 1'''
-        with conn.cursor() as cursor:
-            cursor.execute(sql, (ticker, frequency, factor_name))
-            result = cursor.fetchone()
-            if result:
-                start_date = result[0]
+        with connPool.getconn() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(sql, (ticker, frequency, factor_name))
+                result = cursor.fetchone()
+                if result:
+                    start_date = result[0]
+            connPool.putconn(conn)
         if verbose:
             print('*** updating stock {} regression {} from {}'.format(ticker, factor_name, start_date))
 
@@ -331,6 +334,30 @@ def run_regression_internal(stock_data,
     return (start_date, True)
 
 
+def run(index, total, stocks, args, carbon_data, ff_data, rf_data):
+    stock_name = stocks.item(0)
+    print('*** [{} / {}] Running regression for {} ...'.format(index+1, total, stock_name))
+    # print('*** with args: {}'.format(args))
+    # print('*** with carbon_data: {}'.format(carbon_data))
+    # print('*** with ff_data: {}'.format(ff_data))
+    # print('*** with rf_data: {}'.format(rf_data))
+    return run_regression(ticker=stock_name,
+                          factor_name=args.factor_name,
+                          start_date=args.start_date,
+                          end_date=args.end_date,
+                          interval=args.interval,
+                          frequency=args.frequency,
+                          update=args.update,
+                          verbose=args.verbose,
+                          store=(not args.dryrun),
+                          silent=(not args.dryrun),
+                          carbon_data=carbon_data,
+                          ff_data=ff_data,
+                          rf_data=rf_data,
+                          index=index,
+                          total=total)
+
+
 def store_regression_into_db(sql_params):
     del_sql = '''DELETE FROM stock_stats
     WHERE ticker = %s
@@ -341,10 +368,12 @@ def store_regression_into_db(sql_params):
     placeholder = ", ".join(["%s"] * len(sql_params))
     stmt = "INSERT INTO stock_stats ({columns}) values ({values});".format(
         columns=",".join(sql_params.keys()), values=placeholder)
-    with conn.cursor() as cursor:
-        cursor.execute(
-            del_sql, (sql_params['ticker'], sql_params['frequency'], sql_params['bmg_factor_name'], sql_params['from_date'], sql_params['thru_date']))
-        cursor.execute(stmt, list(sql_params.values()))
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                del_sql, (sql_params['ticker'], sql_params['frequency'], sql_params['bmg_factor_name'], sql_params['from_date'], sql_params['thru_date']))
+            cursor.execute(stmt, list(sql_params.values()))
+        connPool.putconn(conn)
 
 
 def main(args):
@@ -369,24 +398,16 @@ def main(args):
         rf_data = load_rf_data_from_db(frequency=args.frequency)
         stocks = load_stocks_csv(args.file)
         t = len(stocks)
-        for i in range(0, t):
-            stock_name = stocks[i].item(0)
-            print('[{} / {}] running {} - {} regression for {} ... '.format(i+1, t, args.frequency, args.interval, stock_name))
-            run_regression(stock_name,
-                           factor_name=args.factor_name,
-                           start_date=args.start_date,
-                           end_date=args.end_date,
-                           interval=args.interval,
-                           frequency=args.frequency,
-                           carbon_data=carbon_data,
-                           ff_data=ff_data,
-                           rf_data=rf_data,
-                           index=i,
-                           total=t,
-                           update=args.update,
-                           verbose=args.verbose,
-                           silent=(not args.dryrun),
-                           store=(not args.dryrun))
+        with multiprocessing.Pool(processes=args.concurrency) as pool:
+            pool.starmap(run, zip(
+                range(0,t),
+                itertools.repeat(t),
+                stocks,
+                itertools.repeat(args),
+                itertools.repeat(carbon_data),
+                itertools.repeat(ff_data),
+                itertools.repeat(rf_data)
+            ))
     elif args.bulk_regression:
         carbon_data = load_carbon_data_from_db(args.factor_name, frequency=args.frequency)
         # print(carbon_data)
@@ -455,4 +476,6 @@ if __name__ == "__main__":
                         help="More verbose output")
     parser.add_argument("-b", "--bulk_regression", action='store_true',
                         help="Run bulk regression that should run faster")
+    parser.add_argument("-c", "--concurrency", default=1, type=int,
+                        help="Number of concurrent processes to run to speed up the regression generation over large datasets")
     main(parser.parse_args())

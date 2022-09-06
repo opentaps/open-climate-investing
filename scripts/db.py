@@ -2,6 +2,7 @@ import pgdb
 import psycopg2.extras
 import psycopg2
 import configparser
+from psycopg2.pool import ThreadedConnectionPool
 
 config = configparser.ConfigParser()
 config.read('db.ini')
@@ -22,6 +23,15 @@ def get_db_connection():
         # do not use transactions since we do not change anything in the DB
         conn.autocommit = True
         return conn
+    except Exception as e:
+        print('Unable to connect PostgreSQL', e)
+        raise SystemExit(1)
+
+
+def get_db_connection_pool():
+    try:
+        pool = ThreadedConnectionPool(1, 10, DB_CREDENTIALS)
+        return pool
     except Exception as e:
         print('Unable to connect PostgreSQL', e)
         raise SystemExit(1)
