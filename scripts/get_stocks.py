@@ -7,9 +7,11 @@ import db
 from pg import DataError
 from decimal import Decimal
 import numpy as np
+import multiprocessing
+import itertools
 
 
-conn = db.get_db_connection()
+connPool = db.get_db_connection_pool()
 
 
 def load_stocks_csv(filename):
@@ -76,24 +78,29 @@ def update_stocks_info_data(stock_name):
             total_cash = EXCLUDED.total_cash,
             total_debt = EXCLUDED.total_debt,
             shares_outstanding = EXCLUDED.shares_outstanding
-        ;
+        ;COMMIT;
     '''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name, info.get('longName'), info.get('sector'), info.get('industry'),
-                             info.get('ebitda'), info.get('enterpriseValue'), info.get('enterpriseToEbitda'),
-                             info.get('priceToBook'), info.get('totalCash'), info.get('totalDebt'),
-                             info.get('sharesOutstanding')))
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (stock_name, info.get('longName'), info.get('sector'), info.get('industry'),
+                                 info.get('ebitda'), info.get('enterpriseValue'), info.get('enterpriseToEbitda'),
+                                 info.get('priceToBook'), info.get('totalCash'), info.get('totalDebt'),
+                                 info.get('sharesOutstanding')))
+        connPool.putconn(conn)
 
 
 def check_stocks_info_exist(stock_name):
     # check if the stock is in the DB stocks table
     sql = 'SELECT 1 FROM stocks WHERE ticker = %s;'
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name,))
-        result = cursor.fetchone()
-        if not result:
-            return False
-        return True
+    result = None
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (stock_name,))
+            result = cursor.fetchone()
+        connPool.putconn(conn)
+    if not result:
+        return False
+    return True
 
 
 def get_last_stock_data_date(ticker, frequency='MONTHLY'):
@@ -101,11 +108,14 @@ def get_last_stock_data_date(ticker, frequency='MONTHLY'):
         WHERE ticker = %s AND frequency = %s
         ORDER BY date DESC
         LIMIT 1'''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (ticker, frequency))
-        result = cursor.fetchone()
-        if result:
-            return result[0]
+    result = None
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (ticker, frequency))
+            result = cursor.fetchone()
+        connPool.putconn(conn)
+    if result:
+        return result[0]
     return None
 
 
@@ -121,17 +131,21 @@ def load_stocks_data(stock_name, always_update_details=False, frequency='MONTHLY
 def delete_stock_from_db(ticker):
     sql = '''DELETE FROM
         stock_data
-        WHERE ticker = %s;'''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (ticker,))
+        WHERE ticker = %s;COMMIT;'''
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (ticker,))
+        connPool.putconn(conn)
 
 
 def delete_carbon_risk_factor_from_db(factor_name):
     sql = '''DELETE FROM
         carbon_risk_factor
-        WHERE factor_name = %s;'''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (factor_name,))
+        WHERE factor_name = %s;COMMIT;'''
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (factor_name,))
+        connPool.putconn(conn)
 
 
 def load_carbon_risk_factor_from_db(factor_name, frequency='MONTHLY'):
@@ -149,9 +163,13 @@ def get_components_from_db(stock_name):
              FROM stock_components
              WHERE ticker = %s
              ORDER BY component_stock'''
-    with conn.cursor() as cursor:
-        cursor.execute(sql, (stock_name,))
-        return cursor.fetchall()
+    res = None
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (stock_name,))
+            res = cursor.fetchall()
+        connPool.putconn(conn)
+    return res
 
 
 def import_carbon_risk_factor_into_db(data, frequency='MONTHLY'):
@@ -159,10 +177,12 @@ def import_carbon_risk_factor_into_db(data, frequency='MONTHLY'):
         carbon_risk_factor (date, frequency, factor_name, bmg)
         VALUES (%s, %s, %s, %s)
         ON CONFLICT (date, frequency, factor_name) DO
-        UPDATE SET bmg = EXCLUDED.bmg;'''
-    with conn.cursor() as cursor:
-        for index, row in data.iterrows():
-            cursor.execute(sql, (index, frequency, row['factor_name'], row['bmg']))
+        UPDATE SET bmg = EXCLUDED.bmg;COMMIT;'''
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            for index, row in data.iterrows():
+                cursor.execute(sql, (index, frequency, row['factor_name'], row['bmg']))
+        connPool.putconn(conn)
 
 
 def import_stocks_into_db(stock_name, stock_data, frequency='MONTHLY'):
@@ -170,17 +190,19 @@ def import_stocks_into_db(stock_name, stock_data, frequency='MONTHLY'):
         stock_data (ticker, frequency, date, close, return)
         VALUES (%s, %s, %s, %s, %s)
         ON CONFLICT (ticker, frequency, date) DO
-        UPDATE SET close = EXCLUDED.close, return = EXCLUDED.return;'''
-    with conn.cursor() as cursor:
-        # we store both the values of Close and the Returns from pct_change
-        pc = stock_data.pct_change()
-        pc.rename(columns={'Close': 'r'}, inplace=True)
-        stock_data = pd.merge(stock_data, pc, on='date_converted')
-        # Remove abnormal return values
-        stock_data = stock_data[stock_data['r'] <= 1]
-        for index, row in stock_data.iterrows():
-            #print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
-            cursor.execute(sql, (stock_name, frequency, index, row['Close'], row['r']))
+        UPDATE SET close = EXCLUDED.close, return = EXCLUDED.return;COMMIT;'''
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            # we store both the values of Close and the Returns from pct_change
+            pc = stock_data.pct_change()
+            pc.rename(columns={'Close': 'r'}, inplace=True)
+            stock_data = pd.merge(stock_data, pc, on='date_converted')
+            # Remove abnormal return values
+            stock_data = stock_data[stock_data['r'] <= 1]
+            for index, row in stock_data.iterrows():
+                #print('-- {} = {} : {}%'.format(index, row['Close'], row['r']))
+                cursor.execute(sql, (stock_name, frequency, index, row['Close'], row['r']))
+        connPool.putconn(conn)
 
 
 def import_stocks_returns_into_db(stock_name, stock_data, frequency='MONTHLY'):
@@ -188,10 +210,12 @@ def import_stocks_returns_into_db(stock_name, stock_data, frequency='MONTHLY'):
         stock_data (ticker, frequency, date, return)
         VALUES (%s, %s, %s, %s)
         ON CONFLICT (ticker, frequency, date) DO
-        UPDATE SET return = EXCLUDED.return;'''
-    with conn.cursor() as cursor:
-        for index, row in stock_data.iterrows():
-            cursor.execute(sql, (stock_name, frequency, index, row['return']))
+        UPDATE SET return = EXCLUDED.return;COMMIT;'''
+    with connPool.getconn() as conn:
+        with conn.cursor() as cursor:
+            for index, row in stock_data.iterrows():
+                cursor.execute(sql, (stock_name, frequency, index, row['return']))
+        connPool.putconn(conn)
 
 
 def load_stocks_returns_from_db(stock_name, frequency='MONTHLY', verbose=False):
@@ -306,19 +330,34 @@ def import_stock_or_returns(stock_name, update=False, always_update_details=Fals
         print("-> imported {} rows".format(len(df)))
 
 
+def run(index, total, stocks, args):
+    stock_name = stocks.item(0)
+    run2(index, total, stock_name, args)
+
+
+def run2(index, total, stock_name, args):
+    print("[{} / {}] loading stocks for: {}".format(index+1, total, stock_name))
+    import_stock(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
+
+
 def main(args):
     if args.clean_bad_returns:
-        with conn.cursor() as cursor:
-            cleanup_abnormal_returns(cursor)
-            print("-- {} entries affected.".format(cursor.rowcount))
+        with connPool.getconn() as conn:
+            with conn.cursor() as cursor:
+                cleanup_abnormal_returns(cursor)
+                print("-- {} entries affected.".format(cursor.rowcount))
+        connPool.putconn(conn)
         return True
     if args.from_db:
         stocks = load_stocks_defined_in_db()
         t = len(stocks)
-        for i in range(0, t):
-            stock_name = stocks[i]
-            print('[{} / {}] loading stocks for {} ... '.format(i+1, t, stock_name))
-            import_stock_or_returns(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
+        with multiprocessing.Pool(processes=args.concurrency) as pool:
+            pool.starmap(run2, zip(
+                range(0,t),
+                itertools.repeat(t),
+                stocks,
+                itertools.repeat(args),
+            ))
 
     elif args.delete:
         delete_stock_from_db(args.delete)
@@ -345,10 +384,13 @@ def main(args):
             return False
 
         t = len(stocks)
-        for i in range(0, t):
-            stock_name = stocks[i].item(0)
-            print("[{} / {}] Trying to get: {}".format(i+1, t, stock_name))
-            import_stock(stock_name, update=args.update, always_update_details=args.update_stocks_details, frequency=args.frequency, verbose=args.verbose)
+        with multiprocessing.Pool(processes=args.concurrency) as pool:
+            pool.starmap(run, zip(
+                range(0,t),
+                itertools.repeat(t),
+                stocks,
+                itertools.repeat(args),
+            ))
     else:
         return False
     return True
@@ -383,5 +425,7 @@ if __name__ == "__main__":
                         help="Only update the data by fetching from the last DB entry date.")
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="More verbose output.")
+    parser.add_argument("-c", "--concurrency", default=1, type=int,
+                        help="Number of concurrent processes to run to speed up the regression generation over large datasets")
     if not main(parser.parse_args()):
         parser.print_help()

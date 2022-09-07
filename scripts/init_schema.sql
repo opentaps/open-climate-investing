@@ -106,6 +106,7 @@ CREATE TABLE stock_stats (
     thru_date date,
     data_from_date date,
     data_thru_date date,
+    interval integer,
     constant decimal(12, 5),
     constant_std_error decimal(12, 5),
     constant_t_stat decimal(12, 5),

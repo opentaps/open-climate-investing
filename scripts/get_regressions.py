@@ -169,11 +169,12 @@ def run_regression(ticker,
         WHERE ticker = %s
         AND frequency = %s
         AND bmg_factor_name = %s
+        AND interval = %s
         ORDER BY from_date DESC
         LIMIT 1'''
         with connPool.getconn() as conn:
             with conn.cursor() as cursor:
-                cursor.execute(sql, (ticker, frequency, factor_name))
+                cursor.execute(sql, (ticker, frequency, factor_name, interval))
                 result = cursor.fetchone()
                 if result:
                     start_date = result[0]
@@ -317,6 +318,7 @@ def run_regression_internal(stock_data,
             'thru_date': r_end_date,
             'data_from_date': data_start_date,
             'data_thru_date': data_end_date,
+            'interval': interval,
         }
         for index, row in coef_df_simple.iterrows():
             for f in fields:
@@ -364,15 +366,24 @@ def store_regression_into_db(sql_params):
     and frequency = %s
     and bmg_factor_name = %s
     and from_date = %s
-    and thru_date = %s;'''
+    and thru_date = %s
+    and interval = %s;'''
     placeholder = ", ".join(["%s"] * len(sql_params))
     stmt = "INSERT INTO stock_stats ({columns}) values ({values});".format(
-        columns=",".join(sql_params.keys()), values=placeholder)
+        columns=",".join(sql_params.keys()),
+        values=placeholder)
     with connPool.getconn() as conn:
         with conn.cursor() as cursor:
             cursor.execute(
-                del_sql, (sql_params['ticker'], sql_params['frequency'], sql_params['bmg_factor_name'], sql_params['from_date'], sql_params['thru_date']))
+                del_sql, (
+                    sql_params['ticker'],
+                    sql_params['frequency'],
+                    sql_params['bmg_factor_name'],
+                    sql_params['from_date'],
+                    sql_params['thru_date'],
+                    sql_params['interval']))
             cursor.execute(stmt, list(sql_params.values()))
+            cursor.execute("COMMIT;")
         connPool.putconn(conn)
 
 
