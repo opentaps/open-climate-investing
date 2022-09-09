@@ -321,7 +321,7 @@ class BmgAnalysis extends Component {
 
 BmgAnalysis.contextType = SeriesContext;
 
-BmgAnalysis .propTypes = {
+BmgAnalysis.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string

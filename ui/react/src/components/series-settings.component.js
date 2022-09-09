@@ -54,7 +54,8 @@ class SeriesSettings extends Component {
 
   async retrieveFrequencies() {
     try {
-      const { data: frequencies } = await StockDataService.getFrequencies();
+      console.log("** retrieveFrequencies **", this.props);
+      const { data: frequencies } = await StockDataService.getFrequencies({ ticker: this.props.ticker });
       if (!frequencies.find(e=>e.frequency == this.context.frequency)) {
         this.context.setFrequency(frequencies[0].frequency);
       }
@@ -138,6 +139,10 @@ class SeriesSettings extends Component {
 }
 
 SeriesSettings.contextType = SeriesContext;
+
+SeriesSettings.propTypes = {
+  ticker: PropTypes.string
+}
 
 export default SeriesSettings;
 

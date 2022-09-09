@@ -855,9 +855,11 @@ class Stock extends Component {
       parents_loadingIndicator,
     } = this.state;
 
+    console.log("** stock-view render with current", current)
+
     return (
       <div>
-        {current ? (
+        {current && current.ticker ? (
           <div>
             <h4>
               {current.ticker} {current.name}{" "}
@@ -869,7 +871,7 @@ class Stock extends Component {
               </button>
             </h4>
 
-            <SeriesSettings/>
+            <SeriesSettings ticker={current.ticker} />
             
             <Tabs
               value={current_tab}
