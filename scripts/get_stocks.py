@@ -359,6 +359,7 @@ def run2(index, total, stock_name, args):
 
 
 def main(args):
+    multiprocessing.set_start_method('spawn')
     if args.clean_bad_returns:
         with connPool.getconn() as conn:
             with conn.cursor() as cursor:

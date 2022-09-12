@@ -397,6 +397,7 @@ def store_regression_into_db(sql_params):
 
 
 def main(args):
+    multiprocessing.set_start_method('spawn')
     start_time = datetime.datetime.now()
     if args.ticker:
         run_regression(ticker=args.ticker,
