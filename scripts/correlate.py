@@ -6,6 +6,8 @@ import statsmodels.api as sm
 import psycopg2.extras as extras
 import psycopg2
 
+connPool = db.get_db_connection_pool()
+
 
 def execute_batch(conn, df, table):
     """
@@ -32,46 +34,46 @@ def execute_batch(conn, df, table):
 
 
 def process_factor(bmg_factor_name, significance=0.1, verbose=False, frequency='MONTHLY'):
+    with connPool.getconn() as conn:
+        sql = '''SELECT
+                date as "date",
+                factor_name as "factor_name",
+                factor_value as "factor_value"
+            FROM additional_factors
+            WHERE factor_name = %s and frequency = %s
+            ORDER BY factor_name, date
+            '''
 
-    conn = db.get_db_connection()
-    sql = '''SELECT
-            date as "date",
-            factor_name as "factor_name",
-            factor_value as "factor_value"
-        FROM additional_factors
-        WHERE factor_name = %s and frequency = %s
-        ORDER BY factor_name, date
-        '''
+        additional_factor_df = pd.read_sql_query(sql, con=conn,
+                                                 index_col='date', params=(bmg_factor_name,frequency,))
 
-    additional_factor_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                             index_col='date', params=(bmg_factor_name,frequency,))
+        additional_factor_names = additional_factor_df['factor_name'].unique()
 
-    additional_factor_names = additional_factor_df['factor_name'].unique()
+        sql = '''SELECT
+                date,
+                mkt_rf,
+                smb,
+                hml,
+                wml
+            FROM ff_factor
+            WHERE frequency = %s
+            ORDER BY date
+            '''
 
-    sql = '''SELECT
-            date,
-            mkt_rf,
-            smb,
-            hml,
-            wml
-        FROM ff_factor
-        WHERE frequency = %s
-        ORDER BY date
-        '''
+        ff_factors_df = pd.read_sql_query(sql, con=conn,
+                                          index_col='date', params=(frequency,))
 
-    ff_factors_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                      index_col='date', params=(frequency,))
+        sql = '''SELECT
+                date,
+                bmg
+            FROM carbon_risk_factor
+            WHERE factor_name = %s and frequency = %s
+            ORDER BY date
+            '''
 
-    sql = '''SELECT
-            date,
-            bmg
-        FROM carbon_risk_factor
-        WHERE factor_name = %s and frequency = %s
-        ORDER BY date
-        '''
-
-    bmg_factors_df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
-                                       index_col='date', params=(bmg_factor_name,frequency,))
+        bmg_factors_df = pd.read_sql_query(sql, con=conn,
+                                           index_col='date', params=(bmg_factor_name,frequency,))
+        connPool.putconn(conn)
 
     final_df = bmg_factors_df
     final_df = pd.merge(bmg_factors_df,

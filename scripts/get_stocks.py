@@ -154,8 +154,11 @@ def load_carbon_risk_factor_from_db(factor_name, frequency='MONTHLY'):
         WHERE factor_name = %s and frequency = %s
         ORDER BY date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='date', params=(factor_name,frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def get_components_from_db(stock_name):
@@ -239,15 +242,20 @@ def load_stocks_data_with_returns_from_db(stock_name, with_components=False, imp
         WHERE ticker = %s and frequency = %s
         ORDER BY date
         '''
-    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    df = None
+    with connPool.getconn() as conn:
+        df = pd.read_sql_query(sql, con=conn,
                            index_col='date', params=(stock_name,frequency,))
+        connPool.putconn(conn)
     if (df is None or df.empty) and import_when_missing:
         if verbose:
             print("*** no data in DB for {}, will import it".format(stock_name))
         import_stock(stock_name, update=update, always_update_details=always_update_details, frequency=frequency)
         # try again
-        df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+        with connPool.getconn() as conn:
+            df = pd.read_sql_query(sql, con=conn,
                                index_col='date', params=(stock_name,frequency,))
+            connPool.putconn(conn)
 
     if with_components:
         components = get_components_from_db(stock_name)
@@ -288,8 +296,11 @@ def load_stocks_from_db(stock_name, frequency='MONTHLY'):
         WHERE ticker = %s and frequency = %s
         ORDER BY date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='date', params=(stock_name,frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def load_all_stocks_from_db(frequency='MONTHLY'):
@@ -298,21 +309,28 @@ def load_all_stocks_from_db(frequency='MONTHLY'):
         WHERE frequency = %s
         ORDER BY ticker, date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='date', params=(frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def load_stocks_defined_in_db():
     sql = '''SELECT ticker FROM stocks ORDER BY ticker'''
-    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        df = pd.read_sql_query(sql, con=conn,
                            index_col='ticker')
+        connPool.putconn(conn)
     return df.index
 
 
 def get_stock_details(ticker):
     sql = '''SELECT * FROM stocks WHERE ticker = %s'''
-    df = pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        df = pd.read_sql_query(sql, con=conn,
                            index_col='ticker', params=(ticker,))
+        connPool.putconn(conn)
     return df
 
 

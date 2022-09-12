@@ -30,7 +30,7 @@ def get_db_connection():
 
 def get_db_connection_pool():
     try:
-        pool = ThreadedConnectionPool(1, 10, DB_CREDENTIALS)
+        pool = ThreadedConnectionPool(1, 20, DB_CREDENTIALS)
         return pool
     except Exception as e:
         print('Unable to connect PostgreSQL', e)

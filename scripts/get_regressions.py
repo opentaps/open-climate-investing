@@ -27,8 +27,11 @@ def load_carbon_data_from_db(factor_name, frequency='MONTHLY'):
         WHERE factor_name = %s and frequency = %s
         ORDER BY date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='Date', params=(factor_name,frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def load_ff_data_from_db(frequency='MONTHLY'):
@@ -42,8 +45,11 @@ def load_ff_data_from_db(frequency='MONTHLY'):
         WHERE frequency = %s
         ORDER BY date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='Date', params=(frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def load_rf_data_from_db(frequency='MONTHLY'):
@@ -54,8 +60,11 @@ def load_rf_data_from_db(frequency='MONTHLY'):
         WHERE frequency = %s
         ORDER BY date
         '''
-    return pd.read_sql_query(sql, con=db.DB_CREDENTIALS,
+    with connPool.getconn() as conn:
+        res = pd.read_sql_query(sql, con=conn,
                              index_col='Date', params=(frequency,))
+        connPool.putconn(conn)
+        return res
 
 
 def bulk_regression_transformer(final_data, ff_names, rf_names, factor_name, interval, frequency='MONTHLY'):
