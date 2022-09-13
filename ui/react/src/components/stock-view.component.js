@@ -658,12 +658,12 @@ class Stock extends Component {
       <thead>
         <tr>
           {fields
-            .filter((f) => !f.searchOnly)
-            .map((f) => (
-              <th key={f.label} scope="col">
-                {f.label}
-              </th>
-            ))}
+          .filter((f) => !f.searchOnly)
+          .map((f) => (
+            <th key={f.label} scope="col">
+              {f.label}
+            </th>
+          ))}
         </tr>
       </thead>
     );
@@ -678,15 +678,15 @@ class Stock extends Component {
           </td>
         ) : null}
         {fields
-          .filter(
-            (f) => !f.searchOnly && f.name !== "ticker" && f.name !== "name"
-          )
-          .map((f) =>
-            f.linkify ? (
-              <Linkify componentDecorator={componentDecorator}>
-                <td>{this.renderFormattedField(f, item)}</td>
-              </Linkify>
-            ) : (
+        .filter(
+          (f) => !f.searchOnly && f.name !== "ticker" && f.name !== "name"
+        )
+        .map((f) =>
+          f.linkify ? (
+            <Linkify componentDecorator={componentDecorator}>
+              <td>{this.renderFormattedField(f, item)}</td>
+            </Linkify>
+          ) : (
               <td
                 key={`${index}_${f.label}`}
                 data-index={index}
@@ -698,7 +698,7 @@ class Stock extends Component {
                 {this.renderFormattedField(f, item)}
               </td>
             )
-          )}
+        )}
       </tr>
     );
   }
@@ -774,48 +774,48 @@ class Stock extends Component {
         <CircularProgress />
       </div>
     ) : (
-      ""
-    );
+        ""
+      );
   }
 
   renderPaginator(count, page, pageSize, pageChangeHandler, pageSizeHandler) {
     return count === 0 ? (
       <p>No items found.</p>
     ) : (
-      <div className="row">
-        <div className="col-auto">
-          <Pagination
-            className="my-3"
-            count={count}
-            page={page}
-            siblingCount={1}
-            boundaryCount={1}
-            variant="outlined"
-            shape="rounded"
-            onChange={pageChangeHandler}
-          />
-        </div>
-        <div className="col-auto my-3 row">
-          <label className="col-auto col-form-label" htmlFor="pageSize">
-            Items per Page:
-          </label>
+        <div className="row">
           <div className="col-auto">
-            <select
-              id="pageSize"
-              className="form-select"
-              onChange={pageSizeHandler}
-              value={pageSize}
-            >
-              {this.pageSizes.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
+            <Pagination
+              className="my-3"
+              count={count}
+              page={page}
+              siblingCount={1}
+              boundaryCount={1}
+              variant="outlined"
+              shape="rounded"
+              onChange={pageChangeHandler}
+              />
+          </div>
+          <div className="col-auto my-3 row">
+            <label className="col-auto col-form-label" htmlFor="pageSize">
+              Items per Page:
+            </label>
+            <div className="col-auto">
+              <select
+                id="pageSize"
+                className="form-select"
+                onChange={pageSizeHandler}
+                value={pageSize}
+              >
+                {this.pageSizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
   }
 
   render() {
@@ -872,7 +872,7 @@ class Stock extends Component {
             </h4>
 
             <SeriesSettings ticker={current.ticker} />
-            
+
             <Tabs
               value={current_tab}
               indicatorColor="primary"
@@ -886,8 +886,8 @@ class Stock extends Component {
               {parents_total ? (
                 <Tab label={`Parents (${parents_total})`} />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Tabs>
 
             <div role="tabpanel" hidden={current_tab !== 0}>
@@ -900,8 +900,8 @@ class Stock extends Component {
                   {current.sub_sector ? ` / ${current.sub_sector}` : ""}
                 </div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
               {!stock_graph_loadingIndicator && latest_stock_stats ? (
                 <div className="mt-2 row align-items-start">
@@ -940,8 +940,8 @@ class Stock extends Component {
                   </div>
                 </div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
               <div className="mt-2">
                 {this.renderSpinner(stock_graph_loadingIndicator)}
@@ -963,25 +963,25 @@ class Stock extends Component {
                       <Chart
                         key={s.name}
                         options={
-                          s.name in stock_graph_stats_options
-                            ? stock_graph_stats_options[s.name]
-                            : stock_graph_options
-                        }
+                        s.name in stock_graph_stats_options
+                          ? stock_graph_stats_options[s.name]
+                          : stock_graph_options
+                      }
                         series={[s]}
                         type="area"
                         width="100%"
                         style={{
                           display:
-                            s.name === stock_graph_current_series_name
-                              ? "block"
-                              : "none",
+                          s.name === stock_graph_current_series_name
+                            ? "block"
+                            : "none",
                         }}
-                      />
+                        />
                     ))}
-                  </>
+                    </>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
             </div>
 
@@ -1037,8 +1037,8 @@ class Stock extends Component {
                 )}
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
 
             <div role="tabpanel" hidden={current_tab !== (comp_total ? 4 : 3)}>
               {this.renderSpinner(parents_loadingIndicator)}
@@ -1062,11 +1062,11 @@ class Stock extends Component {
             <p>{message}</p>
           </div>
         ) : (
-          <div>
-            <br />
-            <p>Please select on a Stock...</p>
-          </div>
-        )}
+            <div>
+              <br />
+              <p>Please select on a Stock...</p>
+            </div>
+          )}
       </div>
     );
   }
