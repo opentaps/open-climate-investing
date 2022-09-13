@@ -35,3 +35,22 @@ def get_db_connection_pool():
     except Exception as e:
         print('Unable to connect PostgreSQL', e)
         raise SystemExit(1)
+
+
+def refresh_views(verbose=False):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    if verbose:
+        print("Refreshing stock_and_stats ...")
+    cur.execute("REFRESH MATERIALIZED VIEW stock_and_stats;")
+    if verbose:
+        print("Refreshing stock_component_and_stats ...")
+    cur.execute("REFRESH MATERIALIZED VIEW stock_component_and_stats;")
+    if verbose:
+        print("Refreshing stock_parent_and_stats ...")
+    cur.execute("REFRESH MATERIALIZED VIEW stock_parent_and_stats;")
+    cur.close()
+    conn.close()
+    if verbose:
+        print("Done.")
+

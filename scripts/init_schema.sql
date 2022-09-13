@@ -143,9 +143,11 @@ CREATE TABLE stock_stats (
 CREATE INDEX factor_names ON stock_stats (bmg_factor_name);
 CREATE INDEX frequencies ON stock_stats (frequency);
 CREATE INDEX series_names ON stock_stats (ticker, bmg_factor_name, interval);
+CREATE INDEX count_all_stats ON stock_stats (bmg_factor_name, frequency);
 
+DROP MATERIALIZED VIEW IF EXISTS stock_and_stats;
 DROP VIEW IF EXISTS stock_and_stats;
-CREATE VIEW stock_and_stats AS
+CREATE MATERIALIZED VIEW stock_and_stats AS
 select
 s.* ,
 ss.frequency,
@@ -198,8 +200,9 @@ group by
 left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 -- query this parent_ticker to get data of the components of that stock
+DROP MATERIALIZED VIEW IF EXISTS stock_component_and_stats;
 DROP VIEW IF EXISTS stock_component_and_stats;
-CREATE VIEW stock_component_and_stats AS
+CREATE MATERIALIZED VIEW stock_component_and_stats AS
 select
 s.*,
 sc.ticker as parent_ticker,
@@ -256,8 +259,9 @@ left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency 
 
 
 -- query this component_stock to get data of the parent stocks
+DROP MATERIALIZED VIEW IF EXISTS stock_parent_and_stats;
 DROP VIEW IF EXISTS stock_parent_and_stats;
-CREATE VIEW stock_parent_and_stats AS
+CREATE MATERIALIZED VIEW stock_parent_and_stats AS
 select
 s.*,
 sc.component_stock,

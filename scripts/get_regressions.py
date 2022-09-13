@@ -468,6 +468,8 @@ def main(args):
                            store=(not args.dryrun))
     end_time = datetime.datetime.now()
     print("Total run time: ", end_time - start_time)
+    # refresh the View tables in the DB
+    db.refresh_views(verbose=True)
 
 
 # run

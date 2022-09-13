@@ -5,6 +5,7 @@ import getpass
 import os
 import sys
 import argparse
+import db
 
 
 def import_bond_factor_into_sql(file_name, cursor):
@@ -260,6 +261,9 @@ CONFIG_FILE = 'db.ini'
 
 
 def main(args):
+    if args.update_views:
+        db.refresh_views(verbose=True)
+        return
     if args.reuse:
         # read the existing config 
         print('** reusing current DB config')
@@ -425,6 +429,8 @@ def main(args):
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--update_views", default=False, action='store_true',
+                        help="Run a manual refresh of the DB views")
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
                         help="Import default Fama French factors, monthly carbon risk factors, and index composition data")
     parser.add_argument("-R", "--reuse", action='store_true', help='Reuse the current db.ini config instead of asking for the settings')
