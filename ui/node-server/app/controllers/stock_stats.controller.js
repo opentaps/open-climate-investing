@@ -39,7 +39,7 @@ exports.findFrequencies = (req, res) => {
       FROM t
       WHERE t.frequency IS NOT NULL
       )
-      SELECT frequency AS factor_name FROM t WHERE frequency IS NOT NULL;
+      SELECT frequency FROM t WHERE frequency IS NOT NULL;
       `;
     db.sequelize.query(
       sql,

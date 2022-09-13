@@ -57,6 +57,7 @@ class SeriesSettings extends Component {
       console.log("** retrieveFrequencies **", this.props);
       const { data: frequencies } = await StockDataService.getFrequencies({ ticker: this.props.ticker });
       if (!frequencies.find(e=>{
+        if (!this.context.frequency) return false;
         if (e.frequency == this.context.frequency) return true;
         if (this.context.frequency.indexOf("(") != 0 && e.frequency.indexOf("(") == 0) {
           // also set it to the value including the interval
