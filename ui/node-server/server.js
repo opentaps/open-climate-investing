@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -16,6 +17,9 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Compress all HTTP responses
+app.use(compression());
 
 // to use sequelize to generate the models ? but we already have a schema script
 // so disable this for now ..
