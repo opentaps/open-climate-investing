@@ -10,28 +10,30 @@ import db
 
 def import_bond_factor_into_sql(file_name, cursor):
     print("-- import_bond_factor_into_sql file={}".format(file_name,))
+    cursor.execute("DELETE FROM bond_factor")
     sql_query = 'COPY bond_factor FROM %s WITH (FORMAT CSV, HEADER);'
     cursor.execute(sql_query, (file_name,))
     print('---> inserted {} bond_factor rows.'.format(cursor.rowcount))
 
 
-def import_data_into_sql(table_name, file_name, cursor, bmg=False):
+def import_data_into_sql(table_name, file_name, cursor, bmg=None):
     print("-- import_data_into_sql file={} table={}".format(file_name, table_name))
-    if bmg is not False:
+    if bmg is not None:
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
         cursor.execute(sql_query)
         sql_query = "CREATE TABLE _import_carbon_risk_factor (date date, frequency text, bmg decimal(12, 10), PRIMARY KEY (date));"
         cursor.execute(sql_query)
         sql_query = "COPY _import_carbon_risk_factor FROM %s WITH (FORMAT CSV, HEADER);"
     else:
+        cursor.execute("DELETE FROM " + table_name)
         sql_query = "COPY " + table_name + \
             " FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
     if not bmg:
         print('---> inserted {} {} rows.'.format(cursor.rowcount, table_name))
-    if bmg is not False:
+    if bmg is not None:
         sql_query = "INSERT INTO carbon_risk_factor (date, frequency, factor_name, bmg) SELECT date, frequency, '" + \
-                                                     bmg + "', bmg FROM _import_carbon_risk_factor;"
+                     bmg + "', bmg FROM _import_carbon_risk_factor ON CONFLICT (date, frequency, factor_name) DO NOTHING;"
         cursor.execute(sql_query)
         print('---> inserted {} carbon_risk_factor rows.'.format(cursor.rowcount))
         sql_query = "DROP TABLE IF EXISTS _import_carbon_risk_factor CASCADE;"
@@ -46,7 +48,7 @@ def import_stocks_into_sql(table_name, file_name, cursor):
     cursor.execute(sql_query)
     sql_query = "COPY _import_stocks FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
-    sql_query = "INSERT INTO stocks (ticker, name, sector, sub_sector) SELECT ticker, name, sector, sub_sector FROM _import_stocks;"
+    sql_query = "INSERT INTO stocks (ticker, name, sector, sub_sector) SELECT ticker, name, sector, sub_sector FROM _import_stocks ON CONFLICT (ticker) DO NOTHING;"
     cursor.execute(sql_query)
     print('---> inserted {} stocks rows.'.format(cursor.rowcount))
     sql_query = "DROP TABLE IF EXISTS _import_stocks CASCADE;"
@@ -63,7 +65,7 @@ def import_spx_constituents_into_sql(file_name, cursor, constituent_ticker):
     sql_query = "COPY _stock_weights FROM %s WITH (FORMAT CSV, HEADER);"
     cursor.execute(sql_query, (file_name, ))
     sql_query = "INSERT INTO stock_components(ticker, component_stock, percentage) SELECT '" + \
-        constituent_ticker + "', ticker, weight FROM _stock_weights;"
+        constituent_ticker + "', ticker, weight FROM _stock_weights ON CONFLICT (ticker, component_stock) DO NOTHING;"
     cursor.execute(sql_query)
     print('---> inserted {} stock_components rows.'.format(cursor.rowcount))
     cursor.execute("DROP TABLE IF EXISTS _stock_weights CASCADE;")
@@ -257,12 +259,93 @@ def cleanup_abnormal_returns(cursor, ticker=None):
     print('---> removed {} abnormal stock_data rows.'.format(cursor.rowcount))
 
 
+def load_data_files(cursor):
+    data_dir = os.getcwd() + '/data'
+    ff_data_factors = (data_dir + '/Developed_3_Factors.csv')
+    ff_data_factors_daily = (data_dir + '/Developed_3_Factors_Daily.csv')
+    ff_mom_factor = (data_dir + '/Developed_MOM_Factor.csv')
+    ff_mom_factor_daily = (data_dir + '/Developed_MOM_Factor_Daily.csv')
+
+    carbon_data = (data_dir + '/bmg_carima.csv')
+    xop_carbon_data = (data_dir + '/bmg_xop_smog.csv')
+    additional_factor_data = (data_dir + '/additional_factor_data.csv')
+    sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
+    spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
+    msci_constituent_data = data_dir + '/msci_constituent_details.csv'
+    msci_etf_sector_data = data_dir + '/msci_etf_sector_mapping.csv'
+    bond_factor_data = data_dir + '/interest_rates.csv'
+
+    print('** importing Developed_3_Factors')
+    import_monthly_ff_data_factors_into_sql(ff_data_factors, cursor)
+    print('** importing Developed_MOM_Factor')
+    import_monthly_ff_mom_factor_into_sql(ff_mom_factor, cursor)
+
+    print('** importing Developed_3_Factors_Daily')
+    import_daily_ff_data_factors_into_sql(ff_data_factors_daily, cursor)
+    print('** importing Developed_MOM_Factor_Daily')
+    import_daily_ff_mom_factor_into_sql(ff_mom_factor_daily, cursor)
+
+    print('** cleanup imported factors')
+    cleanup_incomplete_factors(cursor)
+
+    print('** importing carbon_risk_factor CARIMA')
+    import_data_into_sql("carbon_risk_factor",
+                         carbon_data, cursor, bmg="CARIMA")
+    print('** importing carbon_risk_factor DEFAULT')
+    import_data_into_sql("carbon_risk_factor",
+                         xop_carbon_data, cursor, bmg="DEFAULT")
+    print('** importing additional_factors')
+    import_data_into_sql("additional_factors",
+                         additional_factor_data, cursor)
+
+    # import the bond_factor
+    print('** importing bond factor')
+    import_bond_factor_into_sql(bond_factor_data, cursor)
+
+    print('** adding stocks IVV and XWD.TO')
+    cursor.execute(
+        "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&P 500') ON CONFLICT DO NOTHING;")
+    cursor.execute(
+        "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World') ON CONFLICT DO NOTHING;")
+
+    print('** adding stocks MSCI_SECTOR_ETFS')
+    cursor.execute(
+        "INSERT INTO stocks (ticker, name) VALUES ('MSCI_SECTOR_ETFS', 'MSCI Sector ETF''s') ON CONFLICT DO NOTHING;")
+
+    print('** importing stocks')
+    import_stocks_into_sql("stocks", sector_breakdown_data, cursor)
+
+    # import components and weights of spx
+    print('** importing stock_components IVV')
+    import_spx_constituents_into_sql(spx_constituent_data, cursor, "IVV")
+
+    # import components and weights of msci
+    print('** importing stock_components XWD.TO')
+    import_msci_constituents_into_sql(msci_constituent_data, cursor, "XWD.TO")
+
+    # import components of msci etf
+    import_msci_etf_sector_into_sql(msci_etf_sector_data, cursor, "MSCI_SECTOR_ETFS")
+
+    # set the component sector info
+    cursor.execute("""UPDATE stock_components
+        SET sector = x.sector, sub_sector = x.sub_sector 
+        FROM stocks x
+        WHERE x.ticker = stock_components.component_stock
+        ;""")
+
+
 CONFIG_FILE = 'db.ini'
 
 
 def main(args):
     if args.update_views:
         db.refresh_views(verbose=True)
+        return
+    if args.update_data:
+        conn = db.get_db_connection()
+        conn.autocommit = True
+        cursor = conn.cursor()
+        load_data_files(cursor)
         return
     if args.reuse:
         # read the existing config 
@@ -347,81 +430,8 @@ def main(args):
     print('** init schema')
     cursor.execute(open(script_dir + "/init_schema.sql", "r").read())
 
-    # Run the initial data load to create tables, etc.
-    data_dir = os.getcwd() + '/data'
-
     if args.add_data:
-        ff_data_factors = (data_dir + '/Developed_3_Factors.csv')
-        ff_data_factors_daily = (data_dir + '/Developed_3_Factors_Daily.csv')
-        ff_mom_factor = (data_dir + '/Developed_MOM_Factor.csv')
-        ff_mom_factor_daily = (data_dir + '/Developed_MOM_Factor_Daily.csv')
-
-        carbon_data = (data_dir + '/bmg_carima.csv')
-        xop_carbon_data = (data_dir + '/bmg_xop_smog.csv')
-        additional_factor_data = (data_dir + '/additional_factor_data.csv')
-        sector_breakdown_data = (data_dir + '/spx_sector_breakdown.csv')
-        spx_constituent_data = data_dir + '/spx_constituent_weights.csv'
-        msci_constituent_data = data_dir + '/msci_constituent_details.csv'
-        msci_etf_sector_data = data_dir + '/msci_etf_sector_mapping.csv'
-        bond_factor_data = data_dir + '/interest_rates.csv'
-
-        print('** importing Developed_3_Factors')
-        import_monthly_ff_data_factors_into_sql(ff_data_factors, cursor)
-        print('** importing Developed_MOM_Factor')
-        import_monthly_ff_mom_factor_into_sql(ff_mom_factor, cursor)
-
-        print('** importing Developed_3_Factors_Daily')
-        import_daily_ff_data_factors_into_sql(ff_data_factors_daily, cursor)
-        print('** importing Developed_MOM_Factor_Daily')
-        import_daily_ff_mom_factor_into_sql(ff_mom_factor_daily, cursor)
-
-        print('** cleanup imported factors')
-        cleanup_incomplete_factors(cursor)
-
-        print('** importing carbon_risk_factor CARIMA')
-        import_data_into_sql("carbon_risk_factor",
-                             carbon_data, cursor, bmg="CARIMA")
-        print('** importing carbon_risk_factor DEFAULT')
-        import_data_into_sql("carbon_risk_factor",
-                             xop_carbon_data, cursor, bmg="DEFAULT")
-        print('** importing additional_factors')
-        import_data_into_sql("additional_factors",
-                             additional_factor_data, cursor)
-
-        # import the bond_factor
-        print('** importing bond factor')
-        import_bond_factor_into_sql(bond_factor_data, cursor)
-
-        print('** adding stocks IVV and XWD.TO')
-        cursor.execute(
-            "INSERT INTO stocks (ticker, name) VALUES ('IVV', 'iShares S&P 500');")
-        cursor.execute(
-            "INSERT INTO stocks (ticker, name) VALUES ('XWD.TO', 'iShares MSCI World');")
-
-        print('** adding stocks MSCI_SECTOR_ETFS')
-        cursor.execute(
-            "INSERT INTO stocks (ticker, name) VALUES ('MSCI_SECTOR_ETFS', 'MSCI Sector ETF''s');")
-
-        print('** importing stocks')
-        import_stocks_into_sql("stocks", sector_breakdown_data, cursor)
-
-        # import components and weights of spx
-        print('** importing stock_components IVV')
-        import_spx_constituents_into_sql(spx_constituent_data, cursor, "IVV")
-
-        # import components and weights of msci
-        print('** importing stock_components XWD.TO')
-        import_msci_constituents_into_sql(msci_constituent_data, cursor, "XWD.TO")
-
-        # import components of msci etf
-        import_msci_etf_sector_into_sql(msci_etf_sector_data, cursor, "MSCI_SECTOR_ETFS")
-
-        # set the component sector info
-        cursor.execute("""UPDATE stock_components
-            SET sector = x.sector, sub_sector = x.sub_sector 
-            FROM stocks x
-            WHERE x.ticker = stock_components.component_stock
-            ;""")
+        load_data_files(cursor)
 
     print('All DONE')
 
@@ -429,7 +439,9 @@ def main(args):
 # run
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-u", "--update_views", default=False, action='store_true',
+    parser.add_argument("--update_data", default=False, action='store_true',
+                        help="Update the Data (run after updating the CSV files in data folder)")
+    parser.add_argument("--update_views", default=False, action='store_true',
                         help="Run a manual refresh of the DB views")
     parser.add_argument("-d", "--add_data", default=False, action='store_true',
                         help="Import default Fama French factors, monthly carbon risk factors, and index composition data")
