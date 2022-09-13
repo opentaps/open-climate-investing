@@ -140,6 +140,9 @@ CREATE TABLE stock_stats (
     PRIMARY KEY (ticker, frequency, bmg_factor_name, from_date, thru_date)
 );
 
+CREATE INDEX factor_names ON stock_stats (bmg_factor_name);
+CREATE INDEX series_names ON stock_stats (ticker, bmg_factor_name, interval);
+
 DROP VIEW IF EXISTS stock_and_stats;
 CREATE VIEW stock_and_stats AS
 select
@@ -307,3 +310,4 @@ group by
     ticker, frequency, bmg_factor_name
 ) x on x.ticker = s.ticker
 left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+

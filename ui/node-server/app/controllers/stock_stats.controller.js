@@ -40,24 +40,38 @@ exports.findFrequencies = (req, res) => {
 };
 
 exports.findFactorNames = (req, res) => {
-  let conditions = [];
+  let sql = '';
+  let params = {};
   if (req.query["ticker"]) {
-    conditions.push(
-      Sequelize.where(Sequelize.col("ticker"), {
-        [Op.eq]: `${req.query["ticker"]}`,
-      })
-    );
+    params.ticker = req.query["ticker"];
+    sql = `WITH RECURSIVE t AS (
+      (SELECT bmg_factor_name FROM stock_stats WHERE ticker := ticker ORDER BY bmg_factor_name LIMIT 1)
+      UNION ALL
+      SELECT (SELECT bmg_factor_name FROM stock_stats WHERE ticker := ticker AND bmg_factor_name > t.bmg_factor_name ORDER BY bmg_factor_name LIMIT 1)
+      FROM t
+      WHERE t.bmg_factor_name IS NOT NULL
+      )
+      SELECT bmg_factor_name AS factor_name FROM t WHERE bmg_factor_name IS NOT NULL;
+      `;
+  } else {
+    sql = `WITH RECURSIVE t AS (
+      (SELECT bmg_factor_name FROM stock_stats ORDER BY bmg_factor_name LIMIT 1)
+      UNION ALL
+      SELECT (SELECT bmg_factor_name FROM stock_stats WHERE bmg_factor_name > t.bmg_factor_name ORDER BY bmg_factor_name LIMIT 1)
+      FROM t
+      WHERE t.bmg_factor_name IS NOT NULL
+      )
+      SELECT bmg_factor_name AS factor_name FROM t WHERE bmg_factor_name IS NOT NULL;
+      `;
+
   }
-  StockStat.findAll({
-    where: conditions ? conditions : null,
-    attributes: [
-      // specify an array where the first element is the SQL function and the second is the alias
-      [
-        Sequelize.fn("DISTINCT", Sequelize.col("bmg_factor_name")),
-        "factor_name",
-      ],
-    ],
-  })
+  db.sequelize.query(
+    sql,
+    {
+      replacements: params,
+      type: Sequelize.QueryTypes.SELECT,
+      raw: true
+    })
     .then((data) => {
       res.send(data);
     })
@@ -118,7 +132,6 @@ exports.findAll = (req, res) => {
     order: ["ticker", "from_date"],
   })
     .then((data) => {
-      console.log(`stock_stats.controller::findAll -> findAndCountAll = ${data}`);
       const response = common.getPagingData(data, page, limit);
       res.send(response);
     })
