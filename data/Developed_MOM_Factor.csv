@@ -1,4 +1,4 @@
-This file was created using the 202111 Bloomberg database.
+This file was created using the 202207 Bloomberg database.
 
 Missing data are indicated by -99.99.
 
@@ -378,6 +378,14 @@ Missing data are indicated by -99.99.
 202109    ,0.78
 202110    ,3.85
 202111    ,0.83
+202112   ,-0.72
+202201   ,-3.37
+202202    ,0.60
+202203    ,3.58
+202204    ,2.32
+202205    ,0.12
+202206    ,1.27
+202207   ,-3.59
 
 
 
@@ -413,3 +421,4 @@ Missing data are indicated by -99.99.
 2018    ,4.79
 2019    ,2.87
 2020   ,16.52
+2021   ,-0.59

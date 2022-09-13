@@ -346,6 +346,7 @@ def main(args):
         conn.autocommit = True
         cursor = conn.cursor()
         load_data_files(cursor)
+        conn.close()
         return
     if args.reuse:
         # read the existing config 
