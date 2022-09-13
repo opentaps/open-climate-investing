@@ -17,26 +17,47 @@ exports.findFrequencies = (req, res) => {
       Sequelize.fn("DISTINCT", Sequelize.col("frequency"), Sequelize.col("interval")),
       "frequency",
     ]);
-  } else {
-    attributes.push([
-      Sequelize.fn("DISTINCT", Sequelize.col("frequency")),
-      "frequency",
-    ]);
-  }
-  StockStat.findAll({
-    where: conditions ? conditions : null,
-    attributes
-  })
-    .then((data) => {
-      res.send(data);
+    StockStat.findAll({
+      where: conditions ? conditions : null,
+      attributes
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Some error occurred while retrieving stock stats frequencies.",
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            "Some error occurred while retrieving stock stats frequencies.",
+        });
       });
-    });
+  } else {
+    const sql = `WITH RECURSIVE t AS (
+      (SELECT frequency FROM stock_stats ORDER BY frequency LIMIT 1)
+      UNION ALL
+      SELECT (SELECT frequency FROM stock_stats WHERE frequency > t.frequency ORDER BY frequency LIMIT 1)
+      FROM t
+      WHERE t.frequency IS NOT NULL
+      )
+      SELECT frequency AS factor_name FROM t WHERE frequency IS NOT NULL;
+      `;
+    db.sequelize.query(
+      sql,
+      {
+        type: Sequelize.QueryTypes.SELECT,
+        raw: true
+      })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            "Some error occurred while retrieving stock stats frequencies.",
+        });
+      });
+  }
 };
 
 exports.findFactorNames = (req, res) => {

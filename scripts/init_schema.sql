@@ -141,6 +141,7 @@ CREATE TABLE stock_stats (
 );
 
 CREATE INDEX factor_names ON stock_stats (bmg_factor_name);
+CREATE INDEX frequencies ON stock_stats (frequency);
 CREATE INDEX series_names ON stock_stats (ticker, bmg_factor_name, interval);
 
 DROP VIEW IF EXISTS stock_and_stats;
