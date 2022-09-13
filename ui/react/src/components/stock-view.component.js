@@ -109,13 +109,10 @@ class Stock extends Component {
     this.handleDataPageSizeChange = this.handleDataPageSizeChange.bind(this);
     this.handleStatsPageChange = this.handleStatsPageChange.bind(this);
     this.handleStatsPageSizeChange = this.handleStatsPageSizeChange.bind(this);
-    this.handleComponentsPageChange =
-      this.handleComponentsPageChange.bind(this);
-    this.handleComponentsPageSizeChange =
-      this.handleComponentsPageSizeChange.bind(this);
+    this.handleComponentsPageChange = this.handleComponentsPageChange.bind(this);
+    this.handleComponentsPageSizeChange = this.handleComponentsPageSizeChange.bind(this);
     this.handleParentsPageChange = this.handleParentsPageChange.bind(this);
-    this.handleParentsPageSizeChange =
-      this.handleParentsPageSizeChange.bind(this);
+    this.handleParentsPageSizeChange = this.handleParentsPageSizeChange.bind(this);
     this.handleCurrentSeriesChange = this.handleCurrentSeriesChange.bind(this);
     this.onStockComponentClick = this.onStockComponentClick.bind(this);
     this.onStockParentClick = this.onStockParentClick.bind(this);
@@ -212,6 +209,7 @@ class Stock extends Component {
   }
 
   retrieveAllStockData() {
+    console.log("** retrieveAllStockData", this.props);
     this.retrieveData();
     this.retrieveStats();
     this.retrieveComponents();

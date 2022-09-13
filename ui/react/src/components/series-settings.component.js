@@ -56,7 +56,24 @@ class SeriesSettings extends Component {
     try {
       console.log("** retrieveFrequencies **", this.props);
       const { data: frequencies } = await StockDataService.getFrequencies({ ticker: this.props.ticker });
-      if (!frequencies.find(e=>e.frequency == this.context.frequency)) {
+      if (!frequencies.find(e=>{
+        if (e.frequency == this.context.frequency) return true;
+        if (this.context.frequency.indexOf("(") != 0 && e.frequency.indexOf("(") == 0) {
+          // also set it to the value including the interval
+          if (e.frequency.substring(1, e.frequency.length-1).split(",")[0] == this.context.frequency) {
+            this.context.setFrequency(e.frequency);
+            return true;
+          }
+        } else if (this.context.frequency.indexOf("(") == 0 && e.frequency.indexOf("(") != 0) {
+          // reverse, consider the value without the interval
+          if (this.context.frequency.substring(1, this.context.frequency.length-1).split(",")[0] == e.frequency) {
+            this.context.setFrequency(e.frequency);
+            return true;
+          }
+        }
+        return false;
+      })) {
+        console.log("** retrieveFrequencies setting frequency from / to", this.context.frequency, frequencies[0].frequency);
         this.context.setFrequency(frequencies[0].frequency);
       }
       this.setState({
