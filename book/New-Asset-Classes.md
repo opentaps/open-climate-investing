@@ -84,6 +84,8 @@ The fact is, our understanding climate and nature are relatively immature and ch
 - Forestry: How much do forests really help cool the climate? ([Nature](https://www.nature.com/articles/d41586-019-00122-z)  As the planet warms, would terrestrial forests release more carbon than they absorb?  ([InsideClimateNews](https://insideclimatenews.org/news/13012021/forests-heat-climate-change/))  Is this already happening in the Amazonia? ([Nature](https://www.nature.com/articles/s41586-021-03629-6), [LiveScience](https://www.livescience.com/amazon-rainforest-accelerate-climate-change.html))  Is it already happening here in California, where climate change induced droughts are causing wild fires and burning down forests behind carbon credits? [BioRXiv](https://www.biorxiv.org/content/10.1101/2022.04.27.488938v1.full)
 - Soil carbon: Could we actually be wrong about whether soil really sequesters carbon, or how much or how permanent the sequestration is?  ([Quanta](https://www.quantamagazine.org/a-soil-science-revolution-upends-plans-to-fight-climate-change-20210727/), [Nature](https://www.nature.com/articles/s41586-021-03306-8.epdf))
 
+As an example, take a look at [this article about Running Tide](https://www.technologyreview.com/2022/06/16/1053758/running-tide-seaweed-kelp-scientist-departures-ecological-concerns-climate-carbon-removal/), which is trying to develop technologies to capture carbon from the atmosphere using kelp.  Would you invest in this company?
+
 ### Regulatory Risk
 
 Or does it really matter?
