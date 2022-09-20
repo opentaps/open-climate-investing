@@ -58,13 +58,11 @@ So when you sit down for your interview, you won't be talking about some school 
 
 ## Why Offsets Happen in the Dark
 
-Nobody -- sellers, buyers -- want to disclose the prices.  Companies don't want to disclose what offsets used to be "carbon neutral."
+Nobody -- sellers, buyers -- wants to disclose the prices they paid for offsets.  Companies don't want to disclose what offsets used to be "carbon neutral."
 
 Why?
 
-Because we all know, deep down inside, they're not real.  
-
-It's too good to be true!  
+Because we all know, deep down inside, they're too good to be true!  
 
 How could it cost only $1, $5, or $10 to offset a ton of CO2 when research shows they should cost at least $100 per ton to be effective.  So we buy them to meet government rules, put "carbon neutral" on a product, or just feel better about the flight we took.  Then we keep quiet about them.
 
