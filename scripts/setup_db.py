@@ -291,12 +291,6 @@ def load_data_files(cursor):
     print('** importing carbon_risk_factor CARIMA')
     import_data_into_sql("carbon_risk_factor",
                          carbon_data, cursor, bmg="CARIMA")
-    print('** importing carbon_risk_factor DEFAULT')
-    import_data_into_sql("carbon_risk_factor",
-                         xop_carbon_data, cursor, bmg="DEFAULT")
-    print('** importing additional_factors')
-    import_data_into_sql("additional_factors",
-                         additional_factor_data, cursor)
 
     # import the bond_factor
     print('** importing bond factor')

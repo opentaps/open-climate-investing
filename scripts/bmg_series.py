@@ -12,10 +12,6 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
     if not factor_name:
         print(' factor name is required !')
         return False
-    # do not allow DEFAULT as it is a reserved name
-    if factor_name == 'DEFAULT':
-        print(' DEFAULT is a reserved factor name!')
-        return False
     if not green_ticker:
         print(' green ticker is required !')
         return False
@@ -57,10 +53,6 @@ def add_bmg_series(factor_name, green_ticker, brown_ticker, start_date=None, end
 def delete_bmg_series(factor_name):
     if not factor_name:
         print(' factor name is required !')
-        return False
-    # do not allow DEFAULT as it is a reserved name
-    if factor_name == 'DEFAULT':
-        print(' DEFAULT is a reserved factor name!')
         return False
 
     print('*** deleting factor {} ...'.format(factor_name))
