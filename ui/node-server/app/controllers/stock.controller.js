@@ -158,7 +158,14 @@ exports.findAll = (req, res) => {
   // always filter the factor_name
   let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
   let frequency = req.query["frequency"] || 'MONTHLY';
-  console.log(`stock.controller::findAll -> factor_name = ${factor_name}, frequency = ${frequency}`);
+  let interval = undefined;
+  // if frequency is a tuple like (DAILY,90) then split it into frequency and interval
+  if (frequency.startsWith('(')) {
+    let parts = frequency.substring(1, frequency.length-1).split(',');
+    frequency = parts[0];
+    interval = parts[1];
+  }
+  console.log(`stock.controller::findAll -> factor_name = ${factor_name}, frequency = ${frequency} interval = ${interval}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
@@ -169,6 +176,13 @@ exports.findAll = (req, res) => {
       [Op.eq]: `${frequency}`,
     })
   );
+  if (interval) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("interval"), {
+        [Op.eq]: `${interval}`,
+      })
+    );
+  }
 
   const { limit, offset } = common.getPagination(page, size);
 
@@ -223,8 +237,15 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
   let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
   let frequency = req.query["frequency"] || 'MONTHLY';
+  let interval = undefined;
+  // if frequency is a tuple like (DAILY,90) then split it into frequency and interval
+  if (frequency.startsWith('(')) {
+    let parts = frequency.substring(1, frequency.length-1).split(',');
+    frequency = parts[0];
+    interval = parts[1];
+  }
   let conditions = [];
-  console.log(`stock.controller::findOne id [${id}] -> factor_name = ${factor_name}, frequency = ${frequency}`);
+  console.log(`stock.controller::findOne id [${id}] -> factor_name = ${factor_name}, frequency = ${frequency} interval = ${interval}`);
   conditions.push(
     Sequelize.where(Sequelize.col("ticker"), {
       [Op.eq]: `${id}`,
@@ -240,6 +261,13 @@ exports.findOne = (req, res) => {
       [Op.eq]: `${frequency}`,
     })
   );
+  if (interval) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("interval"), {
+        [Op.eq]: `${interval}`,
+      })
+    );
+  }
 
   Stock.findOne({where: conditions})
     .then((data) => {
@@ -278,7 +306,14 @@ exports.findComponents = (req, res) => {
   conditions.push(Sequelize.where(Sequelize.col("parent_ticker"), { [Op.eq]: id }));
   let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
   let frequency = req.query["frequency"] || 'MONTHLY';
-  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}, frequency = ${frequency}`);
+  let interval = undefined;
+  // if frequency is a tuple like (DAILY,90) then split it into frequency and interval
+  if (frequency.startsWith('(')) {
+    let parts = frequency.substring(1, frequency.length-1).split(',');
+    frequency = parts[0];
+    interval = parts[1];
+  }
+  console.log(`stock.controller::findComponents -> factor_name = ${factor_name}, frequency = ${frequency} interval = ${interval}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
@@ -289,6 +324,13 @@ exports.findComponents = (req, res) => {
       [Op.eq]: `${frequency}`,
     })
   );
+  if (interval) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("interval"), {
+        [Op.eq]: `${interval}`,
+      })
+    );
+  }
 
   query.where = conditions;
   query.order = [["percentage", "DESC"], "ticker"];
@@ -325,7 +367,14 @@ exports.findParents = (req, res) => {
   conditions.push(Sequelize.where(Sequelize.col("component_stock"), { [Op.eq]: id }));
   let factor_name = req.query["factorName"] || req.query["factor_name"] || req.query["bmg_factor_name"] || "DEFAULT";
   let frequency = req.query["frequency"] || 'MONTHLY';
-  console.log(`stock.controller::findParents -> factor_name = ${factor_name}, frequency = ${frequency}`);
+  let interval = undefined;
+  // if frequency is a tuple like (DAILY,90) then split it into frequency and interval
+  if (frequency.startsWith('(')) {
+    let parts = frequency.substring(1, frequency.length-1).split(',');
+    frequency = parts[0];
+    interval = parts[1];
+  }
+  console.log(`stock.controller::findParents -> factor_name = ${factor_name}, frequency = ${frequency} interval = ${interval}`);
   conditions.push(
     Sequelize.where(Sequelize.col("bmg_factor_name"), {
       [Op.eq]: `${factor_name}`,
@@ -336,6 +385,13 @@ exports.findParents = (req, res) => {
       [Op.eq]: `${frequency}`,
     })
   );
+  if (interval) {
+    conditions.push(
+      Sequelize.where(Sequelize.col("interval"), {
+        [Op.eq]: `${interval}`,
+      })
+    );
+  }
 
   query.where = conditions;
   query.order = [["percentage", "DESC"], "ticker"];

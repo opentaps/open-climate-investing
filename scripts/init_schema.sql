@@ -142,6 +142,8 @@ CREATE TABLE stock_stats (
 
 CREATE INDEX factor_names ON stock_stats (bmg_factor_name);
 CREATE INDEX frequencies ON stock_stats (frequency);
+CREATE INDEX intervals ON stock_stats (interval);
+CREATE INDEX frequencies_intervals ON stock_stats (frequency, interval);
 CREATE INDEX series_names ON stock_stats (ticker, bmg_factor_name, interval);
 CREATE INDEX count_all_stats ON stock_stats (bmg_factor_name, frequency);
 
@@ -151,6 +153,7 @@ CREATE MATERIALIZED VIEW stock_and_stats AS
 select
 s.* ,
 ss.frequency,
+ss.interval,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -191,13 +194,14 @@ left join (
 select
     ticker,
     frequency,
+    interval,
     bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, frequency, bmg_factor_name
+    ticker, frequency, interval, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.interval = x.interval and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 -- query this parent_ticker to get data of the components of that stock
 DROP MATERIALIZED VIEW IF EXISTS stock_component_and_stats;
@@ -208,6 +212,7 @@ s.*,
 sc.ticker as parent_ticker,
 sc.percentage,
 ss.frequency,
+ss.interval,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -249,13 +254,14 @@ left join (
 select
     ticker,
     frequency,
+    interval,
     bmg_factor_name,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, frequency, bmg_factor_name
+    ticker, frequency, interval, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.interval = x.interval and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 
 
 -- query this component_stock to get data of the parent stocks
@@ -267,6 +273,7 @@ s.*,
 sc.component_stock,
 sc.percentage,
 ss.frequency,
+ss.interval,
 ss.bmg_factor_name,
 ss.from_date,
 x.thru_date,
@@ -309,10 +316,11 @@ select
     ticker,
     bmg_factor_name,
     frequency,
+    interval,
     max(thru_date) as thru_date
 from stock_stats ss
 group by
-    ticker, frequency, bmg_factor_name
+    ticker, frequency, interval, bmg_factor_name
 ) x on x.ticker = s.ticker
-left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
+left join stock_stats ss on ss.ticker = s.ticker and ss.frequency = x.frequency and ss.interval = x.interval and ss.bmg_factor_name = x.bmg_factor_name and ss.thru_date = x.thru_date;
 

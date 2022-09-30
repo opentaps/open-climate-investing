@@ -32,15 +32,25 @@ exports.findFrequencies = (req, res) => {
         });
       });
   } else {
-    const sql = `WITH RECURSIVE t AS (
+    const sql = `SELECT (frequency, interval) as frequency FROM (
+WITH RECURSIVE t2 AS (
       (SELECT frequency FROM stock_stats ORDER BY frequency LIMIT 1)
       UNION ALL
-      SELECT (SELECT frequency FROM stock_stats WHERE frequency > t.frequency ORDER BY frequency LIMIT 1)
-      FROM t
-      WHERE t.frequency IS NOT NULL
+      SELECT (SELECT frequency FROM stock_stats WHERE frequency > t2.frequency ORDER BY frequency LIMIT 1)
+      FROM t2
+      WHERE t2.frequency IS NOT NULL
       )
-      SELECT frequency FROM t WHERE frequency IS NOT NULL;
-      `;
+      SELECT frequency FROM t2 WHERE frequency IS NOT NULL
+) AS frequencies, (
+WITH RECURSIVE t AS (
+      (SELECT interval FROM stock_stats ORDER BY interval LIMIT 1)
+      UNION ALL
+      SELECT (SELECT interval FROM stock_stats WHERE interval > t.interval ORDER BY interval LIMIT 1)
+      FROM t
+      WHERE t.interval IS NOT NULL
+      )
+      SELECT interval FROM t WHERE interval IS NOT NULL
+) AS intervals;`;
     db.sequelize.query(
       sql,
       {
