@@ -1,3 +1,31 @@
+# Steps to Replicate Other Analysis
+
+## Orthogonalizing XOP-SMOG with HYG-IEI index
+
+This starts with a database that has daily Fama-French and XOP-SMOG return series.
+
+`MONTHLY` can be changed to `DAILY`
+
+Get the Data
+```
+ python3 scripts/get_stocks.py -t HYG --frequency MONTHLY
+ python3 scripts/get_stocks.py -t IEI --frequency MONTHLY
+```
+
+Run SQL
+```
+insert into additional_factors (date, frequency, factor_name, factor_value)
+select SD1.date, 'MONTHLY', 'HYG-IEI', SD1.return - SD2.return
+from stock_data as SD1
+join stock_data as SD2 on SD1.date = SD2.date
+where SD1.ticker = 'HYG' 
+and SD1.frequency = 'MONTHLY'
+and SD2.ticker = 'IEI'
+and SD2.frequency = 'MONTHLY'
+```
+
+Run the script in `R/orthogonalize_XOPSMOG_HYGIEI.R`
+
 # Steps to Replicate the Paper's Results
 
 These are steps to replicate the paper "Comparison of Equity Risk Factors Constructed from ESG Data".  Please also see the videos:
