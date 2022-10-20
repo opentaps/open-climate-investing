@@ -9,7 +9,7 @@ library(DBI)
                   user = 'opentaps',
                   password = 'opentaps')
  
- res <- dbSendQuery(con, "SELECT CR.date as Date, CR.bmg, FF.mkt_rf, FF.smb, FF.hml, FF.wml, AF.factor_value as hmt FROM carbon_risk_factor as CR join ff_factor as FF on CR.date=FF.date and CR.frequency = FF.frequency join additional_factors as AF on CR.date = AF.date and CR.frequency = AF.frequency where CR.factor_name = 'DEFAULT' and CR.frequency = 'DAILY' and AF.factor_name = 'HYG-IEI'")
+ res <- dbSendQuery(con, "SELECT CR.date as Date, CR.bmg, FF.mkt_rf, FF.smb, FF.hml, FF.wml, AF.factor_value as hmt FROM carbon_risk_factor as CR join ff_factor as FF on CR.date=FF.date and CR.frequency = FF.frequency join additional_factors as AF on CR.date = AF.date and CR.frequency = AF.frequency where CR.factor_name = 'XOP-SMOG' and CR.frequency = 'DAILY' and AF.factor_name = 'HYG-IEI' and CR.date > '2017-10-18'")
 
  all_factors <- dbFetch(res)
 
