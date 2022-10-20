@@ -4,27 +4,88 @@
 
 This starts with a database that has daily Fama-French and XOP-SMOG return series.
 
-`MONTHLY` can be changed to `DAILY`
-
 Get the Data
 ```
- python3 scripts/get_stocks.py -t HYG --frequency MONTHLY
- python3 scripts/get_stocks.py -t IEI --frequency MONTHLY
+ python3 scripts/get_stocks.py -t HYG --frequency DAILY
+ python3 scripts/get_stocks.py -t IEI --frequency DAILY
 ```
 
 Run SQL
 ```
 insert into additional_factors (date, frequency, factor_name, factor_value)
-select SD1.date, 'MONTHLY', 'HYG-IEI', SD1.return - SD2.return
+select SD1.date, 'DAILY', 'HYG-IEI', SD1.return - SD2.return
 from stock_data as SD1
 join stock_data as SD2 on SD1.date = SD2.date
 where SD1.ticker = 'HYG' 
-and SD1.frequency = 'MONTHLY'
+and SD1.frequency = 'DAILY'
 and SD2.ticker = 'IEI'
-and SD2.frequency = 'MONTHLY'
+and SD2.frequency = 'DAILY'
 ```
 
-Run the script in `R/orthogonalize_XOPSMOG_HYGIEI.R`
+Calculate the base `XOP-SMOG` series:
+```
+python3 scripts/bmg_series.py -n XOP-SMOG -b XOP -g SMOG -s 2007-05-01 --frequency DAILY
+```
+
+Run the script in `R/orthogonalize_XOPSMOG_HYGIEI.R` to calculate its regression versus other factors.
+
+Calculate the orthogonalized series:
+```
+insert into carbon_risk_factor
+(date, frequency, factor_name, bmg)
+SELECT CR.date as Date, 'DAILY', 'XOP-SMOG_HML_HYGIEI', CR.bmg + 0.02*FF.hml + 0.39 *AF.factor_value 
+FROM carbon_risk_factor as CR join ff_factor as FF on CR.date=FF.date and CR.frequency = FF.frequency 
+join additional_factors as AF on CR.date = AF.date and CR.frequency = AF.frequency 
+where CR.factor_name = 'XOP-SMOG' and CR.frequency = 'DAILY' and AF.factor_name = 'HYG-IEI'
+and CR.date > '2017-10-18'
+```
+
+Run regressions using the orthogonalized series:
+```
+python3 scripts/get_regressions.py -c 4 -d -f data/msci_constituent_details.csv -s 2018-01-01 --frequency DAILY -i 730 -n XOP-SMOG_HML_HYGIEI -b
+```
+
+Get the results
+```
+select SS.thru_date, S.ticker, S.name, S.sector, SS.bmg, SS.bmg_t_stat 
+from stock_stats as SS join stocks as S on S.ticker = SS.ticker 
+where SS.thru_date = '2020-10-31'
+and SS.bmg_p_gt_abs_t < 0.05
+and SS.interval = 730
+and SS.frequency = 'DAILY'
+and SS.bmg_factor_name = 'XOP-SMOG_HML_HYGIEI'
+and S.sector = 'Energy'
+order by S.sector, S.ticker;
+```
+
+## Testing Components of the XOP and SMOG indices
+
+Get constituent stocks
+
+```
+python3 scripts/get_stocks.py -f data/xop-holdings-20221018.csv
+python3 scripts/get_stocks.py -f data/smog-holdings-20221018.csv
+```
+
+Combine them together into one file and run regressions:
+```
+cat data/smog-holdings-20221018.csv data/xop-holdings-20221018.csv >> xopsmog-holdings.csv
+python3 scripts/get_regressions.py -c 4 -d -f  xopsmog-holdings.csv -s 2018-01-01 --frequency DAILY -i 730 -n XOP-SMOG_HML_HYGIEI -b
+```
+Import the components of XOP and SMOG into `stock_components` table.
+
+Compare the BMG factors with the index members:
+```
+select SC.ticker, S.ticker, S.name, S.sub_sector, SC.percentage, SS.bmg, SS.bmg_t_stat from stock_components as SC
+join stock_stats as SS on SC.component_stock = SS.ticker
+join stocks as S on SC.component_stock = S.ticker
+where SS.bmg_factor_name = 'XOP-SMOG_HML_HYGIEI'
+and SS.frequency = 'DAILY'
+and SS.interval = 730
+and SS.thru_date = '2020-10-01'
+and SC.ticker in ('XOP', 'SMOG')
+order by SC.ticker, SC.percentage, S.sector, SS.ticker
+```
 
 # Steps to Replicate the Paper's Results
 
